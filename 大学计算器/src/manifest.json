@@ -22,7 +22,7 @@
     }
   ],
   "config": {
-    "logLevel": "debug"
+    "logLevel": "off"
   },
   "router": {
     "entry": "Demo",
