@@ -44,7 +44,7 @@
     "menu": true,
     "pages": {
       "Demo": {
-        "titleBarText": "示例页",
+        "titleBarText": "菜单",
         "menu": false
       },
       "DemoDetail": {

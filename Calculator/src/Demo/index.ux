@@ -1,17 +1,31 @@
 <template>
   <!-- template里只能有一个根节点 -->
   <div class="demo-page">
-    <text class="title">欢迎打开{{title}}</text>
-    <!-- 点击跳转详情页 -->
-    <input class="btn" type="button" value="跳转到详情页" onclick="routeDetail" />
+    <div class="menu">
+        <input class="btn" type="button" value="方程求解" onclick="routeDetail" />
+        <input class="btn" type="button" value="函数求导" onclick="routeDetail" />
+        <input class="btn" type="button" value="极限计算" onclick="routeDetail" />2
+    </div>
+    <div class="menu">
+        <input class="btn" type="button" value="定积分计算" onclick="routeDetail" />
+        <input class="btn" type="button" value="不定积分计算" onclick="routeDetail" />
+        <input class="btn" type="button" value="敬请期待" onclick="routeDetail" />
+    </div>
   </div>
 </template>
 
 <style>
   .demo-page {
     flex-direction: column;
-    justify-content: center;
+    justify-content: flex-start;
     align-items: center;
+  }
+
+  .menu{
+    width: 700px;
+    flex-direction:row;
+    justify-content:space-between;
+    align-items:flex-start;
   }
 
   .title {
@@ -20,10 +34,10 @@
   }
 
   .btn {
-    width: 550px;
-    height: 86px;
+    width: 200px;
+    height: 100px;
     margin-top: 75px;
-    border-radius: 43px;
+    border-radius: 40px;
     background-color: #09ba07;
     font-size: 30px;
     color: #ffffff;
