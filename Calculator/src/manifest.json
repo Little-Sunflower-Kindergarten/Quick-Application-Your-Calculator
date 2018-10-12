@@ -25,9 +25,9 @@
     "logLevel": "debug"
   },
   "router": {
-    "entry": "Demo",
+    "entry": "Homepage",
     "pages": {
-      "Demo": {
+      "Homepage": {
         "component": "index"
       },
       "DemoDetail": {
@@ -43,8 +43,8 @@
     "titleBarTextColor": "#414141",
     "menu": true,
     "pages": {
-      "Demo": {
-        "titleBarText": "菜单",
+      "Homepage": {
+        "titleBarText": "主页",
         "menu": false
       },
       "DemoDetail": {

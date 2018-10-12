@@ -106,7 +106,7 @@ exports.default = {
   showMenu: _util2.default.showMenu,
   createShortcut: _util2.default.createShortcut
 };
-(exports.default || module.exports).manifest = {"package":"com.LittleSunflowerKindergarten.QuickApplicationCalculator","name":"Calculator","versionName":"1.0.0","versionCode":"1","minPlatformVersion":"1010","icon":"/Common/logo.png","features":[{"name":"system.prompt"},{"name":"system.router"},{"name":"system.shortcut"}],"permissions":[{"origin":"*"}],"config":{"logLevel":"debug"},"router":{"entry":"Demo","pages":{"Demo":{"component":"index"},"DemoDetail":{"component":"index"},"About":{"component":"index"}}},"display":{"titleBarBackgroundColor":"#f2f2f2","titleBarTextColor":"#414141","menu":true,"pages":{"Demo":{"titleBarText":"菜单","menu":false},"DemoDetail":{"titleBarText":"详情页"},"About":{"menu":false}}}};
+(exports.default || module.exports).manifest = {"package":"com.LittleSunflowerKindergarten.QuickApplicationCalculator","name":"Calculator","versionName":"1.0.0","versionCode":"1","minPlatformVersion":"1010","icon":"/Common/logo.png","features":[{"name":"system.prompt"},{"name":"system.router"},{"name":"system.shortcut"}],"permissions":[{"origin":"*"}],"config":{"logLevel":"debug"},"router":{"entry":"Homepage","pages":{"Homepage":{"component":"index"},"DemoDetail":{"component":"index"},"About":{"component":"index"}}},"display":{"titleBarBackgroundColor":"#f2f2f2","titleBarTextColor":"#414141","menu":true,"pages":{"Homepage":{"titleBarText":"主页","menu":false},"DemoDetail":{"titleBarText":"详情页"},"About":{"menu":false}}}};
 }
 
 /***/ }),
@@ -201,7 +201,7 @@ exports.default = {
   else {
     window.createAppHandler = createAppHandler
     // H5注入manifest以获取features
-    global.manifest = {"package":"com.LittleSunflowerKindergarten.QuickApplicationCalculator","name":"Calculator","versionName":"1.0.0","versionCode":"1","minPlatformVersion":"1010","icon":"/Common/logo.png","features":[{"name":"system.prompt"},{"name":"system.router"},{"name":"system.shortcut"}],"permissions":[{"origin":"*"}],"config":{"logLevel":"debug"},"router":{"entry":"Demo","pages":{"Demo":{"component":"index"},"DemoDetail":{"component":"index"},"About":{"component":"index"}}},"display":{"titleBarBackgroundColor":"#f2f2f2","titleBarTextColor":"#414141","menu":true,"pages":{"Demo":{"titleBarText":"菜单","menu":false},"DemoDetail":{"titleBarText":"详情页"},"About":{"menu":false}}}};
+    global.manifest = {"package":"com.LittleSunflowerKindergarten.QuickApplicationCalculator","name":"Calculator","versionName":"1.0.0","versionCode":"1","minPlatformVersion":"1010","icon":"/Common/logo.png","features":[{"name":"system.prompt"},{"name":"system.router"},{"name":"system.shortcut"}],"permissions":[{"origin":"*"}],"config":{"logLevel":"debug"},"router":{"entry":"Homepage","pages":{"Homepage":{"component":"index"},"DemoDetail":{"component":"index"},"About":{"component":"index"}}},"display":{"titleBarBackgroundColor":"#f2f2f2","titleBarTextColor":"#414141","menu":true,"pages":{"Homepage":{"titleBarText":"主页","menu":false},"DemoDetail":{"titleBarText":"详情页"},"About":{"menu":false}}}};
   }
 })();
 //# sourceMappingURL=app.js.map
