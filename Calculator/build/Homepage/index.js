@@ -63,27 +63,17 @@
 /******/ 	__webpack_require__.p = "";
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 11);
+/******/ 	return __webpack_require__(__webpack_require__.s = 15);
 /******/ })
 /************************************************************************/
-/******/ ([
-/* 0 */,
-/* 1 */,
-/* 2 */,
-/* 3 */,
-/* 4 */,
-/* 5 */,
-/* 6 */,
-/* 7 */,
-/* 8 */,
-/* 9 */,
-/* 10 */,
-/* 11 */
+/******/ ({
+
+/***/ 15:
 /***/ (function(module, exports, __webpack_require__) {
 
-var $app_template$ = __webpack_require__(12)
-var $app_style$ = __webpack_require__(13)
-var $app_script$ = __webpack_require__(14)
+var $app_template$ = __webpack_require__(16)
+var $app_style$ = __webpack_require__(17)
+var $app_script$ = __webpack_require__(18)
 
 $app_define$('@app-component/index', [], function($app_require$, $app_exports$, $app_module$){
      $app_script$($app_module$, $app_exports$, $app_require$)
@@ -98,7 +88,8 @@ $app_bootstrap$('@app-component/index',{ packagerVersion: '0.0.5'})
 
 
 /***/ }),
-/* 12 */
+
+/***/ 16:
 /***/ (function(module, exports) {
 
 module.exports = {
@@ -173,7 +164,7 @@ module.exports = {
             "btn"
           ],
           "events": {
-            "click": "routeDetail"
+            "click": "DefinitIntegralRouteDetail"
           }
         },
         {
@@ -208,7 +199,8 @@ module.exports = {
 }
 
 /***/ }),
-/* 13 */
+
+/***/ 17:
 /***/ (function(module, exports) {
 
 module.exports = {
@@ -239,7 +231,8 @@ module.exports = {
 }
 
 /***/ }),
-/* 14 */
+
+/***/ 18:
 /***/ (function(module, exports) {
 
 module.exports = function(module, exports, $app_require$){'use strict';
@@ -263,6 +256,11 @@ exports.default = {
   routeDetail: function routeDetail() {
     _system2.default.push({
       uri: '/DemoDetail'
+    });
+  },
+  DefinitIntegralRouteDetail: function DefinitIntegralRouteDetail() {
+    _system2.default.push({
+      uri: '/DefinitIntegral'
     });
   }
 };
@@ -292,7 +290,8 @@ if (moduleOwn.data && accessors.some(function (acc) {
 }}
 
 /***/ })
-/******/ ]);
+
+/******/ });
   };
   if (typeof window === "undefined") {
     return createPageHandler();

@@ -7,7 +7,7 @@
         <input class="btn" type="button" value="极限计算" onclick="routeDetail" />2
     </div>
     <div class="menu">
-        <input class="btn" type="button" value="定积分计算" onclick="routeDetail" />
+        <input class="btn" type="button" value="定积分计算" onclick="DefinitIntegralRouteDetail" />
         <input class="btn" type="button" value="不定积分计算" onclick="routeDetail" />
         <input class="btn" type="button" value="敬请期待" onclick="routeDetail" />
     </div>
@@ -56,6 +56,12 @@
       // 跳转到应用内的某个页面，router用法详见：文档->接口->页面路由
       router.push ({
         uri: '/DemoDetail'
+      })
+    },
+    DefinitIntegralRouteDetail () {
+      // 跳转到应用内的某个页面，router用法详见：文档->接口->页面路由
+      router.push ({
+        uri: '/DefinitIntegral'
       })
     }
   }

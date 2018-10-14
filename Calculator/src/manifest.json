@@ -35,6 +35,9 @@
       },
       "About": {
         "component": "index"
+      },
+      "DefinitIntegral": {
+        "component": "index"
       }
     }
   },
@@ -52,6 +55,9 @@
       },
       "About": {
         "menu": false
+      },
+      "DefinitIntegral": {
+        "titleBarText": "定积分计算器"
       }
     }
   }
