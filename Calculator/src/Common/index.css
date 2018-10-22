@@ -195,9 +195,9 @@
 
 .xui-input-round {
   border: 1px solid #cccccc;
-  border-radius: 15px;
+  border-radius: 10px;
   padding: 20px 30px;
-  background-color: #ffffff;
+  background-color: transparent;
   height: 80px;
   font-size: 30px;
 }

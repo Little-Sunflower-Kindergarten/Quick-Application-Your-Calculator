@@ -1,155 +1,83 @@
 <template>
-  <tabs class="doc-page">
-    <div class="flex-column">
-      <div class="xui-input-group-col">
-        <text class="xui-input-group-col-title">待积分函数</text>
-        <input type="text" class="xui-input-round" placeholder="Please enter text"></input>
-      </div>
-
-      <div class="xui-input-group-col">
-        <text class="xui-input-group-col-title">积分下限</text>
-        <input type="text" class="xui-input-round" placeholder="Please enter email"></input>
-      </div>
-
-      <div class="xui-input-group-col">
-        <text class="xui-input-group-col-title">积分上限</text>
-        <input type="text" class="xui-input-round" placeholder="Please enter password"></input>
-      </div>
-
-      <div class="xui-input-group-col">
-        <div class="flex-row xui-div-left-right">
-          <input type="button" class="xui-input-round" value="计算"></input>
-          <input type="button" class="xui-input-round" value="重置"></input>
-        </div>
-      </div>
-
-      <div class="xui-input-group-col">
-        <text class="xui-input-group-col-title">结果</text>
-        <div class="xui-col" style="border: 0px solid #cccccc;">
-          <textarea class="xui-col xui-input-round" style="height: 200px;" style="lines: 4" placeholder="待计算"></textarea>
-        </div>
-      </div>
+  <div class="flex-column">
+    <div class="xui-input-group-col">
+      <text class="xui-input-group-col-title">需要积分的函数</text>
+      <input name=a1 type="text" class="xui-input-round" placeholder="请输入待积分函数" @change="bindPhoneChange1"></input>
     </div>
-  </tabs>
+
+    <div class="xui-input-group-col">
+      <text class="xui-input-group-col-title">未知数</text>
+      <input name=a2 type="text" class="xui-input-round" placeholder="请输入未知数" @change="bindPhoneChange2"></input>
+    </div>
+
+    <input type="button" class="btn" onclick="set" value="计算" />
+    <input type="button" class="btn" onclick="get" value="输出结果" />
+
+    <div class="item-content txt-left ">
+      <text class="txt ">结果如下：</text>
+      <text class="txt ">{{showGet}}</text>
+    </div>
+  </div>
 </template>
 
 <style>
   @import '../Common/index.css';
-  .demo-page {
-    flex-direction: column;
-    justify-content: flex-start;
-    align-items: center;
-  }
+  @import '../Common/common.css';
 
-  .menu {
-    width: 700px;
-    flex-direction: column;
-    justify-content: space-between;
-    align-items: flex-start;
-  }
-
-  .title {
-    font-size: 40px;
-    text-align: center;
-  }
-
-  .btn {
-    width: 200px;
-    height: 100px;
-    margin-top: 75px;
-    border-radius: 40px;
-    background-color: #09ba07;
-    font-size: 30px;
-    color: #ffffff;
-  }
-
-  .input-item {
-    margin-bottom: 80px;
+  .item-container {
+    margin-bottom: 50px;
+    margin-right: 60px;
+    margin-left: 60px;
     flex-direction: column;
   }
 
-  .input-hint {
-    margin-left: 30px;
-    margin-bottom: 30px;
-    margin-right: 30px;
-  }
-
-  .doc-row {
-    justify-content: center;
-    margin-left: 30px;
-    margin-right: 30px;
-  }
-
-  .flex-grow {
-    flex-grow: 1;
-  }
-
-  .input-text {
-    height: 80px;
-    line-height: 80px;
-    padding-left: 30px;
-    padding-right: 30px;
-    margin-left: 30px;
-    margin-right: 30px;
-    border-top-width: 1px;
-    border-bottom-width: 1px;
-    border-color: #999999;
-    font-size: 30px;
+  .item-content {
+    flex-direction: column;
     background-color: #ffffff;
+    padding: 30px;
+    margin-bottom: 50px;
+    align-items: center;
+    justify-content: center;
   }
 
-  .input-text:focus {
-    border-color: #f76160;
+  .txt {
+    padding-top: 15px;
+    padding-bottom: 15px;
   }
 
-  .input-button {
-    flex: 1;
-    padding-top: 10px;
-    padding-right: 30px;
-    padding-bottom: 10px;
-    padding-left: 30px;
-    margin-left: 30px;
-    font-size: 30px;
-    color: #ffffff;
-  }
-
-  .input-button-first {
-    margin-left: 0px;
-  }
-
-  .color-1 {
-    background-color: #09ba07;
-  }
-
-  .color-1:active {
-    background-color: #098807;
-  }
-
-  .color-2 {
-    background-color: #f76160;
-  }
-
-  .color-2:active {
-    background-color: #c55756;
-  }
-
-  .color-3 {
-    background-color: #0faeff;
-  }
-
-  .color-3:active {
-    background-color: #0f7dcd;
+  .txt-left {
+    align-items: flex-start;
   }
 </style>
 
 <script>
+  import math from '../Common/DefinitIntegral/mathjs/index.js'
+  import clipboard from '@system.clipboard'
+
+  math.import(require('mathjs-simple-integral'))
+
+  var a1
+
+  var a2
+
   export default {
     onInit() {
       this.$page.setTitleBar({ text: '定积分计算器' })
     },
     private: {
       range: ['text1', 'text2', 'text3'],
-      text: 'default'
+      text: 'default',
+      componentName: 'clipboard',
+      show: true,
+      clipboard: '无内容',
+      showSet: '',
+      showGet: ''
+    },
+    bindPhoneChange1(e) {
+      a1 = e.value;
+    },
+    bindPhoneChange2(e) {
+      a2 = e.value;
     },
     changeText(e) {
       this.text = e.newValue
@@ -159,6 +87,20 @@
     },
     changeSwitchStatus(e) {
       this.switchStatus = e.checked ? 'on' : 'off'
+    },
+    set() {
+      this.showSet = this.clipboard
+      clipboard.set({
+        text: math.format(math.integral(a1, a2), 15)
+      })
+    },
+    get() {
+      const self = this
+      clipboard.get({
+        success: function (obj) {
+          self.showGet = obj.text
+        }
+      })
     }
   }
 </script>
