@@ -215,10 +215,6 @@ module.exports = {
     "justifyContent": "space-between",
     "alignItems": "flex-start"
   },
-  ".title": {
-    "fontSize": "40px",
-    "textAlign": "center"
-  },
   ".btn": {
     "width": "200px",
     "height": "100px",

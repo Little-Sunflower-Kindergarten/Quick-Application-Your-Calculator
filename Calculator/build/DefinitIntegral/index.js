@@ -4660,103 +4660,103 @@ exports.factory = factory;
 
 
 function factory(type, config, load, typed) {
-  var equalScalar = load(__webpack_require__(11));
-  var SparseMatrix = type.SparseMatrix;
-  /**
-   * Iterates over SparseMatrix S nonzero items and invokes the callback function f(Sij, b).
-   * Callback function invoked NZ times (number of nonzero items in S).
-   *
-   *
-   *          ┌  f(Sij, b)  ; S(i,j) !== 0
-   * C(i,j) = ┤
-   *          └  0          ; otherwise
-   *
-   *
-   * @param {Matrix}   s                 The SparseMatrix instance (S)
-   * @param {Scalar}   b                 The Scalar value
-   * @param {Function} callback          The f(Aij,b) operation to invoke
-   * @param {boolean}  inverse           A true value indicates callback should be invoked f(b,Sij)
-   *
-   * @return {Matrix}                    SparseMatrix (C)
-   *
-   * https://github.com/josdejong/mathjs/pull/346#issuecomment-97626813
-   */
+    var equalScalar = load(__webpack_require__(11));
+    var SparseMatrix = type.SparseMatrix;
+    /**
+     * Iterates over SparseMatrix S nonzero items and invokes the callback function f(Sij, b).
+     * Callback function invoked NZ times (number of nonzero items in S).
+     *
+     *
+     *          ┌  f(Sij, b)  ; S(i,j) !== 0
+     * C(i,j) = ┤
+     *          └  0          ; otherwise
+     *
+     *
+     * @param {Matrix}   s                 The SparseMatrix instance (S)
+     * @param {Scalar}   b                 The Scalar value
+     * @param {Function} callback          The f(Aij,b) operation to invoke
+     * @param {boolean}  inverse           A true value indicates callback should be invoked f(b,Sij)
+     *
+     * @return {Matrix}                    SparseMatrix (C)
+     *
+     * https://github.com/josdejong/mathjs/pull/346#issuecomment-97626813
+     */
 
-  var algorithm11 = function algorithm11(s, b, callback, inverse) {
-    // sparse matrix arrays
-    var avalues = s._values;
-    var aindex = s._index;
-    var aptr = s._ptr;
-    var asize = s._size;
-    var adt = s._datatype; // sparse matrix cannot be a Pattern matrix
+    var algorithm11 = function algorithm11(s, b, callback, inverse) {
+        // sparse matrix arrays
+        var avalues = s._values;
+        var aindex = s._index;
+        var aptr = s._ptr;
+        var asize = s._size;
+        var adt = s._datatype; // sparse matrix cannot be a Pattern matrix
 
-    if (!avalues) {
-      throw new Error('Cannot perform operation on Pattern Sparse Matrix and Scalar value');
-    } // rows & columns
-
-
-    var rows = asize[0];
-    var columns = asize[1]; // datatype
-
-    var dt; // equal signature to use
-
-    var eq = equalScalar; // zero value
-
-    var zero = 0; // callback signature to use
-
-    var cf = callback; // process data types
-
-    if (typeof adt === 'string') {
-      // datatype
-      dt = adt; // find signature that matches (dt, dt)
-
-      eq = typed.find(equalScalar, [dt, dt]); // convert 0 to the same datatype
-
-      zero = typed.convert(0, dt); // convert b to the same datatype
-
-      b = typed.convert(b, dt); // callback
-
-      cf = typed.find(callback, [dt, dt]);
-    } // result arrays
+        if (!avalues) {
+            throw new Error('Cannot perform operation on Pattern Sparse Matrix and Scalar value');
+        } // rows & columns
 
 
-    var cvalues = [];
-    var cindex = [];
-    var cptr = []; // matrix
+        var rows = asize[0];
+        var columns = asize[1]; // datatype
 
-    var c = new SparseMatrix({
-      values: cvalues,
-      index: cindex,
-      ptr: cptr,
-      size: [rows, columns],
-      datatype: dt
-    }); // loop columns
+        var dt; // equal signature to use
 
-    for (var j = 0; j < columns; j++) {
-      // initialize ptr
-      cptr[j] = cindex.length; // values in j
+        var eq = equalScalar; // zero value
 
-      for (var k0 = aptr[j], k1 = aptr[j + 1], k = k0; k < k1; k++) {
-        // row
-        var i = aindex[k]; // invoke callback
+        var zero = 0; // callback signature to use
 
-        var v = inverse ? cf(b, avalues[k]) : cf(avalues[k], b); // check value is zero
+        var cf = callback; // process data types
 
-        if (!eq(v, zero)) {
-          // push index & value
-          cindex.push(i);
-          cvalues.push(v);
-        }
-      }
-    } // update ptr
+        if (typeof adt === 'string') {
+            // datatype
+            dt = adt; // find signature that matches (dt, dt)
+
+            eq = typed.find(equalScalar, [dt, dt]); // convert 0 to the same datatype
+
+            zero = typed.convert(0, dt); // convert b to the same datatype
+
+            b = typed.convert(b, dt); // callback
+
+            cf = typed.find(callback, [dt, dt]);
+        } // result arrays
 
 
-    cptr[columns] = cindex.length; // return sparse matrix
+        var cvalues = [];
+        var cindex = [];
+        var cptr = []; // matrix
 
-    return c;
-  };
+        var c = new SparseMatrix({
+            values: cvalues,
+            index: cindex,
+            ptr: cptr,
+            size: [rows, columns],
+            datatype: dt
+        }); // loop columns
 
-  return algorithm11;
+        for (var j = 0; j < columns; j++) {
+            // initialize ptr
+            cptr[j] = cindex.length; // values in j
+
+            for (var k0 = aptr[j], k1 = aptr[j + 1], k = k0; k < k1; k++) {
+                // row
+                var i = aindex[k]; // invoke callback
+
+                var v = inverse ? cf(b, avalues[k]) : cf(avalues[k], b); // check value is zero
+
+                if (!eq(v, zero)) {
+                    // push index & value
+                    cindex.push(i);
+                    cvalues.push(v);
+                }
+            }
+        } // update ptr
+
+
+        cptr[columns] = cindex.length; // return sparse matrix
+
+        return c;
+    };
+
+    return algorithm11;
 }
 
 exports.name = 'algorithm11';
@@ -6345,113 +6345,113 @@ exports.factory = factory;
 var DimensionError = __webpack_require__(12);
 
 function factory(type, config, load, typed) {
-  var equalScalar = load(__webpack_require__(11));
-  var SparseMatrix = type.SparseMatrix;
-  /**
-   * Iterates over SparseMatrix nonzero items and invokes the callback function f(Dij, Sij).
-   * Callback function invoked NNZ times (number of nonzero items in SparseMatrix).
-   *
-   *
-   *          ┌  f(Dij, Sij)  ; S(i,j) !== 0
-   * C(i,j) = ┤
-   *          └  0            ; otherwise
-   *
-   *
-   * @param {Matrix}   denseMatrix       The DenseMatrix instance (D)
-   * @param {Matrix}   sparseMatrix      The SparseMatrix instance (S)
-   * @param {Function} callback          The f(Dij,Sij) operation to invoke, where Dij = DenseMatrix(i,j) and Sij = SparseMatrix(i,j)
-   * @param {boolean}  inverse           A true value indicates callback should be invoked f(Sij,Dij)
-   *
-   * @return {Matrix}                    SparseMatrix (C)
-   *
-   * see https://github.com/josdejong/mathjs/pull/346#issuecomment-97477571
-   */
+    var equalScalar = load(__webpack_require__(11));
+    var SparseMatrix = type.SparseMatrix;
+    /**
+     * Iterates over SparseMatrix nonzero items and invokes the callback function f(Dij, Sij).
+     * Callback function invoked NNZ times (number of nonzero items in SparseMatrix).
+     *
+     *
+     *          ┌  f(Dij, Sij)  ; S(i,j) !== 0
+     * C(i,j) = ┤
+     *          └  0            ; otherwise
+     *
+     *
+     * @param {Matrix}   denseMatrix       The DenseMatrix instance (D)
+     * @param {Matrix}   sparseMatrix      The SparseMatrix instance (S)
+     * @param {Function} callback          The f(Dij,Sij) operation to invoke, where Dij = DenseMatrix(i,j) and Sij = SparseMatrix(i,j)
+     * @param {boolean}  inverse           A true value indicates callback should be invoked f(Sij,Dij)
+     *
+     * @return {Matrix}                    SparseMatrix (C)
+     *
+     * see https://github.com/josdejong/mathjs/pull/346#issuecomment-97477571
+     */
 
-  var algorithm02 = function algorithm02(denseMatrix, sparseMatrix, callback, inverse) {
-    // dense matrix arrays
-    var adata = denseMatrix._data;
-    var asize = denseMatrix._size;
-    var adt = denseMatrix._datatype; // sparse matrix arrays
+    var algorithm02 = function algorithm02(denseMatrix, sparseMatrix, callback, inverse) {
+        // dense matrix arrays
+        var adata = denseMatrix._data;
+        var asize = denseMatrix._size;
+        var adt = denseMatrix._datatype; // sparse matrix arrays
 
-    var bvalues = sparseMatrix._values;
-    var bindex = sparseMatrix._index;
-    var bptr = sparseMatrix._ptr;
-    var bsize = sparseMatrix._size;
-    var bdt = sparseMatrix._datatype; // validate dimensions
+        var bvalues = sparseMatrix._values;
+        var bindex = sparseMatrix._index;
+        var bptr = sparseMatrix._ptr;
+        var bsize = sparseMatrix._size;
+        var bdt = sparseMatrix._datatype; // validate dimensions
 
-    if (asize.length !== bsize.length) {
-      throw new DimensionError(asize.length, bsize.length);
-    } // check rows & columns
-
-
-    if (asize[0] !== bsize[0] || asize[1] !== bsize[1]) {
-      throw new RangeError('Dimension mismatch. Matrix A (' + asize + ') must match Matrix B (' + bsize + ')');
-    } // sparse matrix cannot be a Pattern matrix
+        if (asize.length !== bsize.length) {
+            throw new DimensionError(asize.length, bsize.length);
+        } // check rows & columns
 
 
-    if (!bvalues) {
-      throw new Error('Cannot perform operation on Dense Matrix and Pattern Sparse Matrix');
-    } // rows & columns
+        if (asize[0] !== bsize[0] || asize[1] !== bsize[1]) {
+            throw new RangeError('Dimension mismatch. Matrix A (' + asize + ') must match Matrix B (' + bsize + ')');
+        } // sparse matrix cannot be a Pattern matrix
 
 
-    var rows = asize[0];
-    var columns = asize[1]; // datatype
-
-    var dt; // equal signature to use
-
-    var eq = equalScalar; // zero value
-
-    var zero = 0; // callback signature to use
-
-    var cf = callback; // process data types
-
-    if (typeof adt === 'string' && adt === bdt) {
-      // datatype
-      dt = adt; // find signature that matches (dt, dt)
-
-      eq = typed.find(equalScalar, [dt, dt]); // convert 0 to the same datatype
-
-      zero = typed.convert(0, dt); // callback
-
-      cf = typed.find(callback, [dt, dt]);
-    } // result (SparseMatrix)
+        if (!bvalues) {
+            throw new Error('Cannot perform operation on Dense Matrix and Pattern Sparse Matrix');
+        } // rows & columns
 
 
-    var cvalues = [];
-    var cindex = [];
-    var cptr = []; // loop columns in b
+        var rows = asize[0];
+        var columns = asize[1]; // datatype
 
-    for (var j = 0; j < columns; j++) {
-      // update cptr
-      cptr[j] = cindex.length; // values in column j
+        var dt; // equal signature to use
 
-      for (var k0 = bptr[j], k1 = bptr[j + 1], k = k0; k < k1; k++) {
-        // row
-        var i = bindex[k]; // update C(i,j)
+        var eq = equalScalar; // zero value
 
-        var cij = inverse ? cf(bvalues[k], adata[i][j]) : cf(adata[i][j], bvalues[k]); // check for nonzero
+        var zero = 0; // callback signature to use
 
-        if (!eq(cij, zero)) {
-          // push i & v
-          cindex.push(i);
-          cvalues.push(cij);
-        }
-      }
-    } // update cptr
+        var cf = callback; // process data types
+
+        if (typeof adt === 'string' && adt === bdt) {
+            // datatype
+            dt = adt; // find signature that matches (dt, dt)
+
+            eq = typed.find(equalScalar, [dt, dt]); // convert 0 to the same datatype
+
+            zero = typed.convert(0, dt); // callback
+
+            cf = typed.find(callback, [dt, dt]);
+        } // result (SparseMatrix)
 
 
-    cptr[columns] = cindex.length; // return sparse matrix
+        var cvalues = [];
+        var cindex = [];
+        var cptr = []; // loop columns in b
 
-    return new SparseMatrix({
-      values: cvalues,
-      index: cindex,
-      ptr: cptr,
-      size: [rows, columns],
-      datatype: dt
-    });
-  };
+        for (var j = 0; j < columns; j++) {
+            // update cptr
+            cptr[j] = cindex.length; // values in column j
 
-  return algorithm02;
+            for (var k0 = bptr[j], k1 = bptr[j + 1], k = k0; k < k1; k++) {
+                // row
+                var i = bindex[k]; // update C(i,j)
+
+                var cij = inverse ? cf(bvalues[k], adata[i][j]) : cf(adata[i][j], bvalues[k]); // check for nonzero
+
+                if (!eq(cij, zero)) {
+                    // push i & v
+                    cindex.push(i);
+                    cvalues.push(cij);
+                }
+            }
+        } // update cptr
+
+
+        cptr[columns] = cindex.length; // return sparse matrix
+
+        return new SparseMatrix({
+            values: cvalues,
+            index: cindex,
+            ptr: cptr,
+            size: [rows, columns],
+            datatype: dt
+        });
+    };
+
+    return algorithm02;
 }
 
 exports.name = 'algorithm02';
@@ -6524,119 +6524,119 @@ exports.factory = factory;
 var DimensionError = __webpack_require__(12);
 
 function factory(type, config, load, typed) {
-  var DenseMatrix = type.DenseMatrix;
-  /**
-   * Iterates over SparseMatrix A and SparseMatrix B items (zero and nonzero) and invokes the callback function f(Aij, Bij).
-   * Callback function invoked MxN times.
-   *
-   * C(i,j) = f(Aij, Bij)
-   *
-   * @param {Matrix}   a                 The SparseMatrix instance (A)
-   * @param {Matrix}   b                 The SparseMatrix instance (B)
-   * @param {Function} callback          The f(Aij,Bij) operation to invoke
-   *
-   * @return {Matrix}                    DenseMatrix (C)
-   *
-   * see https://github.com/josdejong/mathjs/pull/346#issuecomment-97620294
-   */
+    var DenseMatrix = type.DenseMatrix;
+    /**
+     * Iterates over SparseMatrix A and SparseMatrix B items (zero and nonzero) and invokes the callback function f(Aij, Bij).
+     * Callback function invoked MxN times.
+     *
+     * C(i,j) = f(Aij, Bij)
+     *
+     * @param {Matrix}   a                 The SparseMatrix instance (A)
+     * @param {Matrix}   b                 The SparseMatrix instance (B)
+     * @param {Function} callback          The f(Aij,Bij) operation to invoke
+     *
+     * @return {Matrix}                    DenseMatrix (C)
+     *
+     * see https://github.com/josdejong/mathjs/pull/346#issuecomment-97620294
+     */
 
-  var algorithm07 = function algorithm07(a, b, callback) {
-    // sparse matrix arrays
-    var asize = a._size;
-    var adt = a._datatype; // sparse matrix arrays
+    var algorithm07 = function algorithm07(a, b, callback) {
+        // sparse matrix arrays
+        var asize = a._size;
+        var adt = a._datatype; // sparse matrix arrays
 
-    var bsize = b._size;
-    var bdt = b._datatype; // validate dimensions
+        var bsize = b._size;
+        var bdt = b._datatype; // validate dimensions
 
-    if (asize.length !== bsize.length) {
-      throw new DimensionError(asize.length, bsize.length);
-    } // check rows & columns
-
-
-    if (asize[0] !== bsize[0] || asize[1] !== bsize[1]) {
-      throw new RangeError('Dimension mismatch. Matrix A (' + asize + ') must match Matrix B (' + bsize + ')');
-    } // rows & columns
+        if (asize.length !== bsize.length) {
+            throw new DimensionError(asize.length, bsize.length);
+        } // check rows & columns
 
 
-    var rows = asize[0];
-    var columns = asize[1]; // datatype
-
-    var dt; // zero value
-
-    var zero = 0; // callback signature to use
-
-    var cf = callback; // process data types
-
-    if (typeof adt === 'string' && adt === bdt) {
-      // datatype
-      dt = adt; // convert 0 to the same datatype
-
-      zero = typed.convert(0, dt); // callback
-
-      cf = typed.find(callback, [dt, dt]);
-    } // vars
+        if (asize[0] !== bsize[0] || asize[1] !== bsize[1]) {
+            throw new RangeError('Dimension mismatch. Matrix A (' + asize + ') must match Matrix B (' + bsize + ')');
+        } // rows & columns
 
 
-    var i, j; // result arrays
+        var rows = asize[0];
+        var columns = asize[1]; // datatype
 
-    var cdata = []; // initialize c
+        var dt; // zero value
 
-    for (i = 0; i < rows; i++) {
-      cdata[i] = [];
-    } // matrix
+        var zero = 0; // callback signature to use
 
+        var cf = callback; // process data types
 
-    var c = new DenseMatrix({
-      data: cdata,
-      size: [rows, columns],
-      datatype: dt
-    }); // workspaces
+        if (typeof adt === 'string' && adt === bdt) {
+            // datatype
+            dt = adt; // convert 0 to the same datatype
 
-    var xa = [];
-    var xb = []; // marks indicating we have a value in x for a given column
+            zero = typed.convert(0, dt); // callback
 
-    var wa = [];
-    var wb = []; // loop columns
-
-    for (j = 0; j < columns; j++) {
-      // columns mark
-      var mark = j + 1; // scatter the values of A(:,j) into workspace
-
-      _scatter(a, j, wa, xa, mark); // scatter the values of B(:,j) into workspace
+            cf = typed.find(callback, [dt, dt]);
+        } // vars
 
 
-      _scatter(b, j, wb, xb, mark); // loop rows
+        var i, j; // result arrays
+
+        var cdata = []; // initialize c
+
+        for (i = 0; i < rows; i++) {
+            cdata[i] = [];
+        } // matrix
 
 
-      for (i = 0; i < rows; i++) {
-        // matrix values @ i,j
-        var va = wa[i] === mark ? xa[i] : zero;
-        var vb = wb[i] === mark ? xb[i] : zero; // invoke callback
+        var c = new DenseMatrix({
+            data: cdata,
+            size: [rows, columns],
+            datatype: dt
+        }); // workspaces
 
-        cdata[i][j] = cf(va, vb);
-      }
-    } // return sparse matrix
+        var xa = [];
+        var xb = []; // marks indicating we have a value in x for a given column
+
+        var wa = [];
+        var wb = []; // loop columns
+
+        for (j = 0; j < columns; j++) {
+            // columns mark
+            var mark = j + 1; // scatter the values of A(:,j) into workspace
+
+            _scatter(a, j, wa, xa, mark); // scatter the values of B(:,j) into workspace
 
 
-    return c;
-  };
+            _scatter(b, j, wb, xb, mark); // loop rows
 
-  function _scatter(m, j, w, x, mark) {
-    // a arrays
-    var values = m._values;
-    var index = m._index;
-    var ptr = m._ptr; // loop values in column j
 
-    for (var k = ptr[j], k1 = ptr[j + 1]; k < k1; k++) {
-      // row
-      var i = index[k]; // update workspace
+            for (i = 0; i < rows; i++) {
+                // matrix values @ i,j
+                var va = wa[i] === mark ? xa[i] : zero;
+                var vb = wb[i] === mark ? xb[i] : zero; // invoke callback
 
-      w[i] = mark;
-      x[i] = values[k];
+                cdata[i][j] = cf(va, vb);
+            }
+        } // return sparse matrix
+
+
+        return c;
+    };
+
+    function _scatter(m, j, w, x, mark) {
+        // a arrays
+        var values = m._values;
+        var index = m._index;
+        var ptr = m._ptr; // loop values in column j
+
+        for (var k = ptr[j], k1 = ptr[j + 1]; k < k1; k++) {
+            // row
+            var i = index[k]; // update workspace
+
+            w[i] = mark;
+            x[i] = values[k];
+        }
     }
-  }
 
-  return algorithm07;
+    return algorithm07;
 }
 
 exports.name = 'algorithm07';
@@ -20007,153 +20007,153 @@ module.exports = function bitNot(x) {
 var DimensionError = __webpack_require__(12);
 
 function factory(type, config, load, typed) {
-  var equalScalar = load(__webpack_require__(11));
-  var SparseMatrix = type.SparseMatrix;
-  /**
-   * Iterates over SparseMatrix A and SparseMatrix B nonzero items and invokes the callback function f(Aij, Bij).
-   * Callback function invoked MAX(NNZA, NNZB) times
-   *
-   *
-   *          ┌  f(Aij, Bij)  ; A(i,j) !== 0 && B(i,j) !== 0
-   * C(i,j) = ┤  A(i,j)       ; A(i,j) !== 0
-   *          └  0            ; otherwise
-   *
-   *
-   * @param {Matrix}   a                 The SparseMatrix instance (A)
-   * @param {Matrix}   b                 The SparseMatrix instance (B)
-   * @param {Function} callback          The f(Aij,Bij) operation to invoke
-   *
-   * @return {Matrix}                    SparseMatrix (C)
-   *
-   * see https://github.com/josdejong/mathjs/pull/346#issuecomment-97620294
-   */
+    var equalScalar = load(__webpack_require__(11));
+    var SparseMatrix = type.SparseMatrix;
+    /**
+     * Iterates over SparseMatrix A and SparseMatrix B nonzero items and invokes the callback function f(Aij, Bij).
+     * Callback function invoked MAX(NNZA, NNZB) times
+     *
+     *
+     *          ┌  f(Aij, Bij)  ; A(i,j) !== 0 && B(i,j) !== 0
+     * C(i,j) = ┤  A(i,j)       ; A(i,j) !== 0
+     *          └  0            ; otherwise
+     *
+     *
+     * @param {Matrix}   a                 The SparseMatrix instance (A)
+     * @param {Matrix}   b                 The SparseMatrix instance (B)
+     * @param {Function} callback          The f(Aij,Bij) operation to invoke
+     *
+     * @return {Matrix}                    SparseMatrix (C)
+     *
+     * see https://github.com/josdejong/mathjs/pull/346#issuecomment-97620294
+     */
 
-  var algorithm08 = function algorithm08(a, b, callback) {
-    // sparse matrix arrays
-    var avalues = a._values;
-    var aindex = a._index;
-    var aptr = a._ptr;
-    var asize = a._size;
-    var adt = a._datatype; // sparse matrix arrays
+    var algorithm08 = function algorithm08(a, b, callback) {
+        // sparse matrix arrays
+        var avalues = a._values;
+        var aindex = a._index;
+        var aptr = a._ptr;
+        var asize = a._size;
+        var adt = a._datatype; // sparse matrix arrays
 
-    var bvalues = b._values;
-    var bindex = b._index;
-    var bptr = b._ptr;
-    var bsize = b._size;
-    var bdt = b._datatype; // validate dimensions
+        var bvalues = b._values;
+        var bindex = b._index;
+        var bptr = b._ptr;
+        var bsize = b._size;
+        var bdt = b._datatype; // validate dimensions
 
-    if (asize.length !== bsize.length) {
-      throw new DimensionError(asize.length, bsize.length);
-    } // check rows & columns
-
-
-    if (asize[0] !== bsize[0] || asize[1] !== bsize[1]) {
-      throw new RangeError('Dimension mismatch. Matrix A (' + asize + ') must match Matrix B (' + bsize + ')');
-    } // sparse matrix cannot be a Pattern matrix
+        if (asize.length !== bsize.length) {
+            throw new DimensionError(asize.length, bsize.length);
+        } // check rows & columns
 
 
-    if (!avalues || !bvalues) {
-      throw new Error('Cannot perform operation on Pattern Sparse Matrices');
-    } // rows & columns
+        if (asize[0] !== bsize[0] || asize[1] !== bsize[1]) {
+            throw new RangeError('Dimension mismatch. Matrix A (' + asize + ') must match Matrix B (' + bsize + ')');
+        } // sparse matrix cannot be a Pattern matrix
 
 
-    var rows = asize[0];
-    var columns = asize[1]; // datatype
-
-    var dt; // equal signature to use
-
-    var eq = equalScalar; // zero value
-
-    var zero = 0; // callback signature to use
-
-    var cf = callback; // process data types
-
-    if (typeof adt === 'string' && adt === bdt) {
-      // datatype
-      dt = adt; // find signature that matches (dt, dt)
-
-      eq = typed.find(equalScalar, [dt, dt]); // convert 0 to the same datatype
-
-      zero = typed.convert(0, dt); // callback
-
-      cf = typed.find(callback, [dt, dt]);
-    } // result arrays
+        if (!avalues || !bvalues) {
+            throw new Error('Cannot perform operation on Pattern Sparse Matrices');
+        } // rows & columns
 
 
-    var cvalues = [];
-    var cindex = [];
-    var cptr = []; // matrix
+        var rows = asize[0];
+        var columns = asize[1]; // datatype
 
-    var c = new SparseMatrix({
-      values: cvalues,
-      index: cindex,
-      ptr: cptr,
-      size: [rows, columns],
-      datatype: dt
-    }); // workspace
+        var dt; // equal signature to use
 
-    var x = []; // marks indicating we have a value in x for a given column
+        var eq = equalScalar; // zero value
 
-    var w = []; // vars
+        var zero = 0; // callback signature to use
 
-    var k, k0, k1, i; // loop columns
+        var cf = callback; // process data types
 
-    for (var j = 0; j < columns; j++) {
-      // update cptr
-      cptr[j] = cindex.length; // columns mark
+        if (typeof adt === 'string' && adt === bdt) {
+            // datatype
+            dt = adt; // find signature that matches (dt, dt)
 
-      var mark = j + 1; // loop values in a
+            eq = typed.find(equalScalar, [dt, dt]); // convert 0 to the same datatype
 
-      for (k0 = aptr[j], k1 = aptr[j + 1], k = k0; k < k1; k++) {
-        // row
-        i = aindex[k]; // mark workspace
+            zero = typed.convert(0, dt); // callback
 
-        w[i] = mark; // set value
-
-        x[i] = avalues[k]; // add index
-
-        cindex.push(i);
-      } // loop values in b
+            cf = typed.find(callback, [dt, dt]);
+        } // result arrays
 
 
-      for (k0 = bptr[j], k1 = bptr[j + 1], k = k0; k < k1; k++) {
-        // row
-        i = bindex[k]; // check value exists in workspace
+        var cvalues = [];
+        var cindex = [];
+        var cptr = []; // matrix
 
-        if (w[i] === mark) {
-          // evaluate callback
-          x[i] = cf(x[i], bvalues[k]);
-        }
-      } // initialize first index in j
+        var c = new SparseMatrix({
+            values: cvalues,
+            index: cindex,
+            ptr: cptr,
+            size: [rows, columns],
+            datatype: dt
+        }); // workspace
+
+        var x = []; // marks indicating we have a value in x for a given column
+
+        var w = []; // vars
+
+        var k, k0, k1, i; // loop columns
+
+        for (var j = 0; j < columns; j++) {
+            // update cptr
+            cptr[j] = cindex.length; // columns mark
+
+            var mark = j + 1; // loop values in a
+
+            for (k0 = aptr[j], k1 = aptr[j + 1], k = k0; k < k1; k++) {
+                // row
+                i = aindex[k]; // mark workspace
+
+                w[i] = mark; // set value
+
+                x[i] = avalues[k]; // add index
+
+                cindex.push(i);
+            } // loop values in b
 
 
-      k = cptr[j]; // loop index in j
+            for (k0 = bptr[j], k1 = bptr[j + 1], k = k0; k < k1; k++) {
+                // row
+                i = bindex[k]; // check value exists in workspace
 
-      while (k < cindex.length) {
-        // row
-        i = cindex[k]; // value @ i
-
-        var v = x[i]; // check for zero value
-
-        if (!eq(v, zero)) {
-          // push value
-          cvalues.push(v); // increment pointer
-
-          k++;
-        } else {
-          // remove value @ i, do not increment pointer
-          cindex.splice(k, 1);
-        }
-      }
-    } // update cptr
+                if (w[i] === mark) {
+                    // evaluate callback
+                    x[i] = cf(x[i], bvalues[k]);
+                }
+            } // initialize first index in j
 
 
-    cptr[columns] = cindex.length; // return sparse matrix
+            k = cptr[j]; // loop index in j
 
-    return c;
-  };
+            while (k < cindex.length) {
+                // row
+                i = cindex[k]; // value @ i
 
-  return algorithm08;
+                var v = x[i]; // check for zero value
+
+                if (!eq(v, zero)) {
+                    // push value
+                    cvalues.push(v); // increment pointer
+
+                    k++;
+                } else {
+                    // remove value @ i, do not increment pointer
+                    cindex.splice(k, 1);
+                }
+            }
+        } // update cptr
+
+
+        cptr[columns] = cindex.length; // return sparse matrix
+
+        return c;
+    };
+
+    return algorithm08;
 }
 
 exports.name = 'algorithm08';
@@ -27457,140 +27457,140 @@ exports.factory = factory;
 var DimensionError = __webpack_require__(12);
 
 function factory(type, config, load, typed) {
-  var equalScalar = load(__webpack_require__(11));
-  var SparseMatrix = type.SparseMatrix;
-  /**
-   * Iterates over SparseMatrix A and invokes the callback function f(Aij, Bij).
-   * Callback function invoked NZA times, number of nonzero elements in A.
-   *
-   *
-   *          ┌  f(Aij, Bij)  ; A(i,j) !== 0
-   * C(i,j) = ┤
-   *          └  0            ; otherwise
-   *
-   *
-   * @param {Matrix}   a                 The SparseMatrix instance (A)
-   * @param {Matrix}   b                 The SparseMatrix instance (B)
-   * @param {Function} callback          The f(Aij,Bij) operation to invoke
-   *
-   * @return {Matrix}                    SparseMatrix (C)
-   *
-   * see https://github.com/josdejong/mathjs/pull/346#issuecomment-97620294
-   */
+    var equalScalar = load(__webpack_require__(11));
+    var SparseMatrix = type.SparseMatrix;
+    /**
+     * Iterates over SparseMatrix A and invokes the callback function f(Aij, Bij).
+     * Callback function invoked NZA times, number of nonzero elements in A.
+     *
+     *
+     *          ┌  f(Aij, Bij)  ; A(i,j) !== 0
+     * C(i,j) = ┤
+     *          └  0            ; otherwise
+     *
+     *
+     * @param {Matrix}   a                 The SparseMatrix instance (A)
+     * @param {Matrix}   b                 The SparseMatrix instance (B)
+     * @param {Function} callback          The f(Aij,Bij) operation to invoke
+     *
+     * @return {Matrix}                    SparseMatrix (C)
+     *
+     * see https://github.com/josdejong/mathjs/pull/346#issuecomment-97620294
+     */
 
-  var algorithm09 = function algorithm09(a, b, callback) {
-    // sparse matrix arrays
-    var avalues = a._values;
-    var aindex = a._index;
-    var aptr = a._ptr;
-    var asize = a._size;
-    var adt = a._datatype; // sparse matrix arrays
+    var algorithm09 = function algorithm09(a, b, callback) {
+        // sparse matrix arrays
+        var avalues = a._values;
+        var aindex = a._index;
+        var aptr = a._ptr;
+        var asize = a._size;
+        var adt = a._datatype; // sparse matrix arrays
 
-    var bvalues = b._values;
-    var bindex = b._index;
-    var bptr = b._ptr;
-    var bsize = b._size;
-    var bdt = b._datatype; // validate dimensions
+        var bvalues = b._values;
+        var bindex = b._index;
+        var bptr = b._ptr;
+        var bsize = b._size;
+        var bdt = b._datatype; // validate dimensions
 
-    if (asize.length !== bsize.length) {
-      throw new DimensionError(asize.length, bsize.length);
-    } // check rows & columns
-
-
-    if (asize[0] !== bsize[0] || asize[1] !== bsize[1]) {
-      throw new RangeError('Dimension mismatch. Matrix A (' + asize + ') must match Matrix B (' + bsize + ')');
-    } // rows & columns
+        if (asize.length !== bsize.length) {
+            throw new DimensionError(asize.length, bsize.length);
+        } // check rows & columns
 
 
-    var rows = asize[0];
-    var columns = asize[1]; // datatype
-
-    var dt; // equal signature to use
-
-    var eq = equalScalar; // zero value
-
-    var zero = 0; // callback signature to use
-
-    var cf = callback; // process data types
-
-    if (typeof adt === 'string' && adt === bdt) {
-      // datatype
-      dt = adt; // find signature that matches (dt, dt)
-
-      eq = typed.find(equalScalar, [dt, dt]); // convert 0 to the same datatype
-
-      zero = typed.convert(0, dt); // callback
-
-      cf = typed.find(callback, [dt, dt]);
-    } // result arrays
+        if (asize[0] !== bsize[0] || asize[1] !== bsize[1]) {
+            throw new RangeError('Dimension mismatch. Matrix A (' + asize + ') must match Matrix B (' + bsize + ')');
+        } // rows & columns
 
 
-    var cvalues = avalues && bvalues ? [] : undefined;
-    var cindex = [];
-    var cptr = []; // matrix
+        var rows = asize[0];
+        var columns = asize[1]; // datatype
 
-    var c = new SparseMatrix({
-      values: cvalues,
-      index: cindex,
-      ptr: cptr,
-      size: [rows, columns],
-      datatype: dt
-    }); // workspaces
+        var dt; // equal signature to use
 
-    var x = cvalues ? [] : undefined; // marks indicating we have a value in x for a given column
+        var eq = equalScalar; // zero value
 
-    var w = []; // vars
+        var zero = 0; // callback signature to use
 
-    var i, j, k, k0, k1; // loop columns
+        var cf = callback; // process data types
 
-    for (j = 0; j < columns; j++) {
-      // update cptr
-      cptr[j] = cindex.length; // column mark
+        if (typeof adt === 'string' && adt === bdt) {
+            // datatype
+            dt = adt; // find signature that matches (dt, dt)
 
-      var mark = j + 1; // check we need to process values
+            eq = typed.find(equalScalar, [dt, dt]); // convert 0 to the same datatype
 
-      if (x) {
-        // loop B(:,j)
-        for (k0 = bptr[j], k1 = bptr[j + 1], k = k0; k < k1; k++) {
-          // row
-          i = bindex[k]; // update workspace
+            zero = typed.convert(0, dt); // callback
 
-          w[i] = mark;
-          x[i] = bvalues[k];
-        }
-      } // loop A(:,j)
+            cf = typed.find(callback, [dt, dt]);
+        } // result arrays
 
 
-      for (k0 = aptr[j], k1 = aptr[j + 1], k = k0; k < k1; k++) {
-        // row
-        i = aindex[k]; // check we need to process values
+        var cvalues = avalues && bvalues ? [] : undefined;
+        var cindex = [];
+        var cptr = []; // matrix
 
-        if (x) {
-          // b value @ i,j
-          var vb = w[i] === mark ? x[i] : zero; // invoke f
+        var c = new SparseMatrix({
+            values: cvalues,
+            index: cindex,
+            ptr: cptr,
+            size: [rows, columns],
+            datatype: dt
+        }); // workspaces
 
-          var vc = cf(avalues[k], vb); // check zero value
+        var x = cvalues ? [] : undefined; // marks indicating we have a value in x for a given column
 
-          if (!eq(vc, zero)) {
-            // push index
-            cindex.push(i); // push value
+        var w = []; // vars
 
-            cvalues.push(vc);
-          }
-        } else {
-          // push index
-          cindex.push(i);
-        }
-      }
-    } // update cptr
+        var i, j, k, k0, k1; // loop columns
+
+        for (j = 0; j < columns; j++) {
+            // update cptr
+            cptr[j] = cindex.length; // column mark
+
+            var mark = j + 1; // check we need to process values
+
+            if (x) {
+                // loop B(:,j)
+                for (k0 = bptr[j], k1 = bptr[j + 1], k = k0; k < k1; k++) {
+                    // row
+                    i = bindex[k]; // update workspace
+
+                    w[i] = mark;
+                    x[i] = bvalues[k];
+                }
+            } // loop A(:,j)
 
 
-    cptr[columns] = cindex.length; // return sparse matrix
+            for (k0 = aptr[j], k1 = aptr[j + 1], k = k0; k < k1; k++) {
+                // row
+                i = aindex[k]; // check we need to process values
 
-    return c;
-  };
+                if (x) {
+                    // b value @ i,j
+                    var vb = w[i] === mark ? x[i] : zero; // invoke f
 
-  return algorithm09;
+                    var vc = cf(avalues[k], vb); // check zero value
+
+                    if (!eq(vc, zero)) {
+                        // push index
+                        cindex.push(i); // push value
+
+                        cvalues.push(vc);
+                    }
+                } else {
+                    // push index
+                    cindex.push(i);
+                }
+            }
+        } // update cptr
+
+
+        cptr[columns] = cindex.length; // return sparse matrix
+
+        return c;
+    };
+
+    return algorithm09;
 }
 
 exports.name = 'algorithm09';
@@ -33386,11 +33386,6 @@ module.exports = {
 /***/ (function(module, exports) {
 
 module.exports = {
-  ".doc-page": {
-    "flexDirection": "column",
-    "flex": 1,
-    "backgroundColor": "#fbf9fe"
-  },
   ".doc-row": {
     "borderTopWidth": "1px",
     "borderTopColor": "rgb(187,187,187)",
@@ -33897,6 +33892,10 @@ module.exports = {
   ".xui-show": {
     "display": "flex"
   },
+  ".doc-page": {
+    "flex": 1,
+    "flexDirection": "column"
+  },
   ".page-title-wrap": {
     "paddingTop": "50px",
     "paddingBottom": "80px",
@@ -33939,12 +33938,6 @@ module.exports = {
   },
   ".m-bottom-xs": {
     "marginBottom": "5px"
-  },
-  ".item-container": {
-    "marginBottom": "50px",
-    "marginRight": "60px",
-    "marginLeft": "60px",
-    "flexDirection": "column"
   },
   ".item-content": {
     "flexDirection": "column",
@@ -54283,193 +54276,193 @@ exports.factory = factory;
 
 
 function factory(type, config, load) {
-  var abs = load(__webpack_require__(27));
-  var divideScalar = load(__webpack_require__(13));
-  var multiply = load(__webpack_require__(10));
-  var larger = load(__webpack_require__(39));
-  var largerEq = load(__webpack_require__(143));
-  var csSpsolve = load(__webpack_require__(253));
-  var SparseMatrix = type.SparseMatrix;
-  /**
-   * Computes the numeric LU factorization of the sparse matrix A. Implements a Left-looking LU factorization
-   * algorithm that computes L and U one column at a tume. At the kth step, it access columns 1 to k-1 of L
-   * and column k of A. Given the fill-reducing column ordering q (see parameter s) computes L, U and pinv so
-   * L * U = A(p, q), where p is the inverse of pinv.
-   *
-   * @param {Matrix}  m               The A Matrix to factorize
-   * @param {Object}  s               The symbolic analysis from csSqr(). Provides the fill-reducing
-   *                                  column ordering q
-   * @param {Number}  tol             Partial pivoting threshold (1 for partial pivoting)
-   *
-   * @return {Number}                 The numeric LU factorization of A or null
-   *
-   * Reference: http://faculty.cse.tamu.edu/davis/publications.html
-   */
+    var abs = load(__webpack_require__(27));
+    var divideScalar = load(__webpack_require__(13));
+    var multiply = load(__webpack_require__(10));
+    var larger = load(__webpack_require__(39));
+    var largerEq = load(__webpack_require__(143));
+    var csSpsolve = load(__webpack_require__(253));
+    var SparseMatrix = type.SparseMatrix;
+    /**
+     * Computes the numeric LU factorization of the sparse matrix A. Implements a Left-looking LU factorization
+     * algorithm that computes L and U one column at a tume. At the kth step, it access columns 1 to k-1 of L
+     * and column k of A. Given the fill-reducing column ordering q (see parameter s) computes L, U and pinv so
+     * L * U = A(p, q), where p is the inverse of pinv.
+     *
+     * @param {Matrix}  m               The A Matrix to factorize
+     * @param {Object}  s               The symbolic analysis from csSqr(). Provides the fill-reducing
+     *                                  column ordering q
+     * @param {Number}  tol             Partial pivoting threshold (1 for partial pivoting)
+     *
+     * @return {Number}                 The numeric LU factorization of A or null
+     *
+     * Reference: http://faculty.cse.tamu.edu/davis/publications.html
+     */
 
-  var csLu = function csLu(m, s, tol) {
-    // validate input
-    if (!m) {
-      return null;
-    } // m arrays
-
-
-    var size = m._size; // columns
-
-    var n = size[1]; // symbolic analysis result
-
-    var q;
-    var lnz = 100;
-    var unz = 100; // update symbolic analysis parameters
-
-    if (s) {
-      q = s.q;
-      lnz = s.lnz || lnz;
-      unz = s.unz || unz;
-    } // L arrays
+    var csLu = function csLu(m, s, tol) {
+        // validate input
+        if (!m) {
+            return null;
+        } // m arrays
 
 
-    var lvalues = []; // (lnz)
+        var size = m._size; // columns
 
-    var lindex = []; // (lnz)
+        var n = size[1]; // symbolic analysis result
 
-    var lptr = []; // (n + 1)
-    // L
+        var q;
+        var lnz = 100;
+        var unz = 100; // update symbolic analysis parameters
 
-    var L = new SparseMatrix({
-      values: lvalues,
-      index: lindex,
-      ptr: lptr,
-      size: [n, n]
-    }); // U arrays
-
-    var uvalues = []; // (unz)
-
-    var uindex = []; // (unz)
-
-    var uptr = []; // (n + 1)
-    // U
-
-    var U = new SparseMatrix({
-      values: uvalues,
-      index: uindex,
-      ptr: uptr,
-      size: [n, n]
-    }); // inverse of permutation vector
-
-    var pinv = []; // (n)
-    // vars
-
-    var i, p; // allocate arrays
-
-    var x = []; // (n)
-
-    var xi = []; // (2 * n)
-    // initialize variables
-
-    for (i = 0; i < n; i++) {
-      // clear workspace
-      x[i] = 0; // no rows pivotal yet
-
-      pinv[i] = -1; // no cols of L yet
-
-      lptr[i + 1] = 0;
-    } // reset number of nonzero elements in L and U
+        if (s) {
+            q = s.q;
+            lnz = s.lnz || lnz;
+            unz = s.unz || unz;
+        } // L arrays
 
 
-    lnz = 0;
-    unz = 0; // compute L(:,k) and U(:,k)
+        var lvalues = []; // (lnz)
 
-    for (var k = 0; k < n; k++) {
-      // update ptr
-      lptr[k] = lnz;
-      uptr[k] = unz; // apply column permutations if needed
+        var lindex = []; // (lnz)
 
-      var col = q ? q[k] : k; // solve triangular system, x = L\A(:,col)
+        var lptr = []; // (n + 1)
+        // L
 
-      var top = csSpsolve(L, m, col, xi, x, pinv, 1); // find pivot
+        var L = new SparseMatrix({
+            values: lvalues,
+            index: lindex,
+            ptr: lptr,
+            size: [n, n]
+        }); // U arrays
 
-      var ipiv = -1;
-      var a = -1; // loop xi[] from top -> n
+        var uvalues = []; // (unz)
 
-      for (p = top; p < n; p++) {
-        // x[i] is nonzero
-        i = xi[p]; // check row i is not yet pivotal
+        var uindex = []; // (unz)
 
-        if (pinv[i] < 0) {
-          // absolute value of x[i]
-          var xabs = abs(x[i]); // check absoulte value is greater than pivot value
+        var uptr = []; // (n + 1)
+        // U
 
-          if (larger(xabs, a)) {
-            // largest pivot candidate so far
-            a = xabs;
-            ipiv = i;
-          }
-        } else {
-          // x(i) is the entry U(pinv[i],k)
-          uindex[unz] = pinv[i];
-          uvalues[unz++] = x[i];
-        }
-      } // validate we found a valid pivot
+        var U = new SparseMatrix({
+            values: uvalues,
+            index: uindex,
+            ptr: uptr,
+            size: [n, n]
+        }); // inverse of permutation vector
 
+        var pinv = []; // (n)
+        // vars
 
-      if (ipiv === -1 || a <= 0) {
-        return null;
-      } // update actual pivot column, give preference to diagonal value
+        var i, p; // allocate arrays
 
+        var x = []; // (n)
 
-      if (pinv[col] < 0 && largerEq(abs(x[col]), multiply(a, tol))) {
-        ipiv = col;
-      } // the chosen pivot
+        var xi = []; // (2 * n)
+        // initialize variables
 
+        for (i = 0; i < n; i++) {
+            // clear workspace
+            x[i] = 0; // no rows pivotal yet
 
-      var pivot = x[ipiv]; // last entry in U(:,k) is U(k,k)
+            pinv[i] = -1; // no cols of L yet
 
-      uindex[unz] = k;
-      uvalues[unz++] = pivot; // ipiv is the kth pivot row
-
-      pinv[ipiv] = k; // first entry in L(:,k) is L(k,k) = 1
-
-      lindex[lnz] = ipiv;
-      lvalues[lnz++] = 1; // L(k+1:n,k) = x / pivot
-
-      for (p = top; p < n; p++) {
-        // row
-        i = xi[p]; // check x(i) is an entry in L(:,k)
-
-        if (pinv[i] < 0) {
-          // save unpermuted row in L
-          lindex[lnz] = i; // scale pivot column
-
-          lvalues[lnz++] = divideScalar(x[i], pivot);
-        } // x[0..n-1] = 0 for next k
+            lptr[i + 1] = 0;
+        } // reset number of nonzero elements in L and U
 
 
-        x[i] = 0;
-      }
-    } // update ptr
+        lnz = 0;
+        unz = 0; // compute L(:,k) and U(:,k)
+
+        for (var k = 0; k < n; k++) {
+            // update ptr
+            lptr[k] = lnz;
+            uptr[k] = unz; // apply column permutations if needed
+
+            var col = q ? q[k] : k; // solve triangular system, x = L\A(:,col)
+
+            var top = csSpsolve(L, m, col, xi, x, pinv, 1); // find pivot
+
+            var ipiv = -1;
+            var a = -1; // loop xi[] from top -> n
+
+            for (p = top; p < n; p++) {
+                // x[i] is nonzero
+                i = xi[p]; // check row i is not yet pivotal
+
+                if (pinv[i] < 0) {
+                    // absolute value of x[i]
+                    var xabs = abs(x[i]); // check absoulte value is greater than pivot value
+
+                    if (larger(xabs, a)) {
+                        // largest pivot candidate so far
+                        a = xabs;
+                        ipiv = i;
+                    }
+                } else {
+                    // x(i) is the entry U(pinv[i],k)
+                    uindex[unz] = pinv[i];
+                    uvalues[unz++] = x[i];
+                }
+            } // validate we found a valid pivot
 
 
-    lptr[n] = lnz;
-    uptr[n] = unz; // fix row indices of L for final pinv
-
-    for (p = 0; p < lnz; p++) {
-      lindex[p] = pinv[lindex[p]];
-    } // trim arrays
+            if (ipiv === -1 || a <= 0) {
+                return null;
+            } // update actual pivot column, give preference to diagonal value
 
 
-    lvalues.splice(lnz, lvalues.length - lnz);
-    lindex.splice(lnz, lindex.length - lnz);
-    uvalues.splice(unz, uvalues.length - unz);
-    uindex.splice(unz, uindex.length - unz); // return LU factor
+            if (pinv[col] < 0 && largerEq(abs(x[col]), multiply(a, tol))) {
+                ipiv = col;
+            } // the chosen pivot
 
-    return {
-      L: L,
-      U: U,
-      pinv: pinv
+
+            var pivot = x[ipiv]; // last entry in U(:,k) is U(k,k)
+
+            uindex[unz] = k;
+            uvalues[unz++] = pivot; // ipiv is the kth pivot row
+
+            pinv[ipiv] = k; // first entry in L(:,k) is L(k,k) = 1
+
+            lindex[lnz] = ipiv;
+            lvalues[lnz++] = 1; // L(k+1:n,k) = x / pivot
+
+            for (p = top; p < n; p++) {
+                // row
+                i = xi[p]; // check x(i) is an entry in L(:,k)
+
+                if (pinv[i] < 0) {
+                    // save unpermuted row in L
+                    lindex[lnz] = i; // scale pivot column
+
+                    lvalues[lnz++] = divideScalar(x[i], pivot);
+                } // x[0..n-1] = 0 for next k
+
+
+                x[i] = 0;
+            }
+        } // update ptr
+
+
+        lptr[n] = lnz;
+        uptr[n] = unz; // fix row indices of L for final pinv
+
+        for (p = 0; p < lnz; p++) {
+            lindex[p] = pinv[lindex[p]];
+        } // trim arrays
+
+
+        lvalues.splice(lnz, lvalues.length - lnz);
+        lindex.splice(lnz, lindex.length - lnz);
+        uvalues.splice(unz, uvalues.length - unz);
+        uindex.splice(unz, uindex.length - unz); // return LU factor
+
+        return {
+            L: L,
+            U: U,
+            pinv: pinv
+        };
     };
-  };
 
-  return csLu;
+    return csLu;
 }
 
 exports.name = 'csLu';
