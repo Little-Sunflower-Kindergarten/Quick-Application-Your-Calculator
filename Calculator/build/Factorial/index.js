@@ -63,7 +63,7 @@
 /******/ 	__webpack_require__.p = "";
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 650);
+/******/ 	return __webpack_require__(__webpack_require__.s = 616);
 /******/ })
 /************************************************************************/
 /******/ ([
@@ -61771,46 +61771,12 @@ module.exports = [{
 /* 613 */,
 /* 614 */,
 /* 615 */,
-/* 616 */,
-/* 617 */,
-/* 618 */,
-/* 619 */,
-/* 620 */,
-/* 621 */,
-/* 622 */,
-/* 623 */,
-/* 624 */,
-/* 625 */,
-/* 626 */,
-/* 627 */,
-/* 628 */,
-/* 629 */,
-/* 630 */,
-/* 631 */,
-/* 632 */,
-/* 633 */,
-/* 634 */,
-/* 635 */,
-/* 636 */,
-/* 637 */,
-/* 638 */,
-/* 639 */,
-/* 640 */,
-/* 641 */,
-/* 642 */,
-/* 643 */,
-/* 644 */,
-/* 645 */,
-/* 646 */,
-/* 647 */,
-/* 648 */,
-/* 649 */,
-/* 650 */
+/* 616 */
 /***/ (function(module, exports, __webpack_require__) {
 
-var $app_template$ = __webpack_require__(651)
-var $app_style$ = __webpack_require__(652)
-var $app_script$ = __webpack_require__(653)
+var $app_template$ = __webpack_require__(617)
+var $app_style$ = __webpack_require__(618)
+var $app_script$ = __webpack_require__(619)
 
 $app_define$('@app-component/index', [], function($app_require$, $app_exports$, $app_module$){
      $app_script$($app_module$, $app_exports$, $app_require$)
@@ -61825,7 +61791,7 @@ $app_bootstrap$('@app-component/index',{ packagerVersion: '0.0.5'})
 
 
 /***/ }),
-/* 651 */
+/* 617 */
 /***/ (function(module, exports) {
 
 module.exports = {
@@ -61845,7 +61811,7 @@ module.exports = {
         {
           "type": "text",
           "attr": {
-            "value": "需要计算的第一个集合"
+            "value": "需要计算的数字"
           },
           "classList": [
             "xui-input-group-col-title"
@@ -61856,45 +61822,13 @@ module.exports = {
           "attr": {
             "name": "a1",
             "type": "text",
-            "placeholder": "请输入集合"
+            "placeholder": "请输入数字"
           },
           "classList": [
             "xui-input-round"
           ],
           "events": {
             "change": "bindPhoneChange1"
-          }
-        }
-      ]
-    },
-    {
-      "type": "div",
-      "attr": {},
-      "classList": [
-        "xui-input-group-col"
-      ],
-      "children": [
-        {
-          "type": "text",
-          "attr": {
-            "value": "需要计算的第二个集合"
-          },
-          "classList": [
-            "xui-input-group-col-title"
-          ]
-        },
-        {
-          "type": "input",
-          "attr": {
-            "name": "a2",
-            "type": "text",
-            "placeholder": "请输入集合"
-          },
-          "classList": [
-            "xui-input-round"
-          ],
-          "events": {
-            "change": "bindPhoneChange2"
           }
         }
       ]
@@ -61966,7 +61900,7 @@ module.exports = {
 }
 
 /***/ }),
-/* 652 */
+/* 618 */
 /***/ (function(module, exports) {
 
 module.exports = {
@@ -62049,13 +61983,13 @@ module.exports = {
 }
 
 /***/ }),
-/* 653 */
+/* 619 */
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports = function(module, exports, $app_require$){'use strict';
 
 Object.defineProperty(exports, "__esModule", {
-    value: true
+  value: true
 });
 
 var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
@@ -62070,50 +62004,43 @@ var _system2 = _interopRequireDefault(_system);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-var a1, a2;
-var strs1 = new Array();
-var strs2 = new Array();
+var a1;
 
 exports.default = {
-    private: {
-        text: 'default',
-        componentName: 'clipboard',
-        show: true,
-        clipboard: '暂无内容',
-        showSet: '',
-        showGet: '暂无内容'
-    },
-    bindPhoneChange1: function bindPhoneChange1(e) {
-        a1 = e.value;
-        strs1 = a1.split(",");
-    },
-    bindPhoneChange2: function bindPhoneChange2(e) {
-        a2 = e.value;
-        strs2 = a2.split(",");
-    },
-    changeText: function changeText(e) {
-        this.text = e.newValue;
-    },
-    getProgressValue: function getProgressValue(e) {
-        this.progressValue = e.progress;
-    },
-    changeSwitchStatus: function changeSwitchStatus(e) {
-        this.switchStatus = e.checked ? 'on' : 'off';
-    },
-    set: function set() {
-        this.showSet = this.clipboard;
-        _system2.default.set({
-            text: _index2.default.string(_index2.default.setCartesian(strs1, strs2))
-        });
-    },
-    get: function get() {
-        var self = this;
-        _system2.default.get({
-            success: function success(obj) {
-                self.showGet = obj.text;
-            }
-        });
-    }
+  private: {
+    text: 'default',
+    componentName: 'clipboard',
+    show: true,
+    clipboard: '暂无内容',
+    showSet: '',
+    showGet: '暂无内容'
+  },
+  bindPhoneChange1: function bindPhoneChange1(e) {
+    a1 = e.value;
+  },
+  changeText: function changeText(e) {
+    this.text = e.newValue;
+  },
+  getProgressValue: function getProgressValue(e) {
+    this.progressValue = e.progress;
+  },
+  changeSwitchStatus: function changeSwitchStatus(e) {
+    this.switchStatus = e.checked ? 'on' : 'off';
+  },
+  set: function set() {
+    this.showSet = this.clipboard;
+    _system2.default.set({
+      text: _index2.default.factorial(a1)
+    });
+  },
+  get: function get() {
+    var self = this;
+    _system2.default.get({
+      success: function success(obj) {
+        self.showGet = obj.text;
+      }
+    });
+  }
 };
 
 
@@ -62121,23 +62048,23 @@ var moduleOwn = exports.default || module.exports;
 var accessors = ['public', 'protected', 'private'];
 
 if (moduleOwn.data && accessors.some(function (acc) {
-    return moduleOwn[acc];
+  return moduleOwn[acc];
 })) {
-    throw new Error('页面VM对象中的属性data不可与"' + accessors.join(',') + '"同时存在，请使用private替换data名称');
+  throw new Error('页面VM对象中的属性data不可与"' + accessors.join(',') + '"同时存在，请使用private替换data名称');
 } else if (!moduleOwn.data) {
-    moduleOwn.data = {};
-    moduleOwn._descriptor = {};
-    accessors.forEach(function (acc) {
-        var accType = _typeof(moduleOwn[acc]);
-        if (accType === 'object') {
-            moduleOwn.data = Object.assign(moduleOwn.data, moduleOwn[acc]);
-            for (var name in moduleOwn[acc]) {
-                moduleOwn._descriptor[name] = { access: acc };
-            }
-        } else if (accType === 'function') {
-            console.warn('页面VM对象中的属性' + acc + '的值不能是函数，请使用对象');
-        }
-    });
+  moduleOwn.data = {};
+  moduleOwn._descriptor = {};
+  accessors.forEach(function (acc) {
+    var accType = _typeof(moduleOwn[acc]);
+    if (accType === 'object') {
+      moduleOwn.data = Object.assign(moduleOwn.data, moduleOwn[acc]);
+      for (var name in moduleOwn[acc]) {
+        moduleOwn._descriptor[name] = { access: acc };
+      }
+    } else if (accType === 'function') {
+      console.warn('页面VM对象中的属性' + acc + '的值不能是函数，请使用对象');
+    }
+  });
 }}
 
 /***/ })
