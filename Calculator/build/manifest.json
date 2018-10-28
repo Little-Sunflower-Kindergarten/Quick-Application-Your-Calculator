@@ -48,6 +48,9 @@
       },
       "TheCartesianProduct": {
         "component": "index"
+      },
+      "Factorial": {
+        "component": "index"
       }
     }
   },
@@ -79,6 +82,10 @@
       "TheCartesianProduct": {
         "menu": false,
         "titleBarText": "笛卡儿积"
+      },
+      "Factorial": {
+        "menu": false,
+        "titleBarText": "阶乘"
       }
     }
   }

@@ -63,17 +63,17 @@
 /******/ 	__webpack_require__.p = "";
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 616);
+/******/ 	return __webpack_require__(__webpack_require__.s = 620);
 /******/ })
 /************************************************************************/
 /******/ ({
 
-/***/ 616:
+/***/ 620:
 /***/ (function(module, exports, __webpack_require__) {
 
-var $app_template$ = __webpack_require__(617)
-var $app_style$ = __webpack_require__(618)
-var $app_script$ = __webpack_require__(619)
+var $app_template$ = __webpack_require__(621)
+var $app_style$ = __webpack_require__(622)
+var $app_script$ = __webpack_require__(623)
 
 $app_define$('@app-component/index', [], function($app_require$, $app_exports$, $app_module$){
      $app_script$($app_module$, $app_exports$, $app_require$)
@@ -89,7 +89,7 @@ $app_bootstrap$('@app-component/index',{ packagerVersion: '0.0.5'})
 
 /***/ }),
 
-/***/ 617:
+/***/ 621:
 /***/ (function(module, exports) {
 
 module.exports = {
@@ -99,6 +99,25 @@ module.exports = {
     "page"
   ],
   "children": [
+    {
+      "type": "div",
+      "attr": {},
+      "classList": [
+        "menu"
+      ],
+      "children": [
+        {
+          "type": "input",
+          "attr": {
+            "type": "button",
+            "value": "功能介绍（未实装）"
+          },
+          "classList": [
+            "btn"
+          ]
+        }
+      ]
+    },
     {
       "type": "div",
       "attr": {},
@@ -194,13 +213,97 @@ module.exports = {
           }
         }
       ]
+    },
+    {
+      "type": "div",
+      "attr": {},
+      "classList": [
+        "menu"
+      ],
+      "children": [
+        {
+          "type": "input",
+          "attr": {
+            "type": "button",
+            "value": "阶乘"
+          },
+          "classList": [
+            "btn"
+          ],
+          "events": {
+            "click": "factorialRouteDetail"
+          }
+        },
+        {
+          "type": "input",
+          "attr": {
+            "type": "button",
+            "value": "相对熵（未实装）"
+          },
+          "classList": [
+            "btn"
+          ]
+        },
+        {
+          "type": "input",
+          "attr": {
+            "type": "button",
+            "value": "伽玛函数（未实装）"
+          },
+          "classList": [
+            "btn"
+          ]
+        }
+      ]
+    },
+    {
+      "type": "div",
+      "attr": {},
+      "classList": [
+        "menu"
+      ],
+      "children": [
+        {
+          "type": "input",
+          "attr": {
+            "type": "button",
+            "value": "三角函数（未实装）"
+          },
+          "classList": [
+            "btn"
+          ],
+          "events": {
+            "click": "factorialRouteDetail"
+          }
+        },
+        {
+          "type": "input",
+          "attr": {
+            "type": "button",
+            "value": "新功能构思中"
+          },
+          "classList": [
+            "btn"
+          ]
+        },
+        {
+          "type": "input",
+          "attr": {
+            "type": "button",
+            "value": "新功能构思中"
+          },
+          "classList": [
+            "btn"
+          ]
+        }
+      ]
     }
   ]
 }
 
 /***/ }),
 
-/***/ 618:
+/***/ 622:
 /***/ (function(module, exports) {
 
 module.exports = {
@@ -237,7 +340,7 @@ module.exports = {
 
 /***/ }),
 
-/***/ 619:
+/***/ 623:
 /***/ (function(module, exports) {
 
 module.exports = function(module, exports, $app_require$){'use strict';
@@ -276,6 +379,11 @@ exports.default = {
   theCartesianProductRouteDetail: function theCartesianProductRouteDetail() {
     _system2.default.push({
       uri: '/TheCartesianProduct'
+    });
+  },
+  factorialRouteDetail: function factorialRouteDetail() {
+    _system2.default.push({
+      uri: '/Factorial'
     });
   }
 };
