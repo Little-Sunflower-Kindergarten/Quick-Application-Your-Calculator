@@ -6,8 +6,8 @@
         <input class="btn" type="button" value="极限计算" onclick="routeDetail" />
     </div>
     <div class="menu">
-        <input class="btn" type="button" value="积分计算（Beta）" onclick="DefinitIntegralRouteDetail" />
-        <input class="btn" type="button" value="不定积分计算" onclick="routeDetail" />
+        <input class="btn" type="button" value="积分计算（Beta）" onclick="integralRouteDetail" />
+        <input class="btn" type="button" value="素数判断" onclick="isPrimeRouteDetail" />
         <input class="btn" type="button" value="敬请期待" onclick="routeDetail" />
     </div>
   </div>
@@ -53,9 +53,14 @@
         uri: '/DemoDetail'
       })
     },
-    DefinitIntegralRouteDetail () {
+    integralRouteDetail () {
       router.push ({
-        uri: '/DefinitIntegral'
+        uri: '/Integral'
+      })
+    },
+    isPrimeRouteDetail () {
+      router.push ({
+        uri: '/IsPrime'
       })
     }
   }
