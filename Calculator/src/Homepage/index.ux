@@ -1,13 +1,12 @@
 <template>
-  <!-- template里只能有一个根节点 -->
-  <div class="demo-page">
+  <div class="page">
     <div class="menu">
         <input class="btn" type="button" value="方程求解" onclick="routeDetail" />
         <input class="btn" type="button" value="函数求导" onclick="routeDetail" />
         <input class="btn" type="button" value="极限计算" onclick="routeDetail" />
     </div>
     <div class="menu">
-        <input class="btn" type="button" value="定积分计算" onclick="DefinitIntegralRouteDetail" />
+        <input class="btn" type="button" value="积分计算（Beta）" onclick="DefinitIntegralRouteDetail" />
         <input class="btn" type="button" value="不定积分计算" onclick="routeDetail" />
         <input class="btn" type="button" value="敬请期待" onclick="routeDetail" />
     </div>
@@ -15,15 +14,13 @@
 </template>
 
 <style>
-  .demo-page {
+  .page {
     flex-direction: column;
     justify-content: flex-start;
     align-items: center;
   }
 
   .menu{
-    width: 700px;
-    flex-direction:row;
     justify-content:space-between;
     align-items:flex-start;
   }
@@ -31,11 +28,16 @@
   .btn {
     width: 200px;
     height: 100px;
-    margin-top: 75px;
-    border-radius: 40px;
-    background-color: #09ba07;
+    margin-top: 70px;
+    margin-left: 20px;
+    margin-right: 20px;
+    border-style:solid;
+    border-width:1px;
+    border-color:#b7b7b7;
+    border-radius:10px;
+    background-color: #ffffff;
     font-size: 30px;
-    color: #ffffff;
+    color:#444444;
   }
 </style>
 
@@ -43,18 +45,15 @@
   import router from '@system.router'
 
   export default {
-    // 页面级组件的数据模型，影响传入数据的覆盖机制：private内定义的属性不允许被覆盖
-    private: {
-      title: '示例页面'
+    onMenuPress() {
+      this.$app.$def.showMenu()
     },
     routeDetail () {
-      // 跳转到应用内的某个页面，router用法详见：文档->接口->页面路由
       router.push ({
         uri: '/DemoDetail'
       })
     },
     DefinitIntegralRouteDetail () {
-      // 跳转到应用内的某个页面，router用法详见：文档->接口->页面路由
       router.push ({
         uri: '/DefinitIntegral'
       })
