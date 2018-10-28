@@ -117,9 +117,10 @@
     height: 86px;
     margin-top: 75px;
     border-radius: 43px;
-    background-color: #09ba07;
+    border-width:1px;
+    background-color: #ffffff;
     font-size: 30px;
-    color: #ffffff;
+    color: #444444;
   }
 
   /* 底部版权信息 */
