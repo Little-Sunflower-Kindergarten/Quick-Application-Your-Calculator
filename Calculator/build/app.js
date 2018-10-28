@@ -63,15 +63,15 @@
 /******/ 	__webpack_require__.p = "";
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 188);
+/******/ 	return __webpack_require__(__webpack_require__.s = 609);
 /******/ })
 /************************************************************************/
 /******/ ({
 
-/***/ 188:
+/***/ 609:
 /***/ (function(module, exports, __webpack_require__) {
 
-var $app_script$ = __webpack_require__(189)
+var $app_script$ = __webpack_require__(610)
 
 $app_define$('@app-application/app', [], function($app_require$, $app_exports$, $app_module$){
      $app_script$($app_module$, $app_exports$, $app_require$)
@@ -85,7 +85,7 @@ $app_bootstrap$('@app-application/app',{ packagerVersion: '0.0.5'})
 
 /***/ }),
 
-/***/ 189:
+/***/ 610:
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports = function(module, exports, $app_require$){'use strict';
@@ -94,7 +94,7 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 
-var _util = __webpack_require__(190);
+var _util = __webpack_require__(611);
 
 var _util2 = _interopRequireDefault(_util);
 
@@ -104,12 +104,12 @@ exports.default = {
   showMenu: _util2.default.showMenu,
   createShortcut: _util2.default.createShortcut
 };
-(exports.default || module.exports).manifest = {"package":"com.LittleSunflowerKindergarten.QuickApplicationCalculator","name":"高等计算器","versionName":"1.0.0","versionCode":"1","minPlatformVersion":"1010","icon":"/Common/logo.png","features":[{"name":"system.prompt"},{"name":"system.router"},{"name":"system.shortcut"},{"name":"system.clipboard"}],"permissions":[{"origin":"*"}],"config":{"logLevel":"debug"},"router":{"entry":"Homepage","pages":{"Homepage":{"component":"index"},"DemoDetail":{"component":"index"},"About":{"component":"index"},"DefinitIntegral":{"component":"index"}}},"display":{"backgroundColor":"#ffffff","titleBarBackgroundColor":"#999999","titleBarTextColor":"#ffffff","menu":true,"pages":{"Homepage":{"menu":true,"titleBarText":"主页"},"DemoDetail":{"menu":false,"titleBarText":"详情页"},"About":{"menu":false},"DefinitIntegral":{"menu":false,"titleBarText":"积分计算器（Beta）"}}}};
+(exports.default || module.exports).manifest = {"package":"com.LittleSunflowerKindergarten.QuickApplicationCalculator","name":"高等计算器","versionName":"1.0.0","versionCode":"1","minPlatformVersion":"1010","icon":"/Common/logo.png","features":[{"name":"system.prompt"},{"name":"system.router"},{"name":"system.shortcut"},{"name":"system.clipboard"}],"permissions":[{"origin":"*"}],"config":{"logLevel":"debug"},"router":{"entry":"Homepage","pages":{"Homepage":{"component":"index"},"DemoDetail":{"component":"index"},"About":{"component":"index"},"Integral":{"component":"index"},"IsPrime":{"component":"index"}}},"display":{"backgroundColor":"#ffffff","titleBarBackgroundColor":"#999999","titleBarTextColor":"#ffffff","menu":true,"pages":{"Homepage":{"menu":true,"titleBarText":"主页"},"DemoDetail":{"menu":false,"titleBarText":"详情页"},"About":{"menu":false},"Integral":{"menu":false,"titleBarText":"积分计算器（Beta）"},"IsPrime":{"menu":false,"titleBarText":"判断素数"}}}};
 }
 
 /***/ }),
 
-/***/ 190:
+/***/ 611:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -201,7 +201,7 @@ exports.default = {
   else {
     window.createAppHandler = createAppHandler
     // H5注入manifest以获取features
-    global.manifest = {"package":"com.LittleSunflowerKindergarten.QuickApplicationCalculator","name":"高等计算器","versionName":"1.0.0","versionCode":"1","minPlatformVersion":"1010","icon":"/Common/logo.png","features":[{"name":"system.prompt"},{"name":"system.router"},{"name":"system.shortcut"},{"name":"system.clipboard"}],"permissions":[{"origin":"*"}],"config":{"logLevel":"debug"},"router":{"entry":"Homepage","pages":{"Homepage":{"component":"index"},"DemoDetail":{"component":"index"},"About":{"component":"index"},"DefinitIntegral":{"component":"index"}}},"display":{"backgroundColor":"#ffffff","titleBarBackgroundColor":"#999999","titleBarTextColor":"#ffffff","menu":true,"pages":{"Homepage":{"menu":true,"titleBarText":"主页"},"DemoDetail":{"menu":false,"titleBarText":"详情页"},"About":{"menu":false},"DefinitIntegral":{"menu":false,"titleBarText":"积分计算器（Beta）"}}}};
+    global.manifest = {"package":"com.LittleSunflowerKindergarten.QuickApplicationCalculator","name":"高等计算器","versionName":"1.0.0","versionCode":"1","minPlatformVersion":"1010","icon":"/Common/logo.png","features":[{"name":"system.prompt"},{"name":"system.router"},{"name":"system.shortcut"},{"name":"system.clipboard"}],"permissions":[{"origin":"*"}],"config":{"logLevel":"debug"},"router":{"entry":"Homepage","pages":{"Homepage":{"component":"index"},"DemoDetail":{"component":"index"},"About":{"component":"index"},"Integral":{"component":"index"},"IsPrime":{"component":"index"}}},"display":{"backgroundColor":"#ffffff","titleBarBackgroundColor":"#999999","titleBarTextColor":"#ffffff","menu":true,"pages":{"Homepage":{"menu":true,"titleBarText":"主页"},"DemoDetail":{"menu":false,"titleBarText":"详情页"},"About":{"menu":false},"Integral":{"menu":false,"titleBarText":"积分计算器（Beta）"},"IsPrime":{"menu":false,"titleBarText":"判断素数"}}}};
   }
 })();
 //# sourceMappingURL=app.js.map

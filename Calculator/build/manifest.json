@@ -40,7 +40,10 @@
       "About": {
         "component": "index"
       },
-      "DefinitIntegral": {
+      "Integral": {
+        "component": "index"
+      },
+      "IsPrime": {
         "component": "index"
       }
     }
@@ -62,9 +65,13 @@
       "About": {
         "menu": false
       },
-      "DefinitIntegral": {
+      "Integral": {
         "menu": false,
-        "titleBarText": "积分计算器（Beta）"
+        "titleBarText": "积分计算（Beta）"
+      },
+      "IsPrime": {
+        "menu": false,
+        "titleBarText": "判断素数"
       }
     }
   }

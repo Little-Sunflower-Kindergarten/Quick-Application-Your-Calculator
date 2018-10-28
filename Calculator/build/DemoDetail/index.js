@@ -63,17 +63,17 @@
 /******/ 	__webpack_require__.p = "";
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 634);
+/******/ 	return __webpack_require__(__webpack_require__.s = 612);
 /******/ })
 /************************************************************************/
 /******/ ({
 
-/***/ 634:
+/***/ 612:
 /***/ (function(module, exports, __webpack_require__) {
 
-var $app_template$ = __webpack_require__(635)
-var $app_style$ = __webpack_require__(636)
-var $app_script$ = __webpack_require__(637)
+var $app_template$ = __webpack_require__(613)
+var $app_style$ = __webpack_require__(614)
+var $app_script$ = __webpack_require__(615)
 
 $app_define$('@app-component/index', [], function($app_require$, $app_exports$, $app_module$){
      $app_script$($app_module$, $app_exports$, $app_require$)
@@ -89,7 +89,7 @@ $app_bootstrap$('@app-component/index',{ packagerVersion: '0.0.5'})
 
 /***/ }),
 
-/***/ 635:
+/***/ 613:
 /***/ (function(module, exports) {
 
 module.exports = {
@@ -113,7 +113,7 @@ module.exports = {
 
 /***/ }),
 
-/***/ 636:
+/***/ 614:
 /***/ (function(module, exports) {
 
 module.exports = {
@@ -130,7 +130,7 @@ module.exports = {
 
 /***/ }),
 
-/***/ 637:
+/***/ 615:
 /***/ (function(module, exports) {
 
 module.exports = function(module, exports, $app_require$){'use strict';

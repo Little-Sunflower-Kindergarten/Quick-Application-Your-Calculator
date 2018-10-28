@@ -63,17 +63,17 @@
 /******/ 	__webpack_require__.p = "";
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 638);
+/******/ 	return __webpack_require__(__webpack_require__.s = 616);
 /******/ })
 /************************************************************************/
 /******/ ({
 
-/***/ 638:
+/***/ 616:
 /***/ (function(module, exports, __webpack_require__) {
 
-var $app_template$ = __webpack_require__(639)
-var $app_style$ = __webpack_require__(640)
-var $app_script$ = __webpack_require__(641)
+var $app_template$ = __webpack_require__(617)
+var $app_style$ = __webpack_require__(618)
+var $app_script$ = __webpack_require__(619)
 
 $app_define$('@app-component/index', [], function($app_require$, $app_exports$, $app_module$){
      $app_script$($app_module$, $app_exports$, $app_require$)
@@ -89,7 +89,7 @@ $app_bootstrap$('@app-component/index',{ packagerVersion: '0.0.5'})
 
 /***/ }),
 
-/***/ 639:
+/***/ 617:
 /***/ (function(module, exports) {
 
 module.exports = {
@@ -164,20 +164,20 @@ module.exports = {
             "btn"
           ],
           "events": {
-            "click": "DefinitIntegralRouteDetail"
+            "click": "integralRouteDetail"
           }
         },
         {
           "type": "input",
           "attr": {
             "type": "button",
-            "value": "不定积分计算"
+            "value": "素数判断"
           },
           "classList": [
             "btn"
           ],
           "events": {
-            "click": "routeDetail"
+            "click": "isPrimeRouteDetail"
           }
         },
         {
@@ -200,7 +200,7 @@ module.exports = {
 
 /***/ }),
 
-/***/ 640:
+/***/ 618:
 /***/ (function(module, exports) {
 
 module.exports = {
@@ -237,7 +237,7 @@ module.exports = {
 
 /***/ }),
 
-/***/ 641:
+/***/ 619:
 /***/ (function(module, exports) {
 
 module.exports = function(module, exports, $app_require$){'use strict';
@@ -263,9 +263,14 @@ exports.default = {
       uri: '/DemoDetail'
     });
   },
-  DefinitIntegralRouteDetail: function DefinitIntegralRouteDetail() {
+  integralRouteDetail: function integralRouteDetail() {
     _system2.default.push({
-      uri: '/DefinitIntegral'
+      uri: '/Integral'
+    });
+  },
+  isPrimeRouteDetail: function isPrimeRouteDetail() {
+    _system2.default.push({
+      uri: '/IsPrime'
     });
   }
 };
