@@ -10,9 +10,11 @@
       <input name=a2 type="text" class="xui-input-round" placeholder="请输入未知数" @change="bindPhoneChange2"></input>
     </div>
 
-    <input type="button" class="btn" onclick="set" value="计算" />
-    <input type="button" class="btn" onclick="get" value="输出结果" />
-
+    <div class="memu">
+      <input type="button" class="btn" onclick="set" value="计算并输出至剪贴板" />
+      <input type="button" class="btn" onclick="get" value="输出剪贴板的内容" />
+    </div>
+    
     <div class="item-content txt-left ">
       <text class="txt ">结果如下：</text>
       <text class="txt ">{{showGet}}</text>
@@ -21,8 +23,49 @@
 </template>
 
 <style>
-  @import '../Common/index.css';
-  @import '../Common/common.css';
+  .flex-column {
+  flex-direction: column;
+  }
+
+  .xui-input-group-col {
+  margin-top: 30px;
+  padding: 10px 30px;
+  flex-direction: column;
+  }
+
+  .xui-input-group-col-title {
+  margin-bottom: 10px;
+  }
+
+  .xui-input-round {
+  border: 1px solid #cccccc;
+  border-radius: 10px;
+  padding: 20px 30px;
+  background-color: transparent;
+  height: 80px;
+  font-size: 30px;
+  }
+  
+  .menu{
+    flex-direction: column;
+    justify-content:space-between;
+    align-items:flex-start;
+  }
+  
+  .btn {
+    width: 400px;
+    height: 80px;
+    margin-top: 50px;
+    margin-left: 20px;
+    margin-right: 20px;
+    border-style:solid;
+    border-width:1px;
+    border-color:#b7b7b7;
+    border-radius:10px;
+    background-color: #ffffff;
+    font-size: 30px;
+    color:#444444;
+  }
 
   .item-content {
     flex-direction: column;
@@ -49,22 +92,16 @@
 
   math.import(require('mathjs-simple-integral'))
 
-  var a1
-
-  var a2
+  var a1,a2
 
   export default {
-    onInit() {
-      this.$page.setTitleBar({ text: '定积分计算器' })
-    },
     private: {
-      range: ['text1', 'text2', 'text3'],
       text: 'default',
       componentName: 'clipboard',
       show: true,
-      clipboard: '无内容',
+      clipboard: '暂无内容',
       showSet: '',
-      showGet: ''
+      showGet: '暂无内容'
     },
     bindPhoneChange1(e) {
       a1 = e.value;
