@@ -44,7 +44,11 @@
       },
       "IsPrime": {
         "component": "index"
+      },
+      "TheCartesianProduct": {
+        "component": "index"
       }
+      
     }
   },
   "display": {
@@ -71,6 +75,10 @@
       "IsPrime": {
         "menu":false,
         "titleBarText": "判断素数"
+      },
+      "TheCartesianProduct":{
+        "menu":false,
+        "titleBarText":"笛卡儿积"
       }
     }
   }

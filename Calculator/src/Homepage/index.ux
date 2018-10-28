@@ -8,7 +8,7 @@
     <div class="menu">
         <input class="btn" type="button" value="积分计算（Beta）" onclick="integralRouteDetail" />
         <input class="btn" type="button" value="素数判断" onclick="isPrimeRouteDetail" />
-        <input class="btn" type="button" value="敬请期待" onclick="routeDetail" />
+        <input class="btn" type="button" value="笛卡儿积" onclick="theCartesianProductRouteDetail" />
     </div>
   </div>
 </template>
@@ -61,6 +61,11 @@
     isPrimeRouteDetail () {
       router.push ({
         uri: '/IsPrime'
+      })
+    },
+    theCartesianProductRouteDetail () {
+      router.push ({
+        uri: '/TheCartesianProduct'
       })
     }
   }

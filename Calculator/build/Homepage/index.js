@@ -184,13 +184,13 @@ module.exports = {
           "type": "input",
           "attr": {
             "type": "button",
-            "value": "敬请期待"
+            "value": "笛卡儿积"
           },
           "classList": [
             "btn"
           ],
           "events": {
-            "click": "routeDetail"
+            "click": "theCartesianProductRouteDetail"
           }
         }
       ]
@@ -271,6 +271,11 @@ exports.default = {
   isPrimeRouteDetail: function isPrimeRouteDetail() {
     _system2.default.push({
       uri: '/IsPrime'
+    });
+  },
+  theCartesianProductRouteDetail: function theCartesianProductRouteDetail() {
+    _system2.default.push({
+      uri: '/TheCartesianProduct'
     });
   }
 };
