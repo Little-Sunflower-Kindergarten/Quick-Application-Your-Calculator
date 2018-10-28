@@ -213,7 +213,7 @@ var _string = _interopRequireDefault(__webpack_require__(8));
 
 var _DimensionError = _interopRequireDefault(__webpack_require__(11));
 
-var _IndexError = _interopRequireDefault(__webpack_require__(60));
+var _IndexError = _interopRequireDefault(__webpack_require__(56));
 
 function _interopRequireDefault(obj) {
   return obj && obj.__esModule ? obj : { default: obj };
@@ -1266,7 +1266,7 @@ exports.nearlyEqual = function (x, y, epsilon) {
 "use strict";
 
 
-var escapeLatex = __webpack_require__(162);
+var escapeLatex = __webpack_require__(160);
 
 exports.symbols = {
   // GREEK LETTERS
@@ -1430,7 +1430,7 @@ function _typeof(obj) {
   }return _typeof(obj);
 }
 
-var isBigNumber = __webpack_require__(84);
+var isBigNumber = __webpack_require__(83);
 /**
  * Clone an object
  *
@@ -1909,9 +1909,9 @@ function _typeof(obj) {
 
 var formatNumber = __webpack_require__(3).format;
 
-var formatBigNumber = __webpack_require__(182).format;
+var formatBigNumber = __webpack_require__(178).format;
 
-var isBigNumber = __webpack_require__(84);
+var isBigNumber = __webpack_require__(83);
 /**
  * Test whether value is a string
  * @param {*} value
@@ -2125,7 +2125,7 @@ function factory(type, config, load, typed) {
 
   var matrix = load(__webpack_require__(1));
   var addScalar = load(__webpack_require__(17));
-  var multiplyScalar = load(__webpack_require__(22));
+  var multiplyScalar = load(__webpack_require__(21));
   var equalScalar = load(__webpack_require__(10));
   var algorithm11 = load(__webpack_require__(20));
   var algorithm14 = load(__webpack_require__(6));
@@ -3042,7 +3042,7 @@ exports.factory = factory;
 
 var nearlyEqual = __webpack_require__(3).nearlyEqual;
 
-var bigNearlyEqual = __webpack_require__(39);
+var bigNearlyEqual = __webpack_require__(38);
 
 function factory(type, config, load, typed) {
   /**
@@ -3124,8 +3124,8 @@ module.exports = DimensionError;
 
 
 function factory(type, config, load, typed) {
-  var numeric = load(__webpack_require__(70));
-  var getTypeOf = load(__webpack_require__(25));
+  var numeric = load(__webpack_require__(67));
+  var getTypeOf = load(__webpack_require__(24));
   /**
    * Divide two scalar values, `x / y`.
    * This function is meant for internal use: it is used by the public functions
@@ -3376,8 +3376,8 @@ function factory(type, config, load, typed) {
   var latex = __webpack_require__(4);
 
   var algorithm01 = load(__webpack_require__(33));
-  var algorithm04 = load(__webpack_require__(88));
-  var algorithm10 = load(__webpack_require__(40));
+  var algorithm04 = load(__webpack_require__(87));
+  var algorithm10 = load(__webpack_require__(39));
   var algorithm13 = load(__webpack_require__(7));
   var algorithm14 = load(__webpack_require__(6));
   /**
@@ -3498,8 +3498,8 @@ function factory(type, config, load, typed) {
   var unaryMinus = load(__webpack_require__(35));
   var algorithm01 = load(__webpack_require__(33));
   var algorithm03 = load(__webpack_require__(18));
-  var algorithm05 = load(__webpack_require__(71));
-  var algorithm10 = load(__webpack_require__(40));
+  var algorithm05 = load(__webpack_require__(68));
+  var algorithm10 = load(__webpack_require__(39));
   var algorithm13 = load(__webpack_require__(7));
   var algorithm14 = load(__webpack_require__(6)); // TODO: split function subtract in two: subtract and subtractScalar
 
@@ -3662,7 +3662,7 @@ function _typeof(obj) {
   }return _typeof(obj);
 }
 
-var keywords = __webpack_require__(115);
+var keywords = __webpack_require__(113);
 
 var deepEqual = __webpack_require__(5).deepEqual;
 
@@ -4481,74 +4481,6 @@ exports.factory = factory;
 /* 21 */
 /***/ (function(module, exports, __webpack_require__) {
 
-// the compile functions which compile a Node into JavaScript are not
-// exposed as class methods for security reasons to prevent being able to
-// override them or create fake Nodes. Instead, only compile functions of
-// registered nodes can be executed
-
-var hasOwnProperty = __webpack_require__(66).hasOwnProperty;
-
-function factory () {
-  // map with node type as key and compile functions as value
-  var compileFunctions = {}
-
-  /**
-   * Register a compile function for a node
-   * @param {string} type
-   * @param {function} compileFunction
-   *                      The compile function, invoked as
-   *                      compileFunction(node, defs, args)
-   */
-  function register(type, compileFunction) {
-    if (compileFunctions[type] === undefined) {
-      compileFunctions[type] = compileFunction;
-    }
-    else {
-      throw new Error('Cannot register type "' + type + '": already exists');
-    }
-  }
-
-  /**
-   * Compile a Node into JavaScript
-   * @param {Node} node
-   * @param {Object} defs     Object which can be used to define functions
-   *                          or constants globally available for the compiled
-   *                          expression
-   * @param {Object} args     Object with local function arguments, the key is
-   *                          the name of the argument, and the value is `true`.
-   *                          The object may not be mutated, but must be
-   *                          extended instead.
-   * @return {string} Returns JavaScript code
-   */
-  function compile (node, defs, args) {
-    if (hasOwnProperty(compileFunctions, node.type)) {
-      var compileFunction = compileFunctions[node.type];
-      return compileFunction(node, defs, args);
-    }
-    else if (typeof node._compile === 'function' &&
-        !hasOwnProperty(node, '_compile')) {
-      // Compatibility for CustomNodes
-      // TODO: this is a security risk, change it such that you have to register CustomNodes separately in math.js, like math.expression.node.register(MyCustomNode)
-      return node._compile(defs, args);
-    }
-    else {
-      throw new Error('Cannot compile node: unknown type "' + node.type + '"');
-    }
-  }
-
-  return {
-    register: register,
-    compile: compile
-  }
-}
-
-exports.factory = factory;
-
-
-/***/ }),
-/* 22 */
-/***/ (function(module, exports, __webpack_require__) {
-
 "use strict";
 
 
@@ -4599,7 +4531,7 @@ function factory(type, config, load, typed) {
 exports.factory = factory;
 
 /***/ }),
-/* 23 */
+/* 22 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -4827,7 +4759,7 @@ exports.name = 'subset';
 exports.factory = factory;
 
 /***/ }),
-/* 24 */
+/* 23 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -4889,7 +4821,7 @@ exports.name = 'abs';
 exports.factory = factory;
 
 /***/ }),
-/* 25 */
+/* 24 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -5007,7 +4939,7 @@ exports.name = 'typeof';
 exports.factory = factory;
 
 /***/ }),
-/* 26 */
+/* 25 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -5129,7 +5061,7 @@ exports.name = 'algorithm02';
 exports.factory = factory;
 
 /***/ }),
-/* 27 */
+/* 26 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -5186,7 +5118,7 @@ exports.name = 'size';
 exports.factory = factory;
 
 /***/ }),
-/* 28 */
+/* 27 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -5314,7 +5246,7 @@ exports.name = 'algorithm07';
 exports.factory = factory;
 
 /***/ }),
-/* 29 */
+/* 28 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -5604,17 +5536,17 @@ exports.path = 'type';
 exports.factory = factory;
 
 /***/ }),
-/* 30 */
+/* 29 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
-var naturalSort = __webpack_require__(296);
+var naturalSort = __webpack_require__(292);
 
 function factory(type, config, load, typed) {
-  var getTypeOf = load(__webpack_require__(25));
-  var compare = load(__webpack_require__(55));
+  var getTypeOf = load(__webpack_require__(24));
+  var compare = load(__webpack_require__(53));
   var compareBooleans = compare.signatures['boolean,boolean'];
   /**
    * Compare two values of any type in a deterministic, natural way.
@@ -5906,19 +5838,87 @@ exports.name = 'compareNatural';
 exports.factory = factory;
 
 /***/ }),
-/* 31 */
+/* 30 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
 exports.array = __webpack_require__(2);
-exports['boolean'] = __webpack_require__(191);
+exports['boolean'] = __webpack_require__(187);
 exports['function'] = __webpack_require__(32);
 exports.number = __webpack_require__(3);
 exports.object = __webpack_require__(5);
 exports.string = __webpack_require__(8);
-exports.emitter = __webpack_require__(106);
+exports.emitter = __webpack_require__(104);
+
+/***/ }),
+/* 31 */
+/***/ (function(module, exports, __webpack_require__) {
+
+// the compile functions which compile a Node into JavaScript are not
+// exposed as class methods for security reasons to prevent being able to
+// override them or create fake Nodes. Instead, only compile functions of
+// registered nodes can be executed
+
+var hasOwnProperty = __webpack_require__(102).hasOwnProperty;
+
+function factory () {
+  // map with node type as key and compile functions as value
+  var compileFunctions = {}
+
+  /**
+   * Register a compile function for a node
+   * @param {string} type
+   * @param {function} compileFunction
+   *                      The compile function, invoked as
+   *                      compileFunction(node, defs, args)
+   */
+  function register(type, compileFunction) {
+    if (compileFunctions[type] === undefined) {
+      compileFunctions[type] = compileFunction;
+    }
+    else {
+      throw new Error('Cannot register type "' + type + '": already exists');
+    }
+  }
+
+  /**
+   * Compile a Node into JavaScript
+   * @param {Node} node
+   * @param {Object} defs     Object which can be used to define functions
+   *                          or constants globally available for the compiled
+   *                          expression
+   * @param {Object} args     Object with local function arguments, the key is
+   *                          the name of the argument, and the value is `true`.
+   *                          The object may not be mutated, but must be
+   *                          extended instead.
+   * @return {string} Returns JavaScript code
+   */
+  function compile (node, defs, args) {
+    if (hasOwnProperty(compileFunctions, node.type)) {
+      var compileFunction = compileFunctions[node.type];
+      return compileFunction(node, defs, args);
+    }
+    else if (typeof node._compile === 'function' &&
+        !hasOwnProperty(node, '_compile')) {
+      // Compatibility for CustomNodes
+      // TODO: this is a security risk, change it such that you have to register CustomNodes separately in math.js, like math.expression.node.register(MyCustomNode)
+      return node._compile(defs, args);
+    }
+    else {
+      throw new Error('Cannot compile node: unknown type "' + node.type + '"');
+    }
+  }
+
+  return {
+    register: register,
+    compile: compile
+  }
+}
+
+exports.factory = factory;
+
 
 /***/ }),
 /* 32 */
@@ -6128,12 +6128,12 @@ exports.factory = factory;
 
 var nearlyEqual = __webpack_require__(3).nearlyEqual;
 
-var bigNearlyEqual = __webpack_require__(39);
+var bigNearlyEqual = __webpack_require__(38);
 
 function factory(type, config, load, typed) {
   var matrix = load(__webpack_require__(1));
   var algorithm03 = load(__webpack_require__(18));
-  var algorithm07 = load(__webpack_require__(28));
+  var algorithm07 = load(__webpack_require__(27));
   var algorithm12 = load(__webpack_require__(19));
   var algorithm13 = load(__webpack_require__(7));
   var algorithm14 = load(__webpack_require__(6));
@@ -6384,7 +6384,7 @@ exports.factory = factory;
 
 
 function factory(type, config, load, typed) {
-  var getType = load(__webpack_require__(25));
+  var getType = load(__webpack_require__(24));
   /**
    * Improve error messages for statistics functions. Errors are typically
    * thrown in an internally used function like larger, causing the error
@@ -6418,223 +6418,6 @@ exports.factory = factory;
 
 /***/ }),
 /* 38 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-var formatNumber = __webpack_require__(163).format;
-var formatBigNumber = __webpack_require__(630).format;
-var isBigNumber = __webpack_require__(591);
-
-/**
- * Test whether value is a string
- * @param {*} value
- * @return {boolean} isString
- */
-exports.isString = function(value) {
-  return typeof value === 'string';
-};
-
-/**
- * Check if a text ends with a certain string.
- * @param {string} text
- * @param {string} search
- */
-exports.endsWith = function(text, search) {
-  var start = text.length - search.length;
-  var end = text.length;
-  return (text.substring(start, end) === search);
-};
-
-/**
- * Format a value of any type into a string.
- *
- * Usage:
- *     math.format(value)
- *     math.format(value, precision)
- *
- * When value is a function:
- *
- * - When the function has a property `syntax`, it returns this
- *   syntax description.
- * - In other cases, a string `'function'` is returned.
- *
- * When `value` is an Object:
- *
- * - When the object contains a property `format` being a function, this
- *   function is invoked as `value.format(options)` and the result is returned.
- * - When the object has its own `toString` method, this method is invoked
- *   and the result is returned.
- * - In other cases the function will loop over all object properties and
- *   return JSON object notation like '{"a": 2, "b": 3}'.
- *
- * Example usage:
- *     math.format(2/7);                // '0.2857142857142857'
- *     math.format(math.pi, 3);         // '3.14'
- *     math.format(new Complex(2, 3));  // '2 + 3i'
- *     math.format('hello');            // '"hello"'
- *
- * @param {*} value             Value to be stringified
- * @param {Object | number | Function} [options]  Formatting options. See
- *                                                lib/utils/number:format for a
- *                                                description of the available
- *                                                options.
- * @return {string} str
- */
-exports.format = function(value, options) {
-  if (typeof value === 'number') {
-    return formatNumber(value, options);
-  }
-
-  if (isBigNumber(value)) {
-    return formatBigNumber(value, options);
-  }
-
-  // note: we use unsafe duck-typing here to check for Fractions, this is
-  // ok here since we're only invoking toString or concatenating its values
-  if (looksLikeFraction(value)) {
-    if (!options || options.fraction !== 'decimal') {
-      // output as ratio, like '1/3'
-      return (value.s * value.n) + '/' + value.d;
-    }
-    else {
-      // output as decimal, like '0.(3)'
-      return value.toString();
-    }
-  }
-
-  if (Array.isArray(value)) {
-    return formatArray(value, options);
-  }
-
-  if (exports.isString(value)) {
-    return '"' + value + '"';
-  }
-
-  if (typeof value === 'function') {
-    return value.syntax ? String(value.syntax) : 'function';
-  }
-
-  if (value && typeof value === 'object') {
-    if (typeof value.format === 'function') {
-      return value.format(options);
-    }
-    else if (value && value.toString() !== {}.toString()) {
-      // this object has a non-native toString method, use that one
-      return value.toString();
-    }
-    else {
-      var entries = [];
-
-      for (var key in value) {
-        if (value.hasOwnProperty(key)) {
-          entries.push('"' + key + '": ' + exports.format(value[key], options));
-        }
-      }
-
-      return '{' + entries.join(', ') + '}';
-    }
-  }
-
-  return String(value);
-};
-
-/**
- * Stringify a value into a string enclosed in double quotes.
- * Unescaped double quotes and backslashes inside the value are escaped.
- * @param {*} value
- * @return {string}
- */
-exports.stringify = function (value) {
-  var text = String(value);
-  var escaped = '';
-  var i = 0;
-  while (i < text.length) {
-    var c = text.charAt(i);
-
-    if (c === '\\') {
-      escaped += c;
-      i++;
-
-      c = text.charAt(i);
-      if (c === '' || '"\\/bfnrtu'.indexOf(c) === -1) {
-        escaped += '\\';  // no valid escape character -> escape it
-      }
-      escaped += c;
-    }
-    else if (c === '"') {
-      escaped += '\\"';
-    }
-    else {
-      escaped += c;
-    }
-    i++;
-  }
-
-  return '"' + escaped + '"';
-}
-
-/**
- * Escape special HTML characters
- * @param {*} value
- * @return {string}
- */
-exports.escape = function (value) {
-  var text = String(value);
-  text = text.replace(/&/g, '&amp;')
-			 .replace(/"/g, '&quot;')
-			 .replace(/'/g, '&#39;')
-			 .replace(/</g, '&lt;')
-			 .replace(/>/g, '&gt;');
-  
-  return text;
-}
-
-/**
- * Recursively format an n-dimensional matrix
- * Example output: "[[1, 2], [3, 4]]"
- * @param {Array} array
- * @param {Object | number | Function} [options]  Formatting options. See
- *                                                lib/utils/number:format for a
- *                                                description of the available
- *                                                options.
- * @returns {string} str
- */
-function formatArray (array, options) {
-  if (Array.isArray(array)) {
-    var str = '[';
-    var len = array.length;
-    for (var i = 0; i < len; i++) {
-      if (i != 0) {
-        str += ', ';
-      }
-      str += formatArray(array[i], options);
-    }
-    str += ']';
-    return str;
-  }
-  else {
-    return exports.format(array, options);
-  }
-}
-
-/**
- * Check whether a value looks like a Fraction (unsafe duck-type check)
- * @param {*} value
- * @return {boolean}
- */
-function looksLikeFraction (value) {
-  return (value &&
-      typeof value === 'object' &&
-      typeof value.s === 'number' &&
-      typeof value.n === 'number' &&
-      typeof value.d === 'number') || false;
-}
-
-
-/***/ }),
-/* 39 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -6684,7 +6467,7 @@ module.exports = function nearlyEqual(x, y, epsilon) {
 };
 
 /***/ }),
-/* 40 */
+/* 39 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -6796,7 +6579,7 @@ exports.name = 'algorithm10';
 exports.factory = factory;
 
 /***/ }),
-/* 41 */
+/* 40 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -6804,12 +6587,12 @@ exports.factory = factory;
 
 var nearlyEqual = __webpack_require__(3).nearlyEqual;
 
-var bigNearlyEqual = __webpack_require__(39);
+var bigNearlyEqual = __webpack_require__(38);
 
 function factory(type, config, load, typed) {
   var matrix = load(__webpack_require__(1));
   var algorithm03 = load(__webpack_require__(18));
-  var algorithm07 = load(__webpack_require__(28));
+  var algorithm07 = load(__webpack_require__(27));
   var algorithm12 = load(__webpack_require__(19));
   var algorithm13 = load(__webpack_require__(7));
   var algorithm14 = load(__webpack_require__(6));
@@ -6925,7 +6708,7 @@ exports.name = 'smaller';
 exports.factory = factory;
 
 /***/ }),
-/* 42 */
+/* 41 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -6938,11 +6721,11 @@ var size = __webpack_require__(2).size;
 function factory(type, config, load, typed) {
   var latex = __webpack_require__(4);
 
-  var identity = load(__webpack_require__(51));
+  var identity = load(__webpack_require__(49));
   var multiply = load(__webpack_require__(9));
   var matrix = load(__webpack_require__(1));
-  var fraction = load(__webpack_require__(86));
-  var number = load(__webpack_require__(69));
+  var fraction = load(__webpack_require__(85));
+  var number = load(__webpack_require__(66));
   /**
    * Calculates the power of x to y, `x ^ y`.
    * Matrix exponentiation is supported for square matrices `x`, and positive
@@ -7116,7 +6899,7 @@ exports.name = 'pow';
 exports.factory = factory;
 
 /***/ }),
-/* 43 */
+/* 42 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -7253,7 +7036,7 @@ exports.name = 'zeros';
 exports.factory = factory;
 
 /***/ }),
-/* 44 */
+/* 43 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -7271,27 +7054,27 @@ function _extends() {
   };return _extends.apply(this, arguments);
 }
 
-var ArgumentsError = __webpack_require__(59);
+var ArgumentsError = __webpack_require__(55);
 
 var deepMap = __webpack_require__(0);
 
 function factory(type, config, load, typed) {
-  var numeric = load(__webpack_require__(70));
-  var AccessorNode = load(__webpack_require__(114));
-  var ArrayNode = load(__webpack_require__(117));
-  var AssignmentNode = load(__webpack_require__(118));
-  var BlockNode = load(__webpack_require__(119));
-  var ConditionalNode = load(__webpack_require__(120));
-  var ConstantNode = load(__webpack_require__(62));
-  var FunctionAssignmentNode = load(__webpack_require__(121));
-  var IndexNode = load(__webpack_require__(122));
-  var ObjectNode = load(__webpack_require__(123));
-  var OperatorNode = load(__webpack_require__(63));
-  var ParenthesisNode = load(__webpack_require__(72));
-  var FunctionNode = load(__webpack_require__(73));
-  var RangeNode = load(__webpack_require__(124));
-  var RelationalNode = load(__webpack_require__(125));
-  var SymbolNode = load(__webpack_require__(54));
+  var numeric = load(__webpack_require__(67));
+  var AccessorNode = load(__webpack_require__(112));
+  var ArrayNode = load(__webpack_require__(115));
+  var AssignmentNode = load(__webpack_require__(116));
+  var BlockNode = load(__webpack_require__(117));
+  var ConditionalNode = load(__webpack_require__(118));
+  var ConstantNode = load(__webpack_require__(58));
+  var FunctionAssignmentNode = load(__webpack_require__(119));
+  var IndexNode = load(__webpack_require__(120));
+  var ObjectNode = load(__webpack_require__(121));
+  var OperatorNode = load(__webpack_require__(59));
+  var ParenthesisNode = load(__webpack_require__(69));
+  var FunctionNode = load(__webpack_require__(70));
+  var RangeNode = load(__webpack_require__(122));
+  var RelationalNode = load(__webpack_require__(123));
+  var SymbolNode = load(__webpack_require__(52));
   /**
    * Parse an expression. Returns a node tree, which can be evaluated by
    * invoking node.eval().
@@ -8921,13 +8704,13 @@ exports.path = 'expression';
 exports.factory = factory;
 
 /***/ }),
-/* 45 */
+/* 44 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
-var IndexError = __webpack_require__(60);
+var IndexError = __webpack_require__(56);
 /**
  * Transform zero-based indices to one-based indices in errors
  * @param {Error} err
@@ -8943,7 +8726,7 @@ exports.transform = function (err) {
 };
 
 /***/ }),
-/* 46 */
+/* 45 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -8954,7 +8737,7 @@ var extend = __webpack_require__(5).extend;
 function factory(type, config, load, typed) {
   var divideScalar = load(__webpack_require__(12));
   var multiply = load(__webpack_require__(9));
-  var inv = load(__webpack_require__(74));
+  var inv = load(__webpack_require__(71));
   var matrix = load(__webpack_require__(1));
   var algorithm11 = load(__webpack_require__(20));
   var algorithm14 = load(__webpack_require__(6));
@@ -9023,7 +8806,7 @@ exports.name = 'divide';
 exports.factory = factory;
 
 /***/ }),
-/* 47 */
+/* 46 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -9105,13 +8888,13 @@ exports.name = 'sqrt';
 exports.factory = factory;
 
 /***/ }),
-/* 48 */
+/* 47 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
-var isMatrix = __webpack_require__(67);
+var isMatrix = __webpack_require__(64);
 /**
  * Recursively loop over all elements in a given multi dimensional array
  * and invoke the callback on each of the elements.
@@ -9137,424 +8920,13 @@ module.exports = function deepForEach(array, callback) {
 };
 
 /***/ }),
-/* 49 */
+/* 48 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
-var keywords = __webpack_require__(587);
-var deepEqual= __webpack_require__(66).deepEqual;
-var hasOwnProperty = __webpack_require__(66).hasOwnProperty;
-
-function factory (type, config, load, typed, math) {
-  var compile = load(__webpack_require__(21)).compile;
-
-  /**
-   * Node
-   */
-  function Node() {
-    if (!(this instanceof Node)) {
-      throw new SyntaxError('Constructor must be called with the new operator');
-    }
-  }
-
-  /**
-   * Evaluate the node
-   * @param {Object} [scope]  Scope to read/write variables
-   * @return {*}              Returns the result
-   */
-  Node.prototype.eval = function(scope) {
-    return this.compile().eval(scope);
-  };
-
-  Node.prototype.type = 'Node';
-
-  Node.prototype.isNode = true;
-
-  Node.prototype.comment = '';
-
-  /**
-   * Compile the node to javascript code
-   * @return {{eval: function}} expr  Returns an object with a function 'eval',
-   *                                  which can be invoked as expr.eval([scope]),
-   *                                  where scope is an optional object with
-   *                                  variables.
-   */
-  Node.prototype.compile = function () {
-    // TODO: calling compile(math) is deprecated since version 2.0.0. Remove this warning some day
-    if (arguments.length > 0) {
-      throw new Error('Calling compile(math) is deprecated. Call the function as compile() instead.');
-    }
-
-    // definitions globally available inside the closure of the compiled expressions
-    var defs = {
-      math: math.expression.mathWithTransform,
-      args: {}, // can be filled with names of FunctionAssignment arguments
-      _validateScope: _validateScope
-    };
-
-    // will be used to put local function arguments
-    var args = {};
-
-    var code = compile(this, defs, args);
-
-    var defsCode = Object.keys(defs).map(function (name) {
-      return '    var ' + name + ' = defs["' + name + '"];';
-    });
-
-    var factoryCode =
-        defsCode.join(' ') +
-        'return {' +
-        '  "eval": function (scope) {' +
-        '    if (scope) _validateScope(scope);' +
-        '    scope = scope || {};' +
-        '    return ' + code + ';' +
-        '  }' +
-        '};';
-
-    var factory = new Function('defs', factoryCode);
-    return factory(defs);
-  };
-
-  /**
-   * Execute a callback for each of the child nodes of this node
-   * @param {function(child: Node, path: string, parent: Node)} callback
-   */
-  Node.prototype.forEach = function (callback) {
-    // must be implemented by each of the Node implementations
-    throw new Error('Cannot run forEach on a Node interface');
-  };
-
-  /**
-   * Create a new Node having it's childs be the results of calling
-   * the provided callback function for each of the childs of the original node.
-   * @param {function(child: Node, path: string, parent: Node): Node} callback
-   * @returns {OperatorNode} Returns a transformed copy of the node
-   */
-  Node.prototype.map = function (callback) {
-    // must be implemented by each of the Node implementations
-    throw new Error('Cannot run map on a Node interface');
-  };
-
-  /**
-   * Validate whether an object is a Node, for use with map
-   * @param {Node} node
-   * @returns {Node} Returns the input if it's a node, else throws an Error
-   * @protected
-   */
-  Node.prototype._ifNode = function (node) {
-    if (!type.isNode(node)) {
-      throw new TypeError('Callback function must return a Node');
-    }
-
-    return node;
-  };
-
-  /**
-   * Recursively traverse all nodes in a node tree. Executes given callback for
-   * this node and each of its child nodes.
-   * @param {function(node: Node, path: string, parent: Node)} callback
-   *          A callback called for every node in the node tree.
-   */
-  Node.prototype.traverse = function (callback) {
-    // execute callback for itself
-    callback(this, null, null);
-
-    // recursively traverse over all childs of a node
-    function _traverse(node, callback) {
-      node.forEach(function (child, path, parent) {
-        callback(child, path, parent);
-        _traverse(child, callback);
-      });
-    }
-
-    _traverse(this, callback);
-  };
-
-  /**
-   * Recursively transform a node tree via a transform function.
-   *
-   * For example, to replace all nodes of type SymbolNode having name 'x' with a
-   * ConstantNode with value 2:
-   *
-   *     var res = Node.transform(function (node, path, parent) {
-   *       if (node && node.isSymbolNode) && (node.name == 'x')) {
-   *         return new ConstantNode(2);
-   *       }
-   *       else {
-   *         return node;
-   *       }
-   *     });
-   *
-   * @param {function(node: Node, path: string, parent: Node) : Node} callback
-   *          A mapping function accepting a node, and returning
-   *          a replacement for the node or the original node.
-   *          Signature: callback(node: Node, index: string, parent: Node) : Node
-   * @return {Node} Returns the original node or its replacement
-   */
-  Node.prototype.transform = function (callback) {
-    // traverse over all childs
-    function _transform (node, callback) {
-      return node.map(function(child, path, parent) {
-        var replacement = callback(child, path, parent);
-        return _transform(replacement, callback);
-      });
-    }
-
-    var replacement = callback(this, null, null);
-    return _transform(replacement, callback);
-  };
-
-  /**
-   * Find any node in the node tree matching given filter function. For example, to
-   * find all nodes of type SymbolNode having name 'x':
-   *
-   *     var results = Node.filter(function (node) {
-   *       return (node && node.isSymbolNode) && (node.name == 'x');
-   *     });
-   *
-   * @param {function(node: Node, path: string, parent: Node) : Node} callback
-   *            A test function returning true when a node matches, and false
-   *            otherwise. Function signature:
-   *            callback(node: Node, index: string, parent: Node) : boolean
-   * @return {Node[]} nodes       An array with nodes matching given filter criteria
-   */
-  Node.prototype.filter = function (callback) {
-    var nodes = [];
-
-    this.traverse(function (node, path, parent) {
-      if (callback(node, path, parent)) {
-        nodes.push(node);
-      }
-    });
-
-    return nodes;
-  };
-
-  // TODO: deprecated since version 1.1.0, remove this some day
-  Node.prototype.find = function () {
-    throw new Error('Function Node.find is deprecated. Use Node.filter instead.');
-  };
-
-  // TODO: deprecated since version 1.1.0, remove this some day
-  Node.prototype.match = function () {
-    throw new Error('Function Node.match is deprecated. See functions Node.filter, Node.transform, Node.traverse.');
-  };
-
-  /**
-   * Create a shallow clone of this node
-   * @return {Node}
-   */
-  Node.prototype.clone = function () {
-    // must be implemented by each of the Node implementations
-    throw new Error('Cannot clone a Node interface');
-  };
-
-  /**
-   * Create a deep clone of this node
-   * @return {Node}
-   */
-  Node.prototype.cloneDeep = function () {
-    return this.map(function (node) {
-      return node.cloneDeep();
-    });
-  };
-
-  /**
-   * Deep compare this node with another node.
-   * @param {Node} other
-   * @return {boolean} Returns true when both nodes are of the same type and
-   *                   contain the same values (as do their childs)
-   */
-  Node.prototype.equals = function (other) {
-    return other
-        ? deepEqual(this, other)
-        : false
-  };
-
-  /**
-   * Get string representation. (wrapper function)
-   *
-   * This function can get an object of the following form:
-   * {
-   *    handler: //This can be a callback function of the form
-   *             // "function callback(node, options)"or
-   *             // a map that maps function names (used in FunctionNodes)
-   *             // to callbacks
-   *    parenthesis: "keep" //the parenthesis option (This is optional)
-   * }
-   *
-   * @param {Object} [options]
-   * @return {string}
-   */
-  Node.prototype.toString = function (options) {
-    var customString;
-    if (options && typeof options === 'object') {
-        switch (typeof options.handler) {
-          case 'object':
-          case 'undefined':
-            break;
-          case 'function':
-            customString = options.handler(this, options);
-            break;
-          default:
-            throw new TypeError('Object or function expected as callback');
-        }
-    }
-
-    if (typeof customString !== 'undefined') {
-      return customString;
-    }
-
-    return this._toString(options);
-  };
-
-  /**
-   * Get HTML representation. (wrapper function)
-   *
-   * This function can get an object of the following form:
-   * {
-   *    handler: //This can be a callback function of the form
-   *             // "function callback(node, options)" or
-   *             // a map that maps function names (used in FunctionNodes)
-   *             // to callbacks
-   *    parenthesis: "keep" //the parenthesis option (This is optional)
-   * }
-   *
-   * @param {Object} [options]
-   * @return {string}
-   */
-  Node.prototype.toHTML = function (options) {
-    var customString;
-    if (options && typeof options === 'object') {
-        switch (typeof options.handler) {
-          case 'object':
-          case 'undefined':
-            break;
-          case 'function':
-            customString = options.handler(this, options);
-            break;
-          default:
-            throw new TypeError('Object or function expected as callback');
-        }
-    }
-
-    if (typeof customString !== 'undefined') {
-      return customString;
-    }
-
-    return this.toHTML(options);
-  };
-
-  /**
-   * Internal function to generate the string output.
-   * This has to be implemented by every Node
-   *
-   * @throws {Error}
-   */
-  Node.prototype._toString = function () {
-    //must be implemented by each of the Node implementations
-    throw new Error('_toString not implemented for ' + this.type);
-  };
-
-  /**
-   * Get LaTeX representation. (wrapper function)
-   *
-   * This function can get an object of the following form:
-   * {
-   *    handler: //This can be a callback function of the form
-   *             // "function callback(node, options)"or
-   *             // a map that maps function names (used in FunctionNodes)
-   *             // to callbacks
-   *    parenthesis: "keep" //the parenthesis option (This is optional)
-   * }
-   *
-   * @param {Object} [options]
-   * @return {string}
-   */
-  Node.prototype.toTex = function (options) {
-    var customTex;
-    if (options && typeof options == 'object') {
-      switch (typeof options.handler) {
-        case 'object':
-        case 'undefined':
-          break;
-        case 'function':
-          customTex = options.handler(this, options);
-          break;
-        default:
-          throw new TypeError('Object or function expected as callback');
-      }
-    }
-
-    if (typeof customTex !== 'undefined') {
-      return customTex;
-    }
-
-    return this._toTex(options);
-  };
-
-  /**
-   * Internal function to generate the LaTeX output.
-   * This has to be implemented by every Node
-   *
-   * @param {Object} [options]
-   * @throws {Error}
-   */
-  Node.prototype._toTex = function (options) {
-    //must be implemented by each of the Node implementations
-    throw new Error('_toTex not implemented for ' + this.type);
-  };
-
-  /**
-   * Get identifier.
-   * @return {string}
-   */
-  Node.prototype.getIdentifier = function () {
-    return this.type;
-  };
-
-  /**
-   * Get the content of the current Node.
-   * @return {Node} node
-   **/
-  Node.prototype.getContent = function () {
-    return this;
-  };
-
-  /**
-   * Validate the symbol names of a scope.
-   * Throws an error when the scope contains an illegal symbol.
-   * @param {Object} scope
-   */
-  function _validateScope(scope) {
-    for (var symbol in scope) {
-      if (hasOwnProperty(scope, symbol)) {
-        if (symbol in keywords) {
-          throw new Error('Scope contains an illegal symbol, "' + symbol + '" is a reserved keyword');
-        }
-      }
-    }
-  }
-
-  return Node;
-}
-
-exports.name = 'Node';
-exports.path = 'expression.node';
-exports.math = true; // request access to the math namespace as 5th argument of the factory function
-exports.factory = factory;
-
-
-/***/ }),
-/* 50 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-var util = __webpack_require__(31);
+var util = __webpack_require__(30);
 
 var DimensionError = __webpack_require__(11);
 
@@ -9569,8 +8941,8 @@ var isString = string.isString;
 var validateIndex = array.validateIndex;
 
 function factory(type, config, load, typed) {
-  var getArrayDataType = load(__webpack_require__(68));
-  var Matrix = load(__webpack_require__(87)); // force loading Matrix (do not use via type.Matrix)
+  var getArrayDataType = load(__webpack_require__(65));
+  var Matrix = load(__webpack_require__(86)); // force loading Matrix (do not use via type.Matrix)
 
   /**
    * Dense Matrix implementation. A regular, dense matrix, supporting multi-dimensional matrices. This is the default matrix type.
@@ -10462,7 +9834,7 @@ exports.factory = factory;
 exports.lazy = false; // no lazy loading, as we alter type.Matrix._storage
 
 /***/ }),
-/* 51 */
+/* 49 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -10607,7 +9979,7 @@ exports.name = 'identity';
 exports.factory = factory;
 
 /***/ }),
-/* 52 */
+/* 50 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -10617,7 +9989,7 @@ function factory(type, config, load, typed) {
   var matrix = load(__webpack_require__(1));
   var equalScalar = load(__webpack_require__(10));
   var algorithm03 = load(__webpack_require__(18));
-  var algorithm07 = load(__webpack_require__(28));
+  var algorithm07 = load(__webpack_require__(27));
   var algorithm12 = load(__webpack_require__(19));
   var algorithm13 = load(__webpack_require__(7));
   var algorithm14 = load(__webpack_require__(6));
@@ -10744,7 +10116,7 @@ exports.name = 'equal';
 exports.factory = factory;
 
 /***/ }),
-/* 53 */
+/* 51 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -11064,7 +10436,7 @@ module.exports.getAssociativity = getAssociativity;
 module.exports.isAssociativeWith = isAssociativeWith;
 
 /***/ }),
-/* 54 */
+/* 52 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -11271,7 +10643,7 @@ exports.math = true; // request access to the math namespace as 5th argument of 
 exports.factory = factory;
 
 /***/ }),
-/* 55 */
+/* 53 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -11279,12 +10651,12 @@ exports.factory = factory;
 
 var nearlyEqual = __webpack_require__(3).nearlyEqual;
 
-var bigNearlyEqual = __webpack_require__(39);
+var bigNearlyEqual = __webpack_require__(38);
 
 function factory(type, config, load, typed) {
   var matrix = load(__webpack_require__(1));
   var algorithm03 = load(__webpack_require__(18));
-  var algorithm05 = load(__webpack_require__(71));
+  var algorithm05 = load(__webpack_require__(68));
   var algorithm12 = load(__webpack_require__(19));
   var algorithm13 = load(__webpack_require__(7));
   var algorithm14 = load(__webpack_require__(6));
@@ -11403,13 +10775,13 @@ exports.name = 'compare';
 exports.factory = factory;
 
 /***/ }),
-/* 56 */
+/* 54 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
-var isMatrix = __webpack_require__(67);
+var isMatrix = __webpack_require__(64);
 /**
  * Test whether a value is a collection: an Array or Matrix
  * @param {*} x
@@ -11421,708 +10793,7 @@ module.exports = function isCollection(x) {
 };
 
 /***/ }),
-/* 57 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-var number = __webpack_require__(163);
-var string = __webpack_require__(38);
-var object = __webpack_require__(66);
-var types = __webpack_require__(593);
-
-var DimensionError = __webpack_require__(594);
-var IndexError = __webpack_require__(595);
-
-/**
- * Calculate the size of a multi dimensional array.
- * This function checks the size of the first entry, it does not validate
- * whether all dimensions match. (use function `validate` for that)
- * @param {Array} x
- * @Return {Number[]} size
- */
-exports.size = function (x) {
-  var s = [];
-
-  while (Array.isArray(x)) {
-    s.push(x.length);
-    x = x[0];
-  }
-
-  return s;
-};
-
-/**
- * Recursively validate whether each element in a multi dimensional array
- * has a size corresponding to the provided size array.
- * @param {Array} array    Array to be validated
- * @param {number[]} size  Array with the size of each dimension
- * @param {number} dim   Current dimension
- * @throws DimensionError
- * @private
- */
-function _validate(array, size, dim) {
-  var i;
-  var len = array.length;
-
-  if (len != size[dim]) {
-    throw new DimensionError(len, size[dim]);
-  }
-
-  if (dim < size.length - 1) {
-    // recursively validate each child array
-    var dimNext = dim + 1;
-    for (i = 0; i < len; i++) {
-      var child = array[i];
-      if (!Array.isArray(child)) {
-        throw new DimensionError(size.length - 1, size.length, '<');
-      }
-      _validate(array[i], size, dimNext);
-    }
-  }
-  else {
-    // last dimension. none of the childs may be an array
-    for (i = 0; i < len; i++) {
-      if (Array.isArray(array[i])) {
-        throw new DimensionError(size.length + 1, size.length, '>');
-      }
-    }
-  }
-}
-
-/**
- * Validate whether each element in a multi dimensional array has
- * a size corresponding to the provided size array.
- * @param {Array} array    Array to be validated
- * @param {number[]} size  Array with the size of each dimension
- * @throws DimensionError
- */
-exports.validate = function(array, size) {
-  var isScalar = (size.length == 0);
-  if (isScalar) {
-    // scalar
-    if (Array.isArray(array)) {
-      throw new DimensionError(array.length, 0);
-    }
-  }
-  else {
-    // array
-    _validate(array, size, 0);
-  }
-};
-
-/**
- * Test whether index is an integer number with index >= 0 and index < length
- * when length is provided
- * @param {number} index    Zero-based index
- * @param {number} [length] Length of the array
- */
-exports.validateIndex = function(index, length) {
-  if (!number.isNumber(index) || !number.isInteger(index)) {
-    throw new TypeError('Index must be an integer (value: ' + index + ')');
-  }
-  if (index < 0 || (typeof length === 'number' && index >= length)) {
-    throw new IndexError(index, length);
-  }
-};
-
-// a constant used to specify an undefined defaultValue
-exports.UNINITIALIZED = {};
-
-/**
- * Resize a multi dimensional array. The resized array is returned.
- * @param {Array} array         Array to be resized
- * @param {Array.<number>} size Array with the size of each dimension
- * @param {*} [defaultValue=0]  Value to be filled in in new entries,
- *                              zero by default. To leave new entries undefined,
- *                              specify array.UNINITIALIZED as defaultValue
- * @return {Array} array         The resized array
- */
-exports.resize = function(array, size, defaultValue) {
-  // TODO: add support for scalars, having size=[] ?
-
-  // check the type of the arguments
-  if (!Array.isArray(array) || !Array.isArray(size)) {
-    throw new TypeError('Array expected');
-  }
-  if (size.length === 0) {
-    throw new Error('Resizing to scalar is not supported');
-  }
-
-  // check whether size contains positive integers
-  size.forEach(function (value) {
-    if (!number.isNumber(value) || !number.isInteger(value) || value < 0) {
-      throw new TypeError('Invalid size, must contain positive integers ' +
-          '(size: ' + string.format(size) + ')');
-    }
-  });
-
-  // recursively resize the array
-  var _defaultValue = (defaultValue !== undefined) ? defaultValue : 0;
-  _resize(array, size, 0, _defaultValue);
-
-  return array;
-};
-
-/**
- * Recursively resize a multi dimensional array
- * @param {Array} array         Array to be resized
- * @param {number[]} size       Array with the size of each dimension
- * @param {number} dim          Current dimension
- * @param {*} [defaultValue]    Value to be filled in in new entries,
- *                              undefined by default.
- * @private
- */
-function _resize (array, size, dim, defaultValue) {
-  var i;
-  var elem;
-  var oldLen = array.length;
-  var newLen = size[dim];
-  var minLen = Math.min(oldLen, newLen);
-
-  // apply new length
-  array.length = newLen;
-
-  if (dim < size.length - 1) {
-    // non-last dimension
-    var dimNext = dim + 1;
-
-    // resize existing child arrays
-    for (i = 0; i < minLen; i++) {
-      // resize child array
-      elem = array[i];
-      if (!Array.isArray(elem)) {
-        elem = [elem]; // add a dimension
-        array[i] = elem;
-      }
-      _resize(elem, size, dimNext, defaultValue);
-    }
-
-    // create new child arrays
-    for (i = minLen; i < newLen; i++) {
-      // get child array
-      elem = [];
-      array[i] = elem;
-
-      // resize new child array
-      _resize(elem, size, dimNext, defaultValue);
-    }
-  }
-  else {
-    // last dimension
-
-    // remove dimensions of existing values
-    for (i = 0; i < minLen; i++) {
-      while (Array.isArray(array[i])) {
-        array[i] = array[i][0];
-      }
-    }
-
-    if(defaultValue !== exports.UNINITIALIZED) {
-      // fill new elements with the default value
-      for (i = minLen; i < newLen; i++) {
-        array[i] = defaultValue;
-      }
-    }
-  }
-}
-
-/**
- * Re-shape a multi dimensional array to fit the specified dimensions
- * @param {Array} array           Array to be reshaped
- * @param {Array.<number>} sizes  List of sizes for each dimension
- * @returns {Array}               Array whose data has been formatted to fit the
- *                                specified dimensions
- *
- * @throws {DimensionError}       If the product of the new dimension sizes does
- *                                not equal that of the old ones
- */
-exports.reshape = function(array, sizes) {
-  var flatArray = exports.flatten(array);
-  var newArray;
-
-  var product = function (arr) {
-    return arr.reduce(function (prev, curr) {
-      return prev * curr;
-    });
-  };
-
-  if (!Array.isArray(array) || !Array.isArray(sizes)) {
-    throw new TypeError('Array expected');
-  }
-
-  if (sizes.length === 0) {
-    throw new DimensionError(0, product(exports.size(array)), '!=');
-  }
-
-  try {
-    newArray  = _reshape(flatArray, sizes);
-  } catch (e) {
-    if (e instanceof DimensionError) {
-      throw new DimensionError(
-        product(sizes),
-        product(exports.size(array)),
-        '!='
-      );
-    }
-    throw e;
-  }
-
-  if (flatArray.length > 0) {
-    throw new DimensionError(
-      product(sizes),
-      product(exports.size(array)),
-      '!='
-    );
-  }
-
-  return newArray;
-};
-
-/**
- * Recursively re-shape a multi dimensional array to fit the specified dimensions
- * @param {Array} array           Array to be reshaped
- * @param {Array.<number>} sizes  List of sizes for each dimension
- * @returns {Array}               Array whose data has been formatted to fit the
- *                                specified dimensions
- *
- * @throws {DimensionError}       If the product of the new dimension sizes does
- *                                not equal that of the old ones
- */
-function _reshape(array, sizes) {
-  var accumulator = [];
-  var i;
-
-  if (sizes.length === 0) {
-    if (array.length === 0) {
-      throw new DimensionError(null, null, '!=');
-    }
-    return array.shift();
-  }
-  for (i = 0; i < sizes[0]; i += 1) {
-    accumulator.push(_reshape(array, sizes.slice(1)));
-  }
-  return accumulator;
-}
-
-
-/**
- * Squeeze a multi dimensional array
- * @param {Array} array
- * @param {Array} [size]
- * @returns {Array} returns the array itself
- */
-exports.squeeze = function(array, size) {
-  var s = size || exports.size(array);
-
-  // squeeze outer dimensions
-  while (Array.isArray(array) && array.length === 1) {
-    array = array[0];
-    s.shift();
-  }
-
-  // find the first dimension to be squeezed
-  var dims = s.length;
-  while (s[dims - 1] === 1) {
-    dims--;
-  }
-
-  // squeeze inner dimensions
-  if (dims < s.length) {
-    array = _squeeze(array, dims, 0);
-    s.length = dims;
-  }
-
-  return array;
-};
-
-/**
- * Recursively squeeze a multi dimensional array
- * @param {Array} array
- * @param {number} dims Required number of dimensions
- * @param {number} dim  Current dimension
- * @returns {Array | *} Returns the squeezed array
- * @private
- */
-function _squeeze (array, dims, dim) {
-  var i, ii;
-
-  if (dim < dims) {
-    var next = dim + 1;
-    for (i = 0, ii = array.length; i < ii; i++) {
-      array[i] = _squeeze(array[i], dims, next);
-    }
-  }
-  else {
-    while (Array.isArray(array)) {
-      array = array[0];
-    }
-  }
-
-  return array;
-}
-
-/**
- * Unsqueeze a multi dimensional array: add dimensions when missing
- * 
- * Paramter `size` will be mutated to match the new, unqueezed matrix size.
- * 
- * @param {Array} array
- * @param {number} dims     Desired number of dimensions of the array
- * @param {number} [outer]  Number of outer dimensions to be added
- * @param {Array} [size]    Current size of array.
- * @returns {Array} returns the array itself
- * @private
- */
-exports.unsqueeze = function(array, dims, outer, size) {
-  var s = size || exports.size(array);
-
-  // unsqueeze outer dimensions
-  if (outer) {
-    for (var i = 0; i < outer; i++) {
-      array = [array];
-      s.unshift(1);
-    }
-  }
-
-  // unsqueeze inner dimensions
-  array = _unsqueeze(array, dims, 0);
-  while (s.length < dims) {
-    s.push(1);
-  }
-
-  return array;
-};
-
-/**
- * Recursively unsqueeze a multi dimensional array
- * @param {Array} array
- * @param {number} dims Required number of dimensions
- * @param {number} dim  Current dimension
- * @returns {Array | *} Returns the squeezed array
- * @private
- */
-function _unsqueeze (array, dims, dim) {
-  var i, ii;
-
-  if (Array.isArray(array)) {
-    var next = dim + 1;
-    for (i = 0, ii = array.length; i < ii; i++) {
-      array[i] = _unsqueeze(array[i], dims, next);
-    }
-  }
-  else {
-    for (var d = dim; d < dims; d++) {
-      array = [array];
-    }
-  }
-
-  return array;
-}
-/**
- * Flatten a multi dimensional array, put all elements in a one dimensional
- * array
- * @param {Array} array   A multi dimensional array
- * @return {Array}        The flattened array (1 dimensional)
- */
-exports.flatten = function(array) {
-  if (!Array.isArray(array)) {
-    //if not an array, return as is
-    return array;
-  }
-  var flat = [];
-
-  array.forEach(function callback(value) {
-    if (Array.isArray(value)) {
-      value.forEach(callback);  //traverse through sub-arrays recursively
-    }
-    else {
-      flat.push(value);
-    }
-  });
-
-  return flat;
-};
-
-/**
- * A safe map
- * @param {Array} array
- * @param {function} callback
- */
-exports.map = function (array, callback) {
-  return Array.prototype.map.call(array, callback);
-}
-
-/**
- * A safe forEach
- * @param {Array} array
- * @param {function} callback
- */
-exports.forEach = function (array, callback) {
-  Array.prototype.forEach.call(array, callback);
-}
-
-/**
- * A safe filter
- * @param {Array} array
- * @param {function} callback
- */
-exports.filter = function (array, callback) {
-  if (exports.size(array).length !== 1) {
-    throw new Error('Only one dimensional matrices supported');
-  }
-
-  return Array.prototype.filter.call(array, callback);
-}
-
-/**
- * Filter values in a callback given a regular expression
- * @param {Array} array
- * @param {RegExp} regexp
- * @return {Array} Returns the filtered array
- * @private
- */
-exports.filterRegExp = function (array, regexp) {
-  if (exports.size(array).length !== 1) {
-    throw new Error('Only one dimensional matrices supported');
-  }
-
-  return Array.prototype.filter.call(array, function (entry) {
-    return regexp.test(entry);
-  });
-}
-
-/**
- * A safe join
- * @param {Array} array
- * @param {string} separator
- */
-exports.join = function (array, separator) {
-  return Array.prototype.join.call(array, separator);
-}
-
-/**
- * Assign a numeric identifier to every element of a sorted array
- * @param {Array}	a  An array
- * @return {Array}	An array of objects containing the original value and its identifier
- */
-exports.identify = function(a) {
-  if (!Array.isArray(a)) {
-	throw new TypeError('Array input expected');
-  }
-	
-  if (a.length === 0) {
-	return a;
-  }
-	
-  var b = [];
-  var count = 0;
-  b[0] = {value: a[0], identifier: 0};
-  for (var i=1; i<a.length; i++) {
-    if (a[i] === a[i-1]) {
-  	count++;
-    }
-    else {
-      count = 0;
-    }
-    b.push({value: a[i], identifier: count});
-  }
-  return b;
-}
-
-/**
- * Remove the numeric identifier from the elements
- * @param	a  An array
- * @return	An array of values without identifiers
- */
-exports.generalize = function(a) {
-  if (!Array.isArray(a)) {
-	throw new TypeError('Array input expected');
-  }
-	
-  if (a.length === 0) {
-	return a;
-  }
-	
-  var b = [];
-  for (var i=0; i<a.length; i++) {
-    b.push(a[i].value);
-  }
-  return b;
-}
-
-/**
- * Test whether an object is an array
- * @param {*} value
- * @return {boolean} isArray
- */
-exports.isArray = Array.isArray;
-
-
-/***/ }),
-/* 58 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-var hasOwnProperty = __webpack_require__(66).hasOwnProperty;
-
-/**
- * Get a property of a plain object
- * Throws an error in case the object is not a plain object or the
- * property is not defined on the object itself
- * @param {Object} object
- * @param {string} prop
- * @return {*} Returns the property value when safe
- */
-function getSafeProperty (object, prop) {
-  // only allow getting safe properties of a plain object
-  if (isPlainObject(object) && isSafeProperty(object, prop)) {
-    return object[prop];
-  }
-
-  if (typeof object[prop] === 'function' && isSafeMethod(object, prop)) {
-    throw new Error('Cannot access method "' + prop + '" as a property');
-  }
-
-  throw new Error('No access to property "' + prop + '"');
-}
-
-/**
- * Set a property on a plain object.
- * Throws an error in case the object is not a plain object or the
- * property would override an inherited property like .constructor or .toString
- * @param {Object} object
- * @param {string} prop
- * @param {*} value
- * @return {*} Returns the value
- */
-// TODO: merge this function into access.js?
-function setSafeProperty (object, prop, value) {
-  // only allow setting safe properties of a plain object
-  if (isPlainObject(object) && isSafeProperty(object, prop)) {
-    return object[prop] = value;
-  }
-
-  throw new Error('No access to property "' + prop + '"');
-}
-
-/**
- * Test whether a property is safe to use for an object.
- * For example .toString and .constructor are not safe
- * @param {string} prop
- * @return {boolean} Returns true when safe
- */
-function isSafeProperty (object, prop) {
-  if (!object || typeof object !== 'object') {
-    return false;
-  }
-  // SAFE: whitelisted
-  // e.g length
-  if (hasOwnProperty(safeNativeProperties, prop)) {
-    return true;
-  }
-  // UNSAFE: inherited from Object prototype
-  // e.g constructor
-  if (prop in Object.prototype) {
-    // 'in' is used instead of hasOwnProperty for nodejs v0.10
-    // which is inconsistent on root prototypes. It is safe
-    // here because Object.prototype is a root object
-    return false;
-  }
-  // UNSAFE: inherited from Function prototype
-  // e.g call, apply
-  if (prop in Function.prototype) {
-    // 'in' is used instead of hasOwnProperty for nodejs v0.10
-    // which is inconsistent on root prototypes. It is safe
-    // here because Function.prototype is a root object
-    return false;
-  }
-  return true;
-}
-
-/**
- * Validate whether a method is safe.
- * Throws an error when that's not the case.
- * @param {Object} object
- * @param {string} method
- */
-// TODO: merge this function into assign.js?
-function validateSafeMethod (object, method) {
-  if (!isSafeMethod(object, method)) {
-    throw new Error('No access to method "' + method + '"');
-  }
-}
-
-/**
- * Check whether a method is safe.
- * Throws an error when that's not the case (for example for `constructor`).
- * @param {Object} object
- * @param {string} method
- * @return {boolean} Returns true when safe, false otherwise
- */
-function isSafeMethod (object, method) {
-  if (!object || typeof object[method] !== 'function') {
-    return false;
-  }
-  // UNSAFE: ghosted
-  // e.g overridden toString
-  // Note that IE10 doesn't support __proto__ and we can't do this check there.
-  if (hasOwnProperty(object, method) &&
-      (object.__proto__ && (method in object.__proto__))) {
-    return false;
-  }
-  // SAFE: whitelisted
-  // e.g toString
-  if (hasOwnProperty(safeNativeMethods, method)) {
-    return true;
-  }
-  // UNSAFE: inherited from Object prototype
-  // e.g constructor
-  if (method in Object.prototype) {
-    // 'in' is used instead of hasOwnProperty for nodejs v0.10
-    // which is inconsistent on root prototypes. It is safe
-    // here because Object.prototype is a root object
-    return false;
-  }
-  // UNSAFE: inherited from Function prototype
-  // e.g call, apply
-  if (method in Function.prototype) {
-    // 'in' is used instead of hasOwnProperty for nodejs v0.10
-    // which is inconsistent on root prototypes. It is safe
-    // here because Function.prototype is a root object
-    return false;
-  }
-  return true;
-}
-
-function isPlainObject (object) {
-  return typeof object === 'object' && object && object.constructor === Object;
-}
-
-var safeNativeProperties = {
-  length: true,
-  name: true
-};
-
-var safeNativeMethods = {
-  toString: true,
-  valueOf: true,
-  toLocaleString: true
-};
-
-exports.getSafeProperty = getSafeProperty;
-exports.setSafeProperty = setSafeProperty;
-exports.isSafeProperty = isSafeProperty;
-exports.validateSafeMethod = validateSafeMethod;
-exports.isSafeMethod = isSafeMethod;
-exports.isPlainObject = isPlainObject;
-
-
-/***/ }),
-/* 59 */
+/* 55 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -12157,7 +10828,7 @@ ArgumentsError.prototype.isArgumentsError = true;
 module.exports = ArgumentsError;
 
 /***/ }),
-/* 60 */
+/* 56 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -12206,7 +10877,7 @@ IndexError.prototype.isIndexError = true;
 module.exports = IndexError;
 
 /***/ }),
-/* 61 */
+/* 57 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -12261,7 +10932,7 @@ exports.name = 'isNumeric';
 exports.factory = factory;
 
 /***/ }),
-/* 62 */
+/* 58 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -12273,7 +10944,7 @@ var escapeLatex = __webpack_require__(4).escape;
 
 function factory(type, config, load, typed) {
   var Node = load(__webpack_require__(16));
-  var getType = load(__webpack_require__(25));
+  var getType = load(__webpack_require__(24));
   /**
    * A ConstantNode holds a constant value like a number or string.
    *
@@ -12450,7 +11121,7 @@ exports.path = 'expression.node';
 exports.factory = factory;
 
 /***/ }),
-/* 63 */
+/* 59 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -12466,7 +11137,7 @@ var isSafeMethod = __webpack_require__(13).isSafeMethod;
 
 var getSafeProperty = __webpack_require__(13).getSafeProperty;
 
-var operators = __webpack_require__(53);
+var operators = __webpack_require__(51);
 
 function factory(type, config, load, typed) {
   var Node = load(__webpack_require__(16));
@@ -13130,7 +11801,7 @@ exports.path = 'expression.node';
 exports.factory = factory;
 
 /***/ }),
-/* 64 */
+/* 60 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -13199,7 +11870,7 @@ exports.name = 'isZero';
 exports.factory = factory;
 
 /***/ }),
-/* 65 */
+/* 61 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -13261,278 +11932,635 @@ exports.name = 'isNegative';
 exports.factory = factory;
 
 /***/ }),
-/* 66 */
+/* 62 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
+var formatNumber = __webpack_require__(584).format;
+var formatBigNumber = __webpack_require__(630).format;
 var isBigNumber = __webpack_require__(591);
 
 /**
- * Clone an object
- *
- *     clone(x)
- *
- * Can clone any primitive type, array, and object.
- * If x has a function clone, this function will be invoked to clone the object.
- *
- * @param {*} x
- * @return {*} clone
+ * Test whether value is a string
+ * @param {*} value
+ * @return {boolean} isString
  */
-exports.clone = function clone(x) {
-  var type = typeof x;
-
-  // immutable primitive types
-  if (type === 'number' || type === 'string' || type === 'boolean' ||
-      x === null || x === undefined) {
-    return x;
-  }
-
-  // use clone function of the object when available
-  if (typeof x.clone === 'function') {
-    return x.clone();
-  }
-
-  // array
-  if (Array.isArray(x)) {
-    return x.map(function (value) {
-      return clone(value);
-    });
-  }
-
-  if (x instanceof Number)    return new Number(x.valueOf());
-  if (x instanceof String)    return new String(x.valueOf());
-  if (x instanceof Boolean)   return new Boolean(x.valueOf());
-  if (x instanceof Date)      return new Date(x.valueOf());
-  if (isBigNumber(x))         return x; // bignumbers are immutable
-  if (x instanceof RegExp)  throw new TypeError('Cannot clone ' + x);  // TODO: clone a RegExp
-
-  // object
-  return exports.map(x, clone);
+exports.isString = function(value) {
+  return typeof value === 'string';
 };
 
 /**
- * Apply map to all properties of an object
- * @param {Object} object
- * @param {function} callback
- * @return {Object} Returns a copy of the object with mapped properties
+ * Check if a text ends with a certain string.
+ * @param {string} text
+ * @param {string} search
  */
-exports.map = function(object, callback) {
-  var clone = {};
+exports.endsWith = function(text, search) {
+  var start = text.length - search.length;
+  var end = text.length;
+  return (text.substring(start, end) === search);
+};
 
-  for (var key in object) {
-    if (exports.hasOwnProperty(object, key)) {
-      clone[key] = callback(object[key]);
+/**
+ * Format a value of any type into a string.
+ *
+ * Usage:
+ *     math.format(value)
+ *     math.format(value, precision)
+ *
+ * When value is a function:
+ *
+ * - When the function has a property `syntax`, it returns this
+ *   syntax description.
+ * - In other cases, a string `'function'` is returned.
+ *
+ * When `value` is an Object:
+ *
+ * - When the object contains a property `format` being a function, this
+ *   function is invoked as `value.format(options)` and the result is returned.
+ * - When the object has its own `toString` method, this method is invoked
+ *   and the result is returned.
+ * - In other cases the function will loop over all object properties and
+ *   return JSON object notation like '{"a": 2, "b": 3}'.
+ *
+ * Example usage:
+ *     math.format(2/7);                // '0.2857142857142857'
+ *     math.format(math.pi, 3);         // '3.14'
+ *     math.format(new Complex(2, 3));  // '2 + 3i'
+ *     math.format('hello');            // '"hello"'
+ *
+ * @param {*} value             Value to be stringified
+ * @param {Object | number | Function} [options]  Formatting options. See
+ *                                                lib/utils/number:format for a
+ *                                                description of the available
+ *                                                options.
+ * @return {string} str
+ */
+exports.format = function(value, options) {
+  if (typeof value === 'number') {
+    return formatNumber(value, options);
+  }
+
+  if (isBigNumber(value)) {
+    return formatBigNumber(value, options);
+  }
+
+  // note: we use unsafe duck-typing here to check for Fractions, this is
+  // ok here since we're only invoking toString or concatenating its values
+  if (looksLikeFraction(value)) {
+    if (!options || options.fraction !== 'decimal') {
+      // output as ratio, like '1/3'
+      return (value.s * value.n) + '/' + value.d;
+    }
+    else {
+      // output as decimal, like '0.(3)'
+      return value.toString();
     }
   }
 
-  return clone;
+  if (Array.isArray(value)) {
+    return formatArray(value, options);
+  }
+
+  if (exports.isString(value)) {
+    return '"' + value + '"';
+  }
+
+  if (typeof value === 'function') {
+    return value.syntax ? String(value.syntax) : 'function';
+  }
+
+  if (value && typeof value === 'object') {
+    if (typeof value.format === 'function') {
+      return value.format(options);
+    }
+    else if (value && value.toString() !== {}.toString()) {
+      // this object has a non-native toString method, use that one
+      return value.toString();
+    }
+    else {
+      var entries = [];
+
+      for (var key in value) {
+        if (value.hasOwnProperty(key)) {
+          entries.push('"' + key + '": ' + exports.format(value[key], options));
+        }
+      }
+
+      return '{' + entries.join(', ') + '}';
+    }
+  }
+
+  return String(value);
+};
+
+/**
+ * Stringify a value into a string enclosed in double quotes.
+ * Unescaped double quotes and backslashes inside the value are escaped.
+ * @param {*} value
+ * @return {string}
+ */
+exports.stringify = function (value) {
+  var text = String(value);
+  var escaped = '';
+  var i = 0;
+  while (i < text.length) {
+    var c = text.charAt(i);
+
+    if (c === '\\') {
+      escaped += c;
+      i++;
+
+      c = text.charAt(i);
+      if (c === '' || '"\\/bfnrtu'.indexOf(c) === -1) {
+        escaped += '\\';  // no valid escape character -> escape it
+      }
+      escaped += c;
+    }
+    else if (c === '"') {
+      escaped += '\\"';
+    }
+    else {
+      escaped += c;
+    }
+    i++;
+  }
+
+  return '"' + escaped + '"';
 }
 
 /**
- * Extend object a with the properties of object b
- * @param {Object} a
- * @param {Object} b
- * @return {Object} a
+ * Escape special HTML characters
+ * @param {*} value
+ * @return {string}
  */
-exports.extend = function(a, b) {
-  for (var prop in b) {
-    if (exports.hasOwnProperty(b, prop)) {
-      a[prop] = b[prop];
-    }
-  }
-  return a;
-};
-
-/**
- * Deep extend an object a with the properties of object b
- * @param {Object} a
- * @param {Object} b
- * @returns {Object}
- */
-exports.deepExtend = function deepExtend (a, b) {
-  // TODO: add support for Arrays to deepExtend
-  if (Array.isArray(b)) {
-    throw new TypeError('Arrays are not supported by deepExtend');
-  }
-
-  for (var prop in b) {
-    if (exports.hasOwnProperty(b, prop)) {
-      if (b[prop] && b[prop].constructor === Object) {
-        if (a[prop] === undefined) {
-          a[prop] = {};
-        }
-        if (a[prop].constructor === Object) {
-          deepExtend(a[prop], b[prop]);
-        }
-        else {
-          a[prop] = b[prop];
-        }
-      } else if (Array.isArray(b[prop])) {
-        throw new TypeError('Arrays are not supported by deepExtend');
-      } else {
-        a[prop] = b[prop];
-      }
-    }
-  }
-  return a;
-};
-
-/**
- * Deep test equality of all fields in two pairs of arrays or objects.
- * @param {Array | Object} a
- * @param {Array | Object} b
- * @returns {boolean}
- */
-exports.deepEqual = function deepEqual (a, b) {
-  var prop, i, len;
-  if (Array.isArray(a)) {
-    if (!Array.isArray(b)) {
-      return false;
-    }
-
-    if (a.length != b.length) {
-      return false;
-    }
-
-    for (i = 0, len = a.length; i < len; i++) {
-      if (!exports.deepEqual(a[i], b[i])) {
-        return false;
-      }
-    }
-    return true;
-  }
-  else if (a instanceof Object) {
-    if (Array.isArray(b) || !(b instanceof Object)) {
-      return false;
-    }
-
-    for (prop in a) {
-      //noinspection JSUnfilteredForInLoop
-      if (!exports.deepEqual(a[prop], b[prop])) {
-        return false;
-      }
-    }
-    for (prop in b) {
-      //noinspection JSUnfilteredForInLoop
-      if (!exports.deepEqual(a[prop], b[prop])) {
-        return false;
-      }
-    }
-    return true;
-  }
-  else {
-    return (typeof a === typeof b) && (a == b);
-  }
-};
-
-/**
- * Test whether the current JavaScript engine supports Object.defineProperty
- * @returns {boolean} returns true if supported
- */
-exports.canDefineProperty = function () {
-  // test needed for broken IE8 implementation
-  try {
-    if (Object.defineProperty) {
-      Object.defineProperty({}, 'x', { get: function () {} });
-      return true;
-    }
-  } catch (e) {}
-
-  return false;
-};
-
-/**
- * Attach a lazy loading property to a constant.
- * The given function `fn` is called once when the property is first requested.
- * On older browsers (<IE8), the function will fall back to direct evaluation
- * of the properties value.
- * @param {Object} object   Object where to add the property
- * @param {string} prop     Property name
- * @param {Function} fn     Function returning the property value. Called
- *                          without arguments.
- */
-exports.lazy = function (object, prop, fn) {
-  if (exports.canDefineProperty()) {
-    var _uninitialized = true;
-    var _value;
-    Object.defineProperty(object, prop, {
-      get: function () {
-        if (_uninitialized) {
-          _value = fn();
-          _uninitialized = false;
-        }
-        return _value;
-      },
-
-      set: function (value) {
-        _value = value;
-        _uninitialized = false;
-      },
-
-      configurable: true,
-      enumerable: true
-    });
-  }
-  else {
-    // fall back to immediate evaluation
-    object[prop] = fn();
-  }
-};
-
-/**
- * Traverse a path into an object.
- * When a namespace is missing, it will be created
- * @param {Object} object
- * @param {string} path   A dot separated string like 'name.space'
- * @return {Object} Returns the object at the end of the path
- */
-exports.traverse = function(object, path) {
-  var obj = object;
-
-  if (path) {
-    var names = path.split('.');
-    for (var i = 0; i < names.length; i++) {
-      var name = names[i];
-      if (!(name in obj)) {
-        obj[name] = {};
-      }
-      obj = obj[name];
-    }
-  }
-
-  return obj;
-};
-
-/**
- * A safe hasOwnProperty
- * @param {Object} object
- * @param {string} property
- */
-exports.hasOwnProperty = function (object, property) {
-  return object && Object.hasOwnProperty.call(object, property);
+exports.escape = function (value) {
+  var text = String(value);
+  text = text.replace(/&/g, '&amp;')
+			 .replace(/"/g, '&quot;')
+			 .replace(/'/g, '&#39;')
+			 .replace(/</g, '&lt;')
+			 .replace(/>/g, '&gt;');
+  
+  return text;
 }
 
 /**
- * Test whether an object is a factory. a factory has fields:
- *
- * - factory: function (type: Object, config: Object, load: function, typed: function [, math: Object])   (required)
- * - name: string (optional)
- * - path: string    A dot separated path (optional)
- * - math: boolean   If true (false by default), the math namespace is passed
- *                   as fifth argument of the factory function
- *
- * @param {*} object
- * @returns {boolean}
+ * Recursively format an n-dimensional matrix
+ * Example output: "[[1, 2], [3, 4]]"
+ * @param {Array} array
+ * @param {Object | number | Function} [options]  Formatting options. See
+ *                                                lib/utils/number:format for a
+ *                                                description of the available
+ *                                                options.
+ * @returns {string} str
  */
-exports.isFactory = function (object) {
-  return object && typeof object.factory === 'function';
-};
+function formatArray (array, options) {
+  if (Array.isArray(array)) {
+    var str = '[';
+    var len = array.length;
+    for (var i = 0; i < len; i++) {
+      if (i != 0) {
+        str += ', ';
+      }
+      str += formatArray(array[i], options);
+    }
+    str += ']';
+    return str;
+  }
+  else {
+    return exports.format(array, options);
+  }
+}
+
+/**
+ * Check whether a value looks like a Fraction (unsafe duck-type check)
+ * @param {*} value
+ * @return {boolean}
+ */
+function looksLikeFraction (value) {
+  return (value &&
+      typeof value === 'object' &&
+      typeof value.s === 'number' &&
+      typeof value.n === 'number' &&
+      typeof value.d === 'number') || false;
+}
 
 
 /***/ }),
-/* 67 */
+/* 63 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+var keywords = __webpack_require__(587);
+var deepEqual= __webpack_require__(102).deepEqual;
+var hasOwnProperty = __webpack_require__(102).hasOwnProperty;
+
+function factory (type, config, load, typed, math) {
+  var compile = load(__webpack_require__(31)).compile;
+
+  /**
+   * Node
+   */
+  function Node() {
+    if (!(this instanceof Node)) {
+      throw new SyntaxError('Constructor must be called with the new operator');
+    }
+  }
+
+  /**
+   * Evaluate the node
+   * @param {Object} [scope]  Scope to read/write variables
+   * @return {*}              Returns the result
+   */
+  Node.prototype.eval = function(scope) {
+    return this.compile().eval(scope);
+  };
+
+  Node.prototype.type = 'Node';
+
+  Node.prototype.isNode = true;
+
+  Node.prototype.comment = '';
+
+  /**
+   * Compile the node to javascript code
+   * @return {{eval: function}} expr  Returns an object with a function 'eval',
+   *                                  which can be invoked as expr.eval([scope]),
+   *                                  where scope is an optional object with
+   *                                  variables.
+   */
+  Node.prototype.compile = function () {
+    // TODO: calling compile(math) is deprecated since version 2.0.0. Remove this warning some day
+    if (arguments.length > 0) {
+      throw new Error('Calling compile(math) is deprecated. Call the function as compile() instead.');
+    }
+
+    // definitions globally available inside the closure of the compiled expressions
+    var defs = {
+      math: math.expression.mathWithTransform,
+      args: {}, // can be filled with names of FunctionAssignment arguments
+      _validateScope: _validateScope
+    };
+
+    // will be used to put local function arguments
+    var args = {};
+
+    var code = compile(this, defs, args);
+
+    var defsCode = Object.keys(defs).map(function (name) {
+      return '    var ' + name + ' = defs["' + name + '"];';
+    });
+
+    var factoryCode =
+        defsCode.join(' ') +
+        'return {' +
+        '  "eval": function (scope) {' +
+        '    if (scope) _validateScope(scope);' +
+        '    scope = scope || {};' +
+        '    return ' + code + ';' +
+        '  }' +
+        '};';
+
+    var factory = new Function('defs', factoryCode);
+    return factory(defs);
+  };
+
+  /**
+   * Execute a callback for each of the child nodes of this node
+   * @param {function(child: Node, path: string, parent: Node)} callback
+   */
+  Node.prototype.forEach = function (callback) {
+    // must be implemented by each of the Node implementations
+    throw new Error('Cannot run forEach on a Node interface');
+  };
+
+  /**
+   * Create a new Node having it's childs be the results of calling
+   * the provided callback function for each of the childs of the original node.
+   * @param {function(child: Node, path: string, parent: Node): Node} callback
+   * @returns {OperatorNode} Returns a transformed copy of the node
+   */
+  Node.prototype.map = function (callback) {
+    // must be implemented by each of the Node implementations
+    throw new Error('Cannot run map on a Node interface');
+  };
+
+  /**
+   * Validate whether an object is a Node, for use with map
+   * @param {Node} node
+   * @returns {Node} Returns the input if it's a node, else throws an Error
+   * @protected
+   */
+  Node.prototype._ifNode = function (node) {
+    if (!type.isNode(node)) {
+      throw new TypeError('Callback function must return a Node');
+    }
+
+    return node;
+  };
+
+  /**
+   * Recursively traverse all nodes in a node tree. Executes given callback for
+   * this node and each of its child nodes.
+   * @param {function(node: Node, path: string, parent: Node)} callback
+   *          A callback called for every node in the node tree.
+   */
+  Node.prototype.traverse = function (callback) {
+    // execute callback for itself
+    callback(this, null, null);
+
+    // recursively traverse over all childs of a node
+    function _traverse(node, callback) {
+      node.forEach(function (child, path, parent) {
+        callback(child, path, parent);
+        _traverse(child, callback);
+      });
+    }
+
+    _traverse(this, callback);
+  };
+
+  /**
+   * Recursively transform a node tree via a transform function.
+   *
+   * For example, to replace all nodes of type SymbolNode having name 'x' with a
+   * ConstantNode with value 2:
+   *
+   *     var res = Node.transform(function (node, path, parent) {
+   *       if (node && node.isSymbolNode) && (node.name == 'x')) {
+   *         return new ConstantNode(2);
+   *       }
+   *       else {
+   *         return node;
+   *       }
+   *     });
+   *
+   * @param {function(node: Node, path: string, parent: Node) : Node} callback
+   *          A mapping function accepting a node, and returning
+   *          a replacement for the node or the original node.
+   *          Signature: callback(node: Node, index: string, parent: Node) : Node
+   * @return {Node} Returns the original node or its replacement
+   */
+  Node.prototype.transform = function (callback) {
+    // traverse over all childs
+    function _transform (node, callback) {
+      return node.map(function(child, path, parent) {
+        var replacement = callback(child, path, parent);
+        return _transform(replacement, callback);
+      });
+    }
+
+    var replacement = callback(this, null, null);
+    return _transform(replacement, callback);
+  };
+
+  /**
+   * Find any node in the node tree matching given filter function. For example, to
+   * find all nodes of type SymbolNode having name 'x':
+   *
+   *     var results = Node.filter(function (node) {
+   *       return (node && node.isSymbolNode) && (node.name == 'x');
+   *     });
+   *
+   * @param {function(node: Node, path: string, parent: Node) : Node} callback
+   *            A test function returning true when a node matches, and false
+   *            otherwise. Function signature:
+   *            callback(node: Node, index: string, parent: Node) : boolean
+   * @return {Node[]} nodes       An array with nodes matching given filter criteria
+   */
+  Node.prototype.filter = function (callback) {
+    var nodes = [];
+
+    this.traverse(function (node, path, parent) {
+      if (callback(node, path, parent)) {
+        nodes.push(node);
+      }
+    });
+
+    return nodes;
+  };
+
+  // TODO: deprecated since version 1.1.0, remove this some day
+  Node.prototype.find = function () {
+    throw new Error('Function Node.find is deprecated. Use Node.filter instead.');
+  };
+
+  // TODO: deprecated since version 1.1.0, remove this some day
+  Node.prototype.match = function () {
+    throw new Error('Function Node.match is deprecated. See functions Node.filter, Node.transform, Node.traverse.');
+  };
+
+  /**
+   * Create a shallow clone of this node
+   * @return {Node}
+   */
+  Node.prototype.clone = function () {
+    // must be implemented by each of the Node implementations
+    throw new Error('Cannot clone a Node interface');
+  };
+
+  /**
+   * Create a deep clone of this node
+   * @return {Node}
+   */
+  Node.prototype.cloneDeep = function () {
+    return this.map(function (node) {
+      return node.cloneDeep();
+    });
+  };
+
+  /**
+   * Deep compare this node with another node.
+   * @param {Node} other
+   * @return {boolean} Returns true when both nodes are of the same type and
+   *                   contain the same values (as do their childs)
+   */
+  Node.prototype.equals = function (other) {
+    return other
+        ? deepEqual(this, other)
+        : false
+  };
+
+  /**
+   * Get string representation. (wrapper function)
+   *
+   * This function can get an object of the following form:
+   * {
+   *    handler: //This can be a callback function of the form
+   *             // "function callback(node, options)"or
+   *             // a map that maps function names (used in FunctionNodes)
+   *             // to callbacks
+   *    parenthesis: "keep" //the parenthesis option (This is optional)
+   * }
+   *
+   * @param {Object} [options]
+   * @return {string}
+   */
+  Node.prototype.toString = function (options) {
+    var customString;
+    if (options && typeof options === 'object') {
+        switch (typeof options.handler) {
+          case 'object':
+          case 'undefined':
+            break;
+          case 'function':
+            customString = options.handler(this, options);
+            break;
+          default:
+            throw new TypeError('Object or function expected as callback');
+        }
+    }
+
+    if (typeof customString !== 'undefined') {
+      return customString;
+    }
+
+    return this._toString(options);
+  };
+
+  /**
+   * Get HTML representation. (wrapper function)
+   *
+   * This function can get an object of the following form:
+   * {
+   *    handler: //This can be a callback function of the form
+   *             // "function callback(node, options)" or
+   *             // a map that maps function names (used in FunctionNodes)
+   *             // to callbacks
+   *    parenthesis: "keep" //the parenthesis option (This is optional)
+   * }
+   *
+   * @param {Object} [options]
+   * @return {string}
+   */
+  Node.prototype.toHTML = function (options) {
+    var customString;
+    if (options && typeof options === 'object') {
+        switch (typeof options.handler) {
+          case 'object':
+          case 'undefined':
+            break;
+          case 'function':
+            customString = options.handler(this, options);
+            break;
+          default:
+            throw new TypeError('Object or function expected as callback');
+        }
+    }
+
+    if (typeof customString !== 'undefined') {
+      return customString;
+    }
+
+    return this.toHTML(options);
+  };
+
+  /**
+   * Internal function to generate the string output.
+   * This has to be implemented by every Node
+   *
+   * @throws {Error}
+   */
+  Node.prototype._toString = function () {
+    //must be implemented by each of the Node implementations
+    throw new Error('_toString not implemented for ' + this.type);
+  };
+
+  /**
+   * Get LaTeX representation. (wrapper function)
+   *
+   * This function can get an object of the following form:
+   * {
+   *    handler: //This can be a callback function of the form
+   *             // "function callback(node, options)"or
+   *             // a map that maps function names (used in FunctionNodes)
+   *             // to callbacks
+   *    parenthesis: "keep" //the parenthesis option (This is optional)
+   * }
+   *
+   * @param {Object} [options]
+   * @return {string}
+   */
+  Node.prototype.toTex = function (options) {
+    var customTex;
+    if (options && typeof options == 'object') {
+      switch (typeof options.handler) {
+        case 'object':
+        case 'undefined':
+          break;
+        case 'function':
+          customTex = options.handler(this, options);
+          break;
+        default:
+          throw new TypeError('Object or function expected as callback');
+      }
+    }
+
+    if (typeof customTex !== 'undefined') {
+      return customTex;
+    }
+
+    return this._toTex(options);
+  };
+
+  /**
+   * Internal function to generate the LaTeX output.
+   * This has to be implemented by every Node
+   *
+   * @param {Object} [options]
+   * @throws {Error}
+   */
+  Node.prototype._toTex = function (options) {
+    //must be implemented by each of the Node implementations
+    throw new Error('_toTex not implemented for ' + this.type);
+  };
+
+  /**
+   * Get identifier.
+   * @return {string}
+   */
+  Node.prototype.getIdentifier = function () {
+    return this.type;
+  };
+
+  /**
+   * Get the content of the current Node.
+   * @return {Node} node
+   **/
+  Node.prototype.getContent = function () {
+    return this;
+  };
+
+  /**
+   * Validate the symbol names of a scope.
+   * Throws an error when the scope contains an illegal symbol.
+   * @param {Object} scope
+   */
+  function _validateScope(scope) {
+    for (var symbol in scope) {
+      if (hasOwnProperty(scope, symbol)) {
+        if (symbol in keywords) {
+          throw new Error('Scope contains an illegal symbol, "' + symbol + '" is a reserved keyword');
+        }
+      }
+    }
+  }
+
+  return Node;
+}
+
+exports.name = 'Node';
+exports.path = 'expression.node';
+exports.math = true; // request access to the math namespace as 5th argument of the factory function
+exports.factory = factory;
+
+
+/***/ }),
+/* 64 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -13549,14 +12577,14 @@ module.exports = function isMatrix(x) {
 };
 
 /***/ }),
-/* 68 */
+/* 65 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
 function factory(type, config, load, typed) {
-  var _typeof = load(__webpack_require__(25));
+  var _typeof = load(__webpack_require__(24));
 
   function getArrayDataType(array) {
     var _type; // to hold type info
@@ -13605,7 +12633,7 @@ function factory(type, config, load, typed) {
 exports.factory = factory;
 
 /***/ }),
-/* 69 */
+/* 66 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -13687,14 +12715,14 @@ exports.name = 'number';
 exports.factory = factory;
 
 /***/ }),
-/* 70 */
+/* 67 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
 function factory(type, config, load, typed) {
-  var getTypeOf = load(__webpack_require__(25));
+  var getTypeOf = load(__webpack_require__(24));
   var validInputTypes = {
     'string': true,
     'number': true,
@@ -13703,9 +12731,9 @@ function factory(type, config, load, typed) {
 
   };
   var validOutputTypes = {
-    'number': load(__webpack_require__(69)),
-    'BigNumber': load(__webpack_require__(107)),
-    'Fraction': load(__webpack_require__(86))
+    'number': load(__webpack_require__(66)),
+    'BigNumber': load(__webpack_require__(105)),
+    'Fraction': load(__webpack_require__(85))
     /**
      * Convert a numeric value to a specific type: number, BigNumber, or Fraction
      *
@@ -13750,7 +12778,7 @@ exports.name = '_numeric';
 exports.factory = factory;
 
 /***/ }),
-/* 71 */
+/* 68 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -13930,7 +12958,7 @@ exports.name = 'algorithm05';
 exports.factory = factory;
 
 /***/ }),
-/* 72 */
+/* 69 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -14088,7 +13116,7 @@ exports.path = 'expression.node';
 exports.factory = factory;
 
 /***/ }),
-/* 73 */
+/* 70 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -14134,7 +13162,7 @@ var getSafeProperty = __webpack_require__(13).getSafeProperty;
 
 function factory(type, config, load, typed, math) {
   var Node = load(__webpack_require__(16));
-  var SymbolNode = load(__webpack_require__(54));
+  var SymbolNode = load(__webpack_require__(52));
   /**
    * @constructor FunctionNode
    * @extends {./Node}
@@ -14575,13 +13603,13 @@ exports.math = true; // request access to the math namespace as 5th argument of 
 exports.factory = factory;
 
 /***/ }),
-/* 74 */
+/* 71 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
-var util = __webpack_require__(31);
+var util = __webpack_require__(30);
 
 function factory(type, config, load, typed) {
   var matrix = load(__webpack_require__(1));
@@ -14589,9 +13617,9 @@ function factory(type, config, load, typed) {
   var addScalar = load(__webpack_require__(17));
   var multiply = load(__webpack_require__(9));
   var unaryMinus = load(__webpack_require__(35));
-  var det = load(__webpack_require__(129));
-  var identity = load(__webpack_require__(51));
-  var abs = load(__webpack_require__(24));
+  var det = load(__webpack_require__(127));
+  var identity = load(__webpack_require__(49));
+  var abs = load(__webpack_require__(23));
   /**
    * Calculate the inverse of a square matrix.
    *
@@ -14785,7 +13813,7 @@ exports.name = 'inv';
 exports.factory = factory;
 
 /***/ }),
-/* 75 */
+/* 72 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -14843,7 +13871,7 @@ exports.name = 'conj';
 exports.factory = factory;
 
 /***/ }),
-/* 76 */
+/* 73 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -15033,7 +14061,7 @@ exports.name = 'transpose';
 exports.factory = factory;
 
 /***/ }),
-/* 77 */
+/* 74 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -15097,13 +14125,13 @@ exports.name = 'isPositive';
 exports.factory = factory;
 
 /***/ }),
-/* 78 */
+/* 75 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
-var scatter = __webpack_require__(242);
+var scatter = __webpack_require__(238);
 
 var DimensionError = __webpack_require__(11);
 
@@ -15258,7 +14286,7 @@ exports.name = 'algorithm06';
 exports.factory = factory;
 
 /***/ }),
-/* 79 */
+/* 76 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -15267,7 +14295,7 @@ exports.factory = factory;
 var deepMap = __webpack_require__(0);
 
 function factory(type, config, load, typed) {
-  var gamma = load(__webpack_require__(143));
+  var gamma = load(__webpack_require__(141));
 
   var latex = __webpack_require__(4);
   /**
@@ -15322,7 +14350,7 @@ exports.name = 'factorial';
 exports.factory = factory;
 
 /***/ }),
-/* 80 */
+/* 77 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -15330,7 +14358,7 @@ exports.factory = factory;
 
 var isInteger = __webpack_require__(3).isInteger;
 
-var product = __webpack_require__(97);
+var product = __webpack_require__(96);
 
 function factory(type, config, load, typed) {
   /**
@@ -15425,7 +14453,7 @@ exports.name = 'combinations';
 exports.factory = factory;
 
 /***/ }),
-/* 81 */
+/* 78 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -15435,7 +14463,7 @@ var clone = __webpack_require__(5).clone;
 
 var array = __webpack_require__(2);
 
-var IndexError = __webpack_require__(60);
+var IndexError = __webpack_require__(56);
 
 var DimensionError = __webpack_require__(11);
 
@@ -15576,7 +14604,7 @@ exports.name = 'concat';
 exports.factory = factory;
 
 /***/ }),
-/* 82 */
+/* 79 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -15641,13 +14669,13 @@ exports.name = 'isNaN';
 exports.factory = factory;
 
 /***/ }),
-/* 83 */
+/* 80 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
-var isCollection = __webpack_require__(56);
+var isCollection = __webpack_require__(54);
 /**
  * Test whether an array contains collections
  * @param {Array} array
@@ -15666,7 +14694,708 @@ module.exports = function containsCollections(array) {
 };
 
 /***/ }),
-/* 84 */
+/* 81 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+var number = __webpack_require__(584);
+var string = __webpack_require__(62);
+var object = __webpack_require__(102);
+var types = __webpack_require__(593);
+
+var DimensionError = __webpack_require__(594);
+var IndexError = __webpack_require__(595);
+
+/**
+ * Calculate the size of a multi dimensional array.
+ * This function checks the size of the first entry, it does not validate
+ * whether all dimensions match. (use function `validate` for that)
+ * @param {Array} x
+ * @Return {Number[]} size
+ */
+exports.size = function (x) {
+  var s = [];
+
+  while (Array.isArray(x)) {
+    s.push(x.length);
+    x = x[0];
+  }
+
+  return s;
+};
+
+/**
+ * Recursively validate whether each element in a multi dimensional array
+ * has a size corresponding to the provided size array.
+ * @param {Array} array    Array to be validated
+ * @param {number[]} size  Array with the size of each dimension
+ * @param {number} dim   Current dimension
+ * @throws DimensionError
+ * @private
+ */
+function _validate(array, size, dim) {
+  var i;
+  var len = array.length;
+
+  if (len != size[dim]) {
+    throw new DimensionError(len, size[dim]);
+  }
+
+  if (dim < size.length - 1) {
+    // recursively validate each child array
+    var dimNext = dim + 1;
+    for (i = 0; i < len; i++) {
+      var child = array[i];
+      if (!Array.isArray(child)) {
+        throw new DimensionError(size.length - 1, size.length, '<');
+      }
+      _validate(array[i], size, dimNext);
+    }
+  }
+  else {
+    // last dimension. none of the childs may be an array
+    for (i = 0; i < len; i++) {
+      if (Array.isArray(array[i])) {
+        throw new DimensionError(size.length + 1, size.length, '>');
+      }
+    }
+  }
+}
+
+/**
+ * Validate whether each element in a multi dimensional array has
+ * a size corresponding to the provided size array.
+ * @param {Array} array    Array to be validated
+ * @param {number[]} size  Array with the size of each dimension
+ * @throws DimensionError
+ */
+exports.validate = function(array, size) {
+  var isScalar = (size.length == 0);
+  if (isScalar) {
+    // scalar
+    if (Array.isArray(array)) {
+      throw new DimensionError(array.length, 0);
+    }
+  }
+  else {
+    // array
+    _validate(array, size, 0);
+  }
+};
+
+/**
+ * Test whether index is an integer number with index >= 0 and index < length
+ * when length is provided
+ * @param {number} index    Zero-based index
+ * @param {number} [length] Length of the array
+ */
+exports.validateIndex = function(index, length) {
+  if (!number.isNumber(index) || !number.isInteger(index)) {
+    throw new TypeError('Index must be an integer (value: ' + index + ')');
+  }
+  if (index < 0 || (typeof length === 'number' && index >= length)) {
+    throw new IndexError(index, length);
+  }
+};
+
+// a constant used to specify an undefined defaultValue
+exports.UNINITIALIZED = {};
+
+/**
+ * Resize a multi dimensional array. The resized array is returned.
+ * @param {Array} array         Array to be resized
+ * @param {Array.<number>} size Array with the size of each dimension
+ * @param {*} [defaultValue=0]  Value to be filled in in new entries,
+ *                              zero by default. To leave new entries undefined,
+ *                              specify array.UNINITIALIZED as defaultValue
+ * @return {Array} array         The resized array
+ */
+exports.resize = function(array, size, defaultValue) {
+  // TODO: add support for scalars, having size=[] ?
+
+  // check the type of the arguments
+  if (!Array.isArray(array) || !Array.isArray(size)) {
+    throw new TypeError('Array expected');
+  }
+  if (size.length === 0) {
+    throw new Error('Resizing to scalar is not supported');
+  }
+
+  // check whether size contains positive integers
+  size.forEach(function (value) {
+    if (!number.isNumber(value) || !number.isInteger(value) || value < 0) {
+      throw new TypeError('Invalid size, must contain positive integers ' +
+          '(size: ' + string.format(size) + ')');
+    }
+  });
+
+  // recursively resize the array
+  var _defaultValue = (defaultValue !== undefined) ? defaultValue : 0;
+  _resize(array, size, 0, _defaultValue);
+
+  return array;
+};
+
+/**
+ * Recursively resize a multi dimensional array
+ * @param {Array} array         Array to be resized
+ * @param {number[]} size       Array with the size of each dimension
+ * @param {number} dim          Current dimension
+ * @param {*} [defaultValue]    Value to be filled in in new entries,
+ *                              undefined by default.
+ * @private
+ */
+function _resize (array, size, dim, defaultValue) {
+  var i;
+  var elem;
+  var oldLen = array.length;
+  var newLen = size[dim];
+  var minLen = Math.min(oldLen, newLen);
+
+  // apply new length
+  array.length = newLen;
+
+  if (dim < size.length - 1) {
+    // non-last dimension
+    var dimNext = dim + 1;
+
+    // resize existing child arrays
+    for (i = 0; i < minLen; i++) {
+      // resize child array
+      elem = array[i];
+      if (!Array.isArray(elem)) {
+        elem = [elem]; // add a dimension
+        array[i] = elem;
+      }
+      _resize(elem, size, dimNext, defaultValue);
+    }
+
+    // create new child arrays
+    for (i = minLen; i < newLen; i++) {
+      // get child array
+      elem = [];
+      array[i] = elem;
+
+      // resize new child array
+      _resize(elem, size, dimNext, defaultValue);
+    }
+  }
+  else {
+    // last dimension
+
+    // remove dimensions of existing values
+    for (i = 0; i < minLen; i++) {
+      while (Array.isArray(array[i])) {
+        array[i] = array[i][0];
+      }
+    }
+
+    if(defaultValue !== exports.UNINITIALIZED) {
+      // fill new elements with the default value
+      for (i = minLen; i < newLen; i++) {
+        array[i] = defaultValue;
+      }
+    }
+  }
+}
+
+/**
+ * Re-shape a multi dimensional array to fit the specified dimensions
+ * @param {Array} array           Array to be reshaped
+ * @param {Array.<number>} sizes  List of sizes for each dimension
+ * @returns {Array}               Array whose data has been formatted to fit the
+ *                                specified dimensions
+ *
+ * @throws {DimensionError}       If the product of the new dimension sizes does
+ *                                not equal that of the old ones
+ */
+exports.reshape = function(array, sizes) {
+  var flatArray = exports.flatten(array);
+  var newArray;
+
+  var product = function (arr) {
+    return arr.reduce(function (prev, curr) {
+      return prev * curr;
+    });
+  };
+
+  if (!Array.isArray(array) || !Array.isArray(sizes)) {
+    throw new TypeError('Array expected');
+  }
+
+  if (sizes.length === 0) {
+    throw new DimensionError(0, product(exports.size(array)), '!=');
+  }
+
+  try {
+    newArray  = _reshape(flatArray, sizes);
+  } catch (e) {
+    if (e instanceof DimensionError) {
+      throw new DimensionError(
+        product(sizes),
+        product(exports.size(array)),
+        '!='
+      );
+    }
+    throw e;
+  }
+
+  if (flatArray.length > 0) {
+    throw new DimensionError(
+      product(sizes),
+      product(exports.size(array)),
+      '!='
+    );
+  }
+
+  return newArray;
+};
+
+/**
+ * Recursively re-shape a multi dimensional array to fit the specified dimensions
+ * @param {Array} array           Array to be reshaped
+ * @param {Array.<number>} sizes  List of sizes for each dimension
+ * @returns {Array}               Array whose data has been formatted to fit the
+ *                                specified dimensions
+ *
+ * @throws {DimensionError}       If the product of the new dimension sizes does
+ *                                not equal that of the old ones
+ */
+function _reshape(array, sizes) {
+  var accumulator = [];
+  var i;
+
+  if (sizes.length === 0) {
+    if (array.length === 0) {
+      throw new DimensionError(null, null, '!=');
+    }
+    return array.shift();
+  }
+  for (i = 0; i < sizes[0]; i += 1) {
+    accumulator.push(_reshape(array, sizes.slice(1)));
+  }
+  return accumulator;
+}
+
+
+/**
+ * Squeeze a multi dimensional array
+ * @param {Array} array
+ * @param {Array} [size]
+ * @returns {Array} returns the array itself
+ */
+exports.squeeze = function(array, size) {
+  var s = size || exports.size(array);
+
+  // squeeze outer dimensions
+  while (Array.isArray(array) && array.length === 1) {
+    array = array[0];
+    s.shift();
+  }
+
+  // find the first dimension to be squeezed
+  var dims = s.length;
+  while (s[dims - 1] === 1) {
+    dims--;
+  }
+
+  // squeeze inner dimensions
+  if (dims < s.length) {
+    array = _squeeze(array, dims, 0);
+    s.length = dims;
+  }
+
+  return array;
+};
+
+/**
+ * Recursively squeeze a multi dimensional array
+ * @param {Array} array
+ * @param {number} dims Required number of dimensions
+ * @param {number} dim  Current dimension
+ * @returns {Array | *} Returns the squeezed array
+ * @private
+ */
+function _squeeze (array, dims, dim) {
+  var i, ii;
+
+  if (dim < dims) {
+    var next = dim + 1;
+    for (i = 0, ii = array.length; i < ii; i++) {
+      array[i] = _squeeze(array[i], dims, next);
+    }
+  }
+  else {
+    while (Array.isArray(array)) {
+      array = array[0];
+    }
+  }
+
+  return array;
+}
+
+/**
+ * Unsqueeze a multi dimensional array: add dimensions when missing
+ * 
+ * Paramter `size` will be mutated to match the new, unqueezed matrix size.
+ * 
+ * @param {Array} array
+ * @param {number} dims     Desired number of dimensions of the array
+ * @param {number} [outer]  Number of outer dimensions to be added
+ * @param {Array} [size]    Current size of array.
+ * @returns {Array} returns the array itself
+ * @private
+ */
+exports.unsqueeze = function(array, dims, outer, size) {
+  var s = size || exports.size(array);
+
+  // unsqueeze outer dimensions
+  if (outer) {
+    for (var i = 0; i < outer; i++) {
+      array = [array];
+      s.unshift(1);
+    }
+  }
+
+  // unsqueeze inner dimensions
+  array = _unsqueeze(array, dims, 0);
+  while (s.length < dims) {
+    s.push(1);
+  }
+
+  return array;
+};
+
+/**
+ * Recursively unsqueeze a multi dimensional array
+ * @param {Array} array
+ * @param {number} dims Required number of dimensions
+ * @param {number} dim  Current dimension
+ * @returns {Array | *} Returns the squeezed array
+ * @private
+ */
+function _unsqueeze (array, dims, dim) {
+  var i, ii;
+
+  if (Array.isArray(array)) {
+    var next = dim + 1;
+    for (i = 0, ii = array.length; i < ii; i++) {
+      array[i] = _unsqueeze(array[i], dims, next);
+    }
+  }
+  else {
+    for (var d = dim; d < dims; d++) {
+      array = [array];
+    }
+  }
+
+  return array;
+}
+/**
+ * Flatten a multi dimensional array, put all elements in a one dimensional
+ * array
+ * @param {Array} array   A multi dimensional array
+ * @return {Array}        The flattened array (1 dimensional)
+ */
+exports.flatten = function(array) {
+  if (!Array.isArray(array)) {
+    //if not an array, return as is
+    return array;
+  }
+  var flat = [];
+
+  array.forEach(function callback(value) {
+    if (Array.isArray(value)) {
+      value.forEach(callback);  //traverse through sub-arrays recursively
+    }
+    else {
+      flat.push(value);
+    }
+  });
+
+  return flat;
+};
+
+/**
+ * A safe map
+ * @param {Array} array
+ * @param {function} callback
+ */
+exports.map = function (array, callback) {
+  return Array.prototype.map.call(array, callback);
+}
+
+/**
+ * A safe forEach
+ * @param {Array} array
+ * @param {function} callback
+ */
+exports.forEach = function (array, callback) {
+  Array.prototype.forEach.call(array, callback);
+}
+
+/**
+ * A safe filter
+ * @param {Array} array
+ * @param {function} callback
+ */
+exports.filter = function (array, callback) {
+  if (exports.size(array).length !== 1) {
+    throw new Error('Only one dimensional matrices supported');
+  }
+
+  return Array.prototype.filter.call(array, callback);
+}
+
+/**
+ * Filter values in a callback given a regular expression
+ * @param {Array} array
+ * @param {RegExp} regexp
+ * @return {Array} Returns the filtered array
+ * @private
+ */
+exports.filterRegExp = function (array, regexp) {
+  if (exports.size(array).length !== 1) {
+    throw new Error('Only one dimensional matrices supported');
+  }
+
+  return Array.prototype.filter.call(array, function (entry) {
+    return regexp.test(entry);
+  });
+}
+
+/**
+ * A safe join
+ * @param {Array} array
+ * @param {string} separator
+ */
+exports.join = function (array, separator) {
+  return Array.prototype.join.call(array, separator);
+}
+
+/**
+ * Assign a numeric identifier to every element of a sorted array
+ * @param {Array}	a  An array
+ * @return {Array}	An array of objects containing the original value and its identifier
+ */
+exports.identify = function(a) {
+  if (!Array.isArray(a)) {
+	throw new TypeError('Array input expected');
+  }
+	
+  if (a.length === 0) {
+	return a;
+  }
+	
+  var b = [];
+  var count = 0;
+  b[0] = {value: a[0], identifier: 0};
+  for (var i=1; i<a.length; i++) {
+    if (a[i] === a[i-1]) {
+  	count++;
+    }
+    else {
+      count = 0;
+    }
+    b.push({value: a[i], identifier: count});
+  }
+  return b;
+}
+
+/**
+ * Remove the numeric identifier from the elements
+ * @param	a  An array
+ * @return	An array of values without identifiers
+ */
+exports.generalize = function(a) {
+  if (!Array.isArray(a)) {
+	throw new TypeError('Array input expected');
+  }
+	
+  if (a.length === 0) {
+	return a;
+  }
+	
+  var b = [];
+  for (var i=0; i<a.length; i++) {
+    b.push(a[i].value);
+  }
+  return b;
+}
+
+/**
+ * Test whether an object is an array
+ * @param {*} value
+ * @return {boolean} isArray
+ */
+exports.isArray = Array.isArray;
+
+
+/***/ }),
+/* 82 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+var hasOwnProperty = __webpack_require__(102).hasOwnProperty;
+
+/**
+ * Get a property of a plain object
+ * Throws an error in case the object is not a plain object or the
+ * property is not defined on the object itself
+ * @param {Object} object
+ * @param {string} prop
+ * @return {*} Returns the property value when safe
+ */
+function getSafeProperty (object, prop) {
+  // only allow getting safe properties of a plain object
+  if (isPlainObject(object) && isSafeProperty(object, prop)) {
+    return object[prop];
+  }
+
+  if (typeof object[prop] === 'function' && isSafeMethod(object, prop)) {
+    throw new Error('Cannot access method "' + prop + '" as a property');
+  }
+
+  throw new Error('No access to property "' + prop + '"');
+}
+
+/**
+ * Set a property on a plain object.
+ * Throws an error in case the object is not a plain object or the
+ * property would override an inherited property like .constructor or .toString
+ * @param {Object} object
+ * @param {string} prop
+ * @param {*} value
+ * @return {*} Returns the value
+ */
+// TODO: merge this function into access.js?
+function setSafeProperty (object, prop, value) {
+  // only allow setting safe properties of a plain object
+  if (isPlainObject(object) && isSafeProperty(object, prop)) {
+    return object[prop] = value;
+  }
+
+  throw new Error('No access to property "' + prop + '"');
+}
+
+/**
+ * Test whether a property is safe to use for an object.
+ * For example .toString and .constructor are not safe
+ * @param {string} prop
+ * @return {boolean} Returns true when safe
+ */
+function isSafeProperty (object, prop) {
+  if (!object || typeof object !== 'object') {
+    return false;
+  }
+  // SAFE: whitelisted
+  // e.g length
+  if (hasOwnProperty(safeNativeProperties, prop)) {
+    return true;
+  }
+  // UNSAFE: inherited from Object prototype
+  // e.g constructor
+  if (prop in Object.prototype) {
+    // 'in' is used instead of hasOwnProperty for nodejs v0.10
+    // which is inconsistent on root prototypes. It is safe
+    // here because Object.prototype is a root object
+    return false;
+  }
+  // UNSAFE: inherited from Function prototype
+  // e.g call, apply
+  if (prop in Function.prototype) {
+    // 'in' is used instead of hasOwnProperty for nodejs v0.10
+    // which is inconsistent on root prototypes. It is safe
+    // here because Function.prototype is a root object
+    return false;
+  }
+  return true;
+}
+
+/**
+ * Validate whether a method is safe.
+ * Throws an error when that's not the case.
+ * @param {Object} object
+ * @param {string} method
+ */
+// TODO: merge this function into assign.js?
+function validateSafeMethod (object, method) {
+  if (!isSafeMethod(object, method)) {
+    throw new Error('No access to method "' + method + '"');
+  }
+}
+
+/**
+ * Check whether a method is safe.
+ * Throws an error when that's not the case (for example for `constructor`).
+ * @param {Object} object
+ * @param {string} method
+ * @return {boolean} Returns true when safe, false otherwise
+ */
+function isSafeMethod (object, method) {
+  if (!object || typeof object[method] !== 'function') {
+    return false;
+  }
+  // UNSAFE: ghosted
+  // e.g overridden toString
+  // Note that IE10 doesn't support __proto__ and we can't do this check there.
+  if (hasOwnProperty(object, method) &&
+      (object.__proto__ && (method in object.__proto__))) {
+    return false;
+  }
+  // SAFE: whitelisted
+  // e.g toString
+  if (hasOwnProperty(safeNativeMethods, method)) {
+    return true;
+  }
+  // UNSAFE: inherited from Object prototype
+  // e.g constructor
+  if (method in Object.prototype) {
+    // 'in' is used instead of hasOwnProperty for nodejs v0.10
+    // which is inconsistent on root prototypes. It is safe
+    // here because Object.prototype is a root object
+    return false;
+  }
+  // UNSAFE: inherited from Function prototype
+  // e.g call, apply
+  if (method in Function.prototype) {
+    // 'in' is used instead of hasOwnProperty for nodejs v0.10
+    // which is inconsistent on root prototypes. It is safe
+    // here because Function.prototype is a root object
+    return false;
+  }
+  return true;
+}
+
+function isPlainObject (object) {
+  return typeof object === 'object' && object && object.constructor === Object;
+}
+
+var safeNativeProperties = {
+  length: true,
+  name: true
+};
+
+var safeNativeMethods = {
+  toString: true,
+  valueOf: true,
+  toLocaleString: true
+};
+
+exports.getSafeProperty = getSafeProperty;
+exports.setSafeProperty = setSafeProperty;
+exports.isSafeProperty = isSafeProperty;
+exports.validateSafeMethod = validateSafeMethod;
+exports.isSafeMethod = isSafeMethod;
+exports.isPlainObject = isPlainObject;
+
+
+/***/ }),
+/* 83 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -15682,7 +15411,7 @@ module.exports = function isBigNumber(x) {
 };
 
 /***/ }),
-/* 85 */
+/* 84 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -15702,7 +15431,7 @@ function _typeof(obj) {
   }return _typeof(obj);
 }
 
-var Complex = __webpack_require__(185);
+var Complex = __webpack_require__(181);
 
 var format = __webpack_require__(3).format;
 
@@ -15918,7 +15647,7 @@ exports.factory = factory;
 exports.math = true; // request access to the math namespace
 
 /***/ }),
-/* 86 */
+/* 85 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -15989,13 +15718,13 @@ exports.name = 'fraction';
 exports.factory = factory;
 
 /***/ }),
-/* 87 */
+/* 86 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
-var util = __webpack_require__(31);
+var util = __webpack_require__(30);
 
 var string = util.string;
 var isString = string.isString;
@@ -16263,7 +15992,7 @@ exports.path = 'type';
 exports.factory = factory;
 
 /***/ }),
-/* 88 */
+/* 87 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -16450,7 +16179,7 @@ exports.name = 'algorithm04';
 exports.factory = factory;
 
 /***/ }),
-/* 89 */
+/* 88 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -16471,17 +16200,17 @@ function _typeof(obj) {
 }
 
 function factory(type, config, load, typed, math) {
-  var parse = load(__webpack_require__(44));
-  var equal = load(__webpack_require__(52));
-  var ConstantNode = load(__webpack_require__(62));
-  var FunctionNode = load(__webpack_require__(73));
-  var OperatorNode = load(__webpack_require__(63));
-  var ParenthesisNode = load(__webpack_require__(72));
-  var SymbolNode = load(__webpack_require__(54));
-  var simplifyConstant = load(__webpack_require__(126));
-  var simplifyCore = load(__webpack_require__(128));
-  var resolve = load(__webpack_require__(212));
-  var util = load(__webpack_require__(127));
+  var parse = load(__webpack_require__(43));
+  var equal = load(__webpack_require__(50));
+  var ConstantNode = load(__webpack_require__(58));
+  var FunctionNode = load(__webpack_require__(70));
+  var OperatorNode = load(__webpack_require__(59));
+  var ParenthesisNode = load(__webpack_require__(69));
+  var SymbolNode = load(__webpack_require__(52));
+  var simplifyConstant = load(__webpack_require__(124));
+  var simplifyCore = load(__webpack_require__(126));
+  var resolve = load(__webpack_require__(208));
+  var util = load(__webpack_require__(125));
   var isCommutative = util.isCommutative;
   var isAssociative = util.isAssociative;
   var flatten = util.flatten;
@@ -17225,22 +16954,22 @@ exports.name = 'simplify';
 exports.factory = factory;
 
 /***/ }),
-/* 90 */
+/* 89 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
-var util = __webpack_require__(31);
+var util = __webpack_require__(30);
 
 var object = util.object;
 
 function factory(type, config, load, typed) {
   var matrix = load(__webpack_require__(1));
-  var abs = load(__webpack_require__(24));
+  var abs = load(__webpack_require__(23));
   var addScalar = load(__webpack_require__(17));
   var divideScalar = load(__webpack_require__(12));
-  var multiplyScalar = load(__webpack_require__(22));
+  var multiplyScalar = load(__webpack_require__(21));
   var subtract = load(__webpack_require__(15));
   var larger = load(__webpack_require__(34));
   var equalScalar = load(__webpack_require__(10));
@@ -17648,7 +17377,7 @@ exports.name = 'lup';
 exports.factory = factory;
 
 /***/ }),
-/* 91 */
+/* 90 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -17675,13 +17404,13 @@ exports.path = 'algebra.sparse';
 exports.factory = factory;
 
 /***/ }),
-/* 92 */
+/* 91 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
-var util = __webpack_require__(31);
+var util = __webpack_require__(30);
 
 var string = util.string;
 var array = util.array;
@@ -17868,7 +17597,7 @@ function factory(type) {
 exports.factory = factory;
 
 /***/ }),
-/* 93 */
+/* 92 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -17952,13 +17681,13 @@ exports.name = 'log';
 exports.factory = factory;
 
 /***/ }),
-/* 94 */
+/* 93 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
-var bitNot = __webpack_require__(95);
+var bitNot = __webpack_require__(94);
 /**
  * Applies bitwise function to numbers
  * @param {BigNumber} x
@@ -18111,7 +17840,7 @@ function decCoefficientToBinaryString(x) {
 }
 
 /***/ }),
-/* 95 */
+/* 94 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -18142,7 +17871,7 @@ module.exports = function bitNot(x) {
 };
 
 /***/ }),
-/* 96 */
+/* 95 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -18304,7 +18033,7 @@ exports.name = 'algorithm08';
 exports.factory = factory;
 
 /***/ }),
-/* 97 */
+/* 96 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -18334,7 +18063,7 @@ function product(i, n) {
 module.exports = product;
 
 /***/ }),
-/* 98 */
+/* 97 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -18343,9 +18072,9 @@ module.exports = product;
 var isInteger = __webpack_require__(3).isInteger;
 
 function factory(type, config, load, typed) {
-  var isNumeric = load(__webpack_require__(61));
-  var isNaN = load(__webpack_require__(82));
-  var asc = load(__webpack_require__(55));
+  var isNumeric = load(__webpack_require__(57));
+  var isNaN = load(__webpack_require__(79));
+  var asc = load(__webpack_require__(53));
 
   function desc(a, b) {
     return -asc(a, b);
@@ -18484,17 +18213,17 @@ exports.name = 'partitionSelect';
 exports.factory = factory;
 
 /***/ }),
-/* 99 */
+/* 98 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
-var deepForEach = __webpack_require__(48);
+var deepForEach = __webpack_require__(47);
 
-var reduce = __webpack_require__(100);
+var reduce = __webpack_require__(99);
 
-var containsCollections = __webpack_require__(83);
+var containsCollections = __webpack_require__(80);
 
 function factory(type, config, load, typed) {
   var larger = load(__webpack_require__(34));
@@ -18597,7 +18326,7 @@ exports.name = 'max';
 exports.factory = factory;
 
 /***/ }),
-/* 100 */
+/* 99 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -18605,9 +18334,9 @@ exports.factory = factory;
 
 var arraySize = __webpack_require__(2).size;
 
-var isMatrix = __webpack_require__(67);
+var isMatrix = __webpack_require__(64);
 
-var IndexError = __webpack_require__(60);
+var IndexError = __webpack_require__(56);
 /**
  * Reduce a given matrix or array to a new matrix or
  * array with one less dimension, applying the given
@@ -18700,15 +18429,15 @@ function _switch(mat) {
 }
 
 /***/ }),
-/* 101 */
+/* 100 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
-var ArgumentsError = __webpack_require__(59);
+var ArgumentsError = __webpack_require__(55);
 
-var isCollection = __webpack_require__(56);
+var isCollection = __webpack_require__(54);
 
 var isNumber = __webpack_require__(3).isNumber; // TODO: rethink math.distribution
 // TODO: rework to a typed function
@@ -18720,7 +18449,7 @@ function factory(type, config, load, typed, math) {
   var array = __webpack_require__(2); // seeded pseudo random number generator
 
 
-  var rng = load(__webpack_require__(306));
+  var rng = load(__webpack_require__(302));
   /**
    * Create a distribution object with a set of random functions for given
    * random distribution.
@@ -19007,7 +18736,7 @@ exports.name = 'distribution';
 exports.factory = factory;
 
 /***/ }),
-/* 102 */
+/* 101 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -19047,325 +18776,278 @@ function factory(type, config, load, typed) {
 exports.factory = factory;
 
 /***/ }),
+/* 102 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+var isBigNumber = __webpack_require__(591);
+
+/**
+ * Clone an object
+ *
+ *     clone(x)
+ *
+ * Can clone any primitive type, array, and object.
+ * If x has a function clone, this function will be invoked to clone the object.
+ *
+ * @param {*} x
+ * @return {*} clone
+ */
+exports.clone = function clone(x) {
+  var type = typeof x;
+
+  // immutable primitive types
+  if (type === 'number' || type === 'string' || type === 'boolean' ||
+      x === null || x === undefined) {
+    return x;
+  }
+
+  // use clone function of the object when available
+  if (typeof x.clone === 'function') {
+    return x.clone();
+  }
+
+  // array
+  if (Array.isArray(x)) {
+    return x.map(function (value) {
+      return clone(value);
+    });
+  }
+
+  if (x instanceof Number)    return new Number(x.valueOf());
+  if (x instanceof String)    return new String(x.valueOf());
+  if (x instanceof Boolean)   return new Boolean(x.valueOf());
+  if (x instanceof Date)      return new Date(x.valueOf());
+  if (isBigNumber(x))         return x; // bignumbers are immutable
+  if (x instanceof RegExp)  throw new TypeError('Cannot clone ' + x);  // TODO: clone a RegExp
+
+  // object
+  return exports.map(x, clone);
+};
+
+/**
+ * Apply map to all properties of an object
+ * @param {Object} object
+ * @param {function} callback
+ * @return {Object} Returns a copy of the object with mapped properties
+ */
+exports.map = function(object, callback) {
+  var clone = {};
+
+  for (var key in object) {
+    if (exports.hasOwnProperty(object, key)) {
+      clone[key] = callback(object[key]);
+    }
+  }
+
+  return clone;
+}
+
+/**
+ * Extend object a with the properties of object b
+ * @param {Object} a
+ * @param {Object} b
+ * @return {Object} a
+ */
+exports.extend = function(a, b) {
+  for (var prop in b) {
+    if (exports.hasOwnProperty(b, prop)) {
+      a[prop] = b[prop];
+    }
+  }
+  return a;
+};
+
+/**
+ * Deep extend an object a with the properties of object b
+ * @param {Object} a
+ * @param {Object} b
+ * @returns {Object}
+ */
+exports.deepExtend = function deepExtend (a, b) {
+  // TODO: add support for Arrays to deepExtend
+  if (Array.isArray(b)) {
+    throw new TypeError('Arrays are not supported by deepExtend');
+  }
+
+  for (var prop in b) {
+    if (exports.hasOwnProperty(b, prop)) {
+      if (b[prop] && b[prop].constructor === Object) {
+        if (a[prop] === undefined) {
+          a[prop] = {};
+        }
+        if (a[prop].constructor === Object) {
+          deepExtend(a[prop], b[prop]);
+        }
+        else {
+          a[prop] = b[prop];
+        }
+      } else if (Array.isArray(b[prop])) {
+        throw new TypeError('Arrays are not supported by deepExtend');
+      } else {
+        a[prop] = b[prop];
+      }
+    }
+  }
+  return a;
+};
+
+/**
+ * Deep test equality of all fields in two pairs of arrays or objects.
+ * @param {Array | Object} a
+ * @param {Array | Object} b
+ * @returns {boolean}
+ */
+exports.deepEqual = function deepEqual (a, b) {
+  var prop, i, len;
+  if (Array.isArray(a)) {
+    if (!Array.isArray(b)) {
+      return false;
+    }
+
+    if (a.length != b.length) {
+      return false;
+    }
+
+    for (i = 0, len = a.length; i < len; i++) {
+      if (!exports.deepEqual(a[i], b[i])) {
+        return false;
+      }
+    }
+    return true;
+  }
+  else if (a instanceof Object) {
+    if (Array.isArray(b) || !(b instanceof Object)) {
+      return false;
+    }
+
+    for (prop in a) {
+      //noinspection JSUnfilteredForInLoop
+      if (!exports.deepEqual(a[prop], b[prop])) {
+        return false;
+      }
+    }
+    for (prop in b) {
+      //noinspection JSUnfilteredForInLoop
+      if (!exports.deepEqual(a[prop], b[prop])) {
+        return false;
+      }
+    }
+    return true;
+  }
+  else {
+    return (typeof a === typeof b) && (a == b);
+  }
+};
+
+/**
+ * Test whether the current JavaScript engine supports Object.defineProperty
+ * @returns {boolean} returns true if supported
+ */
+exports.canDefineProperty = function () {
+  // test needed for broken IE8 implementation
+  try {
+    if (Object.defineProperty) {
+      Object.defineProperty({}, 'x', { get: function () {} });
+      return true;
+    }
+  } catch (e) {}
+
+  return false;
+};
+
+/**
+ * Attach a lazy loading property to a constant.
+ * The given function `fn` is called once when the property is first requested.
+ * On older browsers (<IE8), the function will fall back to direct evaluation
+ * of the properties value.
+ * @param {Object} object   Object where to add the property
+ * @param {string} prop     Property name
+ * @param {Function} fn     Function returning the property value. Called
+ *                          without arguments.
+ */
+exports.lazy = function (object, prop, fn) {
+  if (exports.canDefineProperty()) {
+    var _uninitialized = true;
+    var _value;
+    Object.defineProperty(object, prop, {
+      get: function () {
+        if (_uninitialized) {
+          _value = fn();
+          _uninitialized = false;
+        }
+        return _value;
+      },
+
+      set: function (value) {
+        _value = value;
+        _uninitialized = false;
+      },
+
+      configurable: true,
+      enumerable: true
+    });
+  }
+  else {
+    // fall back to immediate evaluation
+    object[prop] = fn();
+  }
+};
+
+/**
+ * Traverse a path into an object.
+ * When a namespace is missing, it will be created
+ * @param {Object} object
+ * @param {string} path   A dot separated string like 'name.space'
+ * @return {Object} Returns the object at the end of the path
+ */
+exports.traverse = function(object, path) {
+  var obj = object;
+
+  if (path) {
+    var names = path.split('.');
+    for (var i = 0; i < names.length; i++) {
+      var name = names[i];
+      if (!(name in obj)) {
+        obj[name] = {};
+      }
+      obj = obj[name];
+    }
+  }
+
+  return obj;
+};
+
+/**
+ * A safe hasOwnProperty
+ * @param {Object} object
+ * @param {string} property
+ */
+exports.hasOwnProperty = function (object, property) {
+  return object && Object.hasOwnProperty.call(object, property);
+}
+
+/**
+ * Test whether an object is a factory. a factory has fields:
+ *
+ * - factory: function (type: Object, config: Object, load: function, typed: function [, math: Object])   (required)
+ * - name: string (optional)
+ * - path: string    A dot separated path (optional)
+ * - math: boolean   If true (false by default), the math namespace is passed
+ *                   as fifth argument of the factory function
+ *
+ * @param {*} object
+ * @returns {boolean}
+ */
+exports.isFactory = function (object) {
+  return object && typeof object.factory === 'function';
+};
+
+
+/***/ }),
 /* 103 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-var escape_latex = __webpack_require__(162)
-
-exports.symbols = {
-  // GREEK LETTERS
-  Alpha: 'A',     alpha: '\\alpha',
-  Beta: 'B',      beta: '\\beta',
-  Gamma: '\\Gamma',    gamma: '\\gamma',
-  Delta: '\\Delta',    delta: '\\delta',
-  Epsilon: 'E',   epsilon: '\\epsilon',  varepsilon: '\\varepsilon',
-  Zeta: 'Z',      zeta: '\\zeta',
-  Eta: 'H',       eta: '\\eta',
-  Theta: '\\Theta',    theta: '\\theta',    vartheta: '\\vartheta',
-  Iota: 'I',      iota: '\\iota',
-  Kappa: 'K',     kappa: '\\kappa',    varkappa: '\\varkappa',
-  Lambda: '\\Lambda',   lambda: '\\lambda',
-  Mu: 'M',        mu: '\\mu',
-  Nu: 'N',        nu: '\\nu',
-  Xi: '\\Xi',       xi: '\\xi',
-  Omicron: 'O',   omicron: 'o',
-  Pi: '\\Pi',       pi: '\\pi',       varpi: '\\varpi',
-  Rho: 'P',       rho: '\\rho',      varrho: '\\varrho',
-  Sigma: '\\Sigma',    sigma: '\\sigma',    varsigma: '\\varsigma',
-  Tau: 'T',       tau: '\\tau',
-  Upsilon: '\\Upsilon',  upsilon: '\\upsilon',
-  Phi: '\\Phi',      phi: '\\phi',      varphi: '\\varphi',
-  Chi: 'X',       chi: '\\chi',
-  Psi: '\\Psi',      psi: '\\psi',
-  Omega: '\\Omega',    omega: '\\omega',
-  //logic
-  'true': '\\mathrm{True}',
-  'false': '\\mathrm{False}',
-  //other
-  i: 'i', //TODO use \i ??
-  inf: '\\infty',
-  Inf: '\\infty',
-  infinity: '\\infty',
-  Infinity: '\\infty',
-  oo: '\\infty',
-  lim: '\\lim',
-  'undefined': '\\mathbf{?}'
-};
-
-exports.operators = {
-  'transpose': '^\\top',
-  'factorial': '!',
-  'pow': '^',
-  'dotPow': '.^\\wedge', //TODO find ideal solution
-  'unaryPlus': '+',
-  'unaryMinus': '-',
-  'bitNot': '~', //TODO find ideal solution
-  'not': '\\neg',
-  'multiply': '\\cdot',
-  'divide': '\\frac', //TODO how to handle that properly?
-  'dotMultiply': '.\\cdot', //TODO find ideal solution
-  'dotDivide': '.:', //TODO find ideal solution
-  'mod': '\\mod',
-  'add': '+',
-  'subtract': '-',
-  'to': '\\rightarrow',
-  'leftShift': '<<',
-  'rightArithShift': '>>',
-  'rightLogShift': '>>>',
-  'equal': '=',
-  'unequal': '\\neq',
-  'smaller': '<',
-  'larger': '>',
-  'smallerEq': '\\leq',
-  'largerEq': '\\geq',
-  'bitAnd': '\\&',
-  'bitXor': '\\underline{|}',
-  'bitOr': '|',
-  'and': '\\wedge',
-  'xor': '\\veebar',
-  'or': '\\vee'
-};
-
-exports.defaultTemplate = '\\mathrm{${name}}\\left(${args}\\right)';
-
-var units = {
-  deg: '^\\circ'
-};
-
-exports.escape = function (string) {
-  return escape_latex(string, {'preserveFormatting': true});
-}
-
-//@param {string} name
-//@param {boolean} isUnit
-exports.toSymbol = function (name, isUnit) {
-  isUnit = typeof isUnit === 'undefined' ? false : isUnit;
-  if (isUnit) {
-    if (units.hasOwnProperty(name)) {
-      return units[name];
-    }
-
-    return '\\mathrm{' + exports.escape(name) + '}';
-  }
-
-  if (exports.symbols.hasOwnProperty(name)) {
-    return exports.symbols[name];
-  }
-
-  return exports.escape(name);
-};
-
-
-/***/ }),
-/* 104 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-var latex = __webpack_require__(103);
-var stringify = __webpack_require__(38).stringify;
-var escape = __webpack_require__(38).escape;
-var hasOwnProperty = __webpack_require__(66).hasOwnProperty;
-var getSafeProperty = __webpack_require__(58).getSafeProperty;
-
-function factory (type, config, load, typed, math) {
-  var register = load(__webpack_require__(21)).register;
-  var compile = load(__webpack_require__(21)).compile;
-  var Node = load(__webpack_require__(49));
-
-  /**
-   * Check whether some name is a valueless unit like "inch".
-   * @param {string} name
-   * @return {boolean}
-   */
-  function isValuelessUnit (name) {
-    return type.Unit ? type.Unit.isValuelessUnit(name) : false;
-  }
-
-  /**
-   * @constructor SymbolNode
-   * @extends {Node}
-   * A symbol node can hold and resolve a symbol
-   * @param {string} name
-   * @extends {Node}
-   */
-  function SymbolNode(name) {
-    if (!(this instanceof SymbolNode)) {
-      throw new SyntaxError('Constructor must be called with the new operator');
-    }
-
-    // validate input
-    if (typeof name !== 'string')  throw new TypeError('String expected for parameter "name"');
-
-    this.name = name;
-  }
-
-  SymbolNode.prototype = new Node();
-
-  SymbolNode.prototype.type = 'SymbolNode';
-
-  SymbolNode.prototype.isSymbolNode = true;
-
-  /**
-   * Compile the node to javascript code
-   * @param {SymbolNode} node The node to be compiled
-   * @param {Object} defs     Object which can be used to define functions
-   *                          or constants globally available for the compiled
-   *                          expression
-   * @param {Object} args     Object with local function arguments, the key is
-   *                          the name of the argument, and the value is `true`.
-   *                          The object may not be mutated, but must be
-   *                          extended instead.
-   * @return {string} js
-   * @private
-   */
-  function compileSymbolNode(node, defs, args) {
-    if (!(node instanceof SymbolNode)) {
-      throw new TypeError('No valid SymbolNode')
-    }
-
-    // add a function to the definitions
-    defs['undef'] = undef;
-    defs['Unit'] = type.Unit;
-    defs.getSafeProperty = getSafeProperty;
-    defs.hasOwnProperty = hasOwnProperty;
-
-    var jsName = stringify(node.name); // escaped node name inside double quotes
-
-    if (hasOwnProperty(args, node.name)) {
-      // this is a FunctionAssignment argument
-      // (like an x when inside the expression of a function assignment `f(x) = ...`)
-      return args[node.name];
-    }
-    else if (node.name in defs.math) {
-      return '(' + jsName + ' in scope ' +
-          '? getSafeProperty(scope, ' + jsName + ') ' +
-          ': getSafeProperty(math, ' + jsName + '))';
-    }
-    else {
-      return '(' +
-          jsName + ' in scope ' +
-          '? getSafeProperty(scope, ' + jsName + ') ' +
-          ': ' + (isValuelessUnit(node.name)
-              ? 'new Unit(null, ' + jsName + ')'
-              : 'undef(' + jsName + ')') +
-          ')';
-    }
-  }
-
-  // register the compile function
-  register(SymbolNode.prototype.type, compileSymbolNode);
-
-  /**
-   * Execute a callback for each of the child nodes of this node
-   * @param {function(child: Node, path: string, parent: Node)} callback
-   */
-  SymbolNode.prototype.forEach = function (callback) {
-    // nothing to do, we don't have childs
-  };
-
-  /**
-   * Create a new SymbolNode having it's childs be the results of calling
-   * the provided callback function for each of the childs of the original node.
-   * @param {function(child: Node, path: string, parent: Node) : Node} callback
-   * @returns {SymbolNode} Returns a clone of the node
-   */
-  SymbolNode.prototype.map = function (callback) {
-    return this.clone();
-  };
-
-  /**
-   * Throws an error 'Undefined symbol {name}'
-   * @param {string} name
-   */
-  function undef (name) {
-    throw new Error('Undefined symbol ' + name);
-  }
-
-  /**
-   * Create a clone of this node, a shallow copy
-   * @return {SymbolNode}
-   */
-  SymbolNode.prototype.clone = function() {
-    return new SymbolNode(this.name);
-  };
-
-  /**
-   * Get string representation
-   * @param {Object} options
-   * @return {string} str
-   * @override
-   */
-  SymbolNode.prototype._toString = function(options) {
-    return this.name;
-  };
-
-  /**
-   * Get HTML representation
-   * @param {Object} options
-   * @return {string} str
-   * @override
-   */
-  SymbolNode.prototype.toHTML = function(options) {
-	var name = escape(this.name);
-	
-    if (name == "true" || name == "false") {
-	  return '<span class="math-symbol math-boolean">' + name + '</span>';
-	}
-	else if (name == "i") {
-	  return '<span class="math-symbol math-imaginary-symbol">' + name + '</span>';
-	}
-	else if (name == "Infinity") {
-	  return '<span class="math-symbol math-infinity-symbol">' + name + '</span>';
-	}
-	else if (name == "NaN") {
-	  return '<span class="math-symbol math-nan-symbol">' + name + '</span>';
-	}
-	else if (name == "null") {
-	  return '<span class="math-symbol math-null-symbol">' + name + '</span>';
-	}
-	else if (name == "uninitialized") {
-	  return '<span class="math-symbol math-uninitialized-symbol">' + name + '</span>';
-	}
-	
-	return '<span class="math-symbol">' + name + '</span>';
-  };
-
-  /**
-   * Get LaTeX representation
-   * @param {Object} options
-   * @return {string} str
-   * @override
-   */
-  SymbolNode.prototype._toTex = function(options) {
-    var isUnit = false;
-    if ((typeof math[this.name] === 'undefined') && isValuelessUnit(this.name)) {
-      isUnit = true;
-    }
-    var symbol = latex.toSymbol(this.name, isUnit);
-    if (symbol[0] === '\\') {
-      //no space needed if the symbol starts with '\'
-      return symbol;
-    }
-    //the space prevents symbols from breaking stuff like '\cdot' if it's written right before the symbol
-    return ' ' + symbol;
-  };
-
-  return SymbolNode;
-}
-
-exports.name = 'SymbolNode';
-exports.path = 'expression.node';
-exports.math = true; // request access to the math namespace as 5th argument of the factory function
-exports.factory = factory;
-
-
-/***/ }),
-/* 105 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -19385,13 +19067,13 @@ function _typeof(obj) {
   }return _typeof(obj);
 }
 
-var typedFunction = __webpack_require__(170);
+var typedFunction = __webpack_require__(166);
 
 var digits = __webpack_require__(3).digits;
 
-var isBigNumber = __webpack_require__(84);
+var isBigNumber = __webpack_require__(83);
 
-var isMatrix = __webpack_require__(67); // returns a new instance of typed-function
+var isMatrix = __webpack_require__(64); // returns a new instance of typed-function
 
 
 var _createTyped = function createTyped() {
@@ -19816,13 +19498,13 @@ exports.create = function create(type) {
 };
 
 /***/ }),
-/* 106 */
+/* 104 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
-var Emitter = __webpack_require__(171);
+var Emitter = __webpack_require__(167);
 /**
  * Extend given object with emitter functions `on`, `off`, `once`, `emit`
  * @param {Object} obj
@@ -19841,7 +19523,7 @@ exports.mixin = function (obj) {
 };
 
 /***/ }),
-/* 107 */
+/* 105 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -19911,7 +19593,7 @@ exports.name = 'bignumber';
 exports.factory = factory;
 
 /***/ }),
-/* 108 */
+/* 106 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -20241,7 +19923,7 @@ exports.path = 'type';
 exports.factory = factory;
 
 /***/ }),
-/* 109 */
+/* 107 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -20318,7 +20000,7 @@ exports.path = 'type';
 exports.factory = factory;
 
 /***/ }),
-/* 110 */
+/* 108 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -20375,7 +20057,7 @@ function hasher(args) {
 }
 
 /***/ }),
-/* 111 */
+/* 109 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -20439,7 +20121,7 @@ exports.name = 'fix';
 exports.factory = factory;
 
 /***/ }),
-/* 112 */
+/* 110 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -20456,7 +20138,7 @@ var NO_INT = 'Number of decimals in function round must be an integer';
 function factory(type, config, load, typed) {
   var matrix = load(__webpack_require__(1));
   var equalScalar = load(__webpack_require__(10));
-  var zeros = load(__webpack_require__(43));
+  var zeros = load(__webpack_require__(42));
   var algorithm11 = load(__webpack_require__(20));
   var algorithm12 = load(__webpack_require__(19));
   var algorithm14 = load(__webpack_require__(6));
@@ -20612,7 +20294,7 @@ exports.name = 'round';
 exports.factory = factory;
 
 /***/ }),
-/* 113 */
+/* 111 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -20734,7 +20416,7 @@ exports.name = 'format';
 exports.factory = factory;
 
 /***/ }),
-/* 114 */
+/* 112 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -20744,7 +20426,7 @@ var getSafeProperty = __webpack_require__(13).getSafeProperty;
 
 function factory(type, config, load, typed) {
   var Node = load(__webpack_require__(16));
-  var access = load(__webpack_require__(116));
+  var access = load(__webpack_require__(114));
   /**
    * @constructor AccessorNode
    * @extends {Node}
@@ -20934,7 +20616,7 @@ exports.path = 'expression.node';
 exports.factory = factory;
 
 /***/ }),
-/* 115 */
+/* 113 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -20945,7 +20627,7 @@ module.exports = {
 };
 
 /***/ }),
-/* 116 */
+/* 114 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -20965,12 +20647,12 @@ function _typeof(obj) {
   }return _typeof(obj);
 }
 
-var errorTransform = __webpack_require__(45).transform;
+var errorTransform = __webpack_require__(44).transform;
 
 var getSafeProperty = __webpack_require__(13).getSafeProperty;
 
 function factory(type, config, load, typed) {
-  var subset = load(__webpack_require__(23));
+  var subset = load(__webpack_require__(22));
   /**
    * Retrieve part of an object:
    *
@@ -21011,7 +20693,7 @@ function factory(type, config, load, typed) {
 exports.factory = factory;
 
 /***/ }),
-/* 117 */
+/* 115 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -21203,7 +20885,7 @@ exports.path = 'expression.node';
 exports.factory = factory;
 
 /***/ }),
-/* 118 */
+/* 116 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -21215,10 +20897,10 @@ var setSafeProperty = __webpack_require__(13).setSafeProperty;
 
 function factory(type, config, load, typed) {
   var Node = load(__webpack_require__(16));
-  var assign = load(__webpack_require__(211));
-  var access = load(__webpack_require__(116));
+  var assign = load(__webpack_require__(207));
+  var access = load(__webpack_require__(114));
 
-  var operators = __webpack_require__(53);
+  var operators = __webpack_require__(51);
   /**
    * @constructor AssignmentNode
    * @extends {Node}
@@ -21515,7 +21197,7 @@ exports.path = 'expression.node';
 exports.factory = factory;
 
 /***/ }),
-/* 119 */
+/* 117 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -21527,7 +21209,7 @@ var map = __webpack_require__(2).map;
 
 function factory(type, config, load, typed) {
   var Node = load(__webpack_require__(16));
-  var ResultSet = load(__webpack_require__(109));
+  var ResultSet = load(__webpack_require__(107));
   /**
    * @constructor BlockNode
    * @extends {Node}
@@ -21706,17 +21388,17 @@ exports.path = 'expression.node';
 exports.factory = factory;
 
 /***/ }),
-/* 120 */
+/* 118 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
-var operators = __webpack_require__(53);
+var operators = __webpack_require__(51);
 
 function factory(type, config, load, typed) {
   var Node = load(__webpack_require__(16));
-  var mathTypeOf = load(__webpack_require__(25));
+  var mathTypeOf = load(__webpack_require__(24));
   /**
    * A lazy evaluating conditional operator: 'condition ? trueExpr : falseExpr'
    *
@@ -21942,13 +21624,13 @@ exports.path = 'expression.node';
 exports.factory = factory;
 
 /***/ }),
-/* 121 */
+/* 119 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
-var keywords = __webpack_require__(115);
+var keywords = __webpack_require__(113);
 
 var escape = __webpack_require__(8).escape;
 
@@ -21958,7 +21640,7 @@ var join = __webpack_require__(2).join;
 
 var latex = __webpack_require__(4);
 
-var operators = __webpack_require__(53);
+var operators = __webpack_require__(51);
 
 var setSafeProperty = __webpack_require__(13).setSafeProperty;
 
@@ -22178,7 +21860,7 @@ exports.path = 'expression.node';
 exports.factory = factory;
 
 /***/ }),
-/* 122 */
+/* 120 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -22190,7 +21872,7 @@ var escape = __webpack_require__(8).escape;
 
 function factory(type, config, load, typed) {
   var Node = load(__webpack_require__(16));
-  var Range = load(__webpack_require__(108));
+  var Range = load(__webpack_require__(106));
   var isArray = Array.isArray;
   /**
    * @constructor IndexNode
@@ -22452,7 +22134,7 @@ exports.path = 'expression.node';
 exports.factory = factory;
 
 /***/ }),
-/* 123 */
+/* 121 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -22682,13 +22364,13 @@ exports.path = 'expression.node';
 exports.factory = factory;
 
 /***/ }),
-/* 124 */
+/* 122 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
-var operators = __webpack_require__(53);
+var operators = __webpack_require__(51);
 
 function factory(type, config, load, typed) {
   var Node = load(__webpack_require__(16));
@@ -22964,13 +22646,13 @@ exports.path = 'expression.node';
 exports.factory = factory;
 
 /***/ }),
-/* 125 */
+/* 123 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
-var operators = __webpack_require__(53);
+var operators = __webpack_require__(51);
 
 var latex = __webpack_require__(4);
 
@@ -23186,14 +22868,14 @@ exports.path = 'expression.node';
 exports.factory = factory;
 
 /***/ }),
-/* 126 */
+/* 124 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
  // TODO this could be improved by simplifying seperated constants under associative and commutative operators
 
 function factory(type, config, load, typed, math) {
-  var util = load(__webpack_require__(127));
+  var util = load(__webpack_require__(125));
   var isCommutative = util.isCommutative;
   var isAssociative = util.isAssociative;
   var allChildren = util.allChildren;
@@ -23487,7 +23169,7 @@ exports.path = 'algebra.simplify';
 exports.factory = factory;
 
 /***/ }),
-/* 127 */
+/* 125 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -23667,20 +23349,20 @@ exports.factory = factory;
 exports.math = true;
 
 /***/ }),
-/* 128 */
+/* 126 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
 function factory(type, config, load, typed, math) {
-  var equal = load(__webpack_require__(52));
-  var isZero = load(__webpack_require__(64));
+  var equal = load(__webpack_require__(50));
+  var isZero = load(__webpack_require__(60));
   var add = load(__webpack_require__(14));
   var subtract = load(__webpack_require__(15));
   var multiply = load(__webpack_require__(9));
-  var divide = load(__webpack_require__(46));
-  var pow = load(__webpack_require__(42));
+  var divide = load(__webpack_require__(45));
+  var pow = load(__webpack_require__(41));
   var ConstantNode = math.expression.node.ConstantNode;
   var OperatorNode = math.expression.node.OperatorNode;
   var FunctionNode = math.expression.node.FunctionNode;
@@ -23865,13 +23547,13 @@ exports.path = 'algebra.simplify';
 exports.factory = factory;
 
 /***/ }),
-/* 129 */
+/* 127 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
-var util = __webpack_require__(31);
+var util = __webpack_require__(30);
 
 var object = util.object;
 var string = util.string;
@@ -23881,7 +23563,7 @@ function factory(type, config, load, typed) {
   var subtract = load(__webpack_require__(15));
   var multiply = load(__webpack_require__(9));
   var unaryMinus = load(__webpack_require__(35));
-  var lup = load(__webpack_require__(90));
+  var lup = load(__webpack_require__(89));
   /**
    * Calculate the determinant of a matrix.
    *
@@ -24021,14 +23703,14 @@ exports.name = 'det';
 exports.factory = factory;
 
 /***/ }),
-/* 130 */
+/* 128 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
 function factory(type, config, load, typed) {
-  var parse = load(__webpack_require__(44));
+  var parse = load(__webpack_require__(43));
   /**
    * Parse an expression. Returns a node tree, which can be evaluated by
    * invoking node.eval().
@@ -24079,7 +23761,7 @@ exports.name = 'parse';
 exports.factory = factory;
 
 /***/ }),
-/* 131 */
+/* 129 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -24087,12 +23769,12 @@ exports.factory = factory;
 
 var nearlyEqual = __webpack_require__(3).nearlyEqual;
 
-var bigNearlyEqual = __webpack_require__(39);
+var bigNearlyEqual = __webpack_require__(38);
 
 function factory(type, config, load, typed) {
   var matrix = load(__webpack_require__(1));
   var algorithm03 = load(__webpack_require__(18));
-  var algorithm07 = load(__webpack_require__(28));
+  var algorithm07 = load(__webpack_require__(27));
   var algorithm12 = load(__webpack_require__(19));
   var algorithm13 = load(__webpack_require__(7));
   var algorithm14 = load(__webpack_require__(6));
@@ -24244,7 +23926,7 @@ exports.name = 'unequal';
 exports.factory = factory;
 
 /***/ }),
-/* 132 */
+/* 130 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -24314,20 +23996,20 @@ exports.name = 'sign';
 exports.factory = factory;
 
 /***/ }),
-/* 133 */
+/* 131 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
-var util = __webpack_require__(31);
+var util = __webpack_require__(30);
 
 var number = util.number;
 var isInteger = number.isInteger;
 
 function factory(type, config, load, typed) {
-  var csSqr = load(__webpack_require__(215));
-  var csLu = load(__webpack_require__(223));
+  var csSqr = load(__webpack_require__(211));
+  var csLu = load(__webpack_require__(219));
   /**
    * Calculate the Sparse Matrix LU decomposition with full pivoting. Sparse Matrix `A` is decomposed in two matrices (`L`, `U`) and two permutation vectors (`pinv`, `q`) where
    *
@@ -24401,7 +24083,7 @@ exports.name = 'slu';
 exports.factory = factory;
 
 /***/ }),
-/* 134 */
+/* 132 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -24459,7 +24141,7 @@ exports.path = 'algebra.sparse';
 exports.factory = factory;
 
 /***/ }),
-/* 135 */
+/* 133 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -24467,12 +24149,12 @@ exports.factory = factory;
 
 var nearlyEqual = __webpack_require__(3).nearlyEqual;
 
-var bigNearlyEqual = __webpack_require__(39);
+var bigNearlyEqual = __webpack_require__(38);
 
 function factory(type, config, load, typed) {
   var matrix = load(__webpack_require__(1));
   var algorithm03 = load(__webpack_require__(18));
-  var algorithm07 = load(__webpack_require__(28));
+  var algorithm07 = load(__webpack_require__(27));
   var algorithm12 = load(__webpack_require__(19));
   var algorithm13 = load(__webpack_require__(7));
   var algorithm14 = load(__webpack_require__(6));
@@ -24584,7 +24266,7 @@ exports.name = 'largerEq';
 exports.factory = factory;
 
 /***/ }),
-/* 136 */
+/* 134 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -24612,14 +24294,14 @@ exports.path = 'algebra.sparse';
 exports.factory = factory;
 
 /***/ }),
-/* 137 */
+/* 135 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
 function factory(type, config, load) {
-  var csFlip = load(__webpack_require__(91));
+  var csFlip = load(__webpack_require__(90));
   /**
    * Marks the node at w[j]
    *
@@ -24642,7 +24324,7 @@ exports.path = 'algebra.sparse';
 exports.factory = factory;
 
 /***/ }),
-/* 138 */
+/* 136 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -24651,10 +24333,10 @@ exports.factory = factory;
 function factory(type, config, load, typed) {
   var matrix = load(__webpack_require__(1));
   var divideScalar = load(__webpack_require__(12));
-  var multiplyScalar = load(__webpack_require__(22));
+  var multiplyScalar = load(__webpack_require__(21));
   var subtract = load(__webpack_require__(15));
   var equalScalar = load(__webpack_require__(10));
-  var solveValidation = load(__webpack_require__(92));
+  var solveValidation = load(__webpack_require__(91));
   var DenseMatrix = type.DenseMatrix;
   /**
    * Solves the linear equation system by forwards substitution. Matrix must be a lower triangular matrix.
@@ -24834,7 +24516,7 @@ exports.name = 'lsolve';
 exports.factory = factory;
 
 /***/ }),
-/* 139 */
+/* 137 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -24843,10 +24525,10 @@ exports.factory = factory;
 function factory(type, config, load, typed) {
   var matrix = load(__webpack_require__(1));
   var divideScalar = load(__webpack_require__(12));
-  var multiplyScalar = load(__webpack_require__(22));
+  var multiplyScalar = load(__webpack_require__(21));
   var subtract = load(__webpack_require__(15));
   var equalScalar = load(__webpack_require__(10));
-  var solveValidation = load(__webpack_require__(92));
+  var solveValidation = load(__webpack_require__(91));
   var DenseMatrix = type.DenseMatrix;
   /**
    * Solves the linear equation system by backward substitution. Matrix must be an upper triangular matrix.
@@ -25027,7 +24709,7 @@ exports.name = 'usolve';
 exports.factory = factory;
 
 /***/ }),
-/* 140 */
+/* 138 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -25039,9 +24721,9 @@ function factory(type, config, load, typed) {
 
   var latex = __webpack_require__(4);
 
-  var algorithm02 = load(__webpack_require__(26));
+  var algorithm02 = load(__webpack_require__(25));
   var algorithm03 = load(__webpack_require__(18));
-  var algorithm07 = load(__webpack_require__(28));
+  var algorithm07 = load(__webpack_require__(27));
   var algorithm11 = load(__webpack_require__(20));
   var algorithm12 = load(__webpack_require__(19));
   var algorithm13 = load(__webpack_require__(7));
@@ -25130,7 +24812,7 @@ exports.name = 'dotDivide';
 exports.factory = factory;
 
 /***/ }),
-/* 141 */
+/* 139 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -25279,7 +24961,7 @@ exports.name = 'algorithm09';
 exports.factory = factory;
 
 /***/ }),
-/* 142 */
+/* 140 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -25289,11 +24971,11 @@ function factory(type, config, load, typed) {
   var add = load(__webpack_require__(14));
   var subtract = load(__webpack_require__(15));
   var multiply = load(__webpack_require__(9));
-  var divide = load(__webpack_require__(46));
-  var pow = load(__webpack_require__(42));
-  var factorial = load(__webpack_require__(79));
-  var combinations = load(__webpack_require__(80));
-  var isNegative = load(__webpack_require__(65));
+  var divide = load(__webpack_require__(45));
+  var pow = load(__webpack_require__(41));
+  var factorial = load(__webpack_require__(76));
+  var combinations = load(__webpack_require__(77));
+  var isNegative = load(__webpack_require__(61));
   var isInteger = load(__webpack_require__(36));
   var larger = load(__webpack_require__(34));
   /**
@@ -25353,7 +25035,7 @@ exports.name = 'stirlingS2';
 exports.factory = factory;
 
 /***/ }),
-/* 143 */
+/* 141 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -25365,9 +25047,9 @@ var isInteger = __webpack_require__(3).isInteger;
 
 function factory(type, config, load, typed) {
   var multiply = load(__webpack_require__(9));
-  var pow = load(__webpack_require__(42));
+  var pow = load(__webpack_require__(41));
 
-  var product = __webpack_require__(97);
+  var product = __webpack_require__(96);
   /**
    * Compute the gamma function of a value using Lanczos approximation for
    * small values, and an extended Stirling approximation for large values.
@@ -25533,7 +25215,7 @@ exports.name = 'gamma';
 exports.factory = factory;
 
 /***/ }),
-/* 144 */
+/* 142 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -25596,7 +25278,7 @@ exports.name = 'not';
 exports.factory = factory;
 
 /***/ }),
-/* 145 */
+/* 143 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -25677,7 +25359,7 @@ exports.name = 'map';
 exports.factory = factory;
 
 /***/ }),
-/* 146 */
+/* 144 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -25944,13 +25626,13 @@ exports.name = 'range';
 exports.factory = factory;
 
 /***/ }),
-/* 147 */
+/* 145 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
-var deepForEach = __webpack_require__(48);
+var deepForEach = __webpack_require__(47);
 
 function factory(type, config, load, typed) {
   var add = load(__webpack_require__(17));
@@ -26038,7 +25720,7 @@ exports.name = 'sum';
 exports.factory = factory;
 
 /***/ }),
-/* 148 */
+/* 146 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -26047,7 +25729,7 @@ exports.factory = factory;
 function factory(type, config, load, typed) {
   var matrix = load(__webpack_require__(1));
 
-  var _typeof = load(__webpack_require__(25));
+  var _typeof = load(__webpack_require__(24));
 
   var algorithm13 = load(__webpack_require__(7));
   var algorithm14 = load(__webpack_require__(6));
@@ -26142,7 +25824,7 @@ exports.name = 'compareText';
 exports.factory = factory;
 
 /***/ }),
-/* 149 */
+/* 147 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -26155,11 +25837,11 @@ var identify = __webpack_require__(2).identify;
 var generalize = __webpack_require__(2).generalize;
 
 function factory(type, config, load, typed) {
-  var MatrixIndex = load(__webpack_require__(29));
-  var DenseMatrix = load(__webpack_require__(50));
-  var size = load(__webpack_require__(27));
-  var subset = load(__webpack_require__(23));
-  var compareNatural = load(__webpack_require__(30));
+  var MatrixIndex = load(__webpack_require__(28));
+  var DenseMatrix = load(__webpack_require__(48));
+  var size = load(__webpack_require__(26));
+  var subset = load(__webpack_require__(22));
+  var compareNatural = load(__webpack_require__(29));
   /**
    * Create the difference of two (multi)sets: every element of set1, that is not the element of set2.
    * Multi-dimension arrays will be converted to single-dimension arrays before the operation.
@@ -26231,7 +25913,7 @@ exports.name = 'setDifference';
 exports.factory = factory;
 
 /***/ }),
-/* 150 */
+/* 148 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -26244,11 +25926,11 @@ var identify = __webpack_require__(2).identify;
 var generalize = __webpack_require__(2).generalize;
 
 function factory(type, config, load, typed) {
-  var MatrixIndex = load(__webpack_require__(29));
-  var DenseMatrix = load(__webpack_require__(50));
-  var size = load(__webpack_require__(27));
-  var subset = load(__webpack_require__(23));
-  var compareNatural = load(__webpack_require__(30));
+  var MatrixIndex = load(__webpack_require__(28));
+  var DenseMatrix = load(__webpack_require__(48));
+  var size = load(__webpack_require__(26));
+  var subset = load(__webpack_require__(22));
+  var compareNatural = load(__webpack_require__(29));
   /**
    * Create the intersection of two (multi)sets.
    * Multi-dimension arrays will be converted to single-dimension arrays before the operation.
@@ -26310,7 +25992,7 @@ exports.name = 'setIntersect';
 exports.factory = factory;
 
 /***/ }),
-/* 151 */
+/* 149 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -26319,11 +26001,11 @@ exports.factory = factory;
 var flatten = __webpack_require__(2).flatten;
 
 function factory(type, config, load, typed) {
-  var MatrixIndex = load(__webpack_require__(29));
-  var concat = load(__webpack_require__(81));
-  var size = load(__webpack_require__(27));
-  var subset = load(__webpack_require__(23));
-  var setDifference = load(__webpack_require__(149));
+  var MatrixIndex = load(__webpack_require__(28));
+  var concat = load(__webpack_require__(78));
+  var size = load(__webpack_require__(26));
+  var subset = load(__webpack_require__(22));
+  var setDifference = load(__webpack_require__(147));
   /**
    * Create the symmetric difference of two (multi)sets.
    * Multi-dimension arrays will be converted to single-dimension arrays before the operation.
@@ -26367,7 +26049,7 @@ exports.name = 'setSymDifference';
 exports.factory = factory;
 
 /***/ }),
-/* 152 */
+/* 150 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -26375,13 +26057,13 @@ exports.factory = factory;
 
 var flatten = __webpack_require__(2).flatten;
 
-var containsCollections = __webpack_require__(83);
+var containsCollections = __webpack_require__(80);
 
 function factory(type, config, load, typed) {
   var add = load(__webpack_require__(17));
   var divide = load(__webpack_require__(12));
-  var compare = load(__webpack_require__(55));
-  var partitionSelect = load(__webpack_require__(98));
+  var compare = load(__webpack_require__(53));
+  var partitionSelect = load(__webpack_require__(97));
   var improveErrorMessage = load(__webpack_require__(37));
   /**
    * Compute the median of a matrix or a list with values. The values are
@@ -26488,7 +26170,7 @@ exports.name = 'median';
 exports.factory = factory;
 
 /***/ }),
-/* 153 */
+/* 151 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -26496,15 +26178,15 @@ exports.factory = factory;
 
 var size = __webpack_require__(2).size;
 
-var deepForEach = __webpack_require__(48);
+var deepForEach = __webpack_require__(47);
 
-var reduce = __webpack_require__(100);
+var reduce = __webpack_require__(99);
 
-var containsCollections = __webpack_require__(83);
+var containsCollections = __webpack_require__(80);
 
 function factory(type, config, load, typed) {
   var add = load(__webpack_require__(14));
-  var divide = load(__webpack_require__(46));
+  var divide = load(__webpack_require__(45));
   var improveErrorMessage = load(__webpack_require__(37));
   /**
    * Compute the mean value of matrix or a list with values.
@@ -26600,20 +26282,20 @@ exports.name = 'mean';
 exports.factory = factory;
 
 /***/ }),
-/* 154 */
+/* 152 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
-var deepForEach = __webpack_require__(48);
+var deepForEach = __webpack_require__(47);
 
-var reduce = __webpack_require__(100);
+var reduce = __webpack_require__(99);
 
-var containsCollections = __webpack_require__(83);
+var containsCollections = __webpack_require__(80);
 
 function factory(type, config, load, typed) {
-  var smaller = load(__webpack_require__(41));
+  var smaller = load(__webpack_require__(40));
   var improveErrorMessage = load(__webpack_require__(37));
   /**
    * Compute the maximum value of a matrix or a  list of values.
@@ -26713,7 +26395,7 @@ exports.name = 'min';
 exports.factory = factory;
 
 /***/ }),
-/* 155 */
+/* 153 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -26721,14 +26403,14 @@ exports.factory = factory;
 
 var DEFAULT_NORMALIZATION = 'unbiased';
 
-var deepForEach = __webpack_require__(48);
+var deepForEach = __webpack_require__(47);
 
 function factory(type, config, load, typed) {
   var add = load(__webpack_require__(17));
   var subtract = load(__webpack_require__(15));
-  var multiply = load(__webpack_require__(22));
+  var multiply = load(__webpack_require__(21));
   var divide = load(__webpack_require__(12));
-  var isNaN = load(__webpack_require__(82));
+  var isNaN = load(__webpack_require__(79));
   var improveErrorMessage = load(__webpack_require__(37));
   /**
    * Compute the variance of a matrix or a  list with values.
@@ -26850,7 +26532,7 @@ exports.name = 'var';
 exports.factory = factory;
 
 /***/ }),
-/* 156 */
+/* 154 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -26859,38 +26541,38 @@ exports.factory = factory;
 function factory(construction, config, load, typed) {
   var docs = {}; // construction functions
 
-  docs.bignumber = __webpack_require__(364);
-  docs['boolean'] = __webpack_require__(365);
-  docs.complex = __webpack_require__(366);
-  docs.createUnit = __webpack_require__(367);
-  docs.fraction = __webpack_require__(368);
-  docs.index = __webpack_require__(369);
-  docs.matrix = __webpack_require__(370);
-  docs.number = __webpack_require__(371);
-  docs.sparse = __webpack_require__(372);
-  docs.splitUnit = __webpack_require__(373);
-  docs.string = __webpack_require__(374);
-  docs.unit = __webpack_require__(375); // constants
+  docs.bignumber = __webpack_require__(360);
+  docs['boolean'] = __webpack_require__(361);
+  docs.complex = __webpack_require__(362);
+  docs.createUnit = __webpack_require__(363);
+  docs.fraction = __webpack_require__(364);
+  docs.index = __webpack_require__(365);
+  docs.matrix = __webpack_require__(366);
+  docs.number = __webpack_require__(367);
+  docs.sparse = __webpack_require__(368);
+  docs.splitUnit = __webpack_require__(369);
+  docs.string = __webpack_require__(370);
+  docs.unit = __webpack_require__(371); // constants
 
-  docs.e = __webpack_require__(157);
-  docs.E = __webpack_require__(157);
-  docs['false'] = __webpack_require__(376);
-  docs.i = __webpack_require__(377);
-  docs['Infinity'] = __webpack_require__(378);
-  docs.LN2 = __webpack_require__(379);
-  docs.LN10 = __webpack_require__(380);
-  docs.LOG2E = __webpack_require__(381);
-  docs.LOG10E = __webpack_require__(382);
-  docs.NaN = __webpack_require__(383);
-  docs['null'] = __webpack_require__(384);
-  docs.pi = __webpack_require__(158);
-  docs.PI = __webpack_require__(158);
-  docs.phi = __webpack_require__(385);
-  docs.SQRT1_2 = __webpack_require__(386);
-  docs.SQRT2 = __webpack_require__(387);
-  docs.tau = __webpack_require__(388);
-  docs['true'] = __webpack_require__(389);
-  docs.version = __webpack_require__(390); // physical constants
+  docs.e = __webpack_require__(155);
+  docs.E = __webpack_require__(155);
+  docs['false'] = __webpack_require__(372);
+  docs.i = __webpack_require__(373);
+  docs['Infinity'] = __webpack_require__(374);
+  docs.LN2 = __webpack_require__(375);
+  docs.LN10 = __webpack_require__(376);
+  docs.LOG2E = __webpack_require__(377);
+  docs.LOG10E = __webpack_require__(378);
+  docs.NaN = __webpack_require__(379);
+  docs['null'] = __webpack_require__(380);
+  docs.pi = __webpack_require__(156);
+  docs.PI = __webpack_require__(156);
+  docs.phi = __webpack_require__(381);
+  docs.SQRT1_2 = __webpack_require__(382);
+  docs.SQRT2 = __webpack_require__(383);
+  docs.tau = __webpack_require__(384);
+  docs['true'] = __webpack_require__(385);
+  docs.version = __webpack_require__(386); // physical constants
   // TODO: more detailed docs for physical constants
 
   docs.speedOfLight = {
@@ -27096,200 +26778,200 @@ function factory(construction, config, load, typed) {
     examples: ['planckTemperature'] // functions - algebra
 
   };
-  docs.derivative = __webpack_require__(391);
-  docs.lsolve = __webpack_require__(392);
-  docs.lup = __webpack_require__(393);
-  docs.lusolve = __webpack_require__(394);
-  docs.simplify = __webpack_require__(395);
-  docs.rationalize = __webpack_require__(396);
-  docs.slu = __webpack_require__(397);
-  docs.usolve = __webpack_require__(398);
-  docs.qr = __webpack_require__(399); // functions - arithmetic
+  docs.derivative = __webpack_require__(387);
+  docs.lsolve = __webpack_require__(388);
+  docs.lup = __webpack_require__(389);
+  docs.lusolve = __webpack_require__(390);
+  docs.simplify = __webpack_require__(391);
+  docs.rationalize = __webpack_require__(392);
+  docs.slu = __webpack_require__(393);
+  docs.usolve = __webpack_require__(394);
+  docs.qr = __webpack_require__(395); // functions - arithmetic
 
-  docs.abs = __webpack_require__(400);
-  docs.add = __webpack_require__(401);
-  docs.cbrt = __webpack_require__(402);
-  docs.ceil = __webpack_require__(403);
-  docs.cube = __webpack_require__(404);
-  docs.divide = __webpack_require__(405);
-  docs.dotDivide = __webpack_require__(406);
-  docs.dotMultiply = __webpack_require__(407);
-  docs.dotPow = __webpack_require__(408);
-  docs.exp = __webpack_require__(409);
-  docs.expm = __webpack_require__(410);
-  docs.expm1 = __webpack_require__(411);
-  docs.fix = __webpack_require__(412);
-  docs.floor = __webpack_require__(413);
-  docs.gcd = __webpack_require__(414);
-  docs.hypot = __webpack_require__(415);
-  docs.lcm = __webpack_require__(416);
-  docs.log = __webpack_require__(417);
-  docs.log2 = __webpack_require__(418);
-  docs.log1p = __webpack_require__(419);
-  docs.log10 = __webpack_require__(420);
-  docs.mod = __webpack_require__(421);
-  docs.multiply = __webpack_require__(422);
-  docs.norm = __webpack_require__(423);
-  docs.nthRoot = __webpack_require__(424);
-  docs.nthRoots = __webpack_require__(425);
-  docs.pow = __webpack_require__(426);
-  docs.round = __webpack_require__(427);
-  docs.sign = __webpack_require__(428);
-  docs.sqrt = __webpack_require__(429);
-  docs.sqrtm = __webpack_require__(430);
-  docs.square = __webpack_require__(431);
-  docs.subtract = __webpack_require__(432);
-  docs.unaryMinus = __webpack_require__(433);
-  docs.unaryPlus = __webpack_require__(434);
-  docs.xgcd = __webpack_require__(435); // functions - bitwise
+  docs.abs = __webpack_require__(396);
+  docs.add = __webpack_require__(397);
+  docs.cbrt = __webpack_require__(398);
+  docs.ceil = __webpack_require__(399);
+  docs.cube = __webpack_require__(400);
+  docs.divide = __webpack_require__(401);
+  docs.dotDivide = __webpack_require__(402);
+  docs.dotMultiply = __webpack_require__(403);
+  docs.dotPow = __webpack_require__(404);
+  docs.exp = __webpack_require__(405);
+  docs.expm = __webpack_require__(406);
+  docs.expm1 = __webpack_require__(407);
+  docs.fix = __webpack_require__(408);
+  docs.floor = __webpack_require__(409);
+  docs.gcd = __webpack_require__(410);
+  docs.hypot = __webpack_require__(411);
+  docs.lcm = __webpack_require__(412);
+  docs.log = __webpack_require__(413);
+  docs.log2 = __webpack_require__(414);
+  docs.log1p = __webpack_require__(415);
+  docs.log10 = __webpack_require__(416);
+  docs.mod = __webpack_require__(417);
+  docs.multiply = __webpack_require__(418);
+  docs.norm = __webpack_require__(419);
+  docs.nthRoot = __webpack_require__(420);
+  docs.nthRoots = __webpack_require__(421);
+  docs.pow = __webpack_require__(422);
+  docs.round = __webpack_require__(423);
+  docs.sign = __webpack_require__(424);
+  docs.sqrt = __webpack_require__(425);
+  docs.sqrtm = __webpack_require__(426);
+  docs.square = __webpack_require__(427);
+  docs.subtract = __webpack_require__(428);
+  docs.unaryMinus = __webpack_require__(429);
+  docs.unaryPlus = __webpack_require__(430);
+  docs.xgcd = __webpack_require__(431); // functions - bitwise
 
-  docs.bitAnd = __webpack_require__(436);
-  docs.bitNot = __webpack_require__(437);
-  docs.bitOr = __webpack_require__(438);
-  docs.bitXor = __webpack_require__(439);
-  docs.leftShift = __webpack_require__(440);
-  docs.rightArithShift = __webpack_require__(441);
-  docs.rightLogShift = __webpack_require__(442); // functions - combinatorics
+  docs.bitAnd = __webpack_require__(432);
+  docs.bitNot = __webpack_require__(433);
+  docs.bitOr = __webpack_require__(434);
+  docs.bitXor = __webpack_require__(435);
+  docs.leftShift = __webpack_require__(436);
+  docs.rightArithShift = __webpack_require__(437);
+  docs.rightLogShift = __webpack_require__(438); // functions - combinatorics
 
-  docs.bellNumbers = __webpack_require__(443);
-  docs.catalan = __webpack_require__(444);
-  docs.composition = __webpack_require__(445);
-  docs.stirlingS2 = __webpack_require__(446); // functions - core
+  docs.bellNumbers = __webpack_require__(439);
+  docs.catalan = __webpack_require__(440);
+  docs.composition = __webpack_require__(441);
+  docs.stirlingS2 = __webpack_require__(442); // functions - core
 
-  docs['config'] = __webpack_require__(447);
-  docs['import'] = __webpack_require__(448);
-  docs['typed'] = __webpack_require__(449); // functions - complex
+  docs['config'] = __webpack_require__(443);
+  docs['import'] = __webpack_require__(444);
+  docs['typed'] = __webpack_require__(445); // functions - complex
 
-  docs.arg = __webpack_require__(450);
-  docs.conj = __webpack_require__(451);
-  docs.re = __webpack_require__(452);
-  docs.im = __webpack_require__(453); // functions - expression
+  docs.arg = __webpack_require__(446);
+  docs.conj = __webpack_require__(447);
+  docs.re = __webpack_require__(448);
+  docs.im = __webpack_require__(449); // functions - expression
 
-  docs['eval'] = __webpack_require__(454);
-  docs.help = __webpack_require__(455); // functions - geometry
+  docs['eval'] = __webpack_require__(450);
+  docs.help = __webpack_require__(451); // functions - geometry
 
-  docs.distance = __webpack_require__(456);
-  docs.intersect = __webpack_require__(457); // functions - logical
+  docs.distance = __webpack_require__(452);
+  docs.intersect = __webpack_require__(453); // functions - logical
 
-  docs['and'] = __webpack_require__(458);
-  docs['not'] = __webpack_require__(459);
-  docs['or'] = __webpack_require__(460);
-  docs['xor'] = __webpack_require__(461); // functions - matrix
+  docs['and'] = __webpack_require__(454);
+  docs['not'] = __webpack_require__(455);
+  docs['or'] = __webpack_require__(456);
+  docs['xor'] = __webpack_require__(457); // functions - matrix
 
-  docs['concat'] = __webpack_require__(462);
-  docs.cross = __webpack_require__(463);
-  docs.ctranspose = __webpack_require__(464);
-  docs.det = __webpack_require__(465);
-  docs.diag = __webpack_require__(466);
-  docs.dot = __webpack_require__(467);
-  docs.getMatrixDataType = __webpack_require__(468);
-  docs.identity = __webpack_require__(469);
-  docs.filter = __webpack_require__(470);
-  docs.flatten = __webpack_require__(471);
-  docs.forEach = __webpack_require__(472);
-  docs.inv = __webpack_require__(473);
-  docs.kron = __webpack_require__(474);
-  docs.map = __webpack_require__(475);
-  docs.ones = __webpack_require__(476);
-  docs.partitionSelect = __webpack_require__(477);
-  docs.range = __webpack_require__(478);
-  docs.resize = __webpack_require__(479);
-  docs.reshape = __webpack_require__(480);
-  docs.size = __webpack_require__(481);
-  docs.sort = __webpack_require__(482);
-  docs.squeeze = __webpack_require__(483);
-  docs.subset = __webpack_require__(484);
-  docs.trace = __webpack_require__(485);
-  docs.transpose = __webpack_require__(486);
-  docs.zeros = __webpack_require__(487); // functions - probability
+  docs['concat'] = __webpack_require__(458);
+  docs.cross = __webpack_require__(459);
+  docs.ctranspose = __webpack_require__(460);
+  docs.det = __webpack_require__(461);
+  docs.diag = __webpack_require__(462);
+  docs.dot = __webpack_require__(463);
+  docs.getMatrixDataType = __webpack_require__(464);
+  docs.identity = __webpack_require__(465);
+  docs.filter = __webpack_require__(466);
+  docs.flatten = __webpack_require__(467);
+  docs.forEach = __webpack_require__(468);
+  docs.inv = __webpack_require__(469);
+  docs.kron = __webpack_require__(470);
+  docs.map = __webpack_require__(471);
+  docs.ones = __webpack_require__(472);
+  docs.partitionSelect = __webpack_require__(473);
+  docs.range = __webpack_require__(474);
+  docs.resize = __webpack_require__(475);
+  docs.reshape = __webpack_require__(476);
+  docs.size = __webpack_require__(477);
+  docs.sort = __webpack_require__(478);
+  docs.squeeze = __webpack_require__(479);
+  docs.subset = __webpack_require__(480);
+  docs.trace = __webpack_require__(481);
+  docs.transpose = __webpack_require__(482);
+  docs.zeros = __webpack_require__(483); // functions - probability
 
-  docs.combinations = __webpack_require__(488); // docs.distribution = require('./function/probability/distribution')
+  docs.combinations = __webpack_require__(484); // docs.distribution = require('./function/probability/distribution')
 
-  docs.factorial = __webpack_require__(489);
-  docs.gamma = __webpack_require__(490);
-  docs.kldivergence = __webpack_require__(491);
-  docs.multinomial = __webpack_require__(492);
-  docs.permutations = __webpack_require__(493);
-  docs.pickRandom = __webpack_require__(494);
-  docs.random = __webpack_require__(495);
-  docs.randomInt = __webpack_require__(496); // functions - relational
+  docs.factorial = __webpack_require__(485);
+  docs.gamma = __webpack_require__(486);
+  docs.kldivergence = __webpack_require__(487);
+  docs.multinomial = __webpack_require__(488);
+  docs.permutations = __webpack_require__(489);
+  docs.pickRandom = __webpack_require__(490);
+  docs.random = __webpack_require__(491);
+  docs.randomInt = __webpack_require__(492); // functions - relational
 
-  docs.compare = __webpack_require__(497);
-  docs.compareNatural = __webpack_require__(498);
-  docs.compareText = __webpack_require__(499);
-  docs.deepEqual = __webpack_require__(500);
-  docs['equal'] = __webpack_require__(501);
-  docs.equalText = __webpack_require__(502);
-  docs.larger = __webpack_require__(503);
-  docs.largerEq = __webpack_require__(504);
-  docs.smaller = __webpack_require__(505);
-  docs.smallerEq = __webpack_require__(506);
-  docs.unequal = __webpack_require__(507); // functions - set
+  docs.compare = __webpack_require__(493);
+  docs.compareNatural = __webpack_require__(494);
+  docs.compareText = __webpack_require__(495);
+  docs.deepEqual = __webpack_require__(496);
+  docs['equal'] = __webpack_require__(497);
+  docs.equalText = __webpack_require__(498);
+  docs.larger = __webpack_require__(499);
+  docs.largerEq = __webpack_require__(500);
+  docs.smaller = __webpack_require__(501);
+  docs.smallerEq = __webpack_require__(502);
+  docs.unequal = __webpack_require__(503); // functions - set
 
-  docs.setCartesian = __webpack_require__(508);
-  docs.setDifference = __webpack_require__(509);
-  docs.setDistinct = __webpack_require__(510);
-  docs.setIntersect = __webpack_require__(511);
-  docs.setIsSubset = __webpack_require__(512);
-  docs.setMultiplicity = __webpack_require__(513);
-  docs.setPowerset = __webpack_require__(514);
-  docs.setSize = __webpack_require__(515);
-  docs.setSymDifference = __webpack_require__(516);
-  docs.setUnion = __webpack_require__(517); // functions - special
+  docs.setCartesian = __webpack_require__(504);
+  docs.setDifference = __webpack_require__(505);
+  docs.setDistinct = __webpack_require__(506);
+  docs.setIntersect = __webpack_require__(507);
+  docs.setIsSubset = __webpack_require__(508);
+  docs.setMultiplicity = __webpack_require__(509);
+  docs.setPowerset = __webpack_require__(510);
+  docs.setSize = __webpack_require__(511);
+  docs.setSymDifference = __webpack_require__(512);
+  docs.setUnion = __webpack_require__(513); // functions - special
 
-  docs.erf = __webpack_require__(518); // functions - statistics
+  docs.erf = __webpack_require__(514); // functions - statistics
 
-  docs.mad = __webpack_require__(519);
-  docs.max = __webpack_require__(520);
-  docs.mean = __webpack_require__(521);
-  docs.median = __webpack_require__(522);
-  docs.min = __webpack_require__(523);
-  docs.mode = __webpack_require__(524);
-  docs.prod = __webpack_require__(525);
-  docs.quantileSeq = __webpack_require__(526);
-  docs.std = __webpack_require__(527);
-  docs.sum = __webpack_require__(528);
-  docs['var'] = __webpack_require__(529); // functions - trigonometry
+  docs.mad = __webpack_require__(515);
+  docs.max = __webpack_require__(516);
+  docs.mean = __webpack_require__(517);
+  docs.median = __webpack_require__(518);
+  docs.min = __webpack_require__(519);
+  docs.mode = __webpack_require__(520);
+  docs.prod = __webpack_require__(521);
+  docs.quantileSeq = __webpack_require__(522);
+  docs.std = __webpack_require__(523);
+  docs.sum = __webpack_require__(524);
+  docs['var'] = __webpack_require__(525); // functions - trigonometry
 
-  docs.acos = __webpack_require__(530);
-  docs.acosh = __webpack_require__(531);
-  docs.acot = __webpack_require__(532);
-  docs.acoth = __webpack_require__(533);
-  docs.acsc = __webpack_require__(534);
-  docs.acsch = __webpack_require__(535);
-  docs.asec = __webpack_require__(536);
-  docs.asech = __webpack_require__(537);
-  docs.asin = __webpack_require__(538);
-  docs.asinh = __webpack_require__(539);
-  docs.atan = __webpack_require__(540);
-  docs.atanh = __webpack_require__(541);
-  docs.atan2 = __webpack_require__(542);
-  docs.cos = __webpack_require__(543);
-  docs.cosh = __webpack_require__(544);
-  docs.cot = __webpack_require__(545);
-  docs.coth = __webpack_require__(546);
-  docs.csc = __webpack_require__(547);
-  docs.csch = __webpack_require__(548);
-  docs.sec = __webpack_require__(549);
-  docs.sech = __webpack_require__(550);
-  docs.sin = __webpack_require__(551);
-  docs.sinh = __webpack_require__(552);
-  docs.tan = __webpack_require__(553);
-  docs.tanh = __webpack_require__(554); // functions - units
+  docs.acos = __webpack_require__(526);
+  docs.acosh = __webpack_require__(527);
+  docs.acot = __webpack_require__(528);
+  docs.acoth = __webpack_require__(529);
+  docs.acsc = __webpack_require__(530);
+  docs.acsch = __webpack_require__(531);
+  docs.asec = __webpack_require__(532);
+  docs.asech = __webpack_require__(533);
+  docs.asin = __webpack_require__(534);
+  docs.asinh = __webpack_require__(535);
+  docs.atan = __webpack_require__(536);
+  docs.atanh = __webpack_require__(537);
+  docs.atan2 = __webpack_require__(538);
+  docs.cos = __webpack_require__(539);
+  docs.cosh = __webpack_require__(540);
+  docs.cot = __webpack_require__(541);
+  docs.coth = __webpack_require__(542);
+  docs.csc = __webpack_require__(543);
+  docs.csch = __webpack_require__(544);
+  docs.sec = __webpack_require__(545);
+  docs.sech = __webpack_require__(546);
+  docs.sin = __webpack_require__(547);
+  docs.sinh = __webpack_require__(548);
+  docs.tan = __webpack_require__(549);
+  docs.tanh = __webpack_require__(550); // functions - units
 
-  docs.to = __webpack_require__(555); // functions - utils
+  docs.to = __webpack_require__(551); // functions - utils
 
-  docs.clone = __webpack_require__(556);
-  docs.format = __webpack_require__(557);
-  docs.isNaN = __webpack_require__(558);
-  docs.isInteger = __webpack_require__(559);
-  docs.isNegative = __webpack_require__(560);
-  docs.isNumeric = __webpack_require__(561);
-  docs.isPositive = __webpack_require__(562);
-  docs.isPrime = __webpack_require__(563);
-  docs.isZero = __webpack_require__(564); // docs.print = require('./function/utils/print') // TODO: add documentation for print as soon as the parser supports objects.
+  docs.clone = __webpack_require__(552);
+  docs.format = __webpack_require__(553);
+  docs.isNaN = __webpack_require__(554);
+  docs.isInteger = __webpack_require__(555);
+  docs.isNegative = __webpack_require__(556);
+  docs.isNumeric = __webpack_require__(557);
+  docs.isPositive = __webpack_require__(558);
+  docs.isPrime = __webpack_require__(559);
+  docs.isZero = __webpack_require__(560); // docs.print = require('./function/utils/print') // TODO: add documentation for print as soon as the parser supports objects.
 
-  docs['typeof'] = __webpack_require__(565);
+  docs['typeof'] = __webpack_require__(561);
   return docs;
 }
 
@@ -27298,7 +26980,7 @@ exports.path = 'expression';
 exports.factory = factory;
 
 /***/ }),
-/* 157 */
+/* 155 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -27314,7 +26996,7 @@ module.exports = {
 };
 
 /***/ }),
-/* 158 */
+/* 156 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -27330,14 +27012,14 @@ module.exports = {
 };
 
 /***/ }),
-/* 159 */
+/* 157 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
 function factory(type, config, load, typed, math) {
-  var Parser = load(__webpack_require__(160));
+  var Parser = load(__webpack_require__(158));
   /**
    * Create a parser. The function creates a new `math.expression.Parser` object.
    *
@@ -27394,7 +27076,7 @@ exports.factory = factory;
 exports.math = true; // requires the math namespace as 5th argument
 
 /***/ }),
-/* 160 */
+/* 158 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -27405,7 +27087,7 @@ var extend = __webpack_require__(5).extend;
 var customs = __webpack_require__(13);
 
 function factory(type, config, load, typed, math) {
-  var _parse = load(__webpack_require__(44));
+  var _parse = load(__webpack_require__(43));
   /**
    * @constructor Parser
    * Parser contains methods to evaluate or parse expressions, and has a number
@@ -27561,330 +27243,120 @@ exports.factory = factory;
 exports.math = true; // requires the math namespace as 5th argument
 
 /***/ }),
-/* 161 */
+/* 159 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
-//list of identifiers of nodes in order of their precedence
-//also contains information about left/right associativity
-//and which other operator the operator is associative with
-//Example:
-// addition is associative with addition and subtraction, because:
-// (a+b)+c=a+(b+c)
-// (a+b)-c=a+(b-c)
-//
-// postfix operators are left associative, prefix operators 
-// are right associative
-//
-//It's also possible to set the following properties:
-// latexParens: if set to false, this node doesn't need to be enclosed
-//              in parentheses when using LaTeX
-// latexLeftParens: if set to false, this !OperatorNode's! 
-//                  left argument doesn't need to be enclosed
-//                  in parentheses
-// latexRightParens: the same for the right argument
-var properties = [
-  { //assignment
-    'AssignmentNode': {},
-    'FunctionAssignmentNode': {}
-  },
-  { //conditional expression
-    'ConditionalNode': {
-      latexLeftParens: false,
-      latexRightParens: false,
-      latexParens: false
-      //conditionals don't need parentheses in LaTeX because
-      //they are 2 dimensional
-    }
-  },
-  { //logical or
-    'OperatorNode:or': {
-      associativity: 'left',
-      associativeWith: []
-    }
+var escape_latex = __webpack_require__(160)
 
-  },
-  { //logical xor
-    'OperatorNode:xor': {
-      associativity: 'left',
-      associativeWith: []
-    }
-  },
-  { //logical and
-    'OperatorNode:and': {
-      associativity: 'left',
-      associativeWith: []
-    }
-  },
-  { //bitwise or
-    'OperatorNode:bitOr': {
-      associativity: 'left',
-      associativeWith: []
-    }
-  },
-  { //bitwise xor
-    'OperatorNode:bitXor': {
-      associativity: 'left',
-      associativeWith: []
-    }
-  },
-  { //bitwise and
-    'OperatorNode:bitAnd': {
-      associativity: 'left',
-      associativeWith: []
-    }
-  },
-  { //relational operators
-    'OperatorNode:equal': {
-      associativity: 'left',
-      associativeWith: []
-    },
-    'OperatorNode:unequal': {
-      associativity: 'left',
-      associativeWith: []
-    },
-    'OperatorNode:smaller': {
-      associativity: 'left',
-      associativeWith: []
-    },
-    'OperatorNode:larger': {
-      associativity: 'left',
-      associativeWith: []
-    },
-    'OperatorNode:smallerEq': {
-      associativity: 'left',
-      associativeWith: []
-    },
-    'OperatorNode:largerEq': {
-      associativity: 'left',
-      associativeWith: []
-    }
-  },
-  { //bitshift operators
-    'OperatorNode:leftShift': {
-      associativity: 'left',
-      associativeWith: []
-    },
-    'OperatorNode:rightArithShift': {
-      associativity: 'left',
-      associativeWith: []
-    },
-    'OperatorNode:rightLogShift': {
-      associativity: 'left',
-      associativeWith: []
-    }
-  },
-  { //unit conversion
-    'OperatorNode:to': {
-      associativity: 'left',
-      associativeWith: []
-    }
-  },
-  { //range
-    'RangeNode': {}
-  },
-  { //addition, subtraction
-    'OperatorNode:add': {
-      associativity: 'left',
-      associativeWith: ['OperatorNode:add', 'OperatorNode:subtract']
-    },
-    'OperatorNode:subtract': {
-      associativity: 'left',
-      associativeWith: []
-    }
-  },
-  { //multiply, divide, modulus
-    'OperatorNode:multiply': {
-      associativity: 'left',
-      associativeWith: [
-        'OperatorNode:multiply',
-        'OperatorNode:divide',
-        'Operator:dotMultiply',
-        'Operator:dotDivide'
-      ]
-    },
-    'OperatorNode:divide': {
-      associativity: 'left',
-      associativeWith: [],
-      latexLeftParens: false,
-      latexRightParens: false,
-      latexParens: false
-      //fractions don't require parentheses because
-      //they're 2 dimensional, so parens aren't needed
-      //in LaTeX
-    },
-    'OperatorNode:dotMultiply': {
-      associativity: 'left',
-      associativeWith: [
-        'OperatorNode:multiply',
-        'OperatorNode:divide',
-        'OperatorNode:dotMultiply',
-        'OperatorNode:doDivide'
-      ]
-    },
-    'OperatorNode:dotDivide': {
-      associativity: 'left',
-      associativeWith: []
-    },
-    'OperatorNode:mod': {
-      associativity: 'left',
-      associativeWith: []
-    }
-  },
-  { //unary prefix operators
-    'OperatorNode:unaryPlus': {
-      associativity: 'right'
-    },
-    'OperatorNode:unaryMinus': {
-      associativity: 'right'
-    },
-    'OperatorNode:bitNot': {
-      associativity: 'right'
-    },
-    'OperatorNode:not': {
-      associativity: 'right'
-    }
-  },
-  { //exponentiation
-    'OperatorNode:pow': {
-      associativity: 'right',
-      associativeWith: [],
-      latexRightParens: false
-      //the exponent doesn't need parentheses in
-      //LaTeX because it's 2 dimensional
-      //(it's on top)
-    },
-    'OperatorNode:dotPow': {
-      associativity: 'right',
-      associativeWith: []
-    }
-  },
-  { //factorial
-    'OperatorNode:factorial': {
-      associativity: 'left'
-    }
-  },
-  { //matrix transpose
-    'OperatorNode:transpose': {
-      associativity: 'left'
-    }
-  }
-];
+exports.symbols = {
+  // GREEK LETTERS
+  Alpha: 'A',     alpha: '\\alpha',
+  Beta: 'B',      beta: '\\beta',
+  Gamma: '\\Gamma',    gamma: '\\gamma',
+  Delta: '\\Delta',    delta: '\\delta',
+  Epsilon: 'E',   epsilon: '\\epsilon',  varepsilon: '\\varepsilon',
+  Zeta: 'Z',      zeta: '\\zeta',
+  Eta: 'H',       eta: '\\eta',
+  Theta: '\\Theta',    theta: '\\theta',    vartheta: '\\vartheta',
+  Iota: 'I',      iota: '\\iota',
+  Kappa: 'K',     kappa: '\\kappa',    varkappa: '\\varkappa',
+  Lambda: '\\Lambda',   lambda: '\\lambda',
+  Mu: 'M',        mu: '\\mu',
+  Nu: 'N',        nu: '\\nu',
+  Xi: '\\Xi',       xi: '\\xi',
+  Omicron: 'O',   omicron: 'o',
+  Pi: '\\Pi',       pi: '\\pi',       varpi: '\\varpi',
+  Rho: 'P',       rho: '\\rho',      varrho: '\\varrho',
+  Sigma: '\\Sigma',    sigma: '\\sigma',    varsigma: '\\varsigma',
+  Tau: 'T',       tau: '\\tau',
+  Upsilon: '\\Upsilon',  upsilon: '\\upsilon',
+  Phi: '\\Phi',      phi: '\\phi',      varphi: '\\varphi',
+  Chi: 'X',       chi: '\\chi',
+  Psi: '\\Psi',      psi: '\\psi',
+  Omega: '\\Omega',    omega: '\\omega',
+  //logic
+  'true': '\\mathrm{True}',
+  'false': '\\mathrm{False}',
+  //other
+  i: 'i', //TODO use \i ??
+  inf: '\\infty',
+  Inf: '\\infty',
+  infinity: '\\infty',
+  Infinity: '\\infty',
+  oo: '\\infty',
+  lim: '\\lim',
+  'undefined': '\\mathbf{?}'
+};
 
-/**
- * Get the precedence of a Node.
- * Higher number for higher precedence, starting with 0.
- * Returns null if the precedence is undefined.
- *
- * @param {Node}
- * @param {string} parenthesis
- * @return {number|null}
- */
-function getPrecedence (_node, parenthesis) {
-  var node = _node;
-  if (parenthesis !== 'keep') {
-    //ParenthesisNodes are only ignored when not in 'keep' mode
-    node = _node.getContent();
-  }
-  var identifier = node.getIdentifier();
-  for (var i = 0; i < properties.length; i++) {
-    if (identifier in properties[i]) {
-      return i;
-    }
-  }
-  return null;
+exports.operators = {
+  'transpose': '^\\top',
+  'factorial': '!',
+  'pow': '^',
+  'dotPow': '.^\\wedge', //TODO find ideal solution
+  'unaryPlus': '+',
+  'unaryMinus': '-',
+  'bitNot': '~', //TODO find ideal solution
+  'not': '\\neg',
+  'multiply': '\\cdot',
+  'divide': '\\frac', //TODO how to handle that properly?
+  'dotMultiply': '.\\cdot', //TODO find ideal solution
+  'dotDivide': '.:', //TODO find ideal solution
+  'mod': '\\mod',
+  'add': '+',
+  'subtract': '-',
+  'to': '\\rightarrow',
+  'leftShift': '<<',
+  'rightArithShift': '>>',
+  'rightLogShift': '>>>',
+  'equal': '=',
+  'unequal': '\\neq',
+  'smaller': '<',
+  'larger': '>',
+  'smallerEq': '\\leq',
+  'largerEq': '\\geq',
+  'bitAnd': '\\&',
+  'bitXor': '\\underline{|}',
+  'bitOr': '|',
+  'and': '\\wedge',
+  'xor': '\\veebar',
+  'or': '\\vee'
+};
+
+exports.defaultTemplate = '\\mathrm{${name}}\\left(${args}\\right)';
+
+var units = {
+  deg: '^\\circ'
+};
+
+exports.escape = function (string) {
+  return escape_latex(string, {'preserveFormatting': true});
 }
 
-/**
- * Get the associativity of an operator (left or right).
- * Returns a string containing 'left' or 'right' or null if
- * the associativity is not defined.
- *
- * @param {Node}
- * @param {string} parenthesis
- * @return {string|null}
- * @throws {Error}
- */
-function getAssociativity (_node, parenthesis) {
-  var node = _node;
-  if (parenthesis !== 'keep') {
-    //ParenthesisNodes are only ignored when not in 'keep' mode
-    node = _node.getContent();
-  }
-  var identifier = node.getIdentifier();
-  var index = getPrecedence(node, parenthesis);
-  if (index === null) {
-    //node isn't in the list
-    return null;
-  }
-  var property = properties[index][identifier];
-
-  if (property.hasOwnProperty('associativity')) {
-    if (property.associativity === 'left') {
-      return 'left';
+//@param {string} name
+//@param {boolean} isUnit
+exports.toSymbol = function (name, isUnit) {
+  isUnit = typeof isUnit === 'undefined' ? false : isUnit;
+  if (isUnit) {
+    if (units.hasOwnProperty(name)) {
+      return units[name];
     }
-    if (property.associativity === 'right') {
-      return 'right';
-    }
-    //associativity is invalid
-    throw Error('\'' + identifier + '\' has the invalid associativity \''
-                + property.associativity + '\'.');
+
+    return '\\mathrm{' + exports.escape(name) + '}';
   }
 
-  //associativity is undefined
-  return null;
-}
-
-/**
- * Check if an operator is associative with another operator.
- * Returns either true or false or null if not defined.
- *
- * @param {Node} nodeA
- * @param {Node} nodeB
- * @param {string} parenthesis
- * @return {bool|null}
- */
-function isAssociativeWith (nodeA, nodeB, parenthesis) {
-  var a = nodeA;
-  var b = nodeB;
-  if (parenthesis !== 'keep') {
-    //ParenthesisNodes are only ignored when not in 'keep' mode
-    var a = nodeA.getContent();
-    var b = nodeB.getContent();
-  }
-  var identifierA = a.getIdentifier();
-  var identifierB = b.getIdentifier();
-  var index = getPrecedence(a, parenthesis);
-  if (index === null) {
-    //node isn't in the list
-    return null;
-  }
-  var property = properties[index][identifierA];
-
-  if (property.hasOwnProperty('associativeWith')
-      && (property.associativeWith instanceof Array)) {
-    for (var i = 0; i < property.associativeWith.length; i++) {
-      if (property.associativeWith[i] === identifierB) {
-        return true;
-      }
-    }
-    return false;
+  if (exports.symbols.hasOwnProperty(name)) {
+    return exports.symbols[name];
   }
 
-  //associativeWith is not defined
-  return null;
-}
-
-module.exports.properties = properties;
-module.exports.getPrecedence = getPrecedence;
-module.exports.getAssociativity = getAssociativity;
-module.exports.isAssociativeWith = isAssociativeWith;
+  return exports.escape(name);
+};
 
 
 /***/ }),
-/* 162 */
+/* 160 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -27970,609 +27442,59 @@ module.exports = function (str) {
 };
 
 /***/ }),
-/* 163 */
+/* 161 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
-/**
- * @typedef {{sign: '+' | '-' | '', coefficients: number[], exponent: number}} SplitValue
- */
-
-/**
- * Test whether value is a number
- * @param {*} value
- * @return {boolean} isNumber
- */
-exports.isNumber = function(value) {
-  return typeof value === 'number';
-};
-
-/**
- * Check if a number is integer
- * @param {number | boolean} value
- * @return {boolean} isInteger
- */
-exports.isInteger = function(value) {
-  return isFinite(value)
-      ? (value == Math.round(value))
-      : false;
-  // Note: we use ==, not ===, as we can have Booleans as well
-};
-
-/**
- * Calculate the sign of a number
- * @param {number} x
- * @returns {*}
- */
-exports.sign = Math.sign || function(x) {
-  if (x > 0) {
-    return 1;
-  }
-  else if (x < 0) {
-    return -1;
-  }
-  else {
-    return 0;
-  }
-};
-
-/**
- * Convert a number to a formatted string representation.
- *
- * Syntax:
- *
- *    format(value)
- *    format(value, options)
- *    format(value, precision)
- *    format(value, fn)
- *
- * Where:
- *
- *    {number} value   The value to be formatted
- *    {Object} options An object with formatting options. Available options:
- *                     {string} notation
- *                         Number notation. Choose from:
- *                         'fixed'          Always use regular number notation.
- *                                          For example '123.40' and '14000000'
- *                         'exponential'    Always use exponential notation.
- *                                          For example '1.234e+2' and '1.4e+7'
- *                         'engineering'    Always use engineering notation.
- *                                          For example '123.4e+0' and '14.0e+6'
- *                         'auto' (default) Regular number notation for numbers
- *                                          having an absolute value between
- *                                          `lower` and `upper` bounds, and uses
- *                                          exponential notation elsewhere.
- *                                          Lower bound is included, upper bound
- *                                          is excluded.
- *                                          For example '123.4' and '1.4e7'.
- *                     {number} precision   A number between 0 and 16 to round
- *                                          the digits of the number.
- *                                          In case of notations 'exponential' and
- *                                          'auto', `precision` defines the total
- *                                          number of significant digits returned
- *                                          and is undefined by default.
- *                                          In case of notation 'fixed',
- *                                          `precision` defines the number of
- *                                          significant digits after the decimal
- *                                          point, and is 0 by default.
- *                     {Object} exponential An object containing two parameters,
- *                                          {number} lower and {number} upper,
- *                                          used by notation 'auto' to determine
- *                                          when to return exponential notation.
- *                                          Default values are `lower=1e-3` and
- *                                          `upper=1e5`.
- *                                          Only applicable for notation `auto`.
- *    {Function} fn    A custom formatting function. Can be used to override the
- *                     built-in notations. Function `fn` is called with `value` as
- *                     parameter and must return a string. Is useful for example to
- *                     format all values inside a matrix in a particular way.
- *
- * Examples:
- *
- *    format(6.4);                                        // '6.4'
- *    format(1240000);                                    // '1.24e6'
- *    format(1/3);                                        // '0.3333333333333333'
- *    format(1/3, 3);                                     // '0.333'
- *    format(21385, 2);                                   // '21000'
- *    format(12.071, {notation: 'fixed'});                // '12'
- *    format(2.3,    {notation: 'fixed', precision: 2});  // '2.30'
- *    format(52.8,   {notation: 'exponential'});          // '5.28e+1'
- *    format(12345678, {notation: 'engineering'});        // '12.345678e+6'
- *
- * @param {number} value
- * @param {Object | Function | number} [options]
- * @return {string} str The formatted value
- */
-exports.format = function(value, options) {
-  if (typeof options === 'function') {
-    // handle format(value, fn)
-    return options(value);
-  }
-
-  // handle special cases
-  if (value === Infinity) {
-    return 'Infinity';
-  }
-  else if (value === -Infinity) {
-    return '-Infinity';
-  }
-  else if (isNaN(value)) {
-    return 'NaN';
-  }
-
-  // default values for options
-  var notation = 'auto';
-  var precision = undefined;
-
-  if (options) {
-    // determine notation from options
-    if (options.notation) {
-      notation = options.notation;
-    }
-
-    // determine precision from options
-    if (exports.isNumber(options)) {
-      precision = options;
-    }
-    else if (options.precision) {
-      precision = options.precision;
-    }
-  }
-
-  // handle the various notations
-  switch (notation) {
-    case 'fixed':
-      return exports.toFixed(value, precision);
-
-    case 'exponential':
-      return exports.toExponential(value, precision);
-
-    case 'engineering':
-      return exports.toEngineering(value, precision);
-
-    case 'auto':
-      return exports
-          .toPrecision(value, precision, options && options.exponential)
-
-          // remove trailing zeros after the decimal point
-          .replace(/((\.\d*?)(0+))($|e)/, function () {
-            var digits = arguments[2];
-            var e = arguments[4];
-            return (digits !== '.') ? digits + e : e;
-          });
-
-    default:
-      throw new Error('Unknown notation "' + notation + '". ' +
-          'Choose "auto", "exponential", or "fixed".');
-  }
-};
-
-/**
- * Split a number into sign, coefficients, and exponent
- * @param {number | string} value
- * @return {SplitValue}
- *              Returns an object containing sign, coefficients, and exponent
- */
-exports.splitNumber = function (value) {
-  // parse the input value
-  var match = String(value).toLowerCase().match(/^0*?(-?)(\d+\.?\d*)(e([+-]?\d+))?$/);
-  if (!match) {
-    throw new SyntaxError('Invalid number ' + value);
-  }
-
-  var sign         = match[1];
-  var digits       = match[2];
-  var exponent     = parseFloat(match[4] || '0');
-
-  var dot = digits.indexOf('.');
-  exponent += (dot !== -1) ? (dot - 1) : (digits.length - 1);
-
-  var coefficients = digits
-      .replace('.', '')  // remove the dot (must be removed before removing leading zeros)
-      .replace(/^0*/, function (zeros) {
-        // remove leading zeros, add their count to the exponent
-        exponent -= zeros.length;
-        return '';
-      })
-      .replace(/0*$/, '') // remove trailing zeros
-      .split('')
-      .map(function (d) {
-        return parseInt(d);
-      });
-
-  if (coefficients.length === 0) {
-    coefficients.push(0);
-    exponent++;
-  }
-
-  return {
-    sign: sign,
-    coefficients: coefficients,
-    exponent: exponent
-  };
-};
-
-
-/**
- * Format a number in engineering notation. Like '1.23e+6', '2.3e+0', '3.500e-3'
- * @param {number | string} value
- * @param {number} [precision=0]        Optional number of decimals after the
- *                                      decimal point. Zero by default.
- */
-exports.toEngineering = function (value, precision) {
-  if (isNaN(value) || !isFinite(value)) {
-    return String(value);
-  }
-  
-  var rounded = exports.roundDigits(exports.splitNumber(value), precision);
-
-  var e = rounded.exponent;
-  var c = rounded.coefficients;
-
-  // find nearest lower multiple of 3 for exponent
-  var newExp = e % 3 === 0 ? e : (e < 0 ? (e - 3) - (e % 3) : e - (e % 3));
-
-  // concatenate coefficients with necessary zeros
-  var significandsDiff = e >= 0 ? e : Math.abs(newExp);
-
-  // add zeros if necessary (for ex: 1e+8)
-  if (c.length - 1 < significandsDiff) c = c.concat(zeros(significandsDiff - (c.length - 1)));
-
-  // find difference in exponents
-  var expDiff = Math.abs(e - newExp);
-
-  var decimalIdx = 1;
-
-  // push decimal index over by expDiff times
-  while (--expDiff >= 0) decimalIdx++;
-
-  // if all coefficient values are zero after the decimal point, don't add a decimal value.
-  // otherwise concat with the rest of the coefficients
-  var decimals = c.slice(decimalIdx).join('');
-  var decimalVal = decimals.match(/[1-9]/) ? ('.' + decimals) : '';
-
-  var str = c.slice(0, decimalIdx).join('') +
-      decimalVal +
-      'e' + (e >= 0 ? '+' : '') + newExp.toString();
-  return rounded.sign + str;
-};
-
-/**
- * Format a number with fixed notation.
- * @param {number | string} value
- * @param {number} [precision=0]        Optional number of decimals after the
- *                                      decimal point. Zero by default.
- */
-exports.toFixed = function (value, precision) {
-  if (isNaN(value) || !isFinite(value)) {
-    return String(value);
-  }
-
-  var splitValue = exports.splitNumber(value)
-  var rounded = exports.roundDigits(splitValue, splitValue.exponent + 1 + (precision || 0));
-  var c = rounded.coefficients;
-  var p = rounded.exponent + 1; // exponent may have changed
-
-  // append zeros if needed
-  var pp = p + (precision || 0);
-  if (c.length < pp) {
-    c = c.concat(zeros(pp - c.length));
-  }
-
-  // prepend zeros if needed
-  if (p < 0) {
-    c = zeros(-p + 1).concat(c);
-    p = 1;
-  }
-
-  // insert a dot if needed
-  if (precision) {
-    c.splice(p, 0, (p === 0) ? '0.' : '.');
-  }
-
-  return rounded.sign + c.join('');
-};
-
-/**
- * Format a number in exponential notation. Like '1.23e+5', '2.3e+0', '3.500e-3'
- * @param {number | string} value
- * @param {number} [precision]  Number of digits in formatted output.
- *                              If not provided, the maximum available digits
- *                              is used.
- */
-exports.toExponential = function (value, precision) {
-  if (isNaN(value) || !isFinite(value)) {
-    return String(value);
-  }
-
-  // round if needed, else create a clone
-  var split = exports.splitNumber(value)
-  var rounded = precision ? exports.roundDigits(split, precision) : split;
-  var c = rounded.coefficients;
-  var e = rounded.exponent;
-
-  // append zeros if needed
-  if (c.length < precision) {
-    c = c.concat(zeros(precision - c.length));
-  }
-
-  // format as `C.CCCe+EEE` or `C.CCCe-EEE`
-  var first = c.shift();
-  return rounded.sign + first + (c.length > 0 ? ('.' + c.join('')) : '') +
-      'e' + (e >= 0 ? '+' : '') + e;
-}
-
-/**
- * Format a number with a certain precision
- * @param {number | string} value
- * @param {number} [precision=undefined] Optional number of digits.
- * @param {{lower: number | undefined, upper: number | undefined}} [options]
- *                                       By default:
- *                                         lower = 1e-3 (excl)
- *                                         upper = 1e+5 (incl)
- * @return {string}
- */
-exports.toPrecision = function (value, precision, options) {
-  if (isNaN(value) || !isFinite(value)) {
-    return String(value);
-  }
-
-  // determine lower and upper bound for exponential notation.
-  var lower = (options && options.lower !== undefined) ? options.lower : 1e-3;
-  var upper = (options && options.upper !== undefined) ? options.upper : 1e+5;
-
-  var split = exports.splitNumber(value)
-  var abs = Math.abs(Math.pow(10, split.exponent));
-  if (abs < lower || abs >= upper) {
-    // exponential notation
-    return exports.toExponential(value, precision);
-  }
-  else {
-    var rounded = precision ? exports.roundDigits(split, precision) : split;
-    var c = rounded.coefficients;
-    var e = rounded.exponent;
-
-    // append trailing zeros
-    if (c.length < precision) {
-      c = c.concat(zeros(precision - c.length));
-    }
-
-    // append trailing zeros
-    // TODO: simplify the next statement
-    c = c.concat(zeros(e - c.length + 1 +
-        (c.length < precision ? precision - c.length : 0)));
-
-    // prepend zeros
-    c = zeros(-e).concat(c);
-
-    var dot = e > 0 ? e : 0;
-    if (dot < c.length - 1) {
-      c.splice(dot + 1, 0, '.');
-    }
-
-    return rounded.sign + c.join('');
-  }
-}
-
-/**
- * Round the number of digits of a number *
- * @param {SplitValue} split       A value split with .splitNumber(value)
- * @param {number} precision  A positive integer
- * @return {SplitValue}
- *              Returns an object containing sign, coefficients, and exponent
- *              with rounded digits
- */
-exports.roundDigits = function (split, precision) {
-  // create a clone
-  var rounded = {
-    sign: split.sign,
-    coefficients: split.coefficients,
-    exponent: split.exponent
-  }
-  var c = rounded.coefficients;
-
-  // prepend zeros if needed
-  while (precision <= 0) {
-    c.unshift(0);
-    rounded.exponent++;
-    precision++;
-  }
-
-  if (c.length > precision) {
-    var removed = c.splice(precision, c.length - precision);
-
-    if (removed[0] >= 5) {
-      var i = precision - 1;
-      c[i]++;
-      while (c[i] === 10) {
-        c.pop();
-        if (i === 0) {
-          c.unshift(0);
-          rounded.exponent++;
-          i++;
-        }
-        i--;
-        c[i]++;
-      }
-    }
-  }
-
-  return rounded;
-};
-
-/**
- * Create an array filled with zeros.
- * @param {number} length
- * @return {Array}
- */
-function zeros(length) {
-  var arr = [];
-  for (var i = 0; i < length; i++) {
-    arr.push(0);
-  }
-  return arr;
-}
-
-/**
- * Count the number of significant digits of a number.
- *
- * For example:
- *   2.34 returns 3
- *   0.0034 returns 2
- *   120.5e+30 returns 4
- *
- * @param {number} value
- * @return {number} digits   Number of significant digits
- */
-exports.digits = function(value) {
-  return value
-      .toExponential()
-      .replace(/e.*$/, '')          // remove exponential notation
-      .replace( /^0\.?0*|\./, '')   // remove decimal point and leading zeros
-      .length
-};
-
-/**
- * Minimum number added to one that makes the result different than one
- */
-exports.DBL_EPSILON = Number.EPSILON || 2.2204460492503130808472633361816E-16;
-
-/**
- * Compares two floating point numbers.
- * @param {number} x          First value to compare
- * @param {number} y          Second value to compare
- * @param {number} [epsilon]  The maximum relative difference between x and y
- *                            If epsilon is undefined or null, the function will
- *                            test whether x and y are exactly equal.
- * @return {boolean} whether the two numbers are nearly equal
-*/
-exports.nearlyEqual = function(x, y, epsilon) {
-  // if epsilon is null or undefined, test whether x and y are exactly equal
-  if (epsilon == null) {
-    return x == y;
-  }
-
-  // use "==" operator, handles infinities
-  if (x == y) {
-    return true;
-  }
-
-  // NaN
-  if (isNaN(x) || isNaN(y)) {
-    return false;
-  }
-
-  // at this point x and y should be finite
-  if(isFinite(x) && isFinite(y)) {
-    // check numbers are very close, needed when comparing numbers near zero
-    var diff = Math.abs(x - y);
-    if (diff < exports.DBL_EPSILON) {
-      return true;
-    }
-    else {
-      // use relative error
-      return diff <= Math.max(Math.abs(x), Math.abs(y)) * epsilon;
-    }
-  }
-
-  // Infinite and Number or negative Infinite and positive Infinite cases
-  return false;
-};
-
-
-/***/ }),
-/* 164 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-var getType = __webpack_require__(593).type;
-var stringify = __webpack_require__(38).stringify;
-var escape = __webpack_require__(38).escape;
-var escapeLatex = __webpack_require__(103).escape;
-
-function factory (type, config, load, typed) {
-  var register = load(__webpack_require__(21)).register;
-  var compile = load(__webpack_require__(21)).compile;
-  var Node = load(__webpack_require__(49));
+var latex = __webpack_require__(159);
+var stringify = __webpack_require__(62).stringify;
+var escape = __webpack_require__(62).escape;
+var hasOwnProperty = __webpack_require__(102).hasOwnProperty;
+var getSafeProperty = __webpack_require__(82).getSafeProperty;
+
+function factory (type, config, load, typed, math) {
+  var register = load(__webpack_require__(31)).register;
+  var compile = load(__webpack_require__(31)).compile;
+  var Node = load(__webpack_require__(63));
 
   /**
-   * A ConstantNode holds a constant value like a number or string. A ConstantNode
-   * stores a stringified version of the value and uses this to compile to
-   * JavaScript.
-   *
-   * In case of a stringified number as input, this may be compiled to a BigNumber
-   * when the math instance is configured for BigNumbers.
-   *
-   * Usage:
-   *
-   *     // stringified values with type
-   *     new ConstantNode('2.3', 'number');
-   *     new ConstantNode('true', 'boolean');
-   *     new ConstantNode('hello', 'string');
-   *
-   *     // non-stringified values, type will be automatically detected
-   *     new ConstantNode(2.3);
-   *     new ConstantNode('hello');
-   *
-   * @param {string | number | boolean | null | undefined} value
-   *                            When valueType is provided, value must contain
-   *                            an uninterpreted string representing the value.
-   *                            When valueType is undefined, value can be a
-   *                            number, string, boolean, null, or undefined, and
-   *                            the type will be determined automatically.
-   * @param {string} [valueType]  The type of value. Choose from 'number', 'string',
-   *                              'boolean', 'undefined', 'null'
-   * @constructor ConstantNode
+   * Check whether some name is a valueless unit like "inch".
+   * @param {string} name
+   * @return {boolean}
+   */
+  function isValuelessUnit (name) {
+    return type.Unit ? type.Unit.isValuelessUnit(name) : false;
+  }
+
+  /**
+   * @constructor SymbolNode
+   * @extends {Node}
+   * A symbol node can hold and resolve a symbol
+   * @param {string} name
    * @extends {Node}
    */
-  function ConstantNode(value, valueType) {
-    if (!(this instanceof ConstantNode)) {
+  function SymbolNode(name) {
+    if (!(this instanceof SymbolNode)) {
       throw new SyntaxError('Constructor must be called with the new operator');
     }
 
-    if (valueType) {
-      if (typeof valueType !== 'string') {
-        throw new TypeError('String expected for parameter "valueType"');
-      }
-      if (typeof value !== 'string') {
-        throw new TypeError('String expected for parameter "value"');
-      }
+    // validate input
+    if (typeof name !== 'string')  throw new TypeError('String expected for parameter "name"');
 
-      this.value = value;
-      this.valueType = valueType;
-    }
-    else {
-      // stringify the value and determine the type
-      this.value = value + '';
-      this.valueType = getType(value);
-    }
-
-    if (!SUPPORTED_TYPES[this.valueType]) {
-      throw new TypeError('Unsupported type of value "' + this.valueType + '"');
-    }
+    this.name = name;
   }
 
-  var SUPPORTED_TYPES = {
-    'number': true,
-    'string': true,
-    'boolean': true,
-    'undefined': true,
-    'null': true
-  };
+  SymbolNode.prototype = new Node();
 
-  ConstantNode.prototype = new Node();
+  SymbolNode.prototype.type = 'SymbolNode';
 
-  ConstantNode.prototype.type = 'ConstantNode';
-
-  ConstantNode.prototype.isConstantNode = true;
+  SymbolNode.prototype.isSymbolNode = true;
 
   /**
    * Compile the node to javascript code
-   * @param {ConstantNode} node The node to be compiled
+   * @param {SymbolNode} node The node to be compiled
    * @param {Object} defs     Object which can be used to define functions
    *                          or constants globally available for the compiled
    *                          expression
@@ -28583,624 +27505,164 @@ function factory (type, config, load, typed) {
    * @return {string} js
    * @private
    */
-  function compileConstantNode(node, defs, args) {
-    if (!(node instanceof ConstantNode)) {
-      throw new TypeError('No valid ConstantNode')
+  function compileSymbolNode(node, defs, args) {
+    if (!(node instanceof SymbolNode)) {
+      throw new TypeError('No valid SymbolNode')
     }
 
-    switch (node.valueType) {
-      case 'number':
-        if (config.number === 'BigNumber') {
-          return 'math.bignumber(' + stringify(node.value) + ')';
-        }
-        else if (config.number === 'Fraction') {
-          return 'math.fraction(' + stringify(node.value) + ')';
-        }
-        else {
-          // remove leading zeros like '003.2' which are not allowed by JavaScript
-          validateNumericValue(node.value);
-          return node.value.replace(/^(0*)[0-9]/, function (match, zeros) {
-            return match.substring(zeros.length);
-          });
-        }
+    // add a function to the definitions
+    defs['undef'] = undef;
+    defs['Unit'] = type.Unit;
+    defs.getSafeProperty = getSafeProperty;
+    defs.hasOwnProperty = hasOwnProperty;
 
-      case 'string':
-        // Important to escape unescaped double quotes in the string
-        return stringify(node.value);
+    var jsName = stringify(node.name); // escaped node name inside double quotes
 
-      case 'boolean':
-        // prevent invalid values
-        return String(node.value) === 'true' ? 'true' : 'false';
-
-      case 'undefined':
-        return 'undefined';
-
-      case 'null':
-        return 'null';
-
-      default:
-        // TODO: move this error to the constructor?
-        throw new TypeError('Unsupported type of constant "' + node.valueType + '"');
+    if (hasOwnProperty(args, node.name)) {
+      // this is a FunctionAssignment argument
+      // (like an x when inside the expression of a function assignment `f(x) = ...`)
+      return args[node.name];
     }
-  }
-
-  /**
-   * Test whether value is a string containing a numeric value
-   * @param {String} value
-   * @return {boolean} Returns true when ok
-   */
-  function validateNumericValue (value) {
-    // The following regexp is relatively permissive
-    if (typeof value !== 'string' ||
-        !/^[\-+]?((\d+\.?\d*)|(\d*\.?\d+))([eE][+\-]?\d+)?$/.test(value)) {
-      throw new Error('Invalid numeric value "' + value + '"');
+    else if (node.name in defs.math) {
+      return '(' + jsName + ' in scope ' +
+          '? getSafeProperty(scope, ' + jsName + ') ' +
+          ': getSafeProperty(math, ' + jsName + '))';
+    }
+    else {
+      return '(' +
+          jsName + ' in scope ' +
+          '? getSafeProperty(scope, ' + jsName + ') ' +
+          ': ' + (isValuelessUnit(node.name)
+              ? 'new Unit(null, ' + jsName + ')'
+              : 'undef(' + jsName + ')') +
+          ')';
     }
   }
 
   // register the compile function
-  register(ConstantNode.prototype.type, compileConstantNode);
+  register(SymbolNode.prototype.type, compileSymbolNode);
 
   /**
    * Execute a callback for each of the child nodes of this node
    * @param {function(child: Node, path: string, parent: Node)} callback
    */
-  ConstantNode.prototype.forEach = function (callback) {
+  SymbolNode.prototype.forEach = function (callback) {
     // nothing to do, we don't have childs
   };
 
-
   /**
-   * Create a new ConstantNode having it's childs be the results of calling
+   * Create a new SymbolNode having it's childs be the results of calling
    * the provided callback function for each of the childs of the original node.
    * @param {function(child: Node, path: string, parent: Node) : Node} callback
-   * @returns {ConstantNode} Returns a clone of the node
+   * @returns {SymbolNode} Returns a clone of the node
    */
-  ConstantNode.prototype.map = function (callback) {
+  SymbolNode.prototype.map = function (callback) {
     return this.clone();
   };
 
   /**
-   * Create a clone of this node, a shallow copy
-   * @return {ConstantNode}
+   * Throws an error 'Undefined symbol {name}'
+   * @param {string} name
    */
-  ConstantNode.prototype.clone = function () {
-    return new ConstantNode(this.value, this.valueType);
+  function undef (name) {
+    throw new Error('Undefined symbol ' + name);
+  }
+
+  /**
+   * Create a clone of this node, a shallow copy
+   * @return {SymbolNode}
+   */
+  SymbolNode.prototype.clone = function() {
+    return new SymbolNode(this.name);
   };
 
   /**
    * Get string representation
-   * @param {Object} options
-   * @return {string} str
-   */
-  ConstantNode.prototype._toString = function (options) {
-    switch (this.valueType) {
-      case 'string':
-        return stringify(this.value);
-
-      default:
-        return this.value;
-    }
-  };
-
-  /**
-   * Get HTML representation
-   * @param {Object} options
-   * @return {string} str
-   */
-  ConstantNode.prototype.toHTML = function (options) {
-	var value = escape(this.value);
-    switch (this.valueType) {
-	  case 'number':
-	    return '<span class="math-number">' + value + '</span>';
-      case 'string':
-	    return '<span class="math-string">' + value + '</span>';
-      case 'boolean':
-	    return '<span class="math-boolean">' + value + '</span>';
-      case 'null':
-	    return '<span class="math-null-symbol">' + value + '</span>';
-      case 'undefined':
-	    return '<span class="math-undefined">' + value + '</span>';
-
-      default:
-        return '<span class="math-symbol">' + value + '</span>';
-    }
-  };
-
-  /**
-   * Get LaTeX representation
-   * @param {Object} options
-   * @return {string} str
-   */
-  ConstantNode.prototype._toTex = function (options) {
-    var value = this.value,
-        index;
-    switch (this.valueType) {
-      case 'string':
-        return '\\mathtt{' + escapeLatex(stringify(value)) + '}';
-
-      case 'number':
-        index = value.toLowerCase().indexOf('e');
-        if (index !== -1) {
-          return value.substring(0, index) + '\\cdot10^{' +
-              value.substring(index + 1) + '}';
-        }
-        return value;
-
-      default:
-        return value;
-    }
-  };
-
-  return ConstantNode;
-}
-
-exports.name = 'ConstantNode';
-exports.path = 'expression.node';
-exports.factory = factory;
-
-
-/***/ }),
-/* 165 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-var latex = __webpack_require__(103);
-var stringify = __webpack_require__(38).stringify;
-var escape = __webpack_require__(38).escape;
-var extend = __webpack_require__(66).extend;
-var hasOwnProperty = __webpack_require__(66).hasOwnProperty;
-var map = __webpack_require__(57).map;
-var join = __webpack_require__(57).join;
-var validateSafeMethod = __webpack_require__(58).validateSafeMethod;
-var getUniqueArgumentName = __webpack_require__(601);
-
-function factory (type, config, load, typed, math) {
-  var register = load(__webpack_require__(21)).register;
-  var compile = load(__webpack_require__(21)).compile;
-  var Node = load(__webpack_require__(49));
-  var SymbolNode = load(__webpack_require__(104));
-
-  /**
-   * @constructor FunctionNode
-   * @extends {./Node}
-   * invoke a list with arguments on a node
-   * @param {./Node | string} fn Node resolving with a function on which to invoke
-   *                             the arguments, typically a SymboNode or AccessorNode
-   * @param {./Node[]} args
-   */
-  function FunctionNode(fn, args) {
-    if (!(this instanceof FunctionNode)) {
-      throw new SyntaxError('Constructor must be called with the new operator');
-    }
-
-    if (typeof fn === 'string') {
-      fn = new SymbolNode(fn);
-    }
-
-    // validate input
-    if (!type.isNode(fn)) throw new TypeError('Node expected as parameter "fn"');
-    if (!Array.isArray(args) || !args.every(type.isNode)) {
-      throw new TypeError('Array containing Nodes expected for parameter "args"');
-    }
-
-    this.fn = fn;
-    this.args = args || [];
-
-    // readonly property name
-    Object.defineProperty(this, 'name', {
-      get: function () {
-        return this.fn.name || '';
-      }.bind(this),
-      set: function () {
-        throw new Error('Cannot assign a new name, name is read-only');
-      }
-    });
-
-    // TODO: deprecated since v3, remove some day
-    var deprecated = function () {
-      throw new Error('Property `FunctionNode.object` is deprecated, use `FunctionNode.fn` instead');
-    };
-    Object.defineProperty(this, 'object', { get: deprecated, set: deprecated });
-  }
-
-  FunctionNode.prototype = new Node();
-
-  FunctionNode.prototype.type = 'FunctionNode';
-
-  FunctionNode.prototype.isFunctionNode = true;
-
-  /**
-   * Compile the node to javascript code
-   * @param {FunctionNode} node The node to be compiled
-   * @param {Object} defs     Object which can be used to define functions
-   *                          or constants globally available for the compiled
-   *                          expression
-   * @param {Object} args     Object with local function arguments, the key is
-   *                          the name of the argument, and the value is `true`.
-   *                          The object may not be mutated, but must be
-   *                          extended instead.
-   * @return {string} js
-   * @private
-   */
-  function compileFunctionNode(node, defs, args) {
-    if (!(node instanceof FunctionNode)) {
-      throw new TypeError('No valid FunctionNode')
-    }
-
-    // compile fn and arguments
-    var jsFn = compile(node.fn, defs, args);
-    var jsArgs = map(node.args, function (arg) {
-      return compile(arg, defs, args);
-    });
-    var jsScope = compileScope(defs, args);
-    var argsName;
-
-    if (type.isSymbolNode(node.fn)) {
-      // we can statically determine whether the function has an rawArgs property
-      var name = node.fn.name;
-      var fn = hasOwnProperty(defs.math, name) ? defs.math[name] : undefined;
-      var isRaw = (typeof fn === 'function') && (fn.rawArgs == true);
-
-      if (isRaw) {
-        // pass unevaluated parameters (nodes) to the function
-        argsName = getUniqueArgumentName(defs);
-        defs[argsName] = node.args;
-
-        return jsFn + '(' + argsName + ', math, ' + jsScope + ')'; // "raw" evaluation
-      }
-      else {
-        return jsFn + '(' + join(jsArgs, ', ') + ')';              // "regular" evaluation
-      }
-    }
-    else if (type.isAccessorNode(node.fn) &&
-        type.isIndexNode(node.fn.index) && node.fn.index.isObjectProperty()) {
-      // execute the function with the right context: the object of the AccessorNode
-      argsName = getUniqueArgumentName(defs);
-      defs[argsName] = node.args;
-      defs.validateSafeMethod = validateSafeMethod
-
-      var jsObject = compile(node.fn.object, defs, args);
-      var jsProp = stringify(node.fn.index.getObjectProperty());
-
-      return '(function () {' +
-          'var object = ' + jsObject + ';' +
-          'validateSafeMethod(object, ' + jsProp + ');' +
-          'return (object[' + jsProp + '] && object[' + jsProp + '].rawArgs) ' +
-          ' ? object[' + jsProp + '](' + argsName + ', math, ' + jsScope + ')' + // "raw" evaluation
-          ' : object[' + jsProp + '](' + join(jsArgs, ', ') + ')' +              // "regular" evaluation
-          '})()';
-    }
-    else { // node.fn.isAccessorNode && !node.fn.index.isObjectProperty()
-      // we have to dynamically determine whether the function has a rawArgs property
-      argsName = getUniqueArgumentName(defs);
-      defs[argsName] = node.args;
-
-      return '(function () {' +
-          'var fn = ' + jsFn + ';' +
-          'return (fn && fn.rawArgs) ' +
-          ' ? fn(' + argsName + ', math, ' + jsScope + ')' +  // "raw" evaluation
-          ' : fn(' + join(jsArgs, ', ') + ')' +               // "regular" evaluation
-          '})()';
-    }
-  }
-
-  // register the compile function
-  register(FunctionNode.prototype.type, compileFunctionNode);
-
-  /**
-   * Merge function arguments into scope before passing to the actual function.
-   * This is needed when the function has `rawArgs=true`. In that case we have
-   * to pass the `scope` as third argument, including any variables of
-   * enclosing functions.
-   * @param {Object} defs     Object which can be used to define functions
-   *                          or constants globally available for the compiled
-   *                          expression
-   * @param {Object} args     Object with local function arguments, the key is
-   *                          the name of the argument, and the value is `true`.
-   *                          The object may not be mutated, but must be
-   *                          extended instead.
-   * @return {string} js
-   * @private
-   */
-  function compileScope (defs, args) {
-    var names = Object.keys(args)
-        // .map(function (arg) {
-        //   return args[arg];
-        // });
-    if (names.length === 0) {
-      return 'scope';
-    }
-    else {
-      // merge arguments into scope
-      defs.extend = extend;
-
-      var jsArgs = map(names, function (name) {
-        return stringify(name) + ': ' + args[name];
-      });
-
-      return 'extend(extend({}, scope), {' + join(jsArgs, ', ') + '})';
-    }
-  }
-
-  /**
-   * Execute a callback for each of the child nodes of this node
-   * @param {function(child: Node, path: string, parent: Node)} callback
-   */
-  FunctionNode.prototype.forEach = function (callback) {
-    for (var i = 0; i < this.args.length; i++) {
-      callback(this.args[i], 'args[' + i + ']', this);
-    }
-  };
-
-  /**
-   * Create a new FunctionNode having it's childs be the results of calling
-   * the provided callback function for each of the childs of the original node.
-   * @param {function(child: Node, path: string, parent: Node): Node} callback
-   * @returns {FunctionNode} Returns a transformed copy of the node
-   */
-  FunctionNode.prototype.map = function (callback) {
-    var fn = this.fn.map(callback);
-    var args = [];
-    for (var i = 0; i < this.args.length; i++) {
-      args[i] = this._ifNode(callback(this.args[i], 'args[' + i + ']', this));
-    }
-    return new FunctionNode(fn, args);
-  };
-
-  /**
-   * Create a clone of this node, a shallow copy
-   * @return {FunctionNode}
-   */
-  FunctionNode.prototype.clone = function () {
-    return new FunctionNode(this.fn, this.args.slice(0));
-  };
-
-  //backup Node's toString function
-  //@private
-  var nodeToString = FunctionNode.prototype.toString;
-
-  /**
-   * Get string representation. (wrapper function)
-   * This overrides parts of Node's toString function.
-   * If callback is an object containing callbacks, it
-   * calls the correct callback for the current node,
-   * otherwise it falls back to calling Node's toString
-   * function.
-   *
    * @param {Object} options
    * @return {string} str
    * @override
    */
-  FunctionNode.prototype.toString = function (options) {
-    var customString;
-    var name = this.fn.toString(options);
-    if (options && (typeof options.handler === 'object') && hasOwnProperty(options.handler, name)) {
-      //callback is a map of callback functions
-      customString = options.handler[name](this, options);
-    }
-
-    if (typeof customString !== 'undefined') {
-      return customString;
-    }
-
-    //fall back to Node's toString
-    return nodeToString.call(this, options);
+  SymbolNode.prototype._toString = function(options) {
+    return this.name;
   };
 
-  /**
-   * Get string representation
-   * @param {Object} options
-   * @return {string} str
-   */
-  FunctionNode.prototype._toString = function (options) {
-    var args = this.args.map(function (arg) {
-      return arg.toString(options);
-    });
-
-    var fn = type.isFunctionAssignmentNode(this.fn)
-        ? ('(' + this.fn.toString(options) + ')')
-        : this.fn.toString(options)
-
-    // format the arguments like "add(2, 4.2)"
-    return fn + '(' + args.join(', ') + ')';
-  };
-  
   /**
    * Get HTML representation
    * @param {Object} options
    * @return {string} str
+   * @override
    */
-  FunctionNode.prototype.toHTML = function (options) {
-    var args = this.args.map(function (arg) {
-      return arg.toHTML(options);
-    });
-
-    // format the arguments like "add(2, 4.2)"
-    return '<span class="math-function">' + escape(this.fn) + '</span><span class="math-paranthesis math-round-parenthesis">(</span>' + args.join('<span class="math-separator">,</span>') + '<span class="math-paranthesis math-round-parenthesis">)</span>';
-  };
-
-  /*
-   * Expand a LaTeX template
-   *
-   * @param {string} template
-   * @param {Node} node
-   * @param {Object} options
-   * @private
-   **/
-  function expandTemplate(template, node, options) {
-    var latex = '';
-
-    // Match everything of the form ${identifier} or ${identifier[2]} or $$
-    // while submatching identifier and 2 (in the second case)
-    var regex = new RegExp('\\$(?:\\{([a-z_][a-z_0-9]*)(?:\\[([0-9]+)\\])?\\}|\\$)', 'ig');
-
-    var inputPos = 0;   //position in the input string
-    var match;
-    while ((match = regex.exec(template)) !== null) {   //go through all matches
-      // add everything in front of the match to the LaTeX string
-      latex += template.substring(inputPos, match.index);
-      inputPos = match.index;
-
-      if (match[0] === '$$') { // escaped dollar sign
-        latex += '$';
-        inputPos++;
-      }
-      else { // template parameter
-        inputPos += match[0].length;
-        var property = node[match[1]];
-        if (!property) {
-          throw new ReferenceError('Template: Property ' + match[1] + ' does not exist.');
-        }
-        if (match[2] === undefined) { //no square brackets
-          switch (typeof property) {
-            case 'string':
-              latex += property;
-              break;
-            case 'object':
-              if (type.isNode(property)) {
-                latex += property.toTex(options);
-              }
-              else if (Array.isArray(property)) {
-                //make array of Nodes into comma separated list
-                latex += property.map(function (arg, index) {
-                  if (type.isNode(arg)) {
-                    return arg.toTex(options);
-                  }
-                  throw new TypeError('Template: ' + match[1] + '[' + index + '] is not a Node.');
-                }).join(',');
-              }
-              else {
-                throw new TypeError('Template: ' + match[1] + ' has to be a Node, String or array of Nodes');
-              }
-              break;
-            default:
-              throw new TypeError('Template: ' + match[1] + ' has to be a Node, String or array of Nodes');
-          }
-        }
-        else { //with square brackets
-          if (type.isNode(property[match[2]] && property[match[2]])) {
-            latex += property[match[2]].toTex(options);
-          }
-          else {
-            throw new TypeError('Template: ' + match[1] + '[' + match[2] + '] is not a Node.');
-          }
-        }
-      }
-    }
-    latex += template.slice(inputPos);  //append rest of the template
-
-    return latex;
-  }
-
-  //backup Node's toTex function
-  //@private
-  var nodeToTex = FunctionNode.prototype.toTex;
-
-  /**
-   * Get LaTeX representation. (wrapper function)
-   * This overrides parts of Node's toTex function.
-   * If callback is an object containing callbacks, it
-   * calls the correct callback for the current node,
-   * otherwise it falls back to calling Node's toTex
-   * function.
-   *
-   * @param {Object} options
-   * @return {string}
-   */
-  FunctionNode.prototype.toTex = function (options) {
-    var customTex;
-    if (options && (typeof options.handler === 'object') && hasOwnProperty(options.handler, this.name)) {
-      //callback is a map of callback functions
-      customTex = options.handler[this.name](this, options);
-    }
-
-    if (typeof customTex !== 'undefined') {
-      return customTex;
-    }
-
-    //fall back to Node's toTex
-    return nodeToTex.call(this, options);
+  SymbolNode.prototype.toHTML = function(options) {
+	var name = escape(this.name);
+	
+    if (name == "true" || name == "false") {
+	  return '<span class="math-symbol math-boolean">' + name + '</span>';
+	}
+	else if (name == "i") {
+	  return '<span class="math-symbol math-imaginary-symbol">' + name + '</span>';
+	}
+	else if (name == "Infinity") {
+	  return '<span class="math-symbol math-infinity-symbol">' + name + '</span>';
+	}
+	else if (name == "NaN") {
+	  return '<span class="math-symbol math-nan-symbol">' + name + '</span>';
+	}
+	else if (name == "null") {
+	  return '<span class="math-symbol math-null-symbol">' + name + '</span>';
+	}
+	else if (name == "uninitialized") {
+	  return '<span class="math-symbol math-uninitialized-symbol">' + name + '</span>';
+	}
+	
+	return '<span class="math-symbol">' + name + '</span>';
   };
 
   /**
    * Get LaTeX representation
    * @param {Object} options
    * @return {string} str
+   * @override
    */
-  FunctionNode.prototype._toTex = function (options) {
-    var args = this.args.map(function (arg) { //get LaTeX of the arguments
-      return arg.toTex(options);
-    });
-
-    var latexConverter;
-
-    if (math[this.name] && ((typeof math[this.name].toTex === 'function') || (typeof math[this.name].toTex === 'object') || (typeof math[this.name].toTex === 'string'))) {
-      //.toTex is a callback function
-      latexConverter = math[this.name].toTex;
+  SymbolNode.prototype._toTex = function(options) {
+    var isUnit = false;
+    if ((typeof math[this.name] === 'undefined') && isValuelessUnit(this.name)) {
+      isUnit = true;
     }
-
-    var customToTex;
-    switch (typeof latexConverter) {
-      case 'function': //a callback function
-        customToTex = latexConverter(this, options);
-        break;
-      case 'string': //a template string
-        customToTex = expandTemplate(latexConverter, this, options);
-        break;
-      case 'object': //an object with different "converters" for different numbers of arguments
-        switch (typeof latexConverter[args.length]) {
-          case 'function':
-            customToTex = latexConverter[args.length](this, options);
-            break;
-          case 'string':
-            customToTex = expandTemplate(latexConverter[args.length], this, options);
-            break;
-        }
+    var symbol = latex.toSymbol(this.name, isUnit);
+    if (symbol[0] === '\\') {
+      //no space needed if the symbol starts with '\'
+      return symbol;
     }
-
-    if (typeof customToTex !== 'undefined') {
-      return customToTex;
-    }
-
-    return expandTemplate(latex.defaultTemplate, this, options);
+    //the space prevents symbols from breaking stuff like '\cdot' if it's written right before the symbol
+    return ' ' + symbol;
   };
 
-  /**
-   * Get identifier.
-   * @return {string}
-   */
-  FunctionNode.prototype.getIdentifier = function () {
-    return this.type + ':' + this.name;
-  };
-
-  return FunctionNode;
+  return SymbolNode;
 }
 
-exports.name = 'FunctionNode';
+exports.name = 'SymbolNode';
 exports.path = 'expression.node';
 exports.math = true; // request access to the math namespace as 5th argument of the factory function
 exports.factory = factory;
 
 
 /***/ }),
-/* 166 */
+/* 162 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
-module.exports = __webpack_require__(167);
+module.exports = __webpack_require__(163);
 
 /***/ }),
-/* 167 */
+/* 163 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
-var core = __webpack_require__(168);
+var core = __webpack_require__(164);
 /**
  * math.js factory function. Creates a new instance of math.js
  *
@@ -29230,7 +27692,7 @@ function create(config) {
   var math = core.create(config);
   math.create = create; // import data types, functions, constants, expression parser, etc.
 
-  math['import'](__webpack_require__(174));
+  math['import'](__webpack_require__(170));
   return math;
 } // return a new instance of math.js
 
@@ -29238,23 +27700,23 @@ function create(config) {
 module.exports = create();
 
 /***/ }),
-/* 168 */
+/* 164 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
-__webpack_require__(169);
+__webpack_require__(165);
 
 var isFactory = __webpack_require__(5).isFactory;
 
-var typedFactory = __webpack_require__(105);
+var typedFactory = __webpack_require__(103);
 
-var emitter = __webpack_require__(106);
+var emitter = __webpack_require__(104);
 
-var importFactory = __webpack_require__(172);
+var importFactory = __webpack_require__(168);
 
-var configFactory = __webpack_require__(173);
+var configFactory = __webpack_require__(169);
 /**
  * Math.js core. Creates a new, empty math.js instance
  * @param {Object} [options] Available options:
@@ -29373,7 +27835,7 @@ exports.create = function create(options) {
 };
 
 /***/ }),
-/* 169 */
+/* 165 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -29394,7 +27856,7 @@ Number.isNaN = Number.isNaN || function (value) {
 };
 
 /***/ }),
-/* 170 */
+/* 166 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -30794,7 +29256,7 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
 }));
 
 /***/ }),
-/* 171 */
+/* 167 */
 /***/ (function(module, exports) {
 
 function E () {
@@ -30866,7 +29328,7 @@ module.exports = E;
 
 
 /***/ }),
-/* 172 */
+/* 168 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -30892,7 +29354,7 @@ var isFactory = __webpack_require__(5).isFactory;
 
 var traverse = __webpack_require__(5).traverse;
 
-var ArgumentsError = __webpack_require__(59);
+var ArgumentsError = __webpack_require__(55);
 
 function factory(type, config, load, typed, math) {
   /**
@@ -31200,7 +29662,7 @@ exports.factory = factory;
 exports.lazy = true;
 
 /***/ }),
-/* 173 */
+/* 169 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -31322,7 +29784,7 @@ exports.math = true; // request the math namespace as fifth argument
 exports.factory = factory;
 
 /***/ }),
-/* 174 */
+/* 170 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -31330,38 +29792,38 @@ exports.factory = factory;
 
 // This file contains all factory functions of math.js
 
-module.exports = [__webpack_require__(175), // data types (Matrix, Complex, Unit, ...)
-__webpack_require__(206), // constants
-__webpack_require__(208), // functions
+module.exports = [__webpack_require__(171), // data types (Matrix, Complex, Unit, ...)
+__webpack_require__(202), // constants
+__webpack_require__(204), // functions
 // load ./expression *after* ./function since we need to
 // attach transforms to functions that are imported there
-__webpack_require__(363), // expression parsing
-__webpack_require__(584), // serialization utility (math.json.reviver)
-__webpack_require__(586) // errors
+__webpack_require__(359), // expression parsing
+__webpack_require__(580), // serialization utility (math.json.reviver)
+__webpack_require__(582) // errors
 ];
 
 /***/ }),
-/* 175 */
+/* 171 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
-module.exports = [__webpack_require__(176), __webpack_require__(179), __webpack_require__(180), __webpack_require__(184), __webpack_require__(187), __webpack_require__(190), __webpack_require__(69), __webpack_require__(70), __webpack_require__(198), __webpack_require__(199), __webpack_require__(200)];
+module.exports = [__webpack_require__(172), __webpack_require__(175), __webpack_require__(176), __webpack_require__(180), __webpack_require__(183), __webpack_require__(186), __webpack_require__(66), __webpack_require__(67), __webpack_require__(194), __webpack_require__(195), __webpack_require__(196)];
 
 /***/ }),
-/* 176 */
+/* 172 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
 module.exports = [// type
-__webpack_require__(177), // construction function
-__webpack_require__(107)];
+__webpack_require__(173), // construction function
+__webpack_require__(105)];
 
 /***/ }),
-/* 177 */
+/* 173 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -31373,7 +29835,7 @@ Object.defineProperty(exports, "__esModule", {
 exports.factory = factory;
 exports.math = exports.path = exports.name = void 0;
 
-var _decimal = _interopRequireDefault(__webpack_require__(178));
+var _decimal = _interopRequireDefault(__webpack_require__(174));
 
 function _interopRequireDefault(obj) {
   return obj && obj.__esModule ? obj : { default: obj };
@@ -31433,7 +29895,7 @@ var math = true; // request access to the math namespace
 exports.math = math;
 
 /***/ }),
-/* 178 */
+/* 174 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var __WEBPACK_AMD_DEFINE_RESULT__;/*! decimal.js v10.0.1 https://github.com/MikeMcl/decimal.js/LICENCE */
@@ -36268,7 +34730,7 @@ var __WEBPACK_AMD_DEFINE_RESULT__;/*! decimal.js v10.0.1 https://github.com/Mike
 
 
 /***/ }),
-/* 179 */
+/* 175 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -36350,18 +34812,18 @@ exports.name = 'boolean';
 exports.factory = factory;
 
 /***/ }),
-/* 180 */
+/* 176 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
 module.exports = [// type
-__webpack_require__(181), // construction function
-__webpack_require__(183)];
+__webpack_require__(177), // construction function
+__webpack_require__(179)];
 
 /***/ }),
-/* 181 */
+/* 177 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -36554,7 +35016,7 @@ exports.math = true; // require providing the math namespace as 5th argument
 exports.lazy = false; // we need to register a listener on the import events, so no lazy loading
 
 /***/ }),
-/* 182 */
+/* 178 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -36744,7 +35206,7 @@ exports.toFixed = function (value, precision) {
 };
 
 /***/ }),
-/* 183 */
+/* 179 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -36800,18 +35262,18 @@ exports.name = 'chain';
 exports.factory = factory;
 
 /***/ }),
-/* 184 */
+/* 180 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
 module.exports = [// type
-__webpack_require__(85), // construction function
-__webpack_require__(186)];
+__webpack_require__(84), // construction function
+__webpack_require__(182)];
 
 /***/ }),
-/* 185 */
+/* 181 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/**
@@ -38222,7 +36684,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/**
 
 
 /***/ }),
-/* 186 */
+/* 182 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -38321,24 +36783,24 @@ exports.name = 'complex';
 exports.factory = factory;
 
 /***/ }),
-/* 187 */
+/* 183 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
 module.exports = [// type
-__webpack_require__(188), // construction function
-__webpack_require__(86)];
+__webpack_require__(184), // construction function
+__webpack_require__(85)];
 
 /***/ }),
-/* 188 */
+/* 184 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
-var Fraction = __webpack_require__(189);
+var Fraction = __webpack_require__(185);
 /**
  * Attach type information
  */
@@ -38378,7 +36840,7 @@ exports.path = 'type';
 exports.factory = factory;
 
 /***/ }),
-/* 189 */
+/* 185 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/**
@@ -39219,19 +37681,19 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/**
 
 
 /***/ }),
-/* 190 */
+/* 186 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
 module.exports = [// types
-__webpack_require__(87), __webpack_require__(50), __webpack_require__(192), __webpack_require__(193), __webpack_require__(194), __webpack_require__(195), __webpack_require__(29), __webpack_require__(108), // construction functions
-__webpack_require__(196), __webpack_require__(1), __webpack_require__(197), // util functions
-__webpack_require__(68)];
+__webpack_require__(86), __webpack_require__(48), __webpack_require__(188), __webpack_require__(189), __webpack_require__(190), __webpack_require__(191), __webpack_require__(28), __webpack_require__(106), // construction functions
+__webpack_require__(192), __webpack_require__(1), __webpack_require__(193), // util functions
+__webpack_require__(65)];
 
 /***/ }),
-/* 191 */
+/* 187 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -39247,13 +37709,13 @@ exports.isBoolean = function (value) {
 };
 
 /***/ }),
-/* 192 */
+/* 188 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
-var util = __webpack_require__(31);
+var util = __webpack_require__(30);
 
 var DimensionError = __webpack_require__(11);
 
@@ -39268,10 +37730,10 @@ var isString = string.isString;
 var validateIndex = array.validateIndex;
 
 function factory(type, config, load, typed) {
-  var Matrix = load(__webpack_require__(87)); // force loading Matrix (do not use via type.Matrix)
+  var Matrix = load(__webpack_require__(86)); // force loading Matrix (do not use via type.Matrix)
 
   var equalScalar = load(__webpack_require__(10));
-  var getArrayDataType = load(__webpack_require__(68));
+  var getArrayDataType = load(__webpack_require__(65));
   /**
    * Sparse Matrix implementation. This type implements a Compressed Column Storage format
    * for sparse matrices.
@@ -40763,7 +39225,7 @@ exports.factory = factory;
 exports.lazy = false; // no lazy loading, as we alter type.Matrix._storage
 
 /***/ }),
-/* 193 */
+/* 189 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -40920,14 +39382,14 @@ exports.path = 'type';
 exports.factory = factory;
 
 /***/ }),
-/* 194 */
+/* 190 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
 function factory(type, config, load, typed) {
-  var smaller = load(__webpack_require__(41));
+  var smaller = load(__webpack_require__(40));
   var larger = load(__webpack_require__(34));
   var oneOverLogPhi = 1.0 / Math.log((1.0 + Math.sqrt(5.0)) / 2.0);
   /**
@@ -41305,13 +39767,13 @@ exports.path = 'type';
 exports.factory = factory;
 
 /***/ }),
-/* 195 */
+/* 191 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
-var util = __webpack_require__(31);
+var util = __webpack_require__(30);
 
 var string = util.string;
 var object = util.object;
@@ -41319,8 +39781,8 @@ var isArray = Array.isArray;
 var isString = string.isString;
 
 function factory(type, config, load) {
-  var DenseMatrix = load(__webpack_require__(50));
-  var smaller = load(__webpack_require__(41));
+  var DenseMatrix = load(__webpack_require__(48));
+  var smaller = load(__webpack_require__(40));
 
   function ImmutableDenseMatrix(data, datatype) {
     if (!(this instanceof ImmutableDenseMatrix)) {
@@ -41546,7 +40008,7 @@ exports.path = 'type';
 exports.factory = factory;
 
 /***/ }),
-/* 196 */
+/* 192 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -41613,7 +40075,7 @@ exports.name = 'index';
 exports.factory = factory;
 
 /***/ }),
-/* 197 */
+/* 193 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -41674,17 +40136,17 @@ exports.name = 'sparse';
 exports.factory = factory;
 
 /***/ }),
-/* 198 */
+/* 194 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
 module.exports = [// type
-__webpack_require__(109)];
+__webpack_require__(107)];
 
 /***/ }),
-/* 199 */
+/* 195 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -41752,21 +40214,21 @@ exports.name = 'string';
 exports.factory = factory;
 
 /***/ }),
-/* 200 */
+/* 196 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
 module.exports = [// type
-__webpack_require__(201), // construction function
-__webpack_require__(202), // create new units
-__webpack_require__(203), // split units
-__webpack_require__(204), // physical constants
-__webpack_require__(205)];
+__webpack_require__(197), // construction function
+__webpack_require__(198), // create new units
+__webpack_require__(199), // split units
+__webpack_require__(200), // physical constants
+__webpack_require__(201)];
 
 /***/ }),
-/* 201 */
+/* 197 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -41790,23 +40252,23 @@ var endsWith = __webpack_require__(8).endsWith;
 
 var clone = __webpack_require__(5).clone;
 
-var constants = __webpack_require__(110);
+var constants = __webpack_require__(108);
 
 function factory(type, config, load, typed, math) {
   var add = load(__webpack_require__(17));
   var subtract = load(__webpack_require__(15));
-  var multiply = load(__webpack_require__(22));
+  var multiply = load(__webpack_require__(21));
   var divide = load(__webpack_require__(12));
-  var pow = load(__webpack_require__(42));
-  var abs = load(__webpack_require__(24));
-  var fix = load(__webpack_require__(111));
-  var round = load(__webpack_require__(112));
-  var equal = load(__webpack_require__(52));
-  var isNumeric = load(__webpack_require__(61));
-  var format = load(__webpack_require__(113));
-  var getTypeOf = load(__webpack_require__(25));
-  var toNumber = load(__webpack_require__(69));
-  var Complex = load(__webpack_require__(85));
+  var pow = load(__webpack_require__(41));
+  var abs = load(__webpack_require__(23));
+  var fix = load(__webpack_require__(109));
+  var round = load(__webpack_require__(110));
+  var equal = load(__webpack_require__(50));
+  var isNumeric = load(__webpack_require__(57));
+  var format = load(__webpack_require__(111));
+  var getTypeOf = load(__webpack_require__(24));
+  var toNumber = load(__webpack_require__(66));
+  var Complex = load(__webpack_require__(84));
   /**
    * A unit can be constructed in the following ways:
    *
@@ -45684,7 +44146,7 @@ exports.factory = factory;
 exports.math = true; // request access to the math namespace
 
 /***/ }),
-/* 202 */
+/* 198 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -45747,7 +44209,7 @@ exports.name = 'unit';
 exports.factory = factory;
 
 /***/ }),
-/* 203 */
+/* 199 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -45830,7 +44292,7 @@ exports.name = 'createUnit';
 exports.factory = factory;
 
 /***/ }),
-/* 204 */
+/* 200 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -45868,7 +44330,7 @@ exports.name = 'splitUnit';
 exports.factory = factory;
 
 /***/ }),
-/* 205 */
+/* 201 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -46058,7 +44520,7 @@ exports.lazy = false; // no lazy loading of constants, the constants themselves 
 exports.math = true; // request access to the math namespace
 
 /***/ }),
-/* 206 */
+/* 202 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -46066,7 +44528,7 @@ exports.math = true; // request access to the math namespace
 
 var object = __webpack_require__(5);
 
-var bigConstants = __webpack_require__(110);
+var bigConstants = __webpack_require__(108);
 
 function factory(type, config, load, typed, math) {
   // listen for changed in the configuration, automatically reload
@@ -46147,7 +44609,7 @@ function factory(type, config, load, typed, math) {
   } // meta information
 
 
-  setConstant(math, 'version', __webpack_require__(207));
+  setConstant(math, 'version', __webpack_require__(203));
 } // create a constant in both math and mathWithTransform
 
 
@@ -46168,7 +44630,7 @@ exports.lazy = false; // no lazy loading of constants, the constants themselves 
 exports.math = true; // request access to the math namespace
 
 /***/ }),
-/* 207 */
+/* 203 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -46178,46 +44640,46 @@ module.exports = '5.2.1'; // Note: This file is automatically generated when bui
 // Changes made in this file will be overwritten.
 
 /***/ }),
-/* 208 */
+/* 204 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
-module.exports = [__webpack_require__(209), __webpack_require__(230), __webpack_require__(253), __webpack_require__(266), __webpack_require__(270), __webpack_require__(274), __webpack_require__(277), __webpack_require__(281), __webpack_require__(301), __webpack_require__(310), __webpack_require__(314), __webpack_require__(322), __webpack_require__(324), __webpack_require__(330), __webpack_require__(332), __webpack_require__(358), __webpack_require__(360)];
+module.exports = [__webpack_require__(205), __webpack_require__(226), __webpack_require__(249), __webpack_require__(262), __webpack_require__(266), __webpack_require__(270), __webpack_require__(273), __webpack_require__(277), __webpack_require__(297), __webpack_require__(306), __webpack_require__(310), __webpack_require__(318), __webpack_require__(320), __webpack_require__(326), __webpack_require__(328), __webpack_require__(354), __webpack_require__(356)];
 
 /***/ }),
-/* 209 */
+/* 205 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
-module.exports = [__webpack_require__(210), // simplify
-__webpack_require__(89), // polynomial
-__webpack_require__(213), // decomposition
-__webpack_require__(214), __webpack_require__(90), __webpack_require__(133), // solver
-__webpack_require__(138), __webpack_require__(228), __webpack_require__(139)];
+module.exports = [__webpack_require__(206), // simplify
+__webpack_require__(88), // polynomial
+__webpack_require__(209), // decomposition
+__webpack_require__(210), __webpack_require__(89), __webpack_require__(131), // solver
+__webpack_require__(136), __webpack_require__(224), __webpack_require__(137)];
 
 /***/ }),
-/* 210 */
+/* 206 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
 function factory(type, config, load, typed) {
-  var parse = load(__webpack_require__(44));
-  var simplify = load(__webpack_require__(89));
-  var equal = load(__webpack_require__(52));
-  var isZero = load(__webpack_require__(64));
-  var getType = load(__webpack_require__(25));
-  var numeric = load(__webpack_require__(70));
-  var ConstantNode = load(__webpack_require__(62));
-  var FunctionNode = load(__webpack_require__(73));
-  var OperatorNode = load(__webpack_require__(63));
-  var ParenthesisNode = load(__webpack_require__(72));
-  var SymbolNode = load(__webpack_require__(54));
+  var parse = load(__webpack_require__(43));
+  var simplify = load(__webpack_require__(88));
+  var equal = load(__webpack_require__(50));
+  var isZero = load(__webpack_require__(60));
+  var getType = load(__webpack_require__(24));
+  var numeric = load(__webpack_require__(67));
+  var ConstantNode = load(__webpack_require__(58));
+  var FunctionNode = load(__webpack_require__(70));
+  var OperatorNode = load(__webpack_require__(59));
+  var ParenthesisNode = load(__webpack_require__(69));
+  var SymbolNode = load(__webpack_require__(52));
   /**
    * Takes the derivative of an expression expressed in parser Nodes.
    * The derivative will be taken over the supplied variable in the
@@ -46815,7 +45277,7 @@ exports.name = 'derivative';
 exports.factory = factory;
 
 /***/ }),
-/* 211 */
+/* 207 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -46835,12 +45297,12 @@ function _typeof(obj) {
   }return _typeof(obj);
 }
 
-var errorTransform = __webpack_require__(45).transform;
+var errorTransform = __webpack_require__(44).transform;
 
 var setSafeProperty = __webpack_require__(13).setSafeProperty;
 
 function factory(type, config, load, typed) {
-  var subset = load(__webpack_require__(23));
+  var subset = load(__webpack_require__(22));
   var matrix = load(__webpack_require__(1));
   /**
    * Replace part of an object:
@@ -46886,7 +45348,7 @@ function factory(type, config, load, typed) {
 exports.factory = factory;
 
 /***/ }),
-/* 212 */
+/* 208 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -46955,23 +45417,23 @@ exports.path = 'algebra.simplify';
 exports.factory = factory;
 
 /***/ }),
-/* 213 */
+/* 209 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
 function factory(type, config, load, typed) {
-  var simplify = load(__webpack_require__(89));
-  var simplifyCore = load(__webpack_require__(128));
-  var simplifyConstant = load(__webpack_require__(126));
-  var parse = load(__webpack_require__(130));
+  var simplify = load(__webpack_require__(88));
+  var simplifyCore = load(__webpack_require__(126));
+  var simplifyConstant = load(__webpack_require__(124));
+  var parse = load(__webpack_require__(128));
 
   var number = __webpack_require__(3);
 
-  var ConstantNode = load(__webpack_require__(62));
-  var OperatorNode = load(__webpack_require__(63));
-  var SymbolNode = load(__webpack_require__(54));
+  var ConstantNode = load(__webpack_require__(58));
+  var OperatorNode = load(__webpack_require__(59));
+  var SymbolNode = load(__webpack_require__(52));
   /**
    * Transform a rationalizable expression in a rational fraction.
    * If rational fraction is one variable polynomial then converts
@@ -47793,7 +46255,7 @@ exports.name = 'rationalize';
 exports.factory = factory;
 
 /***/ }),
-/* 214 */
+/* 210 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -47801,17 +46263,17 @@ exports.factory = factory;
 
 function factory(type, config, load, typed) {
   var matrix = load(__webpack_require__(1));
-  var zeros = load(__webpack_require__(43));
-  var identity = load(__webpack_require__(51));
-  var isZero = load(__webpack_require__(64));
-  var unequal = load(__webpack_require__(131));
-  var sign = load(__webpack_require__(132));
-  var sqrt = load(__webpack_require__(47));
-  var conj = load(__webpack_require__(75));
+  var zeros = load(__webpack_require__(42));
+  var identity = load(__webpack_require__(49));
+  var isZero = load(__webpack_require__(60));
+  var unequal = load(__webpack_require__(129));
+  var sign = load(__webpack_require__(130));
+  var sqrt = load(__webpack_require__(46));
+  var conj = load(__webpack_require__(72));
   var unaryMinus = load(__webpack_require__(35));
   var addScalar = load(__webpack_require__(17));
   var divideScalar = load(__webpack_require__(12));
-  var multiplyScalar = load(__webpack_require__(22));
+  var multiplyScalar = load(__webpack_require__(21));
   var subtract = load(__webpack_require__(15));
   /**
    * Calculate the Matrix QR decomposition. Matrix `A` is decomposed in
@@ -48025,18 +46487,18 @@ exports.name = 'qr';
 exports.factory = factory;
 
 /***/ }),
-/* 215 */
+/* 211 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
 function factory(type, config, load) {
-  var csAmd = load(__webpack_require__(216));
-  var csPermute = load(__webpack_require__(218));
-  var csEtree = load(__webpack_require__(219));
-  var csPost = load(__webpack_require__(220));
-  var csCounts = load(__webpack_require__(221));
+  var csAmd = load(__webpack_require__(212));
+  var csPermute = load(__webpack_require__(214));
+  var csEtree = load(__webpack_require__(215));
+  var csPost = load(__webpack_require__(216));
+  var csCounts = load(__webpack_require__(217));
   /**
    * Symbolic ordering and analysis for QR and LU decompositions.
    *
@@ -48218,19 +46680,19 @@ exports.path = 'algebra.sparse';
 exports.factory = factory;
 
 /***/ }),
-/* 216 */
+/* 212 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
 function factory(type, config, load) {
-  var csFlip = load(__webpack_require__(91));
-  var csFkeep = load(__webpack_require__(217));
-  var csTdfs = load(__webpack_require__(134));
+  var csFlip = load(__webpack_require__(90));
+  var csFkeep = load(__webpack_require__(213));
+  var csTdfs = load(__webpack_require__(132));
   var add = load(__webpack_require__(14));
   var multiply = load(__webpack_require__(9));
-  var transpose = load(__webpack_require__(76));
+  var transpose = load(__webpack_require__(73));
   /**
    * Approximate minimum degree ordering. The minimum degree algorithm is a widely used
    * heuristic for finding a permutation P so that P*A*P' has fewer nonzeros in its factorization
@@ -48855,7 +47317,7 @@ exports.path = 'algebra.sparse';
 exports.factory = factory;
 
 /***/ }),
-/* 217 */
+/* 213 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -48931,7 +47393,7 @@ exports.path = 'algebra.sparse';
 exports.factory = factory;
 
 /***/ }),
-/* 218 */
+/* 214 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -49012,7 +47474,7 @@ exports.path = 'algebra.sparse';
 exports.factory = factory;
 
 /***/ }),
-/* 219 */
+/* 215 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -49101,14 +47563,14 @@ exports.path = 'algebra.sparse';
 exports.factory = factory;
 
 /***/ }),
-/* 220 */
+/* 216 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
 function factory(type, config, load) {
-  var csTdfs = load(__webpack_require__(134));
+  var csTdfs = load(__webpack_require__(132));
   /**
    * Post order a tree of forest
    *
@@ -49176,15 +47638,15 @@ exports.path = 'algebra.sparse';
 exports.factory = factory;
 
 /***/ }),
-/* 221 */
+/* 217 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
 function factory(type, config, load) {
-  var transpose = load(__webpack_require__(76));
-  var csLeaf = load(__webpack_require__(222));
+  var transpose = load(__webpack_require__(73));
+  var csLeaf = load(__webpack_require__(218));
   /**
    * Computes the column counts using the upper triangular part of A.
    * It transposes A internally, none of the input parameters are modified.
@@ -49325,7 +47787,7 @@ exports.path = 'algebra.sparse';
 exports.factory = factory;
 
 /***/ }),
-/* 222 */
+/* 218 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -49397,19 +47859,19 @@ exports.path = 'algebra.sparse';
 exports.factory = factory;
 
 /***/ }),
-/* 223 */
+/* 219 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
 function factory(type, config, load) {
-    var abs = load(__webpack_require__(24));
+    var abs = load(__webpack_require__(23));
     var divideScalar = load(__webpack_require__(12));
     var multiply = load(__webpack_require__(9));
     var larger = load(__webpack_require__(34));
-    var largerEq = load(__webpack_require__(135));
-    var csSpsolve = load(__webpack_require__(224));
+    var largerEq = load(__webpack_require__(133));
+    var csSpsolve = load(__webpack_require__(220));
     var SparseMatrix = type.SparseMatrix;
     /**
      * Computes the numeric LU factorization of the sparse matrix A. Implements a Left-looking LU factorization
@@ -49598,7 +48060,7 @@ exports.path = 'algebra.sparse';
 exports.factory = factory;
 
 /***/ }),
-/* 224 */
+/* 220 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -49608,7 +48070,7 @@ function factory(type, config, load) {
   var divideScalar = load(__webpack_require__(12));
   var multiply = load(__webpack_require__(9));
   var subtract = load(__webpack_require__(15));
-  var csReach = load(__webpack_require__(225));
+  var csReach = load(__webpack_require__(221));
   /**
    * The function csSpsolve() computes the solution to G * x = bk, where bk is the
    * kth column of B. When lo is true, the function assumes G = L is lower triangular with the
@@ -49695,16 +48157,16 @@ exports.path = 'algebra.sparse';
 exports.factory = factory;
 
 /***/ }),
-/* 225 */
+/* 221 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
 function factory(type, config, load) {
-  var csDfs = load(__webpack_require__(226));
-  var csMarked = load(__webpack_require__(136));
-  var csMark = load(__webpack_require__(137));
+  var csDfs = load(__webpack_require__(222));
+  var csMarked = load(__webpack_require__(134));
+  var csMark = load(__webpack_require__(135));
   /**
    * The csReach function computes X = Reach(B), where B is the nonzero pattern of the n-by-1
    * sparse column of vector b. The function returns the set of nodes reachable from any node in B. The
@@ -49763,16 +48225,16 @@ exports.path = 'algebra.sparse';
 exports.factory = factory;
 
 /***/ }),
-/* 226 */
+/* 222 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
 function factory(type, config, load) {
-  var csMarked = load(__webpack_require__(136));
-  var csMark = load(__webpack_require__(137));
-  var csUnflip = load(__webpack_require__(227));
+  var csMarked = load(__webpack_require__(134));
+  var csMark = load(__webpack_require__(135));
+  var csUnflip = load(__webpack_require__(223));
   /**
    * Depth-first search computes the nonzero pattern xi of the directed graph G (Matrix) starting
    * at nodes in B (see csReach()).
@@ -49858,14 +48320,14 @@ exports.path = 'algebra.sparse';
 exports.factory = factory;
 
 /***/ }),
-/* 227 */
+/* 223 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
 function factory(type, config, load) {
-  var csFlip = load(__webpack_require__(91));
+  var csFlip = load(__webpack_require__(90));
   /**
    * Flips the value if it is negative of returns the same value otherwise.
    *
@@ -49887,7 +48349,7 @@ exports.path = 'algebra.sparse';
 exports.factory = factory;
 
 /***/ }),
-/* 228 */
+/* 224 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -49897,12 +48359,12 @@ var isArray = Array.isArray;
 
 function factory(type, config, load, typed) {
   var matrix = load(__webpack_require__(1));
-  var lup = load(__webpack_require__(90));
-  var slu = load(__webpack_require__(133));
-  var csIpvec = load(__webpack_require__(229));
-  var solveValidation = load(__webpack_require__(92));
-  var usolve = load(__webpack_require__(139));
-  var lsolve = load(__webpack_require__(138));
+  var lup = load(__webpack_require__(89));
+  var slu = load(__webpack_require__(131));
+  var csIpvec = load(__webpack_require__(225));
+  var solveValidation = load(__webpack_require__(91));
+  var usolve = load(__webpack_require__(137));
+  var lsolve = load(__webpack_require__(136));
   /**
    * Solves the linear system `A * x = b` where `A` is an [n x n] matrix and `b` is a [n] column vector.
    *
@@ -50019,7 +48481,7 @@ exports.name = 'lusolve';
 exports.factory = factory;
 
 /***/ }),
-/* 229 */
+/* 225 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -50065,16 +48527,16 @@ exports.path = 'algebra.sparse';
 exports.factory = factory;
 
 /***/ }),
-/* 230 */
+/* 226 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
-module.exports = [__webpack_require__(24), __webpack_require__(14), __webpack_require__(17), __webpack_require__(231), __webpack_require__(232), __webpack_require__(233), __webpack_require__(46), __webpack_require__(140), __webpack_require__(234), __webpack_require__(235), __webpack_require__(236), __webpack_require__(237), __webpack_require__(111), __webpack_require__(238), __webpack_require__(239), __webpack_require__(240), __webpack_require__(241), __webpack_require__(93), __webpack_require__(243), __webpack_require__(244), __webpack_require__(245), __webpack_require__(246), __webpack_require__(9), __webpack_require__(247), __webpack_require__(248), __webpack_require__(249), __webpack_require__(42), __webpack_require__(112), __webpack_require__(132), __webpack_require__(47), __webpack_require__(250), __webpack_require__(15), __webpack_require__(35), __webpack_require__(251), __webpack_require__(252)];
+module.exports = [__webpack_require__(23), __webpack_require__(14), __webpack_require__(17), __webpack_require__(227), __webpack_require__(228), __webpack_require__(229), __webpack_require__(45), __webpack_require__(138), __webpack_require__(230), __webpack_require__(231), __webpack_require__(232), __webpack_require__(233), __webpack_require__(109), __webpack_require__(234), __webpack_require__(235), __webpack_require__(236), __webpack_require__(237), __webpack_require__(92), __webpack_require__(239), __webpack_require__(240), __webpack_require__(241), __webpack_require__(242), __webpack_require__(9), __webpack_require__(243), __webpack_require__(244), __webpack_require__(245), __webpack_require__(41), __webpack_require__(110), __webpack_require__(130), __webpack_require__(46), __webpack_require__(246), __webpack_require__(15), __webpack_require__(35), __webpack_require__(247), __webpack_require__(248)];
 
 /***/ }),
-/* 231 */
+/* 227 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -50084,7 +48546,7 @@ var deepMap = __webpack_require__(0);
 
 function factory(type, config, load, typed) {
   var unaryMinus = load(__webpack_require__(35));
-  var isNegative = load(__webpack_require__(65));
+  var isNegative = load(__webpack_require__(61));
   var matrix = load(__webpack_require__(1));
   /**
    * Calculate the cubic root of a value.
@@ -50252,7 +48714,7 @@ exports.name = 'cbrt';
 exports.factory = factory;
 
 /***/ }),
-/* 232 */
+/* 228 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -50315,7 +48777,7 @@ exports.name = 'ceil';
 exports.factory = factory;
 
 /***/ }),
-/* 233 */
+/* 229 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -50379,7 +48841,7 @@ exports.name = 'cube';
 exports.factory = factory;
 
 /***/ }),
-/* 234 */
+/* 230 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -50387,12 +48849,12 @@ exports.factory = factory;
 
 function factory(type, config, load, typed) {
   var matrix = load(__webpack_require__(1));
-  var multiplyScalar = load(__webpack_require__(22));
+  var multiplyScalar = load(__webpack_require__(21));
 
   var latex = __webpack_require__(4);
 
-  var algorithm02 = load(__webpack_require__(26));
-  var algorithm09 = load(__webpack_require__(141));
+  var algorithm02 = load(__webpack_require__(25));
+  var algorithm09 = load(__webpack_require__(139));
   var algorithm11 = load(__webpack_require__(20));
   var algorithm13 = load(__webpack_require__(7));
   var algorithm14 = load(__webpack_require__(6));
@@ -50480,7 +48942,7 @@ exports.name = 'dotMultiply';
 exports.factory = factory;
 
 /***/ }),
-/* 235 */
+/* 231 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -50488,12 +48950,12 @@ exports.factory = factory;
 
 function factory(type, config, load, typed) {
   var matrix = load(__webpack_require__(1));
-  var pow = load(__webpack_require__(42));
+  var pow = load(__webpack_require__(41));
 
   var latex = __webpack_require__(4);
 
   var algorithm03 = load(__webpack_require__(18));
-  var algorithm07 = load(__webpack_require__(28));
+  var algorithm07 = load(__webpack_require__(27));
   var algorithm11 = load(__webpack_require__(20));
   var algorithm12 = load(__webpack_require__(19));
   var algorithm13 = load(__webpack_require__(7));
@@ -50579,7 +49041,7 @@ exports.name = 'dotPow';
 exports.factory = factory;
 
 /***/ }),
-/* 236 */
+/* 232 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -50639,7 +49101,7 @@ exports.name = 'exp';
 exports.factory = factory;
 
 /***/ }),
-/* 237 */
+/* 233 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -50710,7 +49172,7 @@ exports.name = 'expm1';
 exports.factory = factory;
 
 /***/ }),
-/* 238 */
+/* 234 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -50772,7 +49234,7 @@ exports.name = 'floor';
 exports.factory = factory;
 
 /***/ }),
-/* 239 */
+/* 235 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -50783,8 +49245,8 @@ var isInteger = __webpack_require__(3).isInteger;
 function factory(type, config, load, typed) {
   var matrix = load(__webpack_require__(1));
   var algorithm01 = load(__webpack_require__(33));
-  var algorithm04 = load(__webpack_require__(88));
-  var algorithm10 = load(__webpack_require__(40));
+  var algorithm04 = load(__webpack_require__(87));
+  var algorithm10 = load(__webpack_require__(39));
   var algorithm13 = load(__webpack_require__(7));
   var algorithm14 = load(__webpack_require__(6));
   /**
@@ -50930,7 +49392,7 @@ exports.name = 'gcd';
 exports.factory = factory;
 
 /***/ }),
-/* 240 */
+/* 236 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -50939,13 +49401,13 @@ exports.factory = factory;
 var flatten = __webpack_require__(2).flatten;
 
 function factory(type, config, load, typed) {
-  var abs = load(__webpack_require__(24));
+  var abs = load(__webpack_require__(23));
   var add = load(__webpack_require__(17));
   var divide = load(__webpack_require__(12));
-  var multiply = load(__webpack_require__(22));
-  var sqrt = load(__webpack_require__(47));
-  var smaller = load(__webpack_require__(41));
-  var isPositive = load(__webpack_require__(77));
+  var multiply = load(__webpack_require__(21));
+  var sqrt = load(__webpack_require__(46));
+  var smaller = load(__webpack_require__(40));
+  var isPositive = load(__webpack_require__(74));
   /**
    * Calculate the hypotenusa of a list with values. The hypotenusa is defined as:
    *
@@ -51020,7 +49482,7 @@ exports.name = 'hypot';
 exports.factory = factory;
 
 /***/ }),
-/* 241 */
+/* 237 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -51030,8 +49492,8 @@ var isInteger = __webpack_require__(3).isInteger;
 
 function factory(type, config, load, typed) {
   var matrix = load(__webpack_require__(1));
-  var algorithm02 = load(__webpack_require__(26));
-  var algorithm06 = load(__webpack_require__(78));
+  var algorithm02 = load(__webpack_require__(25));
+  var algorithm06 = load(__webpack_require__(75));
   var algorithm11 = load(__webpack_require__(20));
   var algorithm13 = load(__webpack_require__(7));
   var algorithm14 = load(__webpack_require__(6));
@@ -51194,7 +49656,7 @@ exports.name = 'lcm';
 exports.factory = factory;
 
 /***/ }),
-/* 242 */
+/* 238 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -51258,7 +49720,7 @@ module.exports = function scatter(a, j, w, x, u, mark, c, f, inverse, update, va
 };
 
 /***/ }),
-/* 243 */
+/* 239 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -51336,7 +49798,7 @@ exports.name = 'log10';
 exports.factory = factory;
 
 /***/ }),
-/* 244 */
+/* 240 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -51346,7 +49808,7 @@ var deepMap = __webpack_require__(0);
 
 function factory(type, config, load, typed) {
   var divideScalar = load(__webpack_require__(12));
-  var log = load(__webpack_require__(93));
+  var log = load(__webpack_require__(92));
   /**
    * Calculate the logarithm of a `value+1`.
    *
@@ -51438,7 +49900,7 @@ exports.name = 'log1p';
 exports.factory = factory;
 
 /***/ }),
-/* 245 */
+/* 241 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -51514,7 +49976,7 @@ exports.name = 'log2';
 exports.factory = factory;
 
 /***/ }),
-/* 246 */
+/* 242 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -51525,9 +49987,9 @@ function factory(type, config, load, typed) {
 
   var latex = __webpack_require__(4);
 
-  var algorithm02 = load(__webpack_require__(26));
+  var algorithm02 = load(__webpack_require__(25));
   var algorithm03 = load(__webpack_require__(18));
-  var algorithm05 = load(__webpack_require__(71));
+  var algorithm05 = load(__webpack_require__(68));
   var algorithm11 = load(__webpack_require__(20));
   var algorithm12 = load(__webpack_require__(19));
   var algorithm13 = load(__webpack_require__(7));
@@ -51653,22 +50115,22 @@ exports.name = 'mod';
 exports.factory = factory;
 
 /***/ }),
-/* 247 */
+/* 243 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
 function factory(type, config, load, typed) {
-  var abs = load(__webpack_require__(24));
+  var abs = load(__webpack_require__(23));
   var add = load(__webpack_require__(14));
-  var pow = load(__webpack_require__(42));
-  var conj = load(__webpack_require__(75));
-  var sqrt = load(__webpack_require__(47));
+  var pow = load(__webpack_require__(41));
+  var conj = load(__webpack_require__(72));
+  var sqrt = load(__webpack_require__(46));
   var multiply = load(__webpack_require__(9));
   var equalScalar = load(__webpack_require__(10));
   var larger = load(__webpack_require__(34));
-  var smaller = load(__webpack_require__(41));
+  var smaller = load(__webpack_require__(40));
   var matrix = load(__webpack_require__(1));
   /**
    * Calculate the norm of a number, vector or matrix.
@@ -51876,7 +50338,7 @@ exports.name = 'norm';
 exports.factory = factory;
 
 /***/ }),
-/* 248 */
+/* 244 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -51885,8 +50347,8 @@ exports.factory = factory;
 function factory(type, config, load, typed) {
   var matrix = load(__webpack_require__(1));
   var algorithm01 = load(__webpack_require__(33));
-  var algorithm02 = load(__webpack_require__(26));
-  var algorithm06 = load(__webpack_require__(78));
+  var algorithm02 = load(__webpack_require__(25));
+  var algorithm06 = load(__webpack_require__(75));
   var algorithm11 = load(__webpack_require__(20));
   var algorithm13 = load(__webpack_require__(7));
   var algorithm14 = load(__webpack_require__(6));
@@ -52117,15 +50579,15 @@ exports.name = 'nthRoot';
 exports.factory = factory;
 
 /***/ }),
-/* 249 */
+/* 245 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
-var Complex = __webpack_require__(85);
+var Complex = __webpack_require__(84);
 
-var typed = __webpack_require__(105);
+var typed = __webpack_require__(103);
 
 var complex = Complex.factory('Complex', {}, '', typed, {
   on: function on(x, y) {}
@@ -52247,7 +50709,7 @@ exports.name = 'nthRoots';
 exports.factory = factory;
 
 /***/ }),
-/* 250 */
+/* 246 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -52313,7 +50775,7 @@ exports.name = 'square';
 exports.factory = factory;
 
 /***/ }),
-/* 251 */
+/* 247 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -52383,7 +50845,7 @@ exports.name = 'unaryPlus';
 exports.factory = factory;
 
 /***/ }),
-/* 252 */
+/* 248 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -52529,16 +50991,16 @@ exports.name = 'xgcd';
 exports.factory = factory;
 
 /***/ }),
-/* 253 */
+/* 249 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
-module.exports = [__webpack_require__(254), __webpack_require__(256), __webpack_require__(257), __webpack_require__(259), __webpack_require__(261), __webpack_require__(263), __webpack_require__(265)];
+module.exports = [__webpack_require__(250), __webpack_require__(252), __webpack_require__(253), __webpack_require__(255), __webpack_require__(257), __webpack_require__(259), __webpack_require__(261)];
 
 /***/ }),
-/* 254 */
+/* 250 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -52546,14 +51008,14 @@ module.exports = [__webpack_require__(254), __webpack_require__(256), __webpack_
 
 var isInteger = __webpack_require__(3).isInteger;
 
-var bigBitAnd = __webpack_require__(255);
+var bigBitAnd = __webpack_require__(251);
 
 function factory(type, config, load, typed) {
   var latex = __webpack_require__(4);
 
   var matrix = load(__webpack_require__(1));
-  var algorithm02 = load(__webpack_require__(26));
-  var algorithm06 = load(__webpack_require__(78));
+  var algorithm02 = load(__webpack_require__(25));
+  var algorithm06 = load(__webpack_require__(75));
   var algorithm11 = load(__webpack_require__(20));
   var algorithm13 = load(__webpack_require__(7));
   var algorithm14 = load(__webpack_require__(6));
@@ -52644,13 +51106,13 @@ exports.name = 'bitAnd';
 exports.factory = factory;
 
 /***/ }),
-/* 255 */
+/* 251 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
-var bitwise = __webpack_require__(94);
+var bitwise = __webpack_require__(93);
 /**
  * Bitwise and for Bignumbers
  *
@@ -52732,7 +51194,7 @@ module.exports = function bitAnd(x, y) {
 };
 
 /***/ }),
-/* 256 */
+/* 252 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -52740,7 +51202,7 @@ module.exports = function bitAnd(x, y) {
 
 var deepMap = __webpack_require__(0);
 
-var bigBitNot = __webpack_require__(95);
+var bigBitNot = __webpack_require__(94);
 
 var isInteger = __webpack_require__(3).isInteger;
 
@@ -52792,7 +51254,7 @@ exports.name = 'bitNot';
 exports.factory = factory;
 
 /***/ }),
-/* 257 */
+/* 253 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -52800,15 +51262,15 @@ exports.factory = factory;
 
 var isInteger = __webpack_require__(3).isInteger;
 
-var bigBitOr = __webpack_require__(258);
+var bigBitOr = __webpack_require__(254);
 
 function factory(type, config, load, typed) {
   var latex = __webpack_require__(4);
 
   var matrix = load(__webpack_require__(1));
   var algorithm01 = load(__webpack_require__(33));
-  var algorithm04 = load(__webpack_require__(88));
-  var algorithm10 = load(__webpack_require__(40));
+  var algorithm04 = load(__webpack_require__(87));
+  var algorithm10 = load(__webpack_require__(39));
   var algorithm13 = load(__webpack_require__(7));
   var algorithm14 = load(__webpack_require__(6));
   /**
@@ -52899,13 +51361,13 @@ exports.name = 'bitOr';
 exports.factory = factory;
 
 /***/ }),
-/* 258 */
+/* 254 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
-var bitwise = __webpack_require__(94);
+var bitwise = __webpack_require__(93);
 /**
  * Bitwise OR for BigNumbers
  *
@@ -52966,7 +51428,7 @@ module.exports = function bitOr(x, y) {
 };
 
 /***/ }),
-/* 259 */
+/* 255 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -52974,14 +51436,14 @@ module.exports = function bitOr(x, y) {
 
 var isInteger = __webpack_require__(3).isInteger;
 
-var bigBitXor = __webpack_require__(260);
+var bigBitXor = __webpack_require__(256);
 
 function factory(type, config, load, typed) {
   var latex = __webpack_require__(4);
 
   var matrix = load(__webpack_require__(1));
   var algorithm03 = load(__webpack_require__(18));
-  var algorithm07 = load(__webpack_require__(28));
+  var algorithm07 = load(__webpack_require__(27));
   var algorithm12 = load(__webpack_require__(19));
   var algorithm13 = load(__webpack_require__(7));
   var algorithm14 = load(__webpack_require__(6));
@@ -53072,15 +51534,15 @@ exports.name = 'bitXor';
 exports.factory = factory;
 
 /***/ }),
-/* 260 */
+/* 256 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
-var bitwise = __webpack_require__(94);
+var bitwise = __webpack_require__(93);
 
-var bitNot = __webpack_require__(95);
+var bitNot = __webpack_require__(94);
 /**
  * Bitwise XOR for BigNumbers
  *
@@ -53148,7 +51610,7 @@ module.exports = function bitXor(x, y) {
 };
 
 /***/ }),
-/* 261 */
+/* 257 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -53156,18 +51618,18 @@ module.exports = function bitXor(x, y) {
 
 var isInteger = __webpack_require__(3).isInteger;
 
-var bigLeftShift = __webpack_require__(262);
+var bigLeftShift = __webpack_require__(258);
 
 function factory(type, config, load, typed) {
   var latex = __webpack_require__(4);
 
   var matrix = load(__webpack_require__(1));
   var equalScalar = load(__webpack_require__(10));
-  var zeros = load(__webpack_require__(43));
+  var zeros = load(__webpack_require__(42));
   var algorithm01 = load(__webpack_require__(33));
-  var algorithm02 = load(__webpack_require__(26));
-  var algorithm08 = load(__webpack_require__(96));
-  var algorithm10 = load(__webpack_require__(40));
+  var algorithm02 = load(__webpack_require__(25));
+  var algorithm08 = load(__webpack_require__(95));
+  var algorithm10 = load(__webpack_require__(39));
   var algorithm11 = load(__webpack_require__(20));
   var algorithm13 = load(__webpack_require__(7));
   var algorithm14 = load(__webpack_require__(6));
@@ -53279,7 +51741,7 @@ exports.name = 'leftShift';
 exports.factory = factory;
 
 /***/ }),
-/* 262 */
+/* 258 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -53331,7 +51793,7 @@ module.exports = function leftShift(x, y) {
 };
 
 /***/ }),
-/* 263 */
+/* 259 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -53339,18 +51801,18 @@ module.exports = function leftShift(x, y) {
 
 var isInteger = __webpack_require__(3).isInteger;
 
-var bigRightArithShift = __webpack_require__(264);
+var bigRightArithShift = __webpack_require__(260);
 
 function factory(type, config, load, typed) {
   var latex = __webpack_require__(4);
 
   var matrix = load(__webpack_require__(1));
   var equalScalar = load(__webpack_require__(10));
-  var zeros = load(__webpack_require__(43));
+  var zeros = load(__webpack_require__(42));
   var algorithm01 = load(__webpack_require__(33));
-  var algorithm02 = load(__webpack_require__(26));
-  var algorithm08 = load(__webpack_require__(96));
-  var algorithm10 = load(__webpack_require__(40));
+  var algorithm02 = load(__webpack_require__(25));
+  var algorithm08 = load(__webpack_require__(95));
+  var algorithm10 = load(__webpack_require__(39));
   var algorithm11 = load(__webpack_require__(20));
   var algorithm13 = load(__webpack_require__(7));
   var algorithm14 = load(__webpack_require__(6));
@@ -53462,7 +51924,7 @@ exports.name = 'rightArithShift';
 exports.factory = factory;
 
 /***/ }),
-/* 264 */
+/* 260 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -53523,7 +51985,7 @@ module.exports = function rightArithShift(x, y) {
 };
 
 /***/ }),
-/* 265 */
+/* 261 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -53536,11 +51998,11 @@ function factory(type, config, load, typed) {
 
   var matrix = load(__webpack_require__(1));
   var equalScalar = load(__webpack_require__(10));
-  var zeros = load(__webpack_require__(43));
+  var zeros = load(__webpack_require__(42));
   var algorithm01 = load(__webpack_require__(33));
-  var algorithm02 = load(__webpack_require__(26));
-  var algorithm08 = load(__webpack_require__(96));
-  var algorithm10 = load(__webpack_require__(40));
+  var algorithm02 = load(__webpack_require__(25));
+  var algorithm08 = load(__webpack_require__(95));
+  var algorithm10 = load(__webpack_require__(39));
   var algorithm11 = load(__webpack_require__(20));
   var algorithm13 = load(__webpack_require__(7));
   var algorithm14 = load(__webpack_require__(6));
@@ -53652,16 +52114,16 @@ exports.name = 'rightLogShift';
 exports.factory = factory;
 
 /***/ }),
-/* 266 */
+/* 262 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
-module.exports = [__webpack_require__(267), __webpack_require__(268), __webpack_require__(142), __webpack_require__(269)];
+module.exports = [__webpack_require__(263), __webpack_require__(264), __webpack_require__(140), __webpack_require__(265)];
 
 /***/ }),
-/* 267 */
+/* 263 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -53669,8 +52131,8 @@ module.exports = [__webpack_require__(267), __webpack_require__(268), __webpack_
 
 function factory(type, config, load, typed) {
   var add = load(__webpack_require__(14));
-  var stirlingS2 = load(__webpack_require__(142));
-  var isNegative = load(__webpack_require__(65));
+  var stirlingS2 = load(__webpack_require__(140));
+  var isNegative = load(__webpack_require__(61));
   var isInteger = load(__webpack_require__(36));
   /**
    * The Bell Numbers count the number of partitions of a set. A partition is a pairwise disjoint subset of S whose union is S.
@@ -53720,16 +52182,16 @@ exports.name = 'bellNumbers';
 exports.factory = factory;
 
 /***/ }),
-/* 268 */
+/* 264 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
 function factory(type, config, load, typed) {
-  var combinations = load(__webpack_require__(80));
+  var combinations = load(__webpack_require__(77));
   var add = load(__webpack_require__(17));
-  var isPositive = load(__webpack_require__(77));
+  var isPositive = load(__webpack_require__(74));
   var isInteger = load(__webpack_require__(36));
   var larger = load(__webpack_require__(34));
   /**
@@ -53775,7 +52237,7 @@ exports.name = 'composition';
 exports.factory = factory;
 
 /***/ }),
-/* 269 */
+/* 265 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -53783,10 +52245,10 @@ exports.factory = factory;
 
 function factory(type, config, load, typed) {
   var add = load(__webpack_require__(14));
-  var divide = load(__webpack_require__(46));
+  var divide = load(__webpack_require__(45));
   var multiply = load(__webpack_require__(9));
-  var combinations = load(__webpack_require__(80));
-  var isNegative = load(__webpack_require__(65));
+  var combinations = load(__webpack_require__(77));
+  var isNegative = load(__webpack_require__(61));
   var isInteger = load(__webpack_require__(36));
   /**
    * The Catalan Numbers enumerate combinatorial structures of many different types.
@@ -53829,16 +52291,16 @@ exports.name = 'catalan';
 exports.factory = factory;
 
 /***/ }),
-/* 270 */
+/* 266 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
-module.exports = [__webpack_require__(271), __webpack_require__(75), __webpack_require__(272), __webpack_require__(273)];
+module.exports = [__webpack_require__(267), __webpack_require__(72), __webpack_require__(268), __webpack_require__(269)];
 
 /***/ }),
-/* 271 */
+/* 267 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -53899,7 +52361,7 @@ exports.name = 'arg';
 exports.factory = factory;
 
 /***/ }),
-/* 272 */
+/* 268 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -53959,7 +52421,7 @@ exports.name = 'im';
 exports.factory = factory;
 
 /***/ }),
-/* 273 */
+/* 269 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -54019,31 +52481,31 @@ exports.name = 're';
 exports.factory = factory;
 
 /***/ }),
-/* 274 */
+/* 270 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
-module.exports = [__webpack_require__(275), __webpack_require__(276)];
+module.exports = [__webpack_require__(271), __webpack_require__(272)];
 
 /***/ }),
-/* 275 */
+/* 271 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
 function factory(type, config, load, typed) {
-  var abs = load(__webpack_require__(24));
+  var abs = load(__webpack_require__(23));
   var add = load(__webpack_require__(14));
   var addScalar = load(__webpack_require__(17));
   var matrix = load(__webpack_require__(1));
   var multiply = load(__webpack_require__(9));
-  var multiplyScalar = load(__webpack_require__(22));
+  var multiplyScalar = load(__webpack_require__(21));
   var divideScalar = load(__webpack_require__(12));
   var subtract = load(__webpack_require__(15));
-  var smaller = load(__webpack_require__(41));
+  var smaller = load(__webpack_require__(40));
   var equalScalar = load(__webpack_require__(10));
   /**
    * Calculates the point of intersection of two lines in two or three dimensions
@@ -54233,7 +52695,7 @@ exports.name = 'intersect';
 exports.factory = factory;
 
 /***/ }),
-/* 276 */
+/* 272 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -54242,11 +52704,11 @@ exports.factory = factory;
 function factory(type, config, load, typed) {
   var add = load(__webpack_require__(17));
   var subtract = load(__webpack_require__(15));
-  var multiply = load(__webpack_require__(22));
+  var multiply = load(__webpack_require__(21));
   var divide = load(__webpack_require__(12));
   var negate = load(__webpack_require__(35));
-  var sqrt = load(__webpack_require__(47));
-  var abs = load(__webpack_require__(24));
+  var sqrt = load(__webpack_require__(46));
+  var abs = load(__webpack_require__(23));
   /**
     * Calculates:
     *    The eucledian distance between two points in 2 and 3 dimensional spaces.
@@ -54591,16 +53053,16 @@ exports.name = 'distance';
 exports.factory = factory;
 
 /***/ }),
-/* 277 */
+/* 273 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
-module.exports = [__webpack_require__(278), __webpack_require__(144), __webpack_require__(279), __webpack_require__(280)];
+module.exports = [__webpack_require__(274), __webpack_require__(142), __webpack_require__(275), __webpack_require__(276)];
 
 /***/ }),
-/* 278 */
+/* 274 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -54610,10 +53072,10 @@ function factory(type, config, load, typed) {
   var latex = __webpack_require__(4);
 
   var matrix = load(__webpack_require__(1));
-  var zeros = load(__webpack_require__(43));
-  var not = load(__webpack_require__(144));
-  var algorithm02 = load(__webpack_require__(26));
-  var algorithm06 = load(__webpack_require__(78));
+  var zeros = load(__webpack_require__(42));
+  var not = load(__webpack_require__(142));
+  var algorithm02 = load(__webpack_require__(25));
+  var algorithm06 = load(__webpack_require__(75));
   var algorithm11 = load(__webpack_require__(20));
   var algorithm13 = load(__webpack_require__(7));
   var algorithm14 = load(__webpack_require__(6));
@@ -54738,7 +53200,7 @@ exports.name = 'and';
 exports.factory = factory;
 
 /***/ }),
-/* 279 */
+/* 275 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -54749,7 +53211,7 @@ function factory(type, config, load, typed) {
 
   var matrix = load(__webpack_require__(1));
   var algorithm03 = load(__webpack_require__(18));
-  var algorithm05 = load(__webpack_require__(71));
+  var algorithm05 = load(__webpack_require__(68));
   var algorithm12 = load(__webpack_require__(19));
   var algorithm13 = load(__webpack_require__(7));
   var algorithm14 = load(__webpack_require__(6));
@@ -54850,7 +53312,7 @@ exports.name = 'or';
 exports.factory = factory;
 
 /***/ }),
-/* 280 */
+/* 276 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -54861,7 +53323,7 @@ function factory(type, config, load, typed) {
 
   var matrix = load(__webpack_require__(1));
   var algorithm03 = load(__webpack_require__(18));
-  var algorithm07 = load(__webpack_require__(28));
+  var algorithm07 = load(__webpack_require__(27));
   var algorithm12 = load(__webpack_require__(19));
   var algorithm13 = load(__webpack_require__(7));
   var algorithm14 = load(__webpack_require__(6));
@@ -54962,16 +53424,16 @@ exports.name = 'xor';
 exports.factory = factory;
 
 /***/ }),
-/* 281 */
+/* 277 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
-module.exports = [__webpack_require__(81), __webpack_require__(282), __webpack_require__(283), __webpack_require__(129), __webpack_require__(284), __webpack_require__(285), __webpack_require__(286), __webpack_require__(287), __webpack_require__(288), __webpack_require__(289), __webpack_require__(290), __webpack_require__(51), __webpack_require__(74), __webpack_require__(291), __webpack_require__(145), __webpack_require__(292), __webpack_require__(98), __webpack_require__(146), __webpack_require__(293), __webpack_require__(294), __webpack_require__(27), __webpack_require__(295), __webpack_require__(297), __webpack_require__(298), __webpack_require__(23), __webpack_require__(299), __webpack_require__(76), __webpack_require__(43), __webpack_require__(300)];
+module.exports = [__webpack_require__(78), __webpack_require__(278), __webpack_require__(279), __webpack_require__(127), __webpack_require__(280), __webpack_require__(281), __webpack_require__(282), __webpack_require__(283), __webpack_require__(284), __webpack_require__(285), __webpack_require__(286), __webpack_require__(49), __webpack_require__(71), __webpack_require__(287), __webpack_require__(143), __webpack_require__(288), __webpack_require__(97), __webpack_require__(144), __webpack_require__(289), __webpack_require__(290), __webpack_require__(26), __webpack_require__(291), __webpack_require__(293), __webpack_require__(294), __webpack_require__(22), __webpack_require__(295), __webpack_require__(73), __webpack_require__(42), __webpack_require__(296)];
 
 /***/ }),
-/* 282 */
+/* 278 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -55066,15 +53528,15 @@ exports.name = 'cross';
 exports.factory = factory;
 
 /***/ }),
-/* 283 */
+/* 279 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
 function factory(type, config, load, typed) {
-  var transpose = load(__webpack_require__(76));
-  var conj = load(__webpack_require__(75));
+  var transpose = load(__webpack_require__(73));
+  var conj = load(__webpack_require__(72));
 
   var latex = __webpack_require__(4);
   /**
@@ -55115,7 +53577,7 @@ exports.name = 'ctranspose';
 exports.factory = factory;
 
 /***/ }),
-/* 284 */
+/* 280 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -55283,7 +53745,7 @@ exports.name = 'diag';
 exports.factory = factory;
 
 /***/ }),
-/* 285 */
+/* 281 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -55365,7 +53827,7 @@ exports.name = 'dot';
 exports.factory = factory;
 
 /***/ }),
-/* 286 */
+/* 282 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -55381,7 +53843,7 @@ exports.name = 'eye';
 exports.factory = factory;
 
 /***/ }),
-/* 287 */
+/* 283 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -55390,10 +53852,10 @@ exports.factory = factory;
 var format = __webpack_require__(8).format;
 
 function factory(type, config, load, typed) {
-  var abs = load(__webpack_require__(24));
+  var abs = load(__webpack_require__(23));
   var add = load(__webpack_require__(14));
-  var identity = load(__webpack_require__(51));
-  var inv = load(__webpack_require__(74));
+  var identity = load(__webpack_require__(49));
+  var inv = load(__webpack_require__(71));
   var multiply = load(__webpack_require__(9));
   var SparseMatrix = type.SparseMatrix;
   /**
@@ -55556,7 +54018,7 @@ exports.name = 'expm';
 exports.factory = factory;
 
 /***/ }),
-/* 288 */
+/* 284 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -55642,7 +54104,7 @@ exports.name = 'filter';
 exports.factory = factory;
 
 /***/ }),
-/* 289 */
+/* 285 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -55693,7 +54155,7 @@ exports.name = 'flatten';
 exports.factory = factory;
 
 /***/ }),
-/* 290 */
+/* 286 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -55774,7 +54236,7 @@ exports.name = 'forEach';
 exports.factory = factory;
 
 /***/ }),
-/* 291 */
+/* 287 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -55784,7 +54246,7 @@ var size = __webpack_require__(2).size;
 
 function factory(type, config, load, typed) {
   var matrix = load(__webpack_require__(1));
-  var multiplyScalar = load(__webpack_require__(22));
+  var multiplyScalar = load(__webpack_require__(21));
   /**
      * Calculates the kronecker product of 2 matrices or vectors.
      *
@@ -55870,7 +54332,7 @@ exports.name = 'kron';
 exports.factory = factory;
 
 /***/ }),
-/* 292 */
+/* 288 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -56008,7 +54470,7 @@ exports.name = 'ones';
 exports.factory = factory;
 
 /***/ }),
-/* 293 */
+/* 289 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -56082,7 +54544,7 @@ exports.name = 'reshape';
 exports.factory = factory;
 
 /***/ }),
-/* 294 */
+/* 290 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -56090,7 +54552,7 @@ exports.factory = factory;
 
 var DimensionError = __webpack_require__(11);
 
-var ArgumentsError = __webpack_require__(59);
+var ArgumentsError = __webpack_require__(55);
 
 var isInteger = __webpack_require__(3).isInteger;
 
@@ -56229,7 +54691,7 @@ exports.name = 'resize';
 exports.factory = factory;
 
 /***/ }),
-/* 295 */
+/* 291 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -56239,13 +54701,13 @@ var size = __webpack_require__(2).size;
 
 function factory(type, config, load, typed) {
   var matrix = load(__webpack_require__(1));
-  var compareAsc = load(__webpack_require__(55));
+  var compareAsc = load(__webpack_require__(53));
 
   var compareDesc = function compareDesc(a, b) {
     return -compareAsc(a, b);
   };
 
-  var compareNatural = load(__webpack_require__(30));
+  var compareNatural = load(__webpack_require__(29));
   /**
    * Sort the items in a matrix.
    *
@@ -56361,7 +54823,7 @@ exports.name = 'sort';
 exports.factory = factory;
 
 /***/ }),
-/* 296 */
+/* 292 */
 /***/ (function(module, exports) {
 
 /*
@@ -56412,7 +54874,7 @@ module.exports = function naturalSort (a, b) {
 
 
 /***/ }),
-/* 297 */
+/* 293 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -56425,15 +54887,15 @@ var latex = __webpack_require__(4);
 var string = __webpack_require__(8);
 
 function factory(type, config, load, typed) {
-  var abs = load(__webpack_require__(24));
+  var abs = load(__webpack_require__(23));
   var add = load(__webpack_require__(14));
   var multiply = load(__webpack_require__(9));
-  var sqrt = load(__webpack_require__(47));
+  var sqrt = load(__webpack_require__(46));
   var subtract = load(__webpack_require__(15));
-  var inv = load(__webpack_require__(74));
-  var size = load(__webpack_require__(27));
-  var max = load(__webpack_require__(99));
-  var identity = load(__webpack_require__(51));
+  var inv = load(__webpack_require__(71));
+  var size = load(__webpack_require__(26));
+  var max = load(__webpack_require__(98));
+  var identity = load(__webpack_require__(49));
   /**
    * Calculate the principal square root of a square matrix.
    * The principal square root matrix `X` of another matrix `A` is such that `X * X = A`.
@@ -56525,7 +54987,7 @@ exports.name = 'sqrtm';
 exports.factory = factory;
 
 /***/ }),
-/* 298 */
+/* 294 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -56590,7 +55052,7 @@ exports.name = 'squeeze';
 exports.factory = factory;
 
 /***/ }),
-/* 299 */
+/* 295 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -56738,14 +55200,14 @@ exports.name = 'trace';
 exports.factory = factory;
 
 /***/ }),
-/* 300 */
+/* 296 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
 function factory(type, config, load, typed) {
-  var getArrayDataType = load(__webpack_require__(68));
+  var getArrayDataType = load(__webpack_require__(65));
   /**
    * Find the data type of all elements in a matrix or array,
    * for example 'number' if all items are a number and 'Complex' if all values
@@ -56796,17 +55258,17 @@ exports.name = 'getMatrixDataType';
 exports.factory = factory;
 
 /***/ }),
-/* 301 */
+/* 297 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
 module.exports = [// require('./distribution'), // TODO: rethink math.distribution
-__webpack_require__(80), __webpack_require__(79), __webpack_require__(143), __webpack_require__(302), __webpack_require__(303), __webpack_require__(304), __webpack_require__(305), __webpack_require__(308), __webpack_require__(309)];
+__webpack_require__(77), __webpack_require__(76), __webpack_require__(141), __webpack_require__(298), __webpack_require__(299), __webpack_require__(300), __webpack_require__(301), __webpack_require__(304), __webpack_require__(305)];
 
 /***/ }),
-/* 302 */
+/* 298 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -56814,12 +55276,12 @@ __webpack_require__(80), __webpack_require__(79), __webpack_require__(143), __we
 
 function factory(type, config, load, typed) {
   var matrix = load(__webpack_require__(1));
-  var divide = load(__webpack_require__(46));
-  var sum = load(__webpack_require__(147));
+  var divide = load(__webpack_require__(45));
+  var sum = load(__webpack_require__(145));
   var multiply = load(__webpack_require__(9));
-  var dotDivide = load(__webpack_require__(140));
-  var log = load(__webpack_require__(93));
-  var isNumeric = load(__webpack_require__(61));
+  var dotDivide = load(__webpack_require__(138));
+  var log = load(__webpack_require__(92));
+  var isNumeric = load(__webpack_require__(57));
   /**
      * Calculate the Kullback-Leibler (KL) divergence  between two distributions
      *
@@ -56899,21 +55361,21 @@ exports.name = 'kldivergence';
 exports.factory = factory;
 
 /***/ }),
-/* 303 */
+/* 299 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
-var deepForEach = __webpack_require__(48);
+var deepForEach = __webpack_require__(47);
 
 function factory(type, config, load, typed) {
   var add = load(__webpack_require__(14));
   var multiply = load(__webpack_require__(9));
-  var divide = load(__webpack_require__(46));
-  var factorial = load(__webpack_require__(79));
+  var divide = load(__webpack_require__(45));
+  var factorial = load(__webpack_require__(76));
   var isInteger = load(__webpack_require__(36));
-  var isPositive = load(__webpack_require__(77));
+  var isPositive = load(__webpack_require__(74));
   /**
    * Multinomial Coefficients compute the number of ways of picking a1, a2, ..., ai unordered outcomes from `n` possibilities.
    *
@@ -56957,7 +55419,7 @@ exports.name = 'multinomial';
 exports.factory = factory;
 
 /***/ }),
-/* 304 */
+/* 300 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -56966,9 +55428,9 @@ exports.factory = factory;
 var isInteger = __webpack_require__(3).isInteger;
 
 function factory(type, config, load, typed) {
-  var factorial = load(__webpack_require__(79));
+  var factorial = load(__webpack_require__(76));
 
-  var product = __webpack_require__(97);
+  var product = __webpack_require__(96);
   /**
    * Compute the number of ways of obtaining an ordered subset of `k` elements
    * from a set of `n` elements.
@@ -57052,14 +55514,14 @@ exports.name = 'permutations';
 exports.factory = factory;
 
 /***/ }),
-/* 305 */
+/* 301 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
 function factory(type, config, load, typed) {
-  var distribution = load(__webpack_require__(101));
+  var distribution = load(__webpack_require__(100));
   /**
    * Random pick one or more values from a one dimensional array.
    * Array elements are picked using a random function with uniform or weighted distribution.
@@ -57102,13 +55564,13 @@ exports.name = 'pickRandom';
 exports.factory = factory;
 
 /***/ }),
-/* 306 */
+/* 302 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
-var seedrandom = __webpack_require__(307); // create a random seed here to prevent an infinite loop from seed-random
+var seedrandom = __webpack_require__(303); // create a random seed here to prevent an infinite loop from seed-random
 // inside the factory. Reason is that math.random is defined as a getter/setter
 // and seed-random generates a seed from the local entropy by reading every
 // defined object including `math` itself. That means that whilst getting
@@ -57147,7 +55609,7 @@ exports.factory = factory;
 exports.math = true;
 
 /***/ }),
-/* 307 */
+/* 303 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -57327,14 +55789,14 @@ mixkey(Math.random(), pool);
 
 
 /***/ }),
-/* 308 */
+/* 304 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
 function factory(type, config, load, typed) {
-  var distribution = load(__webpack_require__(101));
+  var distribution = load(__webpack_require__(100));
   /**
    * Return a random number larger or equal to `min` and smaller than `max`
    * using a uniform distribution.
@@ -57377,14 +55839,14 @@ exports.name = 'random';
 exports.factory = factory;
 
 /***/ }),
-/* 309 */
+/* 305 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
 function factory(type, config, load, typed) {
-  var distribution = load(__webpack_require__(101));
+  var distribution = load(__webpack_require__(100));
   /**
    * Return a random integer number larger or equal to `min` and smaller than `max`
    * using a uniform distribution.
@@ -57425,23 +55887,23 @@ exports.name = 'randomInt';
 exports.factory = factory;
 
 /***/ }),
-/* 310 */
+/* 306 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
-module.exports = [__webpack_require__(55), __webpack_require__(30), __webpack_require__(148), __webpack_require__(311), __webpack_require__(52), __webpack_require__(312), __webpack_require__(34), __webpack_require__(135), __webpack_require__(41), __webpack_require__(313), __webpack_require__(131)];
+module.exports = [__webpack_require__(53), __webpack_require__(29), __webpack_require__(146), __webpack_require__(307), __webpack_require__(50), __webpack_require__(308), __webpack_require__(34), __webpack_require__(133), __webpack_require__(40), __webpack_require__(309), __webpack_require__(129)];
 
 /***/ }),
-/* 311 */
+/* 307 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
 function factory(type, config, load, typed) {
-  var equal = load(__webpack_require__(52));
+  var equal = load(__webpack_require__(50));
   /**
    * Test element wise whether two matrices are equal.
    * The function accepts both matrices and scalar values.
@@ -57520,15 +55982,15 @@ exports.name = 'deepEqual';
 exports.factory = factory;
 
 /***/ }),
-/* 312 */
+/* 308 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
 function factory(type, config, load, typed) {
-  var compareText = load(__webpack_require__(148));
-  var isZero = load(__webpack_require__(64));
+  var compareText = load(__webpack_require__(146));
+  var isZero = load(__webpack_require__(60));
   /**
    * Check equality of two strings. Comparison is case sensitive.
    *
@@ -57570,7 +56032,7 @@ exports.name = 'equalText';
 exports.factory = factory;
 
 /***/ }),
-/* 313 */
+/* 309 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -57578,12 +56040,12 @@ exports.factory = factory;
 
 var nearlyEqual = __webpack_require__(3).nearlyEqual;
 
-var bigNearlyEqual = __webpack_require__(39);
+var bigNearlyEqual = __webpack_require__(38);
 
 function factory(type, config, load, typed) {
   var matrix = load(__webpack_require__(1));
   var algorithm03 = load(__webpack_require__(18));
-  var algorithm07 = load(__webpack_require__(28));
+  var algorithm07 = load(__webpack_require__(27));
   var algorithm12 = load(__webpack_require__(19));
   var algorithm13 = load(__webpack_require__(7));
   var algorithm14 = load(__webpack_require__(6));
@@ -57695,16 +56157,16 @@ exports.name = 'smallerEq';
 exports.factory = factory;
 
 /***/ }),
-/* 314 */
+/* 310 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
-module.exports = [__webpack_require__(315), __webpack_require__(149), __webpack_require__(316), __webpack_require__(150), __webpack_require__(317), __webpack_require__(318), __webpack_require__(319), __webpack_require__(320), __webpack_require__(151), __webpack_require__(321)];
+module.exports = [__webpack_require__(311), __webpack_require__(147), __webpack_require__(312), __webpack_require__(148), __webpack_require__(313), __webpack_require__(314), __webpack_require__(315), __webpack_require__(316), __webpack_require__(149), __webpack_require__(317)];
 
 /***/ }),
-/* 315 */
+/* 311 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -57713,11 +56175,11 @@ module.exports = [__webpack_require__(315), __webpack_require__(149), __webpack_
 var flatten = __webpack_require__(2).flatten;
 
 function factory(type, config, load, typed) {
-  var MatrixIndex = load(__webpack_require__(29));
-  var DenseMatrix = load(__webpack_require__(50));
-  var size = load(__webpack_require__(27));
-  var subset = load(__webpack_require__(23));
-  var compareNatural = load(__webpack_require__(30));
+  var MatrixIndex = load(__webpack_require__(28));
+  var DenseMatrix = load(__webpack_require__(48));
+  var size = load(__webpack_require__(26));
+  var subset = load(__webpack_require__(22));
+  var compareNatural = load(__webpack_require__(29));
   /**
    * Create the cartesian product of two (multi)sets.
    * Multi-dimension arrays will be converted to single-dimension arrays before the operation.
@@ -57772,7 +56234,7 @@ exports.name = 'setCartesian';
 exports.factory = factory;
 
 /***/ }),
-/* 316 */
+/* 312 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -57781,11 +56243,11 @@ exports.factory = factory;
 var flatten = __webpack_require__(2).flatten;
 
 function factory(type, config, load, typed) {
-  var MatrixIndex = load(__webpack_require__(29));
-  var DenseMatrix = load(__webpack_require__(50));
-  var size = load(__webpack_require__(27));
-  var subset = load(__webpack_require__(23));
-  var compareNatural = load(__webpack_require__(30));
+  var MatrixIndex = load(__webpack_require__(28));
+  var DenseMatrix = load(__webpack_require__(48));
+  var size = load(__webpack_require__(26));
+  var subset = load(__webpack_require__(22));
+  var compareNatural = load(__webpack_require__(29));
   /**
    * Collect the distinct elements of a multiset.
    * A multi-dimension array will be converted to a single-dimension array before the operation.
@@ -57841,7 +56303,7 @@ exports.name = 'setDistinct';
 exports.factory = factory;
 
 /***/ }),
-/* 317 */
+/* 313 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -57852,10 +56314,10 @@ var flatten = __webpack_require__(2).flatten;
 var identify = __webpack_require__(2).identify;
 
 function factory(type, config, load, typed) {
-  var MatrixIndex = load(__webpack_require__(29));
-  var size = load(__webpack_require__(27));
-  var subset = load(__webpack_require__(23));
-  var compareNatural = load(__webpack_require__(30));
+  var MatrixIndex = load(__webpack_require__(28));
+  var size = load(__webpack_require__(26));
+  var subset = load(__webpack_require__(22));
+  var compareNatural = load(__webpack_require__(29));
   /**
    * Check whether a (multi)set is a subset of another (multi)set. (Every element of set1 is the element of set2.)
    * Multi-dimension arrays will be converted to single-dimension arrays before the operation.
@@ -57918,7 +56380,7 @@ exports.name = 'setIsSubset';
 exports.factory = factory;
 
 /***/ }),
-/* 318 */
+/* 314 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -57927,10 +56389,10 @@ exports.factory = factory;
 var flatten = __webpack_require__(2).flatten;
 
 function factory(type, config, load, typed) {
-  var compareNatural = load(__webpack_require__(30));
-  var MatrixIndex = load(__webpack_require__(29));
-  var size = load(__webpack_require__(27));
-  var subset = load(__webpack_require__(23));
+  var compareNatural = load(__webpack_require__(29));
+  var MatrixIndex = load(__webpack_require__(28));
+  var size = load(__webpack_require__(26));
+  var subset = load(__webpack_require__(22));
   /**
    * Count the multiplicity of an element in a multiset.
    * A multi-dimension array will be converted to a single-dimension array before the operation.
@@ -57979,7 +56441,7 @@ exports.name = 'setMultiplicity';
 exports.factory = factory;
 
 /***/ }),
-/* 319 */
+/* 315 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -57988,10 +56450,10 @@ exports.factory = factory;
 var flatten = __webpack_require__(2).flatten;
 
 function factory(type, config, load, typed) {
-  var MatrixIndex = load(__webpack_require__(29));
-  var size = load(__webpack_require__(27));
-  var subset = load(__webpack_require__(23));
-  var compareNatural = load(__webpack_require__(30));
+  var MatrixIndex = load(__webpack_require__(28));
+  var size = load(__webpack_require__(26));
+  var subset = load(__webpack_require__(22));
+  var compareNatural = load(__webpack_require__(29));
   /**
    * Create the powerset of a (multi)set. (The powerset contains very possible subsets of a (multi)set.)
    * A multi-dimension array will be converted to a single-dimension array before the operation.
@@ -58068,7 +56530,7 @@ exports.name = 'setPowerset';
 exports.factory = factory;
 
 /***/ }),
-/* 320 */
+/* 316 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -58077,7 +56539,7 @@ exports.factory = factory;
 var flatten = __webpack_require__(2).flatten;
 
 function factory(type, config, load, typed) {
-  var compareNatural = load(__webpack_require__(30));
+  var compareNatural = load(__webpack_require__(29));
   /**
    * Count the number of elements of a (multi)set. When a second parameter is 'true', count only the unique values.
    * A multi-dimension array will be converted to a single-dimension array before the operation.
@@ -58128,7 +56590,7 @@ exports.name = 'setSize';
 exports.factory = factory;
 
 /***/ }),
-/* 321 */
+/* 317 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -58137,12 +56599,12 @@ exports.factory = factory;
 var flatten = __webpack_require__(2).flatten;
 
 function factory(type, config, load, typed) {
-  var MatrixIndex = load(__webpack_require__(29));
-  var concat = load(__webpack_require__(81));
-  var size = load(__webpack_require__(27));
-  var subset = load(__webpack_require__(23));
-  var setIntersect = load(__webpack_require__(150));
-  var setSymDifference = load(__webpack_require__(151));
+  var MatrixIndex = load(__webpack_require__(28));
+  var concat = load(__webpack_require__(78));
+  var size = load(__webpack_require__(26));
+  var subset = load(__webpack_require__(22));
+  var setIntersect = load(__webpack_require__(148));
+  var setSymDifference = load(__webpack_require__(149));
   /**
    * Create the union of two (multi)sets.
    * Multi-dimension arrays will be converted to single-dimension arrays before the operation.
@@ -58186,16 +56648,16 @@ exports.name = 'setUnion';
 exports.factory = factory;
 
 /***/ }),
-/* 322 */
+/* 318 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
-module.exports = [__webpack_require__(323)];
+module.exports = [__webpack_require__(319)];
 
 /***/ }),
-/* 323 */
+/* 319 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -58373,16 +56835,16 @@ exports.name = 'erf';
 exports.factory = factory;
 
 /***/ }),
-/* 324 */
+/* 320 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
-module.exports = [__webpack_require__(325), __webpack_require__(99), __webpack_require__(153), __webpack_require__(152), __webpack_require__(154), __webpack_require__(326), __webpack_require__(327), __webpack_require__(328), __webpack_require__(329), __webpack_require__(147), __webpack_require__(155)];
+module.exports = [__webpack_require__(321), __webpack_require__(98), __webpack_require__(151), __webpack_require__(150), __webpack_require__(152), __webpack_require__(322), __webpack_require__(323), __webpack_require__(324), __webpack_require__(325), __webpack_require__(145), __webpack_require__(153)];
 
 /***/ }),
-/* 325 */
+/* 321 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -58391,9 +56853,9 @@ module.exports = [__webpack_require__(325), __webpack_require__(99), __webpack_r
 var flatten = __webpack_require__(2).flatten;
 
 function factory(type, config, load, typed) {
-  var abs = load(__webpack_require__(24));
-  var map = load(__webpack_require__(145));
-  var median = load(__webpack_require__(152));
+  var abs = load(__webpack_require__(23));
+  var map = load(__webpack_require__(143));
+  var median = load(__webpack_require__(150));
   var subtract = load(__webpack_require__(15));
   var improveErrorMessage = load(__webpack_require__(37));
   /**
@@ -58459,7 +56921,7 @@ exports.name = 'mad';
 exports.factory = factory;
 
 /***/ }),
-/* 326 */
+/* 322 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -58468,8 +56930,8 @@ exports.factory = factory;
 var flatten = __webpack_require__(2).flatten;
 
 function factory(type, config, load, typed) {
-  var isNaN = load(__webpack_require__(82));
-  var isNumeric = load(__webpack_require__(61));
+  var isNaN = load(__webpack_require__(79));
+  var isNumeric = load(__webpack_require__(57));
   /**
   * Computes the mode of a set of numbers or a list with values(numbers or characters).
   * If there are more than one modes, it returns a list of those values.
@@ -58551,16 +57013,16 @@ exports.name = 'mode';
 exports.factory = factory;
 
 /***/ }),
-/* 327 */
+/* 323 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
-var deepForEach = __webpack_require__(48);
+var deepForEach = __webpack_require__(47);
 
 function factory(type, config, load, typed) {
-  var multiply = load(__webpack_require__(22));
+  var multiply = load(__webpack_require__(21));
   var improveErrorMessage = load(__webpack_require__(37));
   /**
    * Compute the product of a matrix or a list with values.
@@ -58633,7 +57095,7 @@ exports.name = 'prod';
 exports.factory = factory;
 
 /***/ }),
-/* 328 */
+/* 324 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -58645,13 +57107,13 @@ var isNumber = __webpack_require__(3).isNumber;
 
 var flatten = __webpack_require__(2).flatten;
 
-var isCollection = __webpack_require__(56);
+var isCollection = __webpack_require__(54);
 
 function factory(type, config, load, typed) {
   var add = load(__webpack_require__(14));
   var multiply = load(__webpack_require__(9));
-  var partitionSelect = load(__webpack_require__(98));
-  var compare = load(__webpack_require__(55));
+  var partitionSelect = load(__webpack_require__(97));
+  var compare = load(__webpack_require__(53));
   /**
    * Compute the prob order quantile of a matrix or a list with values.
    * The sequence is sorted and the middle value is returned.
@@ -58914,15 +57376,15 @@ exports.name = 'quantileSeq';
 exports.factory = factory;
 
 /***/ }),
-/* 329 */
+/* 325 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
 function factory(type, config, load, typed) {
-  var sqrt = load(__webpack_require__(47));
-  var variance = load(__webpack_require__(155));
+  var sqrt = load(__webpack_require__(46));
+  var variance = load(__webpack_require__(153));
   /**
    * Compute the standard deviation of a matrix or a  list with values.
    * The standard deviations is defined as the square root of the variance:
@@ -58999,16 +57461,16 @@ exports.name = 'std';
 exports.factory = factory;
 
 /***/ }),
-/* 330 */
+/* 326 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
-module.exports = [__webpack_require__(113), __webpack_require__(331)];
+module.exports = [__webpack_require__(111), __webpack_require__(327)];
 
 /***/ }),
-/* 331 */
+/* 327 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -59107,16 +57569,16 @@ exports.name = 'print';
 exports.factory = factory;
 
 /***/ }),
-/* 332 */
+/* 328 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
-module.exports = [__webpack_require__(333), __webpack_require__(334), __webpack_require__(335), __webpack_require__(336), __webpack_require__(337), __webpack_require__(338), __webpack_require__(339), __webpack_require__(340), __webpack_require__(341), __webpack_require__(342), __webpack_require__(343), __webpack_require__(344), __webpack_require__(345), __webpack_require__(346), __webpack_require__(347), __webpack_require__(348), __webpack_require__(349), __webpack_require__(350), __webpack_require__(351), __webpack_require__(352), __webpack_require__(353), __webpack_require__(354), __webpack_require__(355), __webpack_require__(356), __webpack_require__(357)];
+module.exports = [__webpack_require__(329), __webpack_require__(330), __webpack_require__(331), __webpack_require__(332), __webpack_require__(333), __webpack_require__(334), __webpack_require__(335), __webpack_require__(336), __webpack_require__(337), __webpack_require__(338), __webpack_require__(339), __webpack_require__(340), __webpack_require__(341), __webpack_require__(342), __webpack_require__(343), __webpack_require__(344), __webpack_require__(345), __webpack_require__(346), __webpack_require__(347), __webpack_require__(348), __webpack_require__(349), __webpack_require__(350), __webpack_require__(351), __webpack_require__(352), __webpack_require__(353)];
 
 /***/ }),
-/* 333 */
+/* 329 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -59176,7 +57638,7 @@ exports.name = 'acos';
 exports.factory = factory;
 
 /***/ }),
-/* 334 */
+/* 330 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -59248,7 +57710,7 @@ exports.name = 'acosh';
 exports.factory = factory;
 
 /***/ }),
-/* 335 */
+/* 331 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -59304,7 +57766,7 @@ exports.name = 'acot';
 exports.factory = factory;
 
 /***/ }),
-/* 336 */
+/* 332 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -59362,7 +57824,7 @@ exports.name = 'acoth';
 exports.factory = factory;
 
 /***/ }),
-/* 337 */
+/* 333 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -59422,7 +57884,7 @@ exports.name = 'acsc';
 exports.factory = factory;
 
 /***/ }),
-/* 338 */
+/* 334 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -59477,7 +57939,7 @@ exports.name = 'acsch';
 exports.factory = factory;
 
 /***/ }),
-/* 339 */
+/* 335 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -59537,7 +57999,7 @@ exports.name = 'asec';
 exports.factory = factory;
 
 /***/ }),
-/* 340 */
+/* 336 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -59602,7 +58064,7 @@ exports.name = 'asech';
 exports.factory = factory;
 
 /***/ }),
-/* 341 */
+/* 337 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -59663,7 +58125,7 @@ exports.name = 'asin';
 exports.factory = factory;
 
 /***/ }),
-/* 342 */
+/* 338 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -59718,7 +58180,7 @@ exports.name = 'asinh';
 exports.factory = factory;
 
 /***/ }),
-/* 343 */
+/* 339 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -59775,7 +58237,7 @@ exports.name = 'atan';
 exports.factory = factory;
 
 /***/ }),
-/* 344 */
+/* 340 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -59783,9 +58245,9 @@ exports.factory = factory;
 
 function factory(type, config, load, typed) {
   var matrix = load(__webpack_require__(1));
-  var algorithm02 = load(__webpack_require__(26));
+  var algorithm02 = load(__webpack_require__(25));
   var algorithm03 = load(__webpack_require__(18));
-  var algorithm09 = load(__webpack_require__(141));
+  var algorithm09 = load(__webpack_require__(139));
   var algorithm11 = load(__webpack_require__(20));
   var algorithm12 = load(__webpack_require__(19));
   var algorithm13 = load(__webpack_require__(7));
@@ -59881,7 +58343,7 @@ exports.name = 'atan2';
 exports.factory = factory;
 
 /***/ }),
-/* 345 */
+/* 341 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -59950,7 +58412,7 @@ exports.name = 'atanh';
 exports.factory = factory;
 
 /***/ }),
-/* 346 */
+/* 342 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -60014,7 +58476,7 @@ exports.name = 'cos';
 exports.factory = factory;
 
 /***/ }),
-/* 347 */
+/* 343 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -60083,7 +58545,7 @@ exports.name = 'cosh';
 exports.factory = factory;
 
 /***/ }),
-/* 348 */
+/* 344 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -60144,7 +58606,7 @@ exports.name = 'cot';
 exports.factory = factory;
 
 /***/ }),
-/* 349 */
+/* 345 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -60216,7 +58678,7 @@ exports.name = 'coth';
 exports.factory = factory;
 
 /***/ }),
-/* 350 */
+/* 346 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -60277,7 +58739,7 @@ exports.name = 'csc';
 exports.factory = factory;
 
 /***/ }),
-/* 351 */
+/* 347 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -60355,7 +58817,7 @@ exports.name = 'csch';
 exports.factory = factory;
 
 /***/ }),
-/* 352 */
+/* 348 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -60416,7 +58878,7 @@ exports.name = 'sec';
 exports.factory = factory;
 
 /***/ }),
-/* 353 */
+/* 349 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -60487,7 +58949,7 @@ exports.name = 'sech';
 exports.factory = factory;
 
 /***/ }),
-/* 354 */
+/* 350 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -60552,7 +59014,7 @@ exports.name = 'sin';
 exports.factory = factory;
 
 /***/ }),
-/* 355 */
+/* 351 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -60622,7 +59084,7 @@ exports.name = 'sinh';
 exports.factory = factory;
 
 /***/ }),
-/* 356 */
+/* 352 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -60684,7 +59146,7 @@ exports.name = 'tan';
 exports.factory = factory;
 
 /***/ }),
-/* 357 */
+/* 353 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -60758,16 +59220,16 @@ exports.name = 'tanh';
 exports.factory = factory;
 
 /***/ }),
-/* 358 */
+/* 354 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
-module.exports = [__webpack_require__(359)];
+module.exports = [__webpack_require__(355)];
 
 /***/ }),
-/* 359 */
+/* 355 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -60851,16 +59313,16 @@ exports.name = 'to';
 exports.factory = factory;
 
 /***/ }),
-/* 360 */
+/* 356 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
-module.exports = [__webpack_require__(361), __webpack_require__(36), __webpack_require__(65), __webpack_require__(61), __webpack_require__(77), __webpack_require__(362), __webpack_require__(64), __webpack_require__(82), __webpack_require__(25)];
+module.exports = [__webpack_require__(357), __webpack_require__(36), __webpack_require__(61), __webpack_require__(57), __webpack_require__(74), __webpack_require__(358), __webpack_require__(60), __webpack_require__(79), __webpack_require__(24)];
 
 /***/ }),
-/* 361 */
+/* 357 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -60899,7 +59361,7 @@ exports.name = 'clone';
 exports.factory = factory;
 
 /***/ }),
-/* 362 */
+/* 358 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -60990,7 +59452,7 @@ exports.name = 'isPrime';
 exports.factory = factory;
 
 /***/ }),
-/* 363 */
+/* 359 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -60998,10 +59460,10 @@ exports.factory = factory;
 
 module.exports = [// Note that the docs folder is called "embeddedDocs" and not "docs" to prevent issues
 // with yarn autoclean. See https://github.com/josdejong/mathjs/issues/969
-__webpack_require__(156), __webpack_require__(566), __webpack_require__(570), __webpack_require__(572), __webpack_require__(583), __webpack_require__(44), __webpack_require__(160)];
+__webpack_require__(154), __webpack_require__(562), __webpack_require__(566), __webpack_require__(568), __webpack_require__(579), __webpack_require__(43), __webpack_require__(158)];
 
 /***/ }),
-/* 364 */
+/* 360 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -61017,7 +59479,7 @@ module.exports = {
 };
 
 /***/ }),
-/* 365 */
+/* 361 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -61033,7 +59495,7 @@ module.exports = {
 };
 
 /***/ }),
-/* 366 */
+/* 362 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -61049,7 +59511,7 @@ module.exports = {
 };
 
 /***/ }),
-/* 367 */
+/* 363 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -61065,7 +59527,7 @@ module.exports = {
 };
 
 /***/ }),
-/* 368 */
+/* 364 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -61081,7 +59543,7 @@ module.exports = {
 };
 
 /***/ }),
-/* 369 */
+/* 365 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -61097,7 +59559,7 @@ module.exports = {
 };
 
 /***/ }),
-/* 370 */
+/* 366 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -61113,7 +59575,7 @@ module.exports = {
 };
 
 /***/ }),
-/* 371 */
+/* 367 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -61129,7 +59591,7 @@ module.exports = {
 };
 
 /***/ }),
-/* 372 */
+/* 368 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -61145,7 +59607,7 @@ module.exports = {
 };
 
 /***/ }),
-/* 373 */
+/* 369 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -61161,7 +59623,7 @@ module.exports = {
 };
 
 /***/ }),
-/* 374 */
+/* 370 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -61177,7 +59639,7 @@ module.exports = {
 };
 
 /***/ }),
-/* 375 */
+/* 371 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -61193,7 +59655,7 @@ module.exports = {
 };
 
 /***/ }),
-/* 376 */
+/* 372 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -61209,7 +59671,7 @@ module.exports = {
 };
 
 /***/ }),
-/* 377 */
+/* 373 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -61225,7 +59687,7 @@ module.exports = {
 };
 
 /***/ }),
-/* 378 */
+/* 374 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -61241,7 +59703,7 @@ module.exports = {
 };
 
 /***/ }),
-/* 379 */
+/* 375 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -61257,7 +59719,7 @@ module.exports = {
 };
 
 /***/ }),
-/* 380 */
+/* 376 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -61273,7 +59735,7 @@ module.exports = {
 };
 
 /***/ }),
-/* 381 */
+/* 377 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -61289,7 +59751,7 @@ module.exports = {
 };
 
 /***/ }),
-/* 382 */
+/* 378 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -61305,7 +59767,7 @@ module.exports = {
 };
 
 /***/ }),
-/* 383 */
+/* 379 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -61321,7 +59783,7 @@ module.exports = {
 };
 
 /***/ }),
-/* 384 */
+/* 380 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -61337,7 +59799,7 @@ module.exports = {
 };
 
 /***/ }),
-/* 385 */
+/* 381 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -61353,7 +59815,7 @@ module.exports = {
 };
 
 /***/ }),
-/* 386 */
+/* 382 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -61369,7 +59831,7 @@ module.exports = {
 };
 
 /***/ }),
-/* 387 */
+/* 383 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -61385,7 +59847,7 @@ module.exports = {
 };
 
 /***/ }),
-/* 388 */
+/* 384 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -61401,7 +59863,7 @@ module.exports = {
 };
 
 /***/ }),
-/* 389 */
+/* 385 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -61417,7 +59879,7 @@ module.exports = {
 };
 
 /***/ }),
-/* 390 */
+/* 386 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -61433,7 +59895,7 @@ module.exports = {
 };
 
 /***/ }),
-/* 391 */
+/* 387 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -61449,7 +59911,7 @@ module.exports = {
 };
 
 /***/ }),
-/* 392 */
+/* 388 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -61465,7 +59927,7 @@ module.exports = {
 };
 
 /***/ }),
-/* 393 */
+/* 389 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -61481,7 +59943,7 @@ module.exports = {
 };
 
 /***/ }),
-/* 394 */
+/* 390 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -61497,7 +59959,7 @@ module.exports = {
 };
 
 /***/ }),
-/* 395 */
+/* 391 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -61513,7 +59975,7 @@ module.exports = {
 };
 
 /***/ }),
-/* 396 */
+/* 392 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -61529,7 +59991,7 @@ module.exports = {
 };
 
 /***/ }),
-/* 397 */
+/* 393 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -61545,7 +60007,7 @@ module.exports = {
 };
 
 /***/ }),
-/* 398 */
+/* 394 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -61561,7 +60023,7 @@ module.exports = {
 };
 
 /***/ }),
-/* 399 */
+/* 395 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -61577,7 +60039,7 @@ module.exports = {
 };
 
 /***/ }),
-/* 400 */
+/* 396 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -61593,7 +60055,7 @@ module.exports = {
 };
 
 /***/ }),
-/* 401 */
+/* 397 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -61609,7 +60071,7 @@ module.exports = {
 };
 
 /***/ }),
-/* 402 */
+/* 398 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -61625,7 +60087,7 @@ module.exports = {
 };
 
 /***/ }),
-/* 403 */
+/* 399 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -61641,7 +60103,7 @@ module.exports = {
 };
 
 /***/ }),
-/* 404 */
+/* 400 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -61657,7 +60119,7 @@ module.exports = {
 };
 
 /***/ }),
-/* 405 */
+/* 401 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -61673,7 +60135,7 @@ module.exports = {
 };
 
 /***/ }),
-/* 406 */
+/* 402 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -61689,7 +60151,7 @@ module.exports = {
 };
 
 /***/ }),
-/* 407 */
+/* 403 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -61705,7 +60167,7 @@ module.exports = {
 };
 
 /***/ }),
-/* 408 */
+/* 404 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -61721,7 +60183,7 @@ module.exports = {
 };
 
 /***/ }),
-/* 409 */
+/* 405 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -61737,7 +60199,7 @@ module.exports = {
 };
 
 /***/ }),
-/* 410 */
+/* 406 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -61753,7 +60215,7 @@ module.exports = {
 };
 
 /***/ }),
-/* 411 */
+/* 407 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -61769,7 +60231,7 @@ module.exports = {
 };
 
 /***/ }),
-/* 412 */
+/* 408 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -61785,7 +60247,7 @@ module.exports = {
 };
 
 /***/ }),
-/* 413 */
+/* 409 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -61801,7 +60263,7 @@ module.exports = {
 };
 
 /***/ }),
-/* 414 */
+/* 410 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -61817,7 +60279,7 @@ module.exports = {
 };
 
 /***/ }),
-/* 415 */
+/* 411 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -61833,7 +60295,7 @@ module.exports = {
 };
 
 /***/ }),
-/* 416 */
+/* 412 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -61849,7 +60311,7 @@ module.exports = {
 };
 
 /***/ }),
-/* 417 */
+/* 413 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -61865,7 +60327,7 @@ module.exports = {
 };
 
 /***/ }),
-/* 418 */
+/* 414 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -61881,7 +60343,7 @@ module.exports = {
 };
 
 /***/ }),
-/* 419 */
+/* 415 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -61897,7 +60359,7 @@ module.exports = {
 };
 
 /***/ }),
-/* 420 */
+/* 416 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -61913,7 +60375,7 @@ module.exports = {
 };
 
 /***/ }),
-/* 421 */
+/* 417 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -61929,7 +60391,7 @@ module.exports = {
 };
 
 /***/ }),
-/* 422 */
+/* 418 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -61945,7 +60407,7 @@ module.exports = {
 };
 
 /***/ }),
-/* 423 */
+/* 419 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -61960,7 +60422,7 @@ module.exports = {
 };
 
 /***/ }),
-/* 424 */
+/* 420 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -61976,7 +60438,7 @@ module.exports = {
 };
 
 /***/ }),
-/* 425 */
+/* 421 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -61992,7 +60454,7 @@ module.exports = {
 };
 
 /***/ }),
-/* 426 */
+/* 422 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -62008,7 +60470,7 @@ module.exports = {
 };
 
 /***/ }),
-/* 427 */
+/* 423 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -62024,7 +60486,7 @@ module.exports = {
 };
 
 /***/ }),
-/* 428 */
+/* 424 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -62040,7 +60502,7 @@ module.exports = {
 };
 
 /***/ }),
-/* 429 */
+/* 425 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -62056,7 +60518,7 @@ module.exports = {
 };
 
 /***/ }),
-/* 430 */
+/* 426 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -62072,7 +60534,7 @@ module.exports = {
 };
 
 /***/ }),
-/* 431 */
+/* 427 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -62088,7 +60550,7 @@ module.exports = {
 };
 
 /***/ }),
-/* 432 */
+/* 428 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -62104,7 +60566,7 @@ module.exports = {
 };
 
 /***/ }),
-/* 433 */
+/* 429 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -62120,7 +60582,7 @@ module.exports = {
 };
 
 /***/ }),
-/* 434 */
+/* 430 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -62136,7 +60598,7 @@ module.exports = {
 };
 
 /***/ }),
-/* 435 */
+/* 431 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -62152,7 +60614,7 @@ module.exports = {
 };
 
 /***/ }),
-/* 436 */
+/* 432 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -62168,7 +60630,7 @@ module.exports = {
 };
 
 /***/ }),
-/* 437 */
+/* 433 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -62184,7 +60646,7 @@ module.exports = {
 };
 
 /***/ }),
-/* 438 */
+/* 434 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -62200,7 +60662,7 @@ module.exports = {
 };
 
 /***/ }),
-/* 439 */
+/* 435 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -62216,7 +60678,7 @@ module.exports = {
 };
 
 /***/ }),
-/* 440 */
+/* 436 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -62232,7 +60694,7 @@ module.exports = {
 };
 
 /***/ }),
-/* 441 */
+/* 437 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -62248,7 +60710,7 @@ module.exports = {
 };
 
 /***/ }),
-/* 442 */
+/* 438 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -62264,7 +60726,7 @@ module.exports = {
 };
 
 /***/ }),
-/* 443 */
+/* 439 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -62280,7 +60742,7 @@ module.exports = {
 };
 
 /***/ }),
-/* 444 */
+/* 440 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -62296,7 +60758,7 @@ module.exports = {
 };
 
 /***/ }),
-/* 445 */
+/* 441 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -62312,7 +60774,7 @@ module.exports = {
 };
 
 /***/ }),
-/* 446 */
+/* 442 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -62328,7 +60790,7 @@ module.exports = {
 };
 
 /***/ }),
-/* 447 */
+/* 443 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -62344,7 +60806,7 @@ module.exports = {
 };
 
 /***/ }),
-/* 448 */
+/* 444 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -62360,7 +60822,7 @@ module.exports = {
 };
 
 /***/ }),
-/* 449 */
+/* 445 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -62376,7 +60838,7 @@ module.exports = {
 };
 
 /***/ }),
-/* 450 */
+/* 446 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -62392,7 +60854,7 @@ module.exports = {
 };
 
 /***/ }),
-/* 451 */
+/* 447 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -62408,7 +60870,7 @@ module.exports = {
 };
 
 /***/ }),
-/* 452 */
+/* 448 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -62424,7 +60886,7 @@ module.exports = {
 };
 
 /***/ }),
-/* 453 */
+/* 449 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -62440,7 +60902,7 @@ module.exports = {
 };
 
 /***/ }),
-/* 454 */
+/* 450 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -62456,7 +60918,7 @@ module.exports = {
 };
 
 /***/ }),
-/* 455 */
+/* 451 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -62472,7 +60934,7 @@ module.exports = {
 };
 
 /***/ }),
-/* 456 */
+/* 452 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -62488,7 +60950,7 @@ module.exports = {
 };
 
 /***/ }),
-/* 457 */
+/* 453 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -62504,7 +60966,7 @@ module.exports = {
 };
 
 /***/ }),
-/* 458 */
+/* 454 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -62520,7 +60982,7 @@ module.exports = {
 };
 
 /***/ }),
-/* 459 */
+/* 455 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -62536,7 +60998,7 @@ module.exports = {
 };
 
 /***/ }),
-/* 460 */
+/* 456 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -62552,7 +61014,7 @@ module.exports = {
 };
 
 /***/ }),
-/* 461 */
+/* 457 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -62568,7 +61030,7 @@ module.exports = {
 };
 
 /***/ }),
-/* 462 */
+/* 458 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -62584,7 +61046,7 @@ module.exports = {
 };
 
 /***/ }),
-/* 463 */
+/* 459 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -62600,7 +61062,7 @@ module.exports = {
 };
 
 /***/ }),
-/* 464 */
+/* 460 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -62616,7 +61078,7 @@ module.exports = {
 };
 
 /***/ }),
-/* 465 */
+/* 461 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -62632,7 +61094,7 @@ module.exports = {
 };
 
 /***/ }),
-/* 466 */
+/* 462 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -62648,7 +61110,7 @@ module.exports = {
 };
 
 /***/ }),
-/* 467 */
+/* 463 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -62664,7 +61126,7 @@ module.exports = {
 };
 
 /***/ }),
-/* 468 */
+/* 464 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -62680,7 +61142,7 @@ module.exports = {
 };
 
 /***/ }),
-/* 469 */
+/* 465 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -62696,7 +61158,7 @@ module.exports = {
 };
 
 /***/ }),
-/* 470 */
+/* 466 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -62712,7 +61174,7 @@ module.exports = {
 };
 
 /***/ }),
-/* 471 */
+/* 467 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -62728,7 +61190,7 @@ module.exports = {
 };
 
 /***/ }),
-/* 472 */
+/* 468 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -62744,7 +61206,7 @@ module.exports = {
 };
 
 /***/ }),
-/* 473 */
+/* 469 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -62760,7 +61222,7 @@ module.exports = {
 };
 
 /***/ }),
-/* 474 */
+/* 470 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -62776,7 +61238,7 @@ module.exports = {
 };
 
 /***/ }),
-/* 475 */
+/* 471 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -62792,7 +61254,7 @@ module.exports = {
 };
 
 /***/ }),
-/* 476 */
+/* 472 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -62808,7 +61270,7 @@ module.exports = {
 };
 
 /***/ }),
-/* 477 */
+/* 473 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -62824,7 +61286,7 @@ module.exports = {
 };
 
 /***/ }),
-/* 478 */
+/* 474 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -62840,7 +61302,7 @@ module.exports = {
 };
 
 /***/ }),
-/* 479 */
+/* 475 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -62856,7 +61318,7 @@ module.exports = {
 };
 
 /***/ }),
-/* 480 */
+/* 476 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -62872,7 +61334,7 @@ module.exports = {
 };
 
 /***/ }),
-/* 481 */
+/* 477 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -62888,7 +61350,7 @@ module.exports = {
 };
 
 /***/ }),
-/* 482 */
+/* 478 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -62904,7 +61366,7 @@ module.exports = {
 };
 
 /***/ }),
-/* 483 */
+/* 479 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -62920,7 +61382,7 @@ module.exports = {
 };
 
 /***/ }),
-/* 484 */
+/* 480 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -62936,7 +61398,7 @@ module.exports = {
 };
 
 /***/ }),
-/* 485 */
+/* 481 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -62952,7 +61414,7 @@ module.exports = {
 };
 
 /***/ }),
-/* 486 */
+/* 482 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -62968,7 +61430,7 @@ module.exports = {
 };
 
 /***/ }),
-/* 487 */
+/* 483 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -62984,7 +61446,7 @@ module.exports = {
 };
 
 /***/ }),
-/* 488 */
+/* 484 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -63000,7 +61462,7 @@ module.exports = {
 };
 
 /***/ }),
-/* 489 */
+/* 485 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -63016,7 +61478,7 @@ module.exports = {
 };
 
 /***/ }),
-/* 490 */
+/* 486 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -63032,7 +61494,7 @@ module.exports = {
 };
 
 /***/ }),
-/* 491 */
+/* 487 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -63048,7 +61510,7 @@ module.exports = {
 };
 
 /***/ }),
-/* 492 */
+/* 488 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -63064,7 +61526,7 @@ module.exports = {
 };
 
 /***/ }),
-/* 493 */
+/* 489 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -63080,7 +61542,7 @@ module.exports = {
 };
 
 /***/ }),
-/* 494 */
+/* 490 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -63096,7 +61558,7 @@ module.exports = {
 };
 
 /***/ }),
-/* 495 */
+/* 491 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -63112,7 +61574,7 @@ module.exports = {
 };
 
 /***/ }),
-/* 496 */
+/* 492 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -63128,7 +61590,7 @@ module.exports = {
 };
 
 /***/ }),
-/* 497 */
+/* 493 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -63144,7 +61606,7 @@ module.exports = {
 };
 
 /***/ }),
-/* 498 */
+/* 494 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -63160,7 +61622,7 @@ module.exports = {
 };
 
 /***/ }),
-/* 499 */
+/* 495 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -63176,7 +61638,7 @@ module.exports = {
 };
 
 /***/ }),
-/* 500 */
+/* 496 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -63192,7 +61654,7 @@ module.exports = {
 };
 
 /***/ }),
-/* 501 */
+/* 497 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -63208,7 +61670,7 @@ module.exports = {
 };
 
 /***/ }),
-/* 502 */
+/* 498 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -63224,7 +61686,7 @@ module.exports = {
 };
 
 /***/ }),
-/* 503 */
+/* 499 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -63240,7 +61702,7 @@ module.exports = {
 };
 
 /***/ }),
-/* 504 */
+/* 500 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -63256,7 +61718,7 @@ module.exports = {
 };
 
 /***/ }),
-/* 505 */
+/* 501 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -63272,7 +61734,7 @@ module.exports = {
 };
 
 /***/ }),
-/* 506 */
+/* 502 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -63288,7 +61750,7 @@ module.exports = {
 };
 
 /***/ }),
-/* 507 */
+/* 503 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -63304,7 +61766,7 @@ module.exports = {
 };
 
 /***/ }),
-/* 508 */
+/* 504 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -63320,7 +61782,7 @@ module.exports = {
 };
 
 /***/ }),
-/* 509 */
+/* 505 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -63336,7 +61798,7 @@ module.exports = {
 };
 
 /***/ }),
-/* 510 */
+/* 506 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -63352,7 +61814,7 @@ module.exports = {
 };
 
 /***/ }),
-/* 511 */
+/* 507 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -63368,7 +61830,7 @@ module.exports = {
 };
 
 /***/ }),
-/* 512 */
+/* 508 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -63384,7 +61846,7 @@ module.exports = {
 };
 
 /***/ }),
-/* 513 */
+/* 509 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -63400,7 +61862,7 @@ module.exports = {
 };
 
 /***/ }),
-/* 514 */
+/* 510 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -63416,7 +61878,7 @@ module.exports = {
 };
 
 /***/ }),
-/* 515 */
+/* 511 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -63432,7 +61894,7 @@ module.exports = {
 };
 
 /***/ }),
-/* 516 */
+/* 512 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -63448,7 +61910,7 @@ module.exports = {
 };
 
 /***/ }),
-/* 517 */
+/* 513 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -63464,7 +61926,7 @@ module.exports = {
 };
 
 /***/ }),
-/* 518 */
+/* 514 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -63480,7 +61942,7 @@ module.exports = {
 };
 
 /***/ }),
-/* 519 */
+/* 515 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -63496,7 +61958,7 @@ module.exports = {
 };
 
 /***/ }),
-/* 520 */
+/* 516 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -63512,7 +61974,7 @@ module.exports = {
 };
 
 /***/ }),
-/* 521 */
+/* 517 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -63528,7 +61990,7 @@ module.exports = {
 };
 
 /***/ }),
-/* 522 */
+/* 518 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -63544,7 +62006,7 @@ module.exports = {
 };
 
 /***/ }),
-/* 523 */
+/* 519 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -63560,7 +62022,7 @@ module.exports = {
 };
 
 /***/ }),
-/* 524 */
+/* 520 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -63576,7 +62038,7 @@ module.exports = {
 };
 
 /***/ }),
-/* 525 */
+/* 521 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -63592,7 +62054,7 @@ module.exports = {
 };
 
 /***/ }),
-/* 526 */
+/* 522 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -63608,7 +62070,7 @@ module.exports = {
 };
 
 /***/ }),
-/* 527 */
+/* 523 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -63624,7 +62086,7 @@ module.exports = {
 };
 
 /***/ }),
-/* 528 */
+/* 524 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -63640,7 +62102,7 @@ module.exports = {
 };
 
 /***/ }),
-/* 529 */
+/* 525 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -63656,7 +62118,7 @@ module.exports = {
 };
 
 /***/ }),
-/* 530 */
+/* 526 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -63672,7 +62134,7 @@ module.exports = {
 };
 
 /***/ }),
-/* 531 */
+/* 527 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -63688,7 +62150,7 @@ module.exports = {
 };
 
 /***/ }),
-/* 532 */
+/* 528 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -63704,7 +62166,7 @@ module.exports = {
 };
 
 /***/ }),
-/* 533 */
+/* 529 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -63720,7 +62182,7 @@ module.exports = {
 };
 
 /***/ }),
-/* 534 */
+/* 530 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -63736,7 +62198,7 @@ module.exports = {
 };
 
 /***/ }),
-/* 535 */
+/* 531 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -63752,7 +62214,7 @@ module.exports = {
 };
 
 /***/ }),
-/* 536 */
+/* 532 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -63768,7 +62230,7 @@ module.exports = {
 };
 
 /***/ }),
-/* 537 */
+/* 533 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -63784,7 +62246,7 @@ module.exports = {
 };
 
 /***/ }),
-/* 538 */
+/* 534 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -63800,7 +62262,7 @@ module.exports = {
 };
 
 /***/ }),
-/* 539 */
+/* 535 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -63816,7 +62278,7 @@ module.exports = {
 };
 
 /***/ }),
-/* 540 */
+/* 536 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -63832,7 +62294,7 @@ module.exports = {
 };
 
 /***/ }),
-/* 541 */
+/* 537 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -63848,7 +62310,7 @@ module.exports = {
 };
 
 /***/ }),
-/* 542 */
+/* 538 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -63864,7 +62326,7 @@ module.exports = {
 };
 
 /***/ }),
-/* 543 */
+/* 539 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -63880,7 +62342,7 @@ module.exports = {
 };
 
 /***/ }),
-/* 544 */
+/* 540 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -63896,7 +62358,7 @@ module.exports = {
 };
 
 /***/ }),
-/* 545 */
+/* 541 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -63912,7 +62374,7 @@ module.exports = {
 };
 
 /***/ }),
-/* 546 */
+/* 542 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -63928,7 +62390,7 @@ module.exports = {
 };
 
 /***/ }),
-/* 547 */
+/* 543 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -63944,7 +62406,7 @@ module.exports = {
 };
 
 /***/ }),
-/* 548 */
+/* 544 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -63960,7 +62422,7 @@ module.exports = {
 };
 
 /***/ }),
-/* 549 */
+/* 545 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -63976,7 +62438,7 @@ module.exports = {
 };
 
 /***/ }),
-/* 550 */
+/* 546 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -63992,7 +62454,7 @@ module.exports = {
 };
 
 /***/ }),
-/* 551 */
+/* 547 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -64008,7 +62470,7 @@ module.exports = {
 };
 
 /***/ }),
-/* 552 */
+/* 548 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -64024,7 +62486,7 @@ module.exports = {
 };
 
 /***/ }),
-/* 553 */
+/* 549 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -64040,7 +62502,7 @@ module.exports = {
 };
 
 /***/ }),
-/* 554 */
+/* 550 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -64056,7 +62518,7 @@ module.exports = {
 };
 
 /***/ }),
-/* 555 */
+/* 551 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -64072,7 +62534,7 @@ module.exports = {
 };
 
 /***/ }),
-/* 556 */
+/* 552 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -64088,7 +62550,7 @@ module.exports = {
 };
 
 /***/ }),
-/* 557 */
+/* 553 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -64104,7 +62566,7 @@ module.exports = {
 };
 
 /***/ }),
-/* 558 */
+/* 554 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -64120,7 +62582,7 @@ module.exports = {
 };
 
 /***/ }),
-/* 559 */
+/* 555 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -64136,7 +62598,7 @@ module.exports = {
 };
 
 /***/ }),
-/* 560 */
+/* 556 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -64152,7 +62614,7 @@ module.exports = {
 };
 
 /***/ }),
-/* 561 */
+/* 557 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -64168,7 +62630,7 @@ module.exports = {
 };
 
 /***/ }),
-/* 562 */
+/* 558 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -64184,7 +62646,7 @@ module.exports = {
 };
 
 /***/ }),
-/* 563 */
+/* 559 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -64200,7 +62662,7 @@ module.exports = {
 };
 
 /***/ }),
-/* 564 */
+/* 560 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -64216,7 +62678,7 @@ module.exports = {
 };
 
 /***/ }),
-/* 565 */
+/* 561 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -64232,16 +62694,16 @@ module.exports = {
 };
 
 /***/ }),
-/* 566 */
+/* 562 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
-module.exports = [__webpack_require__(567), __webpack_require__(568), __webpack_require__(569), __webpack_require__(130), __webpack_require__(159)];
+module.exports = [__webpack_require__(563), __webpack_require__(564), __webpack_require__(565), __webpack_require__(128), __webpack_require__(157)];
 
 /***/ }),
-/* 567 */
+/* 563 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -64250,7 +62712,7 @@ module.exports = [__webpack_require__(567), __webpack_require__(568), __webpack_
 var deepMap = __webpack_require__(0);
 
 function factory(type, config, load, typed) {
-  var parse = load(__webpack_require__(44));
+  var parse = load(__webpack_require__(43));
   /**
    * Parse and compile an expression.
    * Returns a an object with a function `eval([scope])` to evaluate the
@@ -64302,7 +62764,7 @@ exports.name = 'compile';
 exports.factory = factory;
 
 /***/ }),
-/* 568 */
+/* 564 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -64311,7 +62773,7 @@ exports.factory = factory;
 var deepMap = __webpack_require__(0);
 
 function factory(type, config, load, typed) {
-  var parse = load(__webpack_require__(44));
+  var parse = load(__webpack_require__(43));
   /**
    * Evaluate an expression.
    *
@@ -64371,7 +62833,7 @@ exports.name = 'eval';
 exports.factory = factory;
 
 /***/ }),
-/* 569 */
+/* 565 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -64380,7 +62842,7 @@ exports.factory = factory;
 var getSafeProperty = __webpack_require__(13).getSafeProperty;
 
 function factory(type, config, load, typed, math) {
-  var docs = load(__webpack_require__(156));
+  var docs = load(__webpack_require__(154));
   /**
    * Retrieve help on a function or data type.
    * Help files are retrieved from the documentation in math.expression.docs.
@@ -64445,16 +62907,16 @@ exports.name = 'help';
 exports.factory = factory;
 
 /***/ }),
-/* 570 */
+/* 566 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
-module.exports = [__webpack_require__(114), __webpack_require__(117), __webpack_require__(118), __webpack_require__(119), __webpack_require__(120), __webpack_require__(62), __webpack_require__(122), __webpack_require__(121), __webpack_require__(73), __webpack_require__(16), __webpack_require__(123), __webpack_require__(63), __webpack_require__(72), __webpack_require__(124), __webpack_require__(125), __webpack_require__(54), __webpack_require__(571)];
+module.exports = [__webpack_require__(112), __webpack_require__(115), __webpack_require__(116), __webpack_require__(117), __webpack_require__(118), __webpack_require__(58), __webpack_require__(120), __webpack_require__(119), __webpack_require__(70), __webpack_require__(16), __webpack_require__(121), __webpack_require__(59), __webpack_require__(69), __webpack_require__(122), __webpack_require__(123), __webpack_require__(52), __webpack_require__(567)];
 
 /***/ }),
-/* 571 */
+/* 567 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -64477,22 +62939,22 @@ exports.path = 'expression.node';
 exports.factory = factory;
 
 /***/ }),
-/* 572 */
+/* 568 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
-module.exports = [__webpack_require__(573), __webpack_require__(574), __webpack_require__(575), __webpack_require__(576), __webpack_require__(577), __webpack_require__(578), __webpack_require__(579), __webpack_require__(580), __webpack_require__(581), __webpack_require__(582)];
+module.exports = [__webpack_require__(569), __webpack_require__(570), __webpack_require__(571), __webpack_require__(572), __webpack_require__(573), __webpack_require__(574), __webpack_require__(575), __webpack_require__(576), __webpack_require__(577), __webpack_require__(578)];
 
 /***/ }),
-/* 573 */
+/* 569 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
-var errorTransform = __webpack_require__(45).transform;
+var errorTransform = __webpack_require__(44).transform;
 /**
  * Attach a transform function to math.range
  * Adds a property transform containing the transform function.
@@ -64502,7 +62964,7 @@ var errorTransform = __webpack_require__(45).transform;
  */
 
 function factory(type, config, load, typed) {
-  var concat = load(__webpack_require__(81)); // @see: comment of concat itself
+  var concat = load(__webpack_require__(78)); // @see: comment of concat itself
 
   return typed('concat', {
     '...any': function any(args) {
@@ -64530,7 +62992,7 @@ exports.path = 'expression.transform';
 exports.factory = factory;
 
 /***/ }),
-/* 574 */
+/* 570 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -64550,7 +63012,7 @@ var maxArgumentCount = __webpack_require__(32).maxArgumentCount;
  */
 
 function factory(type, config, load, typed) {
-  var compileInlineExpression = load(__webpack_require__(102));
+  var compileInlineExpression = load(__webpack_require__(101));
   var matrix = load(__webpack_require__(1));
 
   function filterTransform(args, math, scope) {
@@ -64621,7 +63083,7 @@ exports.path = 'expression.transform';
 exports.factory = factory;
 
 /***/ }),
-/* 575 */
+/* 571 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -64638,7 +63100,7 @@ var forEach = __webpack_require__(2).forEach;
  */
 
 function factory(type, config, load, typed) {
-  var compileInlineExpression = load(__webpack_require__(102));
+  var compileInlineExpression = load(__webpack_require__(101));
 
   function forEachTransform(args, math, scope) {
     var x, callback;
@@ -64698,7 +63160,7 @@ exports.path = 'expression.transform';
 exports.factory = factory;
 
 /***/ }),
-/* 576 */
+/* 572 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -64751,7 +63213,7 @@ exports.path = 'expression.transform';
 exports.factory = factory;
 
 /***/ }),
-/* 577 */
+/* 573 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -64768,7 +63230,7 @@ var map = __webpack_require__(2).map;
  */
 
 function factory(type, config, load, typed) {
-  var compileInlineExpression = load(__webpack_require__(102));
+  var compileInlineExpression = load(__webpack_require__(101));
   var matrix = load(__webpack_require__(1));
 
   function mapTransform(args, math, scope) {
@@ -64843,15 +63305,15 @@ exports.path = 'expression.transform';
 exports.factory = factory;
 
 /***/ }),
-/* 578 */
+/* 574 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
-var errorTransform = __webpack_require__(45).transform;
+var errorTransform = __webpack_require__(44).transform;
 
-var isCollection = __webpack_require__(56);
+var isCollection = __webpack_require__(54);
 /**
  * Attach a transform function to math.max
  * Adds a property transform containing the transform function.
@@ -64861,7 +63323,7 @@ var isCollection = __webpack_require__(56);
  */
 
 function factory(type, config, load, typed) {
-  var max = load(__webpack_require__(99));
+  var max = load(__webpack_require__(98));
   return typed('max', {
     '...any': function any(args) {
       // change last argument dim from one-based to zero-based
@@ -64889,15 +63351,15 @@ exports.path = 'expression.transform';
 exports.factory = factory;
 
 /***/ }),
-/* 579 */
+/* 575 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
-var errorTransform = __webpack_require__(45).transform;
+var errorTransform = __webpack_require__(44).transform;
 
-var isCollection = __webpack_require__(56);
+var isCollection = __webpack_require__(54);
 /**
  * Attach a transform function to math.mean
  * Adds a property transform containing the transform function.
@@ -64907,7 +63369,7 @@ var isCollection = __webpack_require__(56);
  */
 
 function factory(type, config, load, typed) {
-  var mean = load(__webpack_require__(153));
+  var mean = load(__webpack_require__(151));
   return typed('mean', {
     '...any': function any(args) {
       // change last argument dim from one-based to zero-based
@@ -64935,15 +63397,15 @@ exports.path = 'expression.transform';
 exports.factory = factory;
 
 /***/ }),
-/* 580 */
+/* 576 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
-var errorTransform = __webpack_require__(45).transform;
+var errorTransform = __webpack_require__(44).transform;
 
-var isCollection = __webpack_require__(56);
+var isCollection = __webpack_require__(54);
 /**
  * Attach a transform function to math.min
  * Adds a property transform containing the transform function.
@@ -64953,7 +63415,7 @@ var isCollection = __webpack_require__(56);
  */
 
 function factory(type, config, load, typed) {
-  var min = load(__webpack_require__(154));
+  var min = load(__webpack_require__(152));
   return typed('min', {
     '...any': function any(args) {
       // change last argument dim from one-based to zero-based
@@ -64981,7 +63443,7 @@ exports.path = 'expression.transform';
 exports.factory = factory;
 
 /***/ }),
-/* 581 */
+/* 577 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -64994,7 +63456,7 @@ exports.factory = factory;
  */
 
 function factory(type, config, load, typed) {
-  var range = load(__webpack_require__(146));
+  var range = load(__webpack_require__(144));
   return typed('range', {
     '...any': function any(args) {
       var lastIndex = args.length - 1;
@@ -65015,13 +63477,13 @@ exports.path = 'expression.transform';
 exports.factory = factory;
 
 /***/ }),
-/* 582 */
+/* 578 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
-var errorTransform = __webpack_require__(45).transform;
+var errorTransform = __webpack_require__(44).transform;
 /**
  * Attach a transform function to math.subset
  * Adds a property transform containing the transform function.
@@ -65030,7 +63492,7 @@ var errorTransform = __webpack_require__(45).transform;
  */
 
 function factory(type, config, load, typed) {
-  var subset = load(__webpack_require__(23));
+  var subset = load(__webpack_require__(22));
   return typed('subset', {
     '...any': function any(args) {
       try {
@@ -65047,7 +63509,7 @@ exports.path = 'expression.transform';
 exports.factory = factory;
 
 /***/ }),
-/* 583 */
+/* 579 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -65058,7 +63520,7 @@ var object = __webpack_require__(5);
 var string = __webpack_require__(8);
 
 function factory(type, config, load, typed) {
-  var parser = load(__webpack_require__(159))();
+  var parser = load(__webpack_require__(157))();
   /**
    * Documentation object
    * @param {Object} doc  Object containing properties:
@@ -65182,16 +63644,16 @@ exports.path = 'type';
 exports.factory = factory;
 
 /***/ }),
-/* 584 */
+/* 580 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
-module.exports = [__webpack_require__(585)];
+module.exports = [__webpack_require__(581)];
 
 /***/ }),
-/* 585 */
+/* 581 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -65221,17 +63683,17 @@ exports.factory = factory;
 exports.math = true; // request the math namespace as fifth argument
 
 /***/ }),
-/* 586 */
+/* 582 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
-var ArgumentsError = __webpack_require__(59);
+var ArgumentsError = __webpack_require__(55);
 
 var DimensionError = __webpack_require__(11);
 
-var IndexError = __webpack_require__(60);
+var IndexError = __webpack_require__(56);
 
 module.exports = [{
   name: 'ArgumentsError',
@@ -65252,6 +63714,1544 @@ module.exports = [{
     return IndexError;
   }
 }]; // TODO: implement an InvalidValueError?
+
+/***/ }),
+/* 583 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+//list of identifiers of nodes in order of their precedence
+//also contains information about left/right associativity
+//and which other operator the operator is associative with
+//Example:
+// addition is associative with addition and subtraction, because:
+// (a+b)+c=a+(b+c)
+// (a+b)-c=a+(b-c)
+//
+// postfix operators are left associative, prefix operators 
+// are right associative
+//
+//It's also possible to set the following properties:
+// latexParens: if set to false, this node doesn't need to be enclosed
+//              in parentheses when using LaTeX
+// latexLeftParens: if set to false, this !OperatorNode's! 
+//                  left argument doesn't need to be enclosed
+//                  in parentheses
+// latexRightParens: the same for the right argument
+var properties = [
+  { //assignment
+    'AssignmentNode': {},
+    'FunctionAssignmentNode': {}
+  },
+  { //conditional expression
+    'ConditionalNode': {
+      latexLeftParens: false,
+      latexRightParens: false,
+      latexParens: false
+      //conditionals don't need parentheses in LaTeX because
+      //they are 2 dimensional
+    }
+  },
+  { //logical or
+    'OperatorNode:or': {
+      associativity: 'left',
+      associativeWith: []
+    }
+
+  },
+  { //logical xor
+    'OperatorNode:xor': {
+      associativity: 'left',
+      associativeWith: []
+    }
+  },
+  { //logical and
+    'OperatorNode:and': {
+      associativity: 'left',
+      associativeWith: []
+    }
+  },
+  { //bitwise or
+    'OperatorNode:bitOr': {
+      associativity: 'left',
+      associativeWith: []
+    }
+  },
+  { //bitwise xor
+    'OperatorNode:bitXor': {
+      associativity: 'left',
+      associativeWith: []
+    }
+  },
+  { //bitwise and
+    'OperatorNode:bitAnd': {
+      associativity: 'left',
+      associativeWith: []
+    }
+  },
+  { //relational operators
+    'OperatorNode:equal': {
+      associativity: 'left',
+      associativeWith: []
+    },
+    'OperatorNode:unequal': {
+      associativity: 'left',
+      associativeWith: []
+    },
+    'OperatorNode:smaller': {
+      associativity: 'left',
+      associativeWith: []
+    },
+    'OperatorNode:larger': {
+      associativity: 'left',
+      associativeWith: []
+    },
+    'OperatorNode:smallerEq': {
+      associativity: 'left',
+      associativeWith: []
+    },
+    'OperatorNode:largerEq': {
+      associativity: 'left',
+      associativeWith: []
+    }
+  },
+  { //bitshift operators
+    'OperatorNode:leftShift': {
+      associativity: 'left',
+      associativeWith: []
+    },
+    'OperatorNode:rightArithShift': {
+      associativity: 'left',
+      associativeWith: []
+    },
+    'OperatorNode:rightLogShift': {
+      associativity: 'left',
+      associativeWith: []
+    }
+  },
+  { //unit conversion
+    'OperatorNode:to': {
+      associativity: 'left',
+      associativeWith: []
+    }
+  },
+  { //range
+    'RangeNode': {}
+  },
+  { //addition, subtraction
+    'OperatorNode:add': {
+      associativity: 'left',
+      associativeWith: ['OperatorNode:add', 'OperatorNode:subtract']
+    },
+    'OperatorNode:subtract': {
+      associativity: 'left',
+      associativeWith: []
+    }
+  },
+  { //multiply, divide, modulus
+    'OperatorNode:multiply': {
+      associativity: 'left',
+      associativeWith: [
+        'OperatorNode:multiply',
+        'OperatorNode:divide',
+        'Operator:dotMultiply',
+        'Operator:dotDivide'
+      ]
+    },
+    'OperatorNode:divide': {
+      associativity: 'left',
+      associativeWith: [],
+      latexLeftParens: false,
+      latexRightParens: false,
+      latexParens: false
+      //fractions don't require parentheses because
+      //they're 2 dimensional, so parens aren't needed
+      //in LaTeX
+    },
+    'OperatorNode:dotMultiply': {
+      associativity: 'left',
+      associativeWith: [
+        'OperatorNode:multiply',
+        'OperatorNode:divide',
+        'OperatorNode:dotMultiply',
+        'OperatorNode:doDivide'
+      ]
+    },
+    'OperatorNode:dotDivide': {
+      associativity: 'left',
+      associativeWith: []
+    },
+    'OperatorNode:mod': {
+      associativity: 'left',
+      associativeWith: []
+    }
+  },
+  { //unary prefix operators
+    'OperatorNode:unaryPlus': {
+      associativity: 'right'
+    },
+    'OperatorNode:unaryMinus': {
+      associativity: 'right'
+    },
+    'OperatorNode:bitNot': {
+      associativity: 'right'
+    },
+    'OperatorNode:not': {
+      associativity: 'right'
+    }
+  },
+  { //exponentiation
+    'OperatorNode:pow': {
+      associativity: 'right',
+      associativeWith: [],
+      latexRightParens: false
+      //the exponent doesn't need parentheses in
+      //LaTeX because it's 2 dimensional
+      //(it's on top)
+    },
+    'OperatorNode:dotPow': {
+      associativity: 'right',
+      associativeWith: []
+    }
+  },
+  { //factorial
+    'OperatorNode:factorial': {
+      associativity: 'left'
+    }
+  },
+  { //matrix transpose
+    'OperatorNode:transpose': {
+      associativity: 'left'
+    }
+  }
+];
+
+/**
+ * Get the precedence of a Node.
+ * Higher number for higher precedence, starting with 0.
+ * Returns null if the precedence is undefined.
+ *
+ * @param {Node}
+ * @param {string} parenthesis
+ * @return {number|null}
+ */
+function getPrecedence (_node, parenthesis) {
+  var node = _node;
+  if (parenthesis !== 'keep') {
+    //ParenthesisNodes are only ignored when not in 'keep' mode
+    node = _node.getContent();
+  }
+  var identifier = node.getIdentifier();
+  for (var i = 0; i < properties.length; i++) {
+    if (identifier in properties[i]) {
+      return i;
+    }
+  }
+  return null;
+}
+
+/**
+ * Get the associativity of an operator (left or right).
+ * Returns a string containing 'left' or 'right' or null if
+ * the associativity is not defined.
+ *
+ * @param {Node}
+ * @param {string} parenthesis
+ * @return {string|null}
+ * @throws {Error}
+ */
+function getAssociativity (_node, parenthesis) {
+  var node = _node;
+  if (parenthesis !== 'keep') {
+    //ParenthesisNodes are only ignored when not in 'keep' mode
+    node = _node.getContent();
+  }
+  var identifier = node.getIdentifier();
+  var index = getPrecedence(node, parenthesis);
+  if (index === null) {
+    //node isn't in the list
+    return null;
+  }
+  var property = properties[index][identifier];
+
+  if (property.hasOwnProperty('associativity')) {
+    if (property.associativity === 'left') {
+      return 'left';
+    }
+    if (property.associativity === 'right') {
+      return 'right';
+    }
+    //associativity is invalid
+    throw Error('\'' + identifier + '\' has the invalid associativity \''
+                + property.associativity + '\'.');
+  }
+
+  //associativity is undefined
+  return null;
+}
+
+/**
+ * Check if an operator is associative with another operator.
+ * Returns either true or false or null if not defined.
+ *
+ * @param {Node} nodeA
+ * @param {Node} nodeB
+ * @param {string} parenthesis
+ * @return {bool|null}
+ */
+function isAssociativeWith (nodeA, nodeB, parenthesis) {
+  var a = nodeA;
+  var b = nodeB;
+  if (parenthesis !== 'keep') {
+    //ParenthesisNodes are only ignored when not in 'keep' mode
+    var a = nodeA.getContent();
+    var b = nodeB.getContent();
+  }
+  var identifierA = a.getIdentifier();
+  var identifierB = b.getIdentifier();
+  var index = getPrecedence(a, parenthesis);
+  if (index === null) {
+    //node isn't in the list
+    return null;
+  }
+  var property = properties[index][identifierA];
+
+  if (property.hasOwnProperty('associativeWith')
+      && (property.associativeWith instanceof Array)) {
+    for (var i = 0; i < property.associativeWith.length; i++) {
+      if (property.associativeWith[i] === identifierB) {
+        return true;
+      }
+    }
+    return false;
+  }
+
+  //associativeWith is not defined
+  return null;
+}
+
+module.exports.properties = properties;
+module.exports.getPrecedence = getPrecedence;
+module.exports.getAssociativity = getAssociativity;
+module.exports.isAssociativeWith = isAssociativeWith;
+
+
+/***/ }),
+/* 584 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+/**
+ * @typedef {{sign: '+' | '-' | '', coefficients: number[], exponent: number}} SplitValue
+ */
+
+/**
+ * Test whether value is a number
+ * @param {*} value
+ * @return {boolean} isNumber
+ */
+exports.isNumber = function(value) {
+  return typeof value === 'number';
+};
+
+/**
+ * Check if a number is integer
+ * @param {number | boolean} value
+ * @return {boolean} isInteger
+ */
+exports.isInteger = function(value) {
+  return isFinite(value)
+      ? (value == Math.round(value))
+      : false;
+  // Note: we use ==, not ===, as we can have Booleans as well
+};
+
+/**
+ * Calculate the sign of a number
+ * @param {number} x
+ * @returns {*}
+ */
+exports.sign = Math.sign || function(x) {
+  if (x > 0) {
+    return 1;
+  }
+  else if (x < 0) {
+    return -1;
+  }
+  else {
+    return 0;
+  }
+};
+
+/**
+ * Convert a number to a formatted string representation.
+ *
+ * Syntax:
+ *
+ *    format(value)
+ *    format(value, options)
+ *    format(value, precision)
+ *    format(value, fn)
+ *
+ * Where:
+ *
+ *    {number} value   The value to be formatted
+ *    {Object} options An object with formatting options. Available options:
+ *                     {string} notation
+ *                         Number notation. Choose from:
+ *                         'fixed'          Always use regular number notation.
+ *                                          For example '123.40' and '14000000'
+ *                         'exponential'    Always use exponential notation.
+ *                                          For example '1.234e+2' and '1.4e+7'
+ *                         'engineering'    Always use engineering notation.
+ *                                          For example '123.4e+0' and '14.0e+6'
+ *                         'auto' (default) Regular number notation for numbers
+ *                                          having an absolute value between
+ *                                          `lower` and `upper` bounds, and uses
+ *                                          exponential notation elsewhere.
+ *                                          Lower bound is included, upper bound
+ *                                          is excluded.
+ *                                          For example '123.4' and '1.4e7'.
+ *                     {number} precision   A number between 0 and 16 to round
+ *                                          the digits of the number.
+ *                                          In case of notations 'exponential' and
+ *                                          'auto', `precision` defines the total
+ *                                          number of significant digits returned
+ *                                          and is undefined by default.
+ *                                          In case of notation 'fixed',
+ *                                          `precision` defines the number of
+ *                                          significant digits after the decimal
+ *                                          point, and is 0 by default.
+ *                     {Object} exponential An object containing two parameters,
+ *                                          {number} lower and {number} upper,
+ *                                          used by notation 'auto' to determine
+ *                                          when to return exponential notation.
+ *                                          Default values are `lower=1e-3` and
+ *                                          `upper=1e5`.
+ *                                          Only applicable for notation `auto`.
+ *    {Function} fn    A custom formatting function. Can be used to override the
+ *                     built-in notations. Function `fn` is called with `value` as
+ *                     parameter and must return a string. Is useful for example to
+ *                     format all values inside a matrix in a particular way.
+ *
+ * Examples:
+ *
+ *    format(6.4);                                        // '6.4'
+ *    format(1240000);                                    // '1.24e6'
+ *    format(1/3);                                        // '0.3333333333333333'
+ *    format(1/3, 3);                                     // '0.333'
+ *    format(21385, 2);                                   // '21000'
+ *    format(12.071, {notation: 'fixed'});                // '12'
+ *    format(2.3,    {notation: 'fixed', precision: 2});  // '2.30'
+ *    format(52.8,   {notation: 'exponential'});          // '5.28e+1'
+ *    format(12345678, {notation: 'engineering'});        // '12.345678e+6'
+ *
+ * @param {number} value
+ * @param {Object | Function | number} [options]
+ * @return {string} str The formatted value
+ */
+exports.format = function(value, options) {
+  if (typeof options === 'function') {
+    // handle format(value, fn)
+    return options(value);
+  }
+
+  // handle special cases
+  if (value === Infinity) {
+    return 'Infinity';
+  }
+  else if (value === -Infinity) {
+    return '-Infinity';
+  }
+  else if (isNaN(value)) {
+    return 'NaN';
+  }
+
+  // default values for options
+  var notation = 'auto';
+  var precision = undefined;
+
+  if (options) {
+    // determine notation from options
+    if (options.notation) {
+      notation = options.notation;
+    }
+
+    // determine precision from options
+    if (exports.isNumber(options)) {
+      precision = options;
+    }
+    else if (options.precision) {
+      precision = options.precision;
+    }
+  }
+
+  // handle the various notations
+  switch (notation) {
+    case 'fixed':
+      return exports.toFixed(value, precision);
+
+    case 'exponential':
+      return exports.toExponential(value, precision);
+
+    case 'engineering':
+      return exports.toEngineering(value, precision);
+
+    case 'auto':
+      return exports
+          .toPrecision(value, precision, options && options.exponential)
+
+          // remove trailing zeros after the decimal point
+          .replace(/((\.\d*?)(0+))($|e)/, function () {
+            var digits = arguments[2];
+            var e = arguments[4];
+            return (digits !== '.') ? digits + e : e;
+          });
+
+    default:
+      throw new Error('Unknown notation "' + notation + '". ' +
+          'Choose "auto", "exponential", or "fixed".');
+  }
+};
+
+/**
+ * Split a number into sign, coefficients, and exponent
+ * @param {number | string} value
+ * @return {SplitValue}
+ *              Returns an object containing sign, coefficients, and exponent
+ */
+exports.splitNumber = function (value) {
+  // parse the input value
+  var match = String(value).toLowerCase().match(/^0*?(-?)(\d+\.?\d*)(e([+-]?\d+))?$/);
+  if (!match) {
+    throw new SyntaxError('Invalid number ' + value);
+  }
+
+  var sign         = match[1];
+  var digits       = match[2];
+  var exponent     = parseFloat(match[4] || '0');
+
+  var dot = digits.indexOf('.');
+  exponent += (dot !== -1) ? (dot - 1) : (digits.length - 1);
+
+  var coefficients = digits
+      .replace('.', '')  // remove the dot (must be removed before removing leading zeros)
+      .replace(/^0*/, function (zeros) {
+        // remove leading zeros, add their count to the exponent
+        exponent -= zeros.length;
+        return '';
+      })
+      .replace(/0*$/, '') // remove trailing zeros
+      .split('')
+      .map(function (d) {
+        return parseInt(d);
+      });
+
+  if (coefficients.length === 0) {
+    coefficients.push(0);
+    exponent++;
+  }
+
+  return {
+    sign: sign,
+    coefficients: coefficients,
+    exponent: exponent
+  };
+};
+
+
+/**
+ * Format a number in engineering notation. Like '1.23e+6', '2.3e+0', '3.500e-3'
+ * @param {number | string} value
+ * @param {number} [precision=0]        Optional number of decimals after the
+ *                                      decimal point. Zero by default.
+ */
+exports.toEngineering = function (value, precision) {
+  if (isNaN(value) || !isFinite(value)) {
+    return String(value);
+  }
+  
+  var rounded = exports.roundDigits(exports.splitNumber(value), precision);
+
+  var e = rounded.exponent;
+  var c = rounded.coefficients;
+
+  // find nearest lower multiple of 3 for exponent
+  var newExp = e % 3 === 0 ? e : (e < 0 ? (e - 3) - (e % 3) : e - (e % 3));
+
+  // concatenate coefficients with necessary zeros
+  var significandsDiff = e >= 0 ? e : Math.abs(newExp);
+
+  // add zeros if necessary (for ex: 1e+8)
+  if (c.length - 1 < significandsDiff) c = c.concat(zeros(significandsDiff - (c.length - 1)));
+
+  // find difference in exponents
+  var expDiff = Math.abs(e - newExp);
+
+  var decimalIdx = 1;
+
+  // push decimal index over by expDiff times
+  while (--expDiff >= 0) decimalIdx++;
+
+  // if all coefficient values are zero after the decimal point, don't add a decimal value.
+  // otherwise concat with the rest of the coefficients
+  var decimals = c.slice(decimalIdx).join('');
+  var decimalVal = decimals.match(/[1-9]/) ? ('.' + decimals) : '';
+
+  var str = c.slice(0, decimalIdx).join('') +
+      decimalVal +
+      'e' + (e >= 0 ? '+' : '') + newExp.toString();
+  return rounded.sign + str;
+};
+
+/**
+ * Format a number with fixed notation.
+ * @param {number | string} value
+ * @param {number} [precision=0]        Optional number of decimals after the
+ *                                      decimal point. Zero by default.
+ */
+exports.toFixed = function (value, precision) {
+  if (isNaN(value) || !isFinite(value)) {
+    return String(value);
+  }
+
+  var splitValue = exports.splitNumber(value)
+  var rounded = exports.roundDigits(splitValue, splitValue.exponent + 1 + (precision || 0));
+  var c = rounded.coefficients;
+  var p = rounded.exponent + 1; // exponent may have changed
+
+  // append zeros if needed
+  var pp = p + (precision || 0);
+  if (c.length < pp) {
+    c = c.concat(zeros(pp - c.length));
+  }
+
+  // prepend zeros if needed
+  if (p < 0) {
+    c = zeros(-p + 1).concat(c);
+    p = 1;
+  }
+
+  // insert a dot if needed
+  if (precision) {
+    c.splice(p, 0, (p === 0) ? '0.' : '.');
+  }
+
+  return rounded.sign + c.join('');
+};
+
+/**
+ * Format a number in exponential notation. Like '1.23e+5', '2.3e+0', '3.500e-3'
+ * @param {number | string} value
+ * @param {number} [precision]  Number of digits in formatted output.
+ *                              If not provided, the maximum available digits
+ *                              is used.
+ */
+exports.toExponential = function (value, precision) {
+  if (isNaN(value) || !isFinite(value)) {
+    return String(value);
+  }
+
+  // round if needed, else create a clone
+  var split = exports.splitNumber(value)
+  var rounded = precision ? exports.roundDigits(split, precision) : split;
+  var c = rounded.coefficients;
+  var e = rounded.exponent;
+
+  // append zeros if needed
+  if (c.length < precision) {
+    c = c.concat(zeros(precision - c.length));
+  }
+
+  // format as `C.CCCe+EEE` or `C.CCCe-EEE`
+  var first = c.shift();
+  return rounded.sign + first + (c.length > 0 ? ('.' + c.join('')) : '') +
+      'e' + (e >= 0 ? '+' : '') + e;
+}
+
+/**
+ * Format a number with a certain precision
+ * @param {number | string} value
+ * @param {number} [precision=undefined] Optional number of digits.
+ * @param {{lower: number | undefined, upper: number | undefined}} [options]
+ *                                       By default:
+ *                                         lower = 1e-3 (excl)
+ *                                         upper = 1e+5 (incl)
+ * @return {string}
+ */
+exports.toPrecision = function (value, precision, options) {
+  if (isNaN(value) || !isFinite(value)) {
+    return String(value);
+  }
+
+  // determine lower and upper bound for exponential notation.
+  var lower = (options && options.lower !== undefined) ? options.lower : 1e-3;
+  var upper = (options && options.upper !== undefined) ? options.upper : 1e+5;
+
+  var split = exports.splitNumber(value)
+  var abs = Math.abs(Math.pow(10, split.exponent));
+  if (abs < lower || abs >= upper) {
+    // exponential notation
+    return exports.toExponential(value, precision);
+  }
+  else {
+    var rounded = precision ? exports.roundDigits(split, precision) : split;
+    var c = rounded.coefficients;
+    var e = rounded.exponent;
+
+    // append trailing zeros
+    if (c.length < precision) {
+      c = c.concat(zeros(precision - c.length));
+    }
+
+    // append trailing zeros
+    // TODO: simplify the next statement
+    c = c.concat(zeros(e - c.length + 1 +
+        (c.length < precision ? precision - c.length : 0)));
+
+    // prepend zeros
+    c = zeros(-e).concat(c);
+
+    var dot = e > 0 ? e : 0;
+    if (dot < c.length - 1) {
+      c.splice(dot + 1, 0, '.');
+    }
+
+    return rounded.sign + c.join('');
+  }
+}
+
+/**
+ * Round the number of digits of a number *
+ * @param {SplitValue} split       A value split with .splitNumber(value)
+ * @param {number} precision  A positive integer
+ * @return {SplitValue}
+ *              Returns an object containing sign, coefficients, and exponent
+ *              with rounded digits
+ */
+exports.roundDigits = function (split, precision) {
+  // create a clone
+  var rounded = {
+    sign: split.sign,
+    coefficients: split.coefficients,
+    exponent: split.exponent
+  }
+  var c = rounded.coefficients;
+
+  // prepend zeros if needed
+  while (precision <= 0) {
+    c.unshift(0);
+    rounded.exponent++;
+    precision++;
+  }
+
+  if (c.length > precision) {
+    var removed = c.splice(precision, c.length - precision);
+
+    if (removed[0] >= 5) {
+      var i = precision - 1;
+      c[i]++;
+      while (c[i] === 10) {
+        c.pop();
+        if (i === 0) {
+          c.unshift(0);
+          rounded.exponent++;
+          i++;
+        }
+        i--;
+        c[i]++;
+      }
+    }
+  }
+
+  return rounded;
+};
+
+/**
+ * Create an array filled with zeros.
+ * @param {number} length
+ * @return {Array}
+ */
+function zeros(length) {
+  var arr = [];
+  for (var i = 0; i < length; i++) {
+    arr.push(0);
+  }
+  return arr;
+}
+
+/**
+ * Count the number of significant digits of a number.
+ *
+ * For example:
+ *   2.34 returns 3
+ *   0.0034 returns 2
+ *   120.5e+30 returns 4
+ *
+ * @param {number} value
+ * @return {number} digits   Number of significant digits
+ */
+exports.digits = function(value) {
+  return value
+      .toExponential()
+      .replace(/e.*$/, '')          // remove exponential notation
+      .replace( /^0\.?0*|\./, '')   // remove decimal point and leading zeros
+      .length
+};
+
+/**
+ * Minimum number added to one that makes the result different than one
+ */
+exports.DBL_EPSILON = Number.EPSILON || 2.2204460492503130808472633361816E-16;
+
+/**
+ * Compares two floating point numbers.
+ * @param {number} x          First value to compare
+ * @param {number} y          Second value to compare
+ * @param {number} [epsilon]  The maximum relative difference between x and y
+ *                            If epsilon is undefined or null, the function will
+ *                            test whether x and y are exactly equal.
+ * @return {boolean} whether the two numbers are nearly equal
+*/
+exports.nearlyEqual = function(x, y, epsilon) {
+  // if epsilon is null or undefined, test whether x and y are exactly equal
+  if (epsilon == null) {
+    return x == y;
+  }
+
+  // use "==" operator, handles infinities
+  if (x == y) {
+    return true;
+  }
+
+  // NaN
+  if (isNaN(x) || isNaN(y)) {
+    return false;
+  }
+
+  // at this point x and y should be finite
+  if(isFinite(x) && isFinite(y)) {
+    // check numbers are very close, needed when comparing numbers near zero
+    var diff = Math.abs(x - y);
+    if (diff < exports.DBL_EPSILON) {
+      return true;
+    }
+    else {
+      // use relative error
+      return diff <= Math.max(Math.abs(x), Math.abs(y)) * epsilon;
+    }
+  }
+
+  // Infinite and Number or negative Infinite and positive Infinite cases
+  return false;
+};
+
+
+/***/ }),
+/* 585 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+var getType = __webpack_require__(593).type;
+var stringify = __webpack_require__(62).stringify;
+var escape = __webpack_require__(62).escape;
+var escapeLatex = __webpack_require__(159).escape;
+
+function factory (type, config, load, typed) {
+  var register = load(__webpack_require__(31)).register;
+  var compile = load(__webpack_require__(31)).compile;
+  var Node = load(__webpack_require__(63));
+
+  /**
+   * A ConstantNode holds a constant value like a number or string. A ConstantNode
+   * stores a stringified version of the value and uses this to compile to
+   * JavaScript.
+   *
+   * In case of a stringified number as input, this may be compiled to a BigNumber
+   * when the math instance is configured for BigNumbers.
+   *
+   * Usage:
+   *
+   *     // stringified values with type
+   *     new ConstantNode('2.3', 'number');
+   *     new ConstantNode('true', 'boolean');
+   *     new ConstantNode('hello', 'string');
+   *
+   *     // non-stringified values, type will be automatically detected
+   *     new ConstantNode(2.3);
+   *     new ConstantNode('hello');
+   *
+   * @param {string | number | boolean | null | undefined} value
+   *                            When valueType is provided, value must contain
+   *                            an uninterpreted string representing the value.
+   *                            When valueType is undefined, value can be a
+   *                            number, string, boolean, null, or undefined, and
+   *                            the type will be determined automatically.
+   * @param {string} [valueType]  The type of value. Choose from 'number', 'string',
+   *                              'boolean', 'undefined', 'null'
+   * @constructor ConstantNode
+   * @extends {Node}
+   */
+  function ConstantNode(value, valueType) {
+    if (!(this instanceof ConstantNode)) {
+      throw new SyntaxError('Constructor must be called with the new operator');
+    }
+
+    if (valueType) {
+      if (typeof valueType !== 'string') {
+        throw new TypeError('String expected for parameter "valueType"');
+      }
+      if (typeof value !== 'string') {
+        throw new TypeError('String expected for parameter "value"');
+      }
+
+      this.value = value;
+      this.valueType = valueType;
+    }
+    else {
+      // stringify the value and determine the type
+      this.value = value + '';
+      this.valueType = getType(value);
+    }
+
+    if (!SUPPORTED_TYPES[this.valueType]) {
+      throw new TypeError('Unsupported type of value "' + this.valueType + '"');
+    }
+  }
+
+  var SUPPORTED_TYPES = {
+    'number': true,
+    'string': true,
+    'boolean': true,
+    'undefined': true,
+    'null': true
+  };
+
+  ConstantNode.prototype = new Node();
+
+  ConstantNode.prototype.type = 'ConstantNode';
+
+  ConstantNode.prototype.isConstantNode = true;
+
+  /**
+   * Compile the node to javascript code
+   * @param {ConstantNode} node The node to be compiled
+   * @param {Object} defs     Object which can be used to define functions
+   *                          or constants globally available for the compiled
+   *                          expression
+   * @param {Object} args     Object with local function arguments, the key is
+   *                          the name of the argument, and the value is `true`.
+   *                          The object may not be mutated, but must be
+   *                          extended instead.
+   * @return {string} js
+   * @private
+   */
+  function compileConstantNode(node, defs, args) {
+    if (!(node instanceof ConstantNode)) {
+      throw new TypeError('No valid ConstantNode')
+    }
+
+    switch (node.valueType) {
+      case 'number':
+        if (config.number === 'BigNumber') {
+          return 'math.bignumber(' + stringify(node.value) + ')';
+        }
+        else if (config.number === 'Fraction') {
+          return 'math.fraction(' + stringify(node.value) + ')';
+        }
+        else {
+          // remove leading zeros like '003.2' which are not allowed by JavaScript
+          validateNumericValue(node.value);
+          return node.value.replace(/^(0*)[0-9]/, function (match, zeros) {
+            return match.substring(zeros.length);
+          });
+        }
+
+      case 'string':
+        // Important to escape unescaped double quotes in the string
+        return stringify(node.value);
+
+      case 'boolean':
+        // prevent invalid values
+        return String(node.value) === 'true' ? 'true' : 'false';
+
+      case 'undefined':
+        return 'undefined';
+
+      case 'null':
+        return 'null';
+
+      default:
+        // TODO: move this error to the constructor?
+        throw new TypeError('Unsupported type of constant "' + node.valueType + '"');
+    }
+  }
+
+  /**
+   * Test whether value is a string containing a numeric value
+   * @param {String} value
+   * @return {boolean} Returns true when ok
+   */
+  function validateNumericValue (value) {
+    // The following regexp is relatively permissive
+    if (typeof value !== 'string' ||
+        !/^[\-+]?((\d+\.?\d*)|(\d*\.?\d+))([eE][+\-]?\d+)?$/.test(value)) {
+      throw new Error('Invalid numeric value "' + value + '"');
+    }
+  }
+
+  // register the compile function
+  register(ConstantNode.prototype.type, compileConstantNode);
+
+  /**
+   * Execute a callback for each of the child nodes of this node
+   * @param {function(child: Node, path: string, parent: Node)} callback
+   */
+  ConstantNode.prototype.forEach = function (callback) {
+    // nothing to do, we don't have childs
+  };
+
+
+  /**
+   * Create a new ConstantNode having it's childs be the results of calling
+   * the provided callback function for each of the childs of the original node.
+   * @param {function(child: Node, path: string, parent: Node) : Node} callback
+   * @returns {ConstantNode} Returns a clone of the node
+   */
+  ConstantNode.prototype.map = function (callback) {
+    return this.clone();
+  };
+
+  /**
+   * Create a clone of this node, a shallow copy
+   * @return {ConstantNode}
+   */
+  ConstantNode.prototype.clone = function () {
+    return new ConstantNode(this.value, this.valueType);
+  };
+
+  /**
+   * Get string representation
+   * @param {Object} options
+   * @return {string} str
+   */
+  ConstantNode.prototype._toString = function (options) {
+    switch (this.valueType) {
+      case 'string':
+        return stringify(this.value);
+
+      default:
+        return this.value;
+    }
+  };
+
+  /**
+   * Get HTML representation
+   * @param {Object} options
+   * @return {string} str
+   */
+  ConstantNode.prototype.toHTML = function (options) {
+	var value = escape(this.value);
+    switch (this.valueType) {
+	  case 'number':
+	    return '<span class="math-number">' + value + '</span>';
+      case 'string':
+	    return '<span class="math-string">' + value + '</span>';
+      case 'boolean':
+	    return '<span class="math-boolean">' + value + '</span>';
+      case 'null':
+	    return '<span class="math-null-symbol">' + value + '</span>';
+      case 'undefined':
+	    return '<span class="math-undefined">' + value + '</span>';
+
+      default:
+        return '<span class="math-symbol">' + value + '</span>';
+    }
+  };
+
+  /**
+   * Get LaTeX representation
+   * @param {Object} options
+   * @return {string} str
+   */
+  ConstantNode.prototype._toTex = function (options) {
+    var value = this.value,
+        index;
+    switch (this.valueType) {
+      case 'string':
+        return '\\mathtt{' + escapeLatex(stringify(value)) + '}';
+
+      case 'number':
+        index = value.toLowerCase().indexOf('e');
+        if (index !== -1) {
+          return value.substring(0, index) + '\\cdot10^{' +
+              value.substring(index + 1) + '}';
+        }
+        return value;
+
+      default:
+        return value;
+    }
+  };
+
+  return ConstantNode;
+}
+
+exports.name = 'ConstantNode';
+exports.path = 'expression.node';
+exports.factory = factory;
+
+
+/***/ }),
+/* 586 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+var latex = __webpack_require__(159);
+var stringify = __webpack_require__(62).stringify;
+var escape = __webpack_require__(62).escape;
+var extend = __webpack_require__(102).extend;
+var hasOwnProperty = __webpack_require__(102).hasOwnProperty;
+var map = __webpack_require__(81).map;
+var join = __webpack_require__(81).join;
+var validateSafeMethod = __webpack_require__(82).validateSafeMethod;
+var getUniqueArgumentName = __webpack_require__(601);
+
+function factory (type, config, load, typed, math) {
+  var register = load(__webpack_require__(31)).register;
+  var compile = load(__webpack_require__(31)).compile;
+  var Node = load(__webpack_require__(63));
+  var SymbolNode = load(__webpack_require__(161));
+
+  /**
+   * @constructor FunctionNode
+   * @extends {./Node}
+   * invoke a list with arguments on a node
+   * @param {./Node | string} fn Node resolving with a function on which to invoke
+   *                             the arguments, typically a SymboNode or AccessorNode
+   * @param {./Node[]} args
+   */
+  function FunctionNode(fn, args) {
+    if (!(this instanceof FunctionNode)) {
+      throw new SyntaxError('Constructor must be called with the new operator');
+    }
+
+    if (typeof fn === 'string') {
+      fn = new SymbolNode(fn);
+    }
+
+    // validate input
+    if (!type.isNode(fn)) throw new TypeError('Node expected as parameter "fn"');
+    if (!Array.isArray(args) || !args.every(type.isNode)) {
+      throw new TypeError('Array containing Nodes expected for parameter "args"');
+    }
+
+    this.fn = fn;
+    this.args = args || [];
+
+    // readonly property name
+    Object.defineProperty(this, 'name', {
+      get: function () {
+        return this.fn.name || '';
+      }.bind(this),
+      set: function () {
+        throw new Error('Cannot assign a new name, name is read-only');
+      }
+    });
+
+    // TODO: deprecated since v3, remove some day
+    var deprecated = function () {
+      throw new Error('Property `FunctionNode.object` is deprecated, use `FunctionNode.fn` instead');
+    };
+    Object.defineProperty(this, 'object', { get: deprecated, set: deprecated });
+  }
+
+  FunctionNode.prototype = new Node();
+
+  FunctionNode.prototype.type = 'FunctionNode';
+
+  FunctionNode.prototype.isFunctionNode = true;
+
+  /**
+   * Compile the node to javascript code
+   * @param {FunctionNode} node The node to be compiled
+   * @param {Object} defs     Object which can be used to define functions
+   *                          or constants globally available for the compiled
+   *                          expression
+   * @param {Object} args     Object with local function arguments, the key is
+   *                          the name of the argument, and the value is `true`.
+   *                          The object may not be mutated, but must be
+   *                          extended instead.
+   * @return {string} js
+   * @private
+   */
+  function compileFunctionNode(node, defs, args) {
+    if (!(node instanceof FunctionNode)) {
+      throw new TypeError('No valid FunctionNode')
+    }
+
+    // compile fn and arguments
+    var jsFn = compile(node.fn, defs, args);
+    var jsArgs = map(node.args, function (arg) {
+      return compile(arg, defs, args);
+    });
+    var jsScope = compileScope(defs, args);
+    var argsName;
+
+    if (type.isSymbolNode(node.fn)) {
+      // we can statically determine whether the function has an rawArgs property
+      var name = node.fn.name;
+      var fn = hasOwnProperty(defs.math, name) ? defs.math[name] : undefined;
+      var isRaw = (typeof fn === 'function') && (fn.rawArgs == true);
+
+      if (isRaw) {
+        // pass unevaluated parameters (nodes) to the function
+        argsName = getUniqueArgumentName(defs);
+        defs[argsName] = node.args;
+
+        return jsFn + '(' + argsName + ', math, ' + jsScope + ')'; // "raw" evaluation
+      }
+      else {
+        return jsFn + '(' + join(jsArgs, ', ') + ')';              // "regular" evaluation
+      }
+    }
+    else if (type.isAccessorNode(node.fn) &&
+        type.isIndexNode(node.fn.index) && node.fn.index.isObjectProperty()) {
+      // execute the function with the right context: the object of the AccessorNode
+      argsName = getUniqueArgumentName(defs);
+      defs[argsName] = node.args;
+      defs.validateSafeMethod = validateSafeMethod
+
+      var jsObject = compile(node.fn.object, defs, args);
+      var jsProp = stringify(node.fn.index.getObjectProperty());
+
+      return '(function () {' +
+          'var object = ' + jsObject + ';' +
+          'validateSafeMethod(object, ' + jsProp + ');' +
+          'return (object[' + jsProp + '] && object[' + jsProp + '].rawArgs) ' +
+          ' ? object[' + jsProp + '](' + argsName + ', math, ' + jsScope + ')' + // "raw" evaluation
+          ' : object[' + jsProp + '](' + join(jsArgs, ', ') + ')' +              // "regular" evaluation
+          '})()';
+    }
+    else { // node.fn.isAccessorNode && !node.fn.index.isObjectProperty()
+      // we have to dynamically determine whether the function has a rawArgs property
+      argsName = getUniqueArgumentName(defs);
+      defs[argsName] = node.args;
+
+      return '(function () {' +
+          'var fn = ' + jsFn + ';' +
+          'return (fn && fn.rawArgs) ' +
+          ' ? fn(' + argsName + ', math, ' + jsScope + ')' +  // "raw" evaluation
+          ' : fn(' + join(jsArgs, ', ') + ')' +               // "regular" evaluation
+          '})()';
+    }
+  }
+
+  // register the compile function
+  register(FunctionNode.prototype.type, compileFunctionNode);
+
+  /**
+   * Merge function arguments into scope before passing to the actual function.
+   * This is needed when the function has `rawArgs=true`. In that case we have
+   * to pass the `scope` as third argument, including any variables of
+   * enclosing functions.
+   * @param {Object} defs     Object which can be used to define functions
+   *                          or constants globally available for the compiled
+   *                          expression
+   * @param {Object} args     Object with local function arguments, the key is
+   *                          the name of the argument, and the value is `true`.
+   *                          The object may not be mutated, but must be
+   *                          extended instead.
+   * @return {string} js
+   * @private
+   */
+  function compileScope (defs, args) {
+    var names = Object.keys(args)
+        // .map(function (arg) {
+        //   return args[arg];
+        // });
+    if (names.length === 0) {
+      return 'scope';
+    }
+    else {
+      // merge arguments into scope
+      defs.extend = extend;
+
+      var jsArgs = map(names, function (name) {
+        return stringify(name) + ': ' + args[name];
+      });
+
+      return 'extend(extend({}, scope), {' + join(jsArgs, ', ') + '})';
+    }
+  }
+
+  /**
+   * Execute a callback for each of the child nodes of this node
+   * @param {function(child: Node, path: string, parent: Node)} callback
+   */
+  FunctionNode.prototype.forEach = function (callback) {
+    for (var i = 0; i < this.args.length; i++) {
+      callback(this.args[i], 'args[' + i + ']', this);
+    }
+  };
+
+  /**
+   * Create a new FunctionNode having it's childs be the results of calling
+   * the provided callback function for each of the childs of the original node.
+   * @param {function(child: Node, path: string, parent: Node): Node} callback
+   * @returns {FunctionNode} Returns a transformed copy of the node
+   */
+  FunctionNode.prototype.map = function (callback) {
+    var fn = this.fn.map(callback);
+    var args = [];
+    for (var i = 0; i < this.args.length; i++) {
+      args[i] = this._ifNode(callback(this.args[i], 'args[' + i + ']', this));
+    }
+    return new FunctionNode(fn, args);
+  };
+
+  /**
+   * Create a clone of this node, a shallow copy
+   * @return {FunctionNode}
+   */
+  FunctionNode.prototype.clone = function () {
+    return new FunctionNode(this.fn, this.args.slice(0));
+  };
+
+  //backup Node's toString function
+  //@private
+  var nodeToString = FunctionNode.prototype.toString;
+
+  /**
+   * Get string representation. (wrapper function)
+   * This overrides parts of Node's toString function.
+   * If callback is an object containing callbacks, it
+   * calls the correct callback for the current node,
+   * otherwise it falls back to calling Node's toString
+   * function.
+   *
+   * @param {Object} options
+   * @return {string} str
+   * @override
+   */
+  FunctionNode.prototype.toString = function (options) {
+    var customString;
+    var name = this.fn.toString(options);
+    if (options && (typeof options.handler === 'object') && hasOwnProperty(options.handler, name)) {
+      //callback is a map of callback functions
+      customString = options.handler[name](this, options);
+    }
+
+    if (typeof customString !== 'undefined') {
+      return customString;
+    }
+
+    //fall back to Node's toString
+    return nodeToString.call(this, options);
+  };
+
+  /**
+   * Get string representation
+   * @param {Object} options
+   * @return {string} str
+   */
+  FunctionNode.prototype._toString = function (options) {
+    var args = this.args.map(function (arg) {
+      return arg.toString(options);
+    });
+
+    var fn = type.isFunctionAssignmentNode(this.fn)
+        ? ('(' + this.fn.toString(options) + ')')
+        : this.fn.toString(options)
+
+    // format the arguments like "add(2, 4.2)"
+    return fn + '(' + args.join(', ') + ')';
+  };
+  
+  /**
+   * Get HTML representation
+   * @param {Object} options
+   * @return {string} str
+   */
+  FunctionNode.prototype.toHTML = function (options) {
+    var args = this.args.map(function (arg) {
+      return arg.toHTML(options);
+    });
+
+    // format the arguments like "add(2, 4.2)"
+    return '<span class="math-function">' + escape(this.fn) + '</span><span class="math-paranthesis math-round-parenthesis">(</span>' + args.join('<span class="math-separator">,</span>') + '<span class="math-paranthesis math-round-parenthesis">)</span>';
+  };
+
+  /*
+   * Expand a LaTeX template
+   *
+   * @param {string} template
+   * @param {Node} node
+   * @param {Object} options
+   * @private
+   **/
+  function expandTemplate(template, node, options) {
+    var latex = '';
+
+    // Match everything of the form ${identifier} or ${identifier[2]} or $$
+    // while submatching identifier and 2 (in the second case)
+    var regex = new RegExp('\\$(?:\\{([a-z_][a-z_0-9]*)(?:\\[([0-9]+)\\])?\\}|\\$)', 'ig');
+
+    var inputPos = 0;   //position in the input string
+    var match;
+    while ((match = regex.exec(template)) !== null) {   //go through all matches
+      // add everything in front of the match to the LaTeX string
+      latex += template.substring(inputPos, match.index);
+      inputPos = match.index;
+
+      if (match[0] === '$$') { // escaped dollar sign
+        latex += '$';
+        inputPos++;
+      }
+      else { // template parameter
+        inputPos += match[0].length;
+        var property = node[match[1]];
+        if (!property) {
+          throw new ReferenceError('Template: Property ' + match[1] + ' does not exist.');
+        }
+        if (match[2] === undefined) { //no square brackets
+          switch (typeof property) {
+            case 'string':
+              latex += property;
+              break;
+            case 'object':
+              if (type.isNode(property)) {
+                latex += property.toTex(options);
+              }
+              else if (Array.isArray(property)) {
+                //make array of Nodes into comma separated list
+                latex += property.map(function (arg, index) {
+                  if (type.isNode(arg)) {
+                    return arg.toTex(options);
+                  }
+                  throw new TypeError('Template: ' + match[1] + '[' + index + '] is not a Node.');
+                }).join(',');
+              }
+              else {
+                throw new TypeError('Template: ' + match[1] + ' has to be a Node, String or array of Nodes');
+              }
+              break;
+            default:
+              throw new TypeError('Template: ' + match[1] + ' has to be a Node, String or array of Nodes');
+          }
+        }
+        else { //with square brackets
+          if (type.isNode(property[match[2]] && property[match[2]])) {
+            latex += property[match[2]].toTex(options);
+          }
+          else {
+            throw new TypeError('Template: ' + match[1] + '[' + match[2] + '] is not a Node.');
+          }
+        }
+      }
+    }
+    latex += template.slice(inputPos);  //append rest of the template
+
+    return latex;
+  }
+
+  //backup Node's toTex function
+  //@private
+  var nodeToTex = FunctionNode.prototype.toTex;
+
+  /**
+   * Get LaTeX representation. (wrapper function)
+   * This overrides parts of Node's toTex function.
+   * If callback is an object containing callbacks, it
+   * calls the correct callback for the current node,
+   * otherwise it falls back to calling Node's toTex
+   * function.
+   *
+   * @param {Object} options
+   * @return {string}
+   */
+  FunctionNode.prototype.toTex = function (options) {
+    var customTex;
+    if (options && (typeof options.handler === 'object') && hasOwnProperty(options.handler, this.name)) {
+      //callback is a map of callback functions
+      customTex = options.handler[this.name](this, options);
+    }
+
+    if (typeof customTex !== 'undefined') {
+      return customTex;
+    }
+
+    //fall back to Node's toTex
+    return nodeToTex.call(this, options);
+  };
+
+  /**
+   * Get LaTeX representation
+   * @param {Object} options
+   * @return {string} str
+   */
+  FunctionNode.prototype._toTex = function (options) {
+    var args = this.args.map(function (arg) { //get LaTeX of the arguments
+      return arg.toTex(options);
+    });
+
+    var latexConverter;
+
+    if (math[this.name] && ((typeof math[this.name].toTex === 'function') || (typeof math[this.name].toTex === 'object') || (typeof math[this.name].toTex === 'string'))) {
+      //.toTex is a callback function
+      latexConverter = math[this.name].toTex;
+    }
+
+    var customToTex;
+    switch (typeof latexConverter) {
+      case 'function': //a callback function
+        customToTex = latexConverter(this, options);
+        break;
+      case 'string': //a template string
+        customToTex = expandTemplate(latexConverter, this, options);
+        break;
+      case 'object': //an object with different "converters" for different numbers of arguments
+        switch (typeof latexConverter[args.length]) {
+          case 'function':
+            customToTex = latexConverter[args.length](this, options);
+            break;
+          case 'string':
+            customToTex = expandTemplate(latexConverter[args.length], this, options);
+            break;
+        }
+    }
+
+    if (typeof customToTex !== 'undefined') {
+      return customToTex;
+    }
+
+    return expandTemplate(latex.defaultTemplate, this, options);
+  };
+
+  /**
+   * Get identifier.
+   * @return {string}
+   */
+  FunctionNode.prototype.getIdentifier = function () {
+    return this.type + ':' + this.name;
+  };
+
+  return FunctionNode;
+}
+
+exports.name = 'FunctionNode';
+exports.path = 'expression.node';
+exports.math = true; // request access to the math namespace as 5th argument of the factory function
+exports.factory = factory;
+
 
 /***/ }),
 /* 587 */
@@ -65368,21 +65368,21 @@ exports.factory = factory;
 "use strict";
 
 
-var latex = __webpack_require__(103);
-var map = __webpack_require__(57).map;
-var join = __webpack_require__(57).join;
-var stringify = __webpack_require__(38).stringify;
-var escape = __webpack_require__(38).escape;
-var isSafeMethod = __webpack_require__(58).isSafeMethod;
-var operators = __webpack_require__(161);
+var latex = __webpack_require__(159);
+var map = __webpack_require__(81).map;
+var join = __webpack_require__(81).join;
+var stringify = __webpack_require__(62).stringify;
+var escape = __webpack_require__(62).escape;
+var isSafeMethod = __webpack_require__(82).isSafeMethod;
+var operators = __webpack_require__(583);
 
 function factory (type, config, load, typed) {
-  var register = load(__webpack_require__(21)).register;
-  var compile = load(__webpack_require__(21)).compile;
-  var Node         = load(__webpack_require__(49));
-  var ConstantNode = load(__webpack_require__(164));
-  var SymbolNode   = load(__webpack_require__(104));
-  var FunctionNode = load(__webpack_require__(165));
+  var register = load(__webpack_require__(31)).register;
+  var compile = load(__webpack_require__(31)).compile;
+  var Node         = load(__webpack_require__(63));
+  var ConstantNode = load(__webpack_require__(585));
+  var SymbolNode   = load(__webpack_require__(161));
+  var FunctionNode = load(__webpack_require__(586));
 
   /**
    * @constructor OperatorNode
@@ -65963,15 +65963,15 @@ function factory (type, config, load, typed) {
   var AssignmentNode          = load(__webpack_require__(632));
   var BlockNode               = load(__webpack_require__(634));
   var ConditionalNode         = load(__webpack_require__(636));
-  var ConstantNode            = load(__webpack_require__(164));
+  var ConstantNode            = load(__webpack_require__(585));
   var FunctionAssignmentNode  = load(__webpack_require__(637));
   var IndexNode               = load(__webpack_require__(592));
   var ObjectNode              = load(__webpack_require__(638));
   var OperatorNode            = load(__webpack_require__(589));
   var ParenthesisNode         = load(__webpack_require__(602));
-  var FunctionNode            = load(__webpack_require__(165));
+  var FunctionNode            = load(__webpack_require__(586));
   var RangeNode               = load(__webpack_require__(596));
-  var SymbolNode              = load(__webpack_require__(104));
+  var SymbolNode              = load(__webpack_require__(161));
 
 
   /**
@@ -67528,16 +67528,16 @@ module.exports = function isBigNumber(x) {
 "use strict";
 
 
-var map = __webpack_require__(57).map;
-var join = __webpack_require__(57).join;
-var escape = __webpack_require__(38).escape;
+var map = __webpack_require__(81).map;
+var join = __webpack_require__(81).join;
+var escape = __webpack_require__(62).escape;
 
 function factory (type, config, load, typed) {
-  var register = load(__webpack_require__(21)).register;
-  var compile = load(__webpack_require__(21)).compile;
-  var Node = load(__webpack_require__(49));
+  var register = load(__webpack_require__(31)).register;
+  var compile = load(__webpack_require__(31)).compile;
+  var Node = load(__webpack_require__(63));
   var RangeNode = load(__webpack_require__(596));
-  var SymbolNode = load(__webpack_require__(104));
+  var SymbolNode = load(__webpack_require__(161));
 
   var Range = load(__webpack_require__(631));
 
@@ -67941,12 +67941,12 @@ module.exports = IndexError;
 "use strict";
 
 
-var operators = __webpack_require__(161);
+var operators = __webpack_require__(583);
 
 function factory (type, config, load, typed) {
-  var register = load(__webpack_require__(21)).register;
-  var compile = load(__webpack_require__(21)).compile;
-  var Node = load(__webpack_require__(49));
+  var register = load(__webpack_require__(31)).register;
+  var compile = load(__webpack_require__(31)).compile;
+  var Node = load(__webpack_require__(63));
 
   /**
    * @constructor RangeNode
@@ -68206,7 +68206,7 @@ exports.factory = factory;
 
 
 var errorTransform = __webpack_require__(598).transform;
-var getSafeProperty = __webpack_require__(58).getSafeProperty;
+var getSafeProperty = __webpack_require__(82).getSafeProperty;
 
 function factory (type, config, load, typed) {
   var subset = load(__webpack_require__(599));
@@ -68284,10 +68284,10 @@ exports.transform = function (err) {
 "use strict";
 
 
-var clone = __webpack_require__(66).clone;
-var validateIndex = __webpack_require__(57).validateIndex;
-var getSafeProperty = __webpack_require__(58).getSafeProperty;
-var setSafeProperty = __webpack_require__(58).setSafeProperty;
+var clone = __webpack_require__(102).clone;
+var validateIndex = __webpack_require__(81).validateIndex;
+var getSafeProperty = __webpack_require__(82).getSafeProperty;
+var setSafeProperty = __webpack_require__(82).setSafeProperty;
 var DimensionError = __webpack_require__(594);
 
 function factory (type, config, load, typed) {
@@ -68524,13 +68524,13 @@ exports.factory = factory;
 "use strict";
 
 
-var map = __webpack_require__(57).map;
-var join = __webpack_require__(57).join;
+var map = __webpack_require__(81).map;
+var join = __webpack_require__(81).join;
 
 function factory (type, config, load, typed) {
-  var register = load(__webpack_require__(21)).register;
-  var compile = load(__webpack_require__(21)).compile;
-  var Node = load(__webpack_require__(49));
+  var register = load(__webpack_require__(31)).register;
+  var compile = load(__webpack_require__(31)).compile;
+  var Node = load(__webpack_require__(63));
 
   /**
    * @constructor ArrayNode
@@ -68711,9 +68711,9 @@ module.exports = getUniqueArgumentName;
 
 
 function factory (type, config, load, typed) {
-  var register = load(__webpack_require__(21)).register;
-  var compile = load(__webpack_require__(21)).compile;
-  var Node = load(__webpack_require__(49));
+  var register = load(__webpack_require__(31)).register;
+  var compile = load(__webpack_require__(31)).compile;
+  var Node = load(__webpack_require__(63));
 
   /**
    * @constructor ParenthesisNode
@@ -68855,7 +68855,7 @@ exports.factory = factory;
 "use strict";
 
 
-var digits = __webpack_require__(163).digits;
+var digits = __webpack_require__(584).digits;
 // TODO this could be improved by simplifying seperated constants under associative and commutative operators
 function factory(type, config, load, typed, math) {
   var util = load(__webpack_require__(604));
@@ -69562,7 +69562,7 @@ Object.defineProperty(exports, "__esModule", {
 
 var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
 
-var _index = __webpack_require__(166);
+var _index = __webpack_require__(162);
 
 var _index2 = _interopRequireDefault(_index);
 
@@ -69669,10 +69669,10 @@ function factory(type, config, load, typed) {
   var parse = load(__webpack_require__(590));
   var simplify = load(__webpack_require__(639));
   var simplifyConstant = load(__webpack_require__(603));
-  var ConstantNode = load(__webpack_require__(164));
-  var FunctionNode = load(__webpack_require__(165));
+  var ConstantNode = load(__webpack_require__(585));
+  var FunctionNode = load(__webpack_require__(586));
   var OperatorNode = load(__webpack_require__(589));
-  var SymbolNode = load(__webpack_require__(104));
+  var SymbolNode = load(__webpack_require__(161));
 
   /**
    * Finds the integral of an expression with respect to the given variable.
@@ -70573,13 +70573,13 @@ module.exports = function deepMap(array, callback, skipZeros) {
 "use strict";
 
 
-var stringify = __webpack_require__(38).stringify;
-var getSafeProperty = __webpack_require__(58).getSafeProperty;
+var stringify = __webpack_require__(62).stringify;
+var getSafeProperty = __webpack_require__(82).getSafeProperty;
 
 function factory (type, config, load, typed) {
-  var register = load(__webpack_require__(21)).register;
-  var compile = load(__webpack_require__(21)).compile;
-  var Node = load(__webpack_require__(49));
+  var register = load(__webpack_require__(31)).register;
+  var compile = load(__webpack_require__(31)).compile;
+  var Node = load(__webpack_require__(63));
   var IndexNode = load(__webpack_require__(592));
   var access = load(__webpack_require__(597));
 
@@ -70967,7 +70967,7 @@ exports.toFixed = function (value, precision) {
 "use strict";
 
 
-var number = __webpack_require__(163);
+var number = __webpack_require__(584);
 
 function factory (type, config, load, typed) {
   /**
@@ -71290,22 +71290,22 @@ exports.factory = factory;
 "use strict";
 
 
-var latex = __webpack_require__(103);
-var stringify = __webpack_require__(38).stringify;
-var getSafeProperty = __webpack_require__(58).getSafeProperty;
-var setSafeProperty = __webpack_require__(58).setSafeProperty;
+var latex = __webpack_require__(159);
+var stringify = __webpack_require__(62).stringify;
+var getSafeProperty = __webpack_require__(82).getSafeProperty;
+var setSafeProperty = __webpack_require__(82).setSafeProperty;
 
 function factory (type, config, load, typed) {
-  var register = load(__webpack_require__(21)).register;
-  var compile = load(__webpack_require__(21)).compile;
-  var Node = load(__webpack_require__(49));
+  var register = load(__webpack_require__(31)).register;
+  var compile = load(__webpack_require__(31)).compile;
+  var Node = load(__webpack_require__(63));
   var ArrayNode = load(__webpack_require__(600));
   var matrix = load(__webpack_require__(588));
   var assign = load(__webpack_require__(633));
   var access = load(__webpack_require__(597));
 
   var keywords = __webpack_require__(587);
-  var operators = __webpack_require__(161);
+  var operators = __webpack_require__(583);
 
   /**
    * @constructor AssignmentNode
@@ -71593,7 +71593,7 @@ exports.factory = factory;
 
 
 var errorTransform = __webpack_require__(598).transform;
-var setSafeProperty = __webpack_require__(58).setSafeProperty;
+var setSafeProperty = __webpack_require__(82).setSafeProperty;
 
 function factory (type, config, load, typed) {
   var subset = load(__webpack_require__(599));
@@ -71652,13 +71652,13 @@ exports.factory = factory;
 "use strict";
 
 
-var map = __webpack_require__(57).map;
-var join = __webpack_require__(57).join;
+var map = __webpack_require__(81).map;
+var join = __webpack_require__(81).join;
 
 function factory (type, config, load, typed) {
-  var register = load(__webpack_require__(21)).register;
-  var compile = load(__webpack_require__(21)).compile;
-  var Node = load(__webpack_require__(49));
+  var register = load(__webpack_require__(31)).register;
+  var compile = load(__webpack_require__(31)).compile;
+  var Node = load(__webpack_require__(63));
   var ResultSet = load(__webpack_require__(635));
 
   /**
@@ -71908,13 +71908,13 @@ exports.factory = factory;
 "use strict";
 
 
-var latex = __webpack_require__(103);
-var operators = __webpack_require__(161);
+var latex = __webpack_require__(159);
+var operators = __webpack_require__(583);
 
 function factory (type, config, load, typed) {
-  var register = load(__webpack_require__(21)).register;
-  var compile = load(__webpack_require__(21)).compile;
-  var Node = load(__webpack_require__(49));
+  var register = load(__webpack_require__(31)).register;
+  var compile = load(__webpack_require__(31)).compile;
+  var Node = load(__webpack_require__(63));
 
   /**
    * A lazy evaluating conditional operator: 'condition ? trueExpr : falseExpr'
@@ -72145,19 +72145,19 @@ exports.factory = factory;
 
 
 var keywords = __webpack_require__(587);
-var stringify = __webpack_require__(38).stringify;
-var escape = __webpack_require__(38).escape;
-var map = __webpack_require__(57).map;
-var join = __webpack_require__(57).join;
-var latex = __webpack_require__(103);
-var operators = __webpack_require__(161);
-var setSafeProperty = __webpack_require__(58).setSafeProperty;
+var stringify = __webpack_require__(62).stringify;
+var escape = __webpack_require__(62).escape;
+var map = __webpack_require__(81).map;
+var join = __webpack_require__(81).join;
+var latex = __webpack_require__(159);
+var operators = __webpack_require__(583);
+var setSafeProperty = __webpack_require__(82).setSafeProperty;
 var getUniqueArgumentName = __webpack_require__(601);
 
 function factory (type, config, load, typed) {
-  var register = load(__webpack_require__(21)).register;
-  var compile = load(__webpack_require__(21)).compile;
-  var Node = load(__webpack_require__(49));
+  var register = load(__webpack_require__(31)).register;
+  var compile = load(__webpack_require__(31)).compile;
+  var Node = load(__webpack_require__(63));
 
   /**
    * @constructor FunctionAssignmentNode
@@ -72353,15 +72353,15 @@ exports.factory = factory;
 "use strict";
 
 
-var stringify = __webpack_require__(38).stringify;
-var escape = __webpack_require__(38).escape;
-var isSafeProperty = __webpack_require__(58).isSafeProperty;
-var hasOwnProperty = __webpack_require__(66).hasOwnProperty;
+var stringify = __webpack_require__(62).stringify;
+var escape = __webpack_require__(62).escape;
+var isSafeProperty = __webpack_require__(82).isSafeProperty;
+var hasOwnProperty = __webpack_require__(102).hasOwnProperty;
 
 function factory (type, config, load, typed) {
-  var register = load(__webpack_require__(21)).register;
-  var compile = load(__webpack_require__(21)).compile;
-  var Node = load(__webpack_require__(49));
+  var register = load(__webpack_require__(31)).register;
+  var compile = load(__webpack_require__(31)).compile;
+  var Node = load(__webpack_require__(63));
 
   /**
    * @constructor ObjectNode
@@ -72538,12 +72538,12 @@ exports.factory = factory;
 
 function factory (type, config, load, typed, math) {
   var parse = load(__webpack_require__(590));
-  var ConstantNode = load(__webpack_require__(164));
-  var FunctionNode = load(__webpack_require__(165));
+  var ConstantNode = load(__webpack_require__(585));
+  var FunctionNode = load(__webpack_require__(586));
   var OperatorNode = load(__webpack_require__(589));
   var ParenthesisNode = load(__webpack_require__(602));
-  var SymbolNode = load(__webpack_require__(104));
-  var Node = load(__webpack_require__(49));
+  var SymbolNode = load(__webpack_require__(161));
+  var Node = load(__webpack_require__(63));
   var simplifyConstant = load(__webpack_require__(603));
   var simplifyCore = load(__webpack_require__(640));
   var resolve = load(__webpack_require__(641));
