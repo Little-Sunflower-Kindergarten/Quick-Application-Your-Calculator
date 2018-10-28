@@ -1,14 +1,27 @@
 <template>
   <div class="page">
+      <div class="menu">
+          <input class="btn" type="button" value="功能介绍（未实装）" onclick="" />
+        </div>
     <div class="menu">
-        <input class="btn" type="button" value="方程求解" onclick="routeDetail" />
-        <input class="btn" type="button" value="函数求导" onclick="routeDetail" />
-        <input class="btn" type="button" value="极限计算" onclick="routeDetail" />
+      <input class="btn" type="button" value="方程求解" onclick="routeDetail" />
+      <input class="btn" type="button" value="函数求导" onclick="routeDetail" />
+      <input class="btn" type="button" value="极限计算" onclick="routeDetail" />
     </div>
     <div class="menu">
-        <input class="btn" type="button" value="积分计算（Beta）" onclick="integralRouteDetail" />
-        <input class="btn" type="button" value="素数判断" onclick="isPrimeRouteDetail" />
-        <input class="btn" type="button" value="笛卡儿积" onclick="theCartesianProductRouteDetail" />
+      <input class="btn" type="button" value="积分计算（Beta）" onclick="integralRouteDetail" />
+      <input class="btn" type="button" value="素数判断" onclick="isPrimeRouteDetail" />
+      <input class="btn" type="button" value="笛卡儿积" onclick="theCartesianProductRouteDetail" />
+    </div>
+    <div class="menu">
+      <input class="btn" type="button" value="阶乘" onclick="factorialRouteDetail" />
+      <input class="btn" type="button" value="相对熵（未实装）" onclick="" />
+      <input class="btn" type="button" value="伽玛函数（未实装）" onclick="" />
+    </div>
+    <div class="menu">
+      <input class="btn" type="button" value="三角函数（未实装）" onclick="factorialRouteDetail" />
+      <input class="btn" type="button" value="新功能构思中" onclick="" />
+      <input class="btn" type="button" value="新功能构思中" onclick="" />
     </div>
   </div>
 </template>
@@ -20,24 +33,24 @@
     align-items: center;
   }
 
-  .menu{
-    justify-content:space-between;
-    align-items:flex-start;
+  .menu {
+    justify-content: space-between;
+    align-items: flex-start;
   }
-  
+
   .btn {
     width: 200px;
     height: 100px;
     margin-top: 70px;
     margin-left: 20px;
     margin-right: 20px;
-    border-style:solid;
-    border-width:1px;
-    border-color:#b7b7b7;
-    border-radius:10px;
+    border-style: solid;
+    border-width: 1px;
+    border-color: #b7b7b7;
+    border-radius: 10px;
     background-color: #ffffff;
     font-size: 30px;
-    color:#444444;
+    color: #444444;
   }
 </style>
 
@@ -48,24 +61,29 @@
     onMenuPress() {
       this.$app.$def.showMenu()
     },
-    routeDetail () {
-      router.push ({
+    routeDetail() {
+      router.push({
         uri: '/DemoDetail'
       })
     },
-    integralRouteDetail () {
-      router.push ({
+    integralRouteDetail() {
+      router.push({
         uri: '/Integral'
       })
     },
-    isPrimeRouteDetail () {
-      router.push ({
+    isPrimeRouteDetail() {
+      router.push({
         uri: '/IsPrime'
       })
     },
-    theCartesianProductRouteDetail () {
-      router.push ({
+    theCartesianProductRouteDetail() {
+      router.push({
         uri: '/TheCartesianProduct'
+      })
+    },
+    factorialRouteDetail() {
+      router.push({
+        uri: '/Factorial'
       })
     }
   }
