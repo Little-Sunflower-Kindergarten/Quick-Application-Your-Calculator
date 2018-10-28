@@ -333,9 +333,13 @@ module.exports = {
     "height": "86px",
     "marginTop": "75px",
     "borderRadius": "43px",
-    "backgroundColor": "#09ba07",
+    "borderTopWidth": "1px",
+    "borderRightWidth": "1px",
+    "borderBottomWidth": "1px",
+    "borderLeftWidth": "1px",
+    "backgroundColor": "#ffffff",
     "fontSize": "30px",
-    "color": "#ffffff"
+    "color": "#444444"
   },
   "#footer": {
     "width": "750px",

@@ -96,7 +96,7 @@ module.exports = {
   "type": "div",
   "attr": {},
   "classList": [
-    "demo-page"
+    "page"
   ],
   "children": [
     {
@@ -158,7 +158,7 @@ module.exports = {
           "type": "input",
           "attr": {
             "type": "button",
-            "value": "定积分计算"
+            "value": "积分计算（Beta）"
           },
           "classList": [
             "btn"
@@ -204,25 +204,34 @@ module.exports = {
 /***/ (function(module, exports) {
 
 module.exports = {
-  ".demo-page": {
+  ".page": {
     "flexDirection": "column",
     "justifyContent": "flex-start",
     "alignItems": "center"
   },
   ".menu": {
-    "width": "700px",
-    "flexDirection": "row",
     "justifyContent": "space-between",
     "alignItems": "flex-start"
   },
   ".btn": {
     "width": "200px",
     "height": "100px",
-    "marginTop": "75px",
-    "borderRadius": "40px",
-    "backgroundColor": "#09ba07",
+    "marginTop": "70px",
+    "marginLeft": "20px",
+    "marginRight": "20px",
+    "borderStyle": "solid",
+    "borderTopWidth": "1px",
+    "borderRightWidth": "1px",
+    "borderBottomWidth": "1px",
+    "borderLeftWidth": "1px",
+    "borderTopColor": "#b7b7b7",
+    "borderRightColor": "#b7b7b7",
+    "borderBottomColor": "#b7b7b7",
+    "borderLeftColor": "#b7b7b7",
+    "borderRadius": "10px",
+    "backgroundColor": "#ffffff",
     "fontSize": "30px",
-    "color": "#ffffff"
+    "color": "#444444"
   }
 }
 
@@ -246,8 +255,8 @@ var _system2 = _interopRequireDefault(_system);
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 exports.default = {
-  private: {
-    title: '示例页面'
+  onMenuPress: function onMenuPress() {
+    this.$app.$def.showMenu();
   },
   routeDetail: function routeDetail() {
     _system2.default.push({
