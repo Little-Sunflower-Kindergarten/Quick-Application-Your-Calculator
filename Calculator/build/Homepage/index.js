@@ -63,17 +63,17 @@
 /******/ 	__webpack_require__.p = "";
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 620);
+/******/ 	return __webpack_require__(__webpack_require__.s = 636);
 /******/ })
 /************************************************************************/
 /******/ ({
 
-/***/ 620:
+/***/ 636:
 /***/ (function(module, exports, __webpack_require__) {
 
-var $app_template$ = __webpack_require__(621)
-var $app_style$ = __webpack_require__(622)
-var $app_script$ = __webpack_require__(623)
+var $app_template$ = __webpack_require__(637)
+var $app_style$ = __webpack_require__(638)
+var $app_script$ = __webpack_require__(639)
 
 $app_define$('@app-component/index', [], function($app_require$, $app_exports$, $app_module$){
      $app_script$($app_module$, $app_exports$, $app_require$)
@@ -89,7 +89,7 @@ $app_bootstrap$('@app-component/index',{ packagerVersion: '0.0.5'})
 
 /***/ }),
 
-/***/ 621:
+/***/ 637:
 /***/ (function(module, exports) {
 
 module.exports = {
@@ -251,11 +251,14 @@ module.exports = {
           "type": "input",
           "attr": {
             "type": "button",
-            "value": "伽玛函数（未实装）"
+            "value": "伽玛函数"
           },
           "classList": [
             "btn"
-          ]
+          ],
+          "events": {
+            "click": "gamma"
+          }
         }
       ]
     },
@@ -270,7 +273,7 @@ module.exports = {
           "type": "input",
           "attr": {
             "type": "button",
-            "value": "三角函数（部分实装）"
+            "value": "三角函数"
           },
           "classList": [
             "btn"
@@ -283,21 +286,84 @@ module.exports = {
           "type": "input",
           "attr": {
             "type": "button",
-            "value": "新功能构思中"
+            "value": "向量叉积"
           },
           "classList": [
             "btn"
-          ]
+          ],
+          "events": {
+            "click": "cross"
+          }
         },
         {
           "type": "input",
           "attr": {
             "type": "button",
-            "value": "新功能构思中"
+            "value": "向量点积"
           },
           "classList": [
             "btn"
-          ]
+          ],
+          "events": {
+            "click": "dot"
+          }
+        }
+      ]
+    },
+    {
+      "type": "div",
+      "attr": {},
+      "classList": [
+        "menu"
+      ],
+      "children": [
+        {
+          "type": "input",
+          "attr": {
+            "type": "button",
+            "value": "最大公约数"
+          },
+          "classList": [
+            "btn"
+          ],
+          "events": {
+            "click": "gcd"
+          }
+        }
+      ]
+    },
+    {
+      "type": "div",
+      "attr": {},
+      "classList": [
+        "menu"
+      ],
+      "children": [
+        {
+          "type": "input",
+          "attr": {
+            "type": "button",
+            "value": "最小公倍数"
+          },
+          "classList": [
+            "btn"
+          ],
+          "events": {
+            "click": "lcm"
+          }
+        },
+        {
+          "type": "input",
+          "attr": {
+            "type": "button",
+            "value": "X的Y次幂"
+          },
+          "classList": [
+            "btn"
+          ],
+          "events": {
+            "click": "pow"
+          }
         }
       ]
     }
@@ -306,7 +372,7 @@ module.exports = {
 
 /***/ }),
 
-/***/ 622:
+/***/ 638:
 /***/ (function(module, exports) {
 
 module.exports = {
@@ -343,7 +409,7 @@ module.exports = {
 
 /***/ }),
 
-/***/ 623:
+/***/ 639:
 /***/ (function(module, exports) {
 
 module.exports = function(module, exports, $app_require$){'use strict';
@@ -397,6 +463,36 @@ exports.default = {
   trigonometricFunction: function trigonometricFunction() {
     _system2.default.push({
       uri: '/TrigonometricFunction'
+    });
+  },
+  gamma: function gamma() {
+    _system2.default.push({
+      uri: '/Gamma'
+    });
+  },
+  cross: function cross() {
+    _system2.default.push({
+      uri: '/Cross'
+    });
+  },
+  dot: function dot() {
+    _system2.default.push({
+      uri: '/Dot'
+    });
+  },
+  gcd: function gcd() {
+    _system2.default.push({
+      uri: '/Gcd'
+    });
+  },
+  lcm: function lcm() {
+    _system2.default.push({
+      uri: '/Lcm'
+    });
+  },
+  pow: function pow() {
+    _system2.default.push({
+      uri: '/Pow'
     });
   }
 };

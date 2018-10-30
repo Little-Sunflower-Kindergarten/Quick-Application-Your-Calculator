@@ -16,12 +16,19 @@
     <div class="menu">
       <input class="btn" type="button" value="阶乘" onclick="factorialRouteDetail" />
       <input class="btn" type="button" value="相对熵（Beta）" onclick="relativeEntropy" />
-      <input class="btn" type="button" value="伽玛函数（未实装）" onclick="" />
+      <input class="btn" type="button" value="伽玛函数" onclick="gamma" />
     </div>
     <div class="menu">
-      <input class="btn" type="button" value="三角函数（部分实装）" onclick="trigonometricFunction" />
-      <input class="btn" type="button" value="新功能构思中" onclick="" />
-      <input class="btn" type="button" value="新功能构思中" onclick="" />
+      <input class="btn" type="button" value="三角函数" onclick="trigonometricFunction" />
+      <input class="btn" type="button" value="向量叉积" onclick="cross" />
+      <input class="btn" type="button" value="向量点积" onclick="dot" />
+    </div>
+    <div class="menu">
+      <input class="btn" type="button" value="最大公约数" onclick="gcd" />
+    </div>
+    <div class="menu">
+      <input class="btn" type="button" value="最小公倍数" onclick="lcm" />
+      <input class="btn" type="button" value="X的Y次幂" onclick="pow" />
     </div>
   </div>
 </template>
@@ -95,6 +102,37 @@
       router.push({
         uri: '/TrigonometricFunction'
       })
+    },
+    gamma(){
+      router.push({
+        uri: '/Gamma'
+      })
+    },
+    cross(){
+      router.push({
+        uri: '/Cross'
+      })
+    },
+    dot(){
+      router.push({
+        uri: '/Dot'
+      })
+    },
+    gcd(){
+      router.push({
+        uri: '/Gcd'
+      })
+    },
+    lcm(){
+      router.push({
+        uri: '/Lcm'
+      })
+    },
+    pow(){
+      router.push({
+        uri: '/Pow'
+      })
     }
+    
   }
 </script>

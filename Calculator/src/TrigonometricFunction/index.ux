@@ -6,7 +6,17 @@
       </div>
   
       <div class="memu">
-        <input type="button" class="btn" onclick="set" value="判断并输出至剪贴板（sin）" />
+        <input type="button" class="btn" onclick="set1" value="计算并输出至剪贴板（sin）" />
+        <input type="button" class="btn" onclick="set2" value="计算并输出至剪贴板（cos）" />
+      </div>
+
+      <div class="memu">
+        <input type="button" class="btn" onclick="set3" value="计算并输出至剪贴板（tan）" />
+        <input type="button" class="btn" onclick="set4" value="计算并输出至剪贴板（csc）" />
+      </div>
+
+      <div class="memu">
+        <input type="button" class="btn" onclick="set5" value="计算并输出至剪贴板（sec）" />
         <input type="button" class="btn" onclick="get" value="输出剪贴板的内容" />
       </div>
       
@@ -108,10 +118,34 @@
       changeSwitchStatus(e) {
         this.switchStatus = e.checked ? 'on' : 'off'
       },
-      set() {
+      set1() {
         this.showSet = this.clipboard
         clipboard.set({
           text: math.sin(a1)
+        })
+      },
+      set2() {
+        this.showSet = this.clipboard
+        clipboard.set({
+          text: math.cos(a1)
+        })
+      },
+      set3() {
+        this.showSet = this.clipboard
+        clipboard.set({
+          text: math.tan(a1)
+        })
+      },
+      set4() {
+        this.showSet = this.clipboard
+        clipboard.set({
+          text: math.csc(a1)
+        })
+      },
+      set5() {
+        this.showSet = this.clipboard
+        clipboard.set({
+          text: math.sec(a1)
         })
       },
       get() {
