@@ -92,7 +92,7 @@
 </style>
   
 <script>
-    import math from '../Common/DefinitIntegral/mathjs/index.js'
+    import math from '../Common/DefinitIntegral/mathjs/math.min.js'
     import clipboard from '@system.clipboard'
   
     var a1
