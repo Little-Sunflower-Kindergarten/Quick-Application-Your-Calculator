@@ -15,11 +15,11 @@
     </div>
     <div class="menu">
       <input class="btn" type="button" value="阶乘" onclick="factorialRouteDetail" />
-      <input class="btn" type="button" value="相对熵（未实装）" onclick="" />
+      <input class="btn" type="button" value="相对熵（Beta）" onclick="relativeEntropy" />
       <input class="btn" type="button" value="伽玛函数（未实装）" onclick="" />
     </div>
     <div class="menu">
-      <input class="btn" type="button" value="三角函数（未实装）" onclick="factorialRouteDetail" />
+      <input class="btn" type="button" value="三角函数（部分实装）" onclick="trigonometricFunction" />
       <input class="btn" type="button" value="新功能构思中" onclick="" />
       <input class="btn" type="button" value="新功能构思中" onclick="" />
     </div>
@@ -84,6 +84,16 @@
     factorialRouteDetail() {
       router.push({
         uri: '/Factorial'
+      })
+    },
+    relativeEntropy(){
+      router.push({
+        uri: '/RelativeEntropy'
+      })
+    },
+    trigonometricFunction(){
+      router.push({
+        uri: '/TrigonometricFunction'
       })
     }
   }

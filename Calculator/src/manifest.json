@@ -50,6 +50,12 @@
       },
       "Factorial":{
         "component":"index"
+      },
+      "RelativeEntropy":{
+        "component":"index"
+      },
+      "TrigonometricFunction":{
+        "component":"index"
       }
       
     }
@@ -86,6 +92,14 @@
       "Factorial":{
         "menu":false,
         "titleBarText":"阶乘"
+      },
+      "RelativeEntropy":{
+        "menu":false,
+        "titleBarText":"相对熵"
+      },
+      "TrigonometricFunction":{
+        "menu":false,
+        "titleBarText":"三角函数"
       }
     }
   }

@@ -238,11 +238,14 @@ module.exports = {
           "type": "input",
           "attr": {
             "type": "button",
-            "value": "相对熵（未实装）"
+            "value": "相对熵（Beta）"
           },
           "classList": [
             "btn"
-          ]
+          ],
+          "events": {
+            "click": "relativeEntropy"
+          }
         },
         {
           "type": "input",
@@ -267,13 +270,13 @@ module.exports = {
           "type": "input",
           "attr": {
             "type": "button",
-            "value": "三角函数（未实装）"
+            "value": "三角函数（部分实装）"
           },
           "classList": [
             "btn"
           ],
           "events": {
-            "click": "factorialRouteDetail"
+            "click": "trigonometricFunction"
           }
         },
         {
@@ -384,6 +387,16 @@ exports.default = {
   factorialRouteDetail: function factorialRouteDetail() {
     _system2.default.push({
       uri: '/Factorial'
+    });
+  },
+  relativeEntropy: function relativeEntropy() {
+    _system2.default.push({
+      uri: '/RelativeEntropy'
+    });
+  },
+  trigonometricFunction: function trigonometricFunction() {
+    _system2.default.push({
+      uri: '/TrigonometricFunction'
     });
   }
 };
