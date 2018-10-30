@@ -11,7 +11,7 @@
         </div>
 
         <div class="memu">
-            <input type="button" class="btn" onclick="set" value="判断并输出至剪贴板" />
+            <input type="button" class="btn" onclick="set" value="计算并输出至剪贴板" />
             <input type="button" class="btn" onclick="get" value="输出剪贴板的内容" />
         </div>
 

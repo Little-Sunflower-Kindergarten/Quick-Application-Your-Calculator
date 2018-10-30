@@ -56,8 +56,25 @@
       },
       "TrigonometricFunction":{
         "component":"index"
+      },
+      "Gamma":{
+        "component":"index"
+      },
+      "Cross":{
+        "component":"index"
+      },
+      "Dot":{
+        "component":"index"
+      },
+      "Pow":{
+        "component":"index"
+      },
+      "Lcm":{
+        "component":"index"
+      },
+      "Gcd":{
+        "component":"index"
       }
-      
     }
   },
   "display": {
@@ -100,6 +117,30 @@
       "TrigonometricFunction":{
         "menu":false,
         "titleBarText":"三角函数"
+      },
+      "Gamma":{
+        "menu":false,
+        "titleBarText":"伽玛函数"
+      },
+      "Cross":{
+        "menu":false,
+        "titleBarText":"向量叉积"
+      },
+      "Dot":{
+        "menu":false,
+        "titleBarText":"向量点积"
+      },
+      "Pow":{
+        "menu":false,
+        "titleBarText":"X的Y次幂"
+      },
+      "Lcm":{
+        "menu":false,
+        "titleBarText":"最小公倍数"
+      },
+      "Gcd":{
+        "menu":false,
+        "titleBarText":"最大公约数"
       }
     }
   }
