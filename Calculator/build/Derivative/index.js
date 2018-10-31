@@ -63,17 +63,17 @@
 /******/ 	__webpack_require__.p = "";
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 114);
+/******/ 	return __webpack_require__(__webpack_require__.s = 66);
 /******/ })
 /************************************************************************/
 /******/ ({
 
-/***/ 114:
+/***/ 66:
 /***/ (function(module, exports, __webpack_require__) {
 
-var $app_template$ = __webpack_require__(115)
-var $app_style$ = __webpack_require__(116)
-var $app_script$ = __webpack_require__(117)
+var $app_template$ = __webpack_require__(67)
+var $app_style$ = __webpack_require__(68)
+var $app_script$ = __webpack_require__(69)
 
 $app_define$('@app-component/index', [], function($app_require$, $app_exports$, $app_module$){
      $app_script$($app_module$, $app_exports$, $app_require$)
@@ -89,7 +89,7 @@ $app_bootstrap$('@app-component/index',{ packagerVersion: '0.0.5'})
 
 /***/ }),
 
-/***/ 115:
+/***/ 67:
 /***/ (function(module, exports) {
 
 module.exports = {
@@ -109,7 +109,7 @@ module.exports = {
         {
           "type": "text",
           "attr": {
-            "value": "输入值"
+            "value": "需要求导的函数"
           },
           "classList": [
             "xui-input-group-col-title"
@@ -120,7 +120,7 @@ module.exports = {
           "attr": {
             "name": "a1",
             "type": "text",
-            "placeholder": "请输入值"
+            "placeholder": "请输入待求导函数"
           },
           "classList": [
             "xui-input-round"
@@ -135,33 +135,30 @@ module.exports = {
       "type": "div",
       "attr": {},
       "classList": [
-        "memu"
+        "xui-input-group-col"
       ],
       "children": [
         {
-          "type": "input",
+          "type": "text",
           "attr": {
-            "type": "button",
-            "value": "计算并输出至剪贴板（sin）"
+            "value": "未知数"
           },
           "classList": [
-            "btn"
-          ],
-          "events": {
-            "click": "set1"
-          }
+            "xui-input-group-col-title"
+          ]
         },
         {
           "type": "input",
           "attr": {
-            "type": "button",
-            "value": "计算并输出至剪贴板（cos）"
+            "name": "a2",
+            "type": "text",
+            "placeholder": "请输入未知数"
           },
           "classList": [
-            "btn"
+            "xui-input-round"
           ],
           "events": {
-            "click": "set2"
+            "change": "bindPhoneChange2"
           }
         }
       ]
@@ -177,48 +174,13 @@ module.exports = {
           "type": "input",
           "attr": {
             "type": "button",
-            "value": "计算并输出至剪贴板（tan）"
+            "value": "计算并输出至剪贴板"
           },
           "classList": [
             "btn"
           ],
           "events": {
-            "click": "set3"
-          }
-        },
-        {
-          "type": "input",
-          "attr": {
-            "type": "button",
-            "value": "计算并输出至剪贴板（csc）"
-          },
-          "classList": [
-            "btn"
-          ],
-          "events": {
-            "click": "set4"
-          }
-        }
-      ]
-    },
-    {
-      "type": "div",
-      "attr": {},
-      "classList": [
-        "memu"
-      ],
-      "children": [
-        {
-          "type": "input",
-          "attr": {
-            "type": "button",
-            "value": "计算并输出至剪贴板（sec）"
-          },
-          "classList": [
-            "btn"
-          ],
-          "events": {
-            "click": "set5"
+            "click": "set"
           }
         },
         {
@@ -269,7 +231,7 @@ module.exports = {
 
 /***/ }),
 
-/***/ 116:
+/***/ 68:
 /***/ (function(module, exports) {
 
 module.exports = {
@@ -353,7 +315,7 @@ module.exports = {
 
 /***/ }),
 
-/***/ 117:
+/***/ 69:
 /***/ (function(module, exports) {
 
 module.exports = function(module, exports, $app_require$){'use strict';
@@ -370,7 +332,7 @@ var _system2 = _interopRequireDefault(_system);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-var a1;
+var a1, a2;
 
 exports.default = {
   private: {
@@ -384,6 +346,9 @@ exports.default = {
   bindPhoneChange1: function bindPhoneChange1(e) {
     a1 = e.value;
   },
+  bindPhoneChange2: function bindPhoneChange2(e) {
+    a2 = e.value;
+  },
   changeText: function changeText(e) {
     this.text = e.newValue;
   },
@@ -393,34 +358,10 @@ exports.default = {
   changeSwitchStatus: function changeSwitchStatus(e) {
     this.switchStatus = e.checked ? 'on' : 'off';
   },
-  set1: function set1() {
+  set: function set() {
     this.showSet = this.clipboard;
     _system2.default.set({
-      text: this.$app.$def.sin(a1)
-    });
-  },
-  set2: function set2() {
-    this.showSet = this.clipboard;
-    _system2.default.set({
-      text: this.$app.$def.cos(a1)
-    });
-  },
-  set3: function set3() {
-    this.showSet = this.clipboard;
-    _system2.default.set({
-      text: this.$app.$def.tan(a1)
-    });
-  },
-  set4: function set4() {
-    this.showSet = this.clipboard;
-    _system2.default.set({
-      text: this.$app.$def.csc(a1)
-    });
-  },
-  set5: function set5() {
-    this.showSet = this.clipboard;
-    _system2.default.set({
-      text: this.$app.$def.sec(a1)
+      text: this.$app.$def.format(this.$app.$def.derivative(a1, a2), 15)
     });
   },
   get: function get() {

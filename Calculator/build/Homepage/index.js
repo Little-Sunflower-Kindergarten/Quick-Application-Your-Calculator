@@ -63,17 +63,17 @@
 /******/ 	__webpack_require__.p = "";
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 82);
+/******/ 	return __webpack_require__(__webpack_require__.s = 86);
 /******/ })
 /************************************************************************/
 /******/ ({
 
-/***/ 82:
+/***/ 86:
 /***/ (function(module, exports, __webpack_require__) {
 
-var $app_template$ = __webpack_require__(83)
-var $app_style$ = __webpack_require__(84)
-var $app_script$ = __webpack_require__(85)
+var $app_template$ = __webpack_require__(87)
+var $app_style$ = __webpack_require__(88)
+var $app_script$ = __webpack_require__(89)
 
 $app_define$('@app-component/index', [], function($app_require$, $app_exports$, $app_module$){
      $app_script$($app_module$, $app_exports$, $app_require$)
@@ -89,7 +89,7 @@ $app_bootstrap$('@app-component/index',{ packagerVersion: '0.0.5'})
 
 /***/ }),
 
-/***/ 83:
+/***/ 87:
 /***/ (function(module, exports) {
 
 module.exports = {
@@ -113,7 +113,25 @@ module.exports = {
             "value": "功能介绍（未实装）"
           },
           "classList": [
-            "btn"
+            "bn"
+          ]
+        }
+      ]
+    },
+    {
+      "type": "div",
+      "attr": {},
+      "classList": [
+        "textme"
+      ],
+      "children": [
+        {
+          "type": "text",
+          "attr": {
+            "value": "实用功能"
+          },
+          "classList": [
+            "xui-input-group-col-title"
           ]
         }
       ]
@@ -125,28 +143,6 @@ module.exports = {
         "menu"
       ],
       "children": [
-        {
-          "type": "text",
-          "attr": {
-            "value": "实用功能"
-          },
-          "classList": [
-            "xui-input-group-col-title"
-          ]
-        },
-        {
-          "type": "input",
-          "attr": {
-            "type": "button",
-            "value": "素数判断"
-          },
-          "classList": [
-            "btn"
-          ],
-          "events": {
-            "click": "isPrimeRouteDetail"
-          }
-        },
         {
           "type": "input",
           "attr": {
@@ -172,6 +168,28 @@ module.exports = {
           "events": {
             "click": "lcm"
           }
+        }
+      ]
+    },
+    {
+      "type": "div",
+      "attr": {},
+      "classList": [
+        "menu"
+      ],
+      "children": [
+        {
+          "type": "input",
+          "attr": {
+            "type": "button",
+            "value": "素数判断"
+          },
+          "classList": [
+            "btn"
+          ],
+          "events": {
+            "click": "isPrimeRouteDetail"
+          }
         },
         {
           "type": "input",
@@ -196,15 +214,6 @@ module.exports = {
       ],
       "children": [
         {
-          "type": "text",
-          "attr": {
-            "value": "三角函数"
-          },
-          "classList": [
-            "xui-input-group-col-title"
-          ]
-        },
-        {
           "type": "input",
           "attr": {
             "type": "button",
@@ -216,24 +225,6 @@ module.exports = {
           "events": {
             "click": "trigonometricFunction"
           }
-        }
-      ]
-    },
-    {
-      "type": "div",
-      "attr": {},
-      "classList": [
-        "menu"
-      ],
-      "children": [
-        {
-          "type": "text",
-          "attr": {
-            "value": "集合"
-          },
-          "classList": [
-            "xui-input-group-col-title"
-          ]
         },
         {
           "type": "input",
@@ -254,7 +245,7 @@ module.exports = {
       "type": "div",
       "attr": {},
       "classList": [
-        "menu"
+        "textme"
       ],
       "children": [
         {
@@ -265,7 +256,16 @@ module.exports = {
           "classList": [
             "xui-input-group-col-title"
           ]
-        },
+        }
+      ]
+    },
+    {
+      "type": "div",
+      "attr": {},
+      "classList": [
+        "menu"
+      ],
+      "children": [
         {
           "type": "input",
           "attr": {
@@ -291,7 +291,16 @@ module.exports = {
           "events": {
             "click": "relativeEntropy"
           }
-        },
+        }
+      ]
+    },
+    {
+      "type": "div",
+      "attr": {},
+      "classList": [
+        "menu"
+      ],
+      "children": [
         {
           "type": "input",
           "attr": {
@@ -311,7 +320,7 @@ module.exports = {
       "type": "div",
       "attr": {},
       "classList": [
-        "menu"
+        "textme"
       ],
       "children": [
         {
@@ -322,7 +331,16 @@ module.exports = {
           "classList": [
             "xui-input-group-col-title"
           ]
-        },
+        }
+      ]
+    },
+    {
+      "type": "div",
+      "attr": {},
+      "classList": [
+        "menu"
+      ],
+      "children": [
         {
           "type": "input",
           "attr": {
@@ -355,7 +373,7 @@ module.exports = {
       "type": "div",
       "attr": {},
       "classList": [
-        "menu"
+        "textme"
       ],
       "children": [
         {
@@ -366,25 +384,21 @@ module.exports = {
           "classList": [
             "xui-input-group-col-title"
           ]
-        },
+        }
+      ]
+    },
+    {
+      "type": "div",
+      "attr": {},
+      "classList": [
+        "menu"
+      ],
+      "children": [
         {
           "type": "input",
           "attr": {
             "type": "button",
             "value": "方程求解"
-          },
-          "classList": [
-            "btn"
-          ],
-          "events": {
-            "click": "routeDetail"
-          }
-        },
-        {
-          "type": "input",
-          "attr": {
-            "type": "button",
-            "value": "函数求导"
           },
           "classList": [
             "btn"
@@ -404,6 +418,28 @@ module.exports = {
           ],
           "events": {
             "click": "routeDetail"
+          }
+        }
+      ]
+    },
+    {
+      "type": "div",
+      "attr": {},
+      "classList": [
+        "menu"
+      ],
+      "children": [
+        {
+          "type": "input",
+          "attr": {
+            "type": "button",
+            "value": "函数求导"
+          },
+          "classList": [
+            "btn"
+          ],
+          "events": {
+            "click": "derivative"
           }
         },
         {
@@ -426,7 +462,7 @@ module.exports = {
 
 /***/ }),
 
-/***/ 84:
+/***/ 88:
 /***/ (function(module, exports) {
 
 module.exports = {
@@ -439,12 +475,37 @@ module.exports = {
     "textAlign": "center",
     "marginBottom": "10px"
   },
+  ".textme": {
+    "justifyContent": "space-between",
+    "alignItems": "center",
+    "marginTop": "100px"
+  },
   ".menu": {
     "justifyContent": "space-between",
     "alignItems": "flex-start"
   },
+  ".bn": {
+    "width": "350px",
+    "height": "100px",
+    "marginTop": "70px",
+    "marginLeft": "20px",
+    "marginRight": "20px",
+    "borderStyle": "solid",
+    "borderTopWidth": "1px",
+    "borderRightWidth": "1px",
+    "borderBottomWidth": "1px",
+    "borderLeftWidth": "1px",
+    "borderTopColor": "#b7b7b7",
+    "borderRightColor": "#b7b7b7",
+    "borderBottomColor": "#b7b7b7",
+    "borderLeftColor": "#b7b7b7",
+    "borderRadius": "10px",
+    "backgroundColor": "#ffffff",
+    "fontSize": "30px",
+    "color": "#444444"
+  },
   ".btn": {
-    "width": "150px",
+    "width": "250px",
     "height": "100px",
     "marginTop": "70px",
     "marginLeft": "20px",
@@ -467,7 +528,7 @@ module.exports = {
 
 /***/ }),
 
-/***/ 85:
+/***/ 89:
 /***/ (function(module, exports) {
 
 module.exports = function(module, exports, $app_require$){'use strict';
@@ -551,6 +612,11 @@ exports.default = {
   pow: function pow() {
     _system2.default.push({
       uri: '/Pow'
+    });
+  },
+  derivative: function derivative() {
+    _system2.default.push({
+      uri: '/Derivative'
     });
   }
 };

@@ -24,6 +24,7 @@
     format:math.format,
     integral:math.integral,
     string:math.string,
-    setCartesian:math.setCartesian
+    setCartesian:math.setCartesian,
+    derivative:math.derivative
   }
 </script>
