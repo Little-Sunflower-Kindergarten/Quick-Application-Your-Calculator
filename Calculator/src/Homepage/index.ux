@@ -1,7 +1,11 @@
 <template>
   <div class="page">
+    <div class="extme">
+      <text class="xui-input-group-col-title">介绍</text>
+    </div>
     <div class="menu">
-      <input class="bn" type="button" value="功能介绍（未实装）" onclick="" />
+      <input class="bn" type="button" value="功能介绍" onclick="functionn" />
+      <input class="bn" type="button" value="常用常量介绍" onclick="constant" />
     </div>
     <div class="textme">
       <text class="xui-input-group-col-title">实用功能</text>
@@ -9,12 +13,10 @@
     <div class="menu">
       <input class="btn" type="button" value="最大公约数" onclick="gcd" />
       <input class="btn" type="button" value="最小公倍数" onclick="lcm" />
-    </div>
-    <div class="menu">
       <input class="btn" type="button" value="素数判断" onclick="isPrimeRouteDetail" />
-      <input class="btn" type="button" value="X的Y次幂" onclick="pow" />
     </div>
     <div class="menu">
+      <input class="btn" type="button" value="X的Y次幂" onclick="pow" />
       <input class="btn" type="button" value="三角函数" onclick="trigonometricFunction" />
       <input class="btn" type="button" value="笛卡儿积" onclick="theCartesianProductRouteDetail" />
     </div>
@@ -23,9 +25,7 @@
     </div>
     <div class="menu">
       <input class="btn" type="button" value="阶乘" onclick="factorialRouteDetail" />
-      <input class="btn" type="button" value="相对熵（Beta）" onclick="relativeEntropy" />
-    </div>
-    <div class="menu">
+      <input class="btn" type="button" value="相对熵" onclick="relativeEntropy" />
       <input class="btn" type="button" value="伽玛函数" onclick="gamma" />
     </div>
     <div class="textme">
@@ -39,11 +39,11 @@
       <text class="xui-input-group-col-title">代数</text>
     </div>
     <div class="menu">
-      <input class="btn" type="button" value="方程求解" onclick="routeDetail" />
-      <input class="btn" type="button" value="极限计算" onclick="routeDetail" />
-    </div>
-    <div class="menu">
+      <input class="btn" type="button" value="方程求解（未实装）" onclick="routeDetail" />
+      <input class="btn" type="button" value="极限计算（未实装）" onclick="routeDetail" />
       <input class="btn" type="button" value="函数求导" onclick="derivative" />
+    </div>
+    <div class="menuu">
       <input class="btn" type="button" value="积分计算（Beta）" onclick="integralRouteDetail" />
     </div>
   </div>
@@ -61,9 +61,15 @@
     margin-bottom: 10px;
   }
 
-.textme {
+  .extme {
     justify-content: space-between;
-    align-items:center;    
+    align-items: center;
+    margin-top: 50px;
+  }
+
+  .textme {
+    justify-content: space-between;
+    align-items: center;
     margin-top: 100px;
   }
 
@@ -72,8 +78,14 @@
     align-items: flex-start;
   }
 
-.bn {
-    width: 350px;
+  .menuu {
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 50px;
+  }
+
+  .bn {
+    width: 250px;
     height: 100px;
     margin-top: 70px;
     margin-left: 20px;
@@ -88,7 +100,7 @@
   }
 
   .btn {
-    width: 250px;
+    width: 200px;
     height: 100px;
     margin-top: 70px;
     margin-left: 20px;
@@ -178,6 +190,16 @@
     derivative() {
       router.push({
         uri: '/Derivative'
+      })
+    },
+    constant() {
+      router.push({
+        uri: '/Constant'
+      })
+    },
+    functionn() {
+      router.push({
+        uri: '/Function'
       })
     }
 

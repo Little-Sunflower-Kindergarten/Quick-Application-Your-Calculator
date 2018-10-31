@@ -15,7 +15,6 @@
     "hap-update": "hap update"
   },
   "devDependencies": {
-    "hap-toolkit": "0.0.36",
     "babel-cli": "^6.10.1",
     "babel-core": "^6.26.0",
     "babel-eslint": "^8.2.1",
@@ -23,12 +22,17 @@
     "babel-plugin-syntax-jsx": "^6.18.0",
     "cross-env": "^5.1.4",
     "css-what": "^2.1.0",
+    "hap-toolkit": "file:d:\\快应用开发工具\\Quickapp\\resources\\app\\extensions\\hap-debugger\\toolkit\\hap-toolkit.tgz",
     "koa": "^2.3.0",
-    "koa-send": "^4.1.1",
-    "koa-static": "^4.0.1",
     "koa-body": "^2.5.0",
     "koa-router": "^7.2.1",
+    "koa-send": "^4.1.1",
+    "koa-static": "^4.0.1",
     "socket.io": "^2.1.0",
     "webpack": "^3.11.0"
+  },
+  "dependencies": {
+    "mathjs": "^5.2.3",
+    "mathjs-simple-integral": "^0.1.1"
   }
 }

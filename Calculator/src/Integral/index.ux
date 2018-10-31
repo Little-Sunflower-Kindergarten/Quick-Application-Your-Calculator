@@ -14,57 +14,104 @@
       <input type="button" class="btn" onclick="set" value="计算并输出至剪贴板" />
       <input type="button" class="btn" onclick="get" value="输出剪贴板的内容" />
     </div>
-    
+
     <div class="item-content txt-left ">
       <text class="txt ">结果如下：</text>
       <text class="txt ">{{showGet}}</text>
+    </div>
+
+    <div class="page">
+      <text class="txt ">
+        由于实现的计算积分方法较为简单（以及该功能处于开发的相对早期阶段），在当前实现中存在许多限制。
+      </text>
+      <text class="txt">
+        目前不支持以下内容：
+      </text>
+      <text class="txt">
+        <span id="lc">2 * x * cos(x^2)</span>
+      </text>
+      <text class="txt">
+        <span id="lc">3 * x^2 * e^(x^3)</span>
+      </text>
+      <text class="txt">
+        <span id="lc">x * ln(x) x^3 * e^x</span>
+      </text>
+      <text class="txt">
+        <span id="cl">部分分数的分解</span>
+      </text>
+      <text class="txt">
+        <span id="cl">反三角函数</span>
+      </text>
+      <text class="txt">
+        <span id="cl">三角函数简化，如</span>
+        <span id="lc">cos(x) * tan(x)</span>
+      </text>
+      <text class="txt">
+        <span id="lc">e ^ -(x^2)</span>
+        <span id="cl">等类似于</span>
+        <span id="lc">erf</span>
+        <span id="cl">的函数</span>
+      </text>
     </div>
   </div>
 </template>
 
 <style>
+  #cl {
+    color: #6da7ff;
+  }
+
+  #lc {
+    color: #ff6daa;
+  }
+
+  .page {
+    flex-direction: column;
+    align-items: center;
+  }
+
   .flex-column {
-  flex-direction: column;
+    flex-direction: column;
   }
 
   .xui-input-group-col {
-  margin-top: 30px;
-  padding: 10px 30px;
-  flex-direction: column;
+    margin-top: 30px;
+    padding: 10px 30px;
+    flex-direction: column;
   }
 
   .xui-input-group-col-title {
-  margin-bottom: 10px;
+    margin-bottom: 10px;
   }
 
   .xui-input-round {
-  border: 1px solid #cccccc;
-  border-radius: 10px;
-  padding: 20px 30px;
-  background-color: transparent;
-  height: 80px;
-  font-size: 30px;
+    border: 1px solid #cccccc;
+    border-radius: 10px;
+    padding: 20px 30px;
+    background-color: transparent;
+    height: 80px;
+    font-size: 30px;
   }
-  
-  .menu{
+
+  .menu {
     flex-direction: column;
-    justify-content:space-between;
-    align-items:flex-start;
+    justify-content: space-between;
+    align-items: flex-start;
   }
-  
+
   .btn {
     width: 400px;
     height: 80px;
     margin-top: 50px;
     margin-left: 20px;
     margin-right: 20px;
-    border-style:solid;
-    border-width:1px;
-    border-color:#b7b7b7;
-    border-radius:10px;
+    border-style: solid;
+    border-width: 1px;
+    border-color: #b7b7b7;
+    border-radius: 10px;
     background-color: #ffffff;
     font-size: 30px;
-    color:#444444;
+    color: #444444;
   }
 
   .item-content {
@@ -89,9 +136,9 @@
 <script>
   import clipboard from '@system.clipboard'
 
-  
 
-  var a1,a2
+
+  var a1, a2
 
   export default {
     private: {

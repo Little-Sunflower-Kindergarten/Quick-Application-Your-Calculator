@@ -1,133 +1,133 @@
 <template>
-    <div class="flex-column">
-      <div class="xui-input-group-col">
-        <text class="xui-input-group-col-title">需要计算的数字X</text>
-        <input name=a1 type="text" class="xui-input-round" placeholder="请输入数字" @change="bindPhoneChange1"></input>
-      </div>
-
-      <div class="xui-input-group-col">
-        <text class="xui-input-group-col-title">需要计算的数字Y</text>
-        <input name=a1 type="text" class="xui-input-round" placeholder="请输入数字" @change="bindPhoneChange2"></input>
-      </div>
-  
-      <div class="memu">
-        <input type="button" class="btn" onclick="set" value="计算并输出至剪贴板" />
-        <input type="button" class="btn" onclick="get" value="输出剪贴板的内容" />
-      </div>
-      
-      <div class="item-content txt-left ">
-        <text class="txt ">结果如下：</text>
-        <text class="txt ">{{showGet}}</text>
-      </div>
+  <div class="flex-column">
+    <div class="xui-input-group-col">
+      <text class="xui-input-group-col-title">需要计算的数字X</text>
+      <input name=a1 type="text" class="xui-input-round" placeholder="请输入数字" @change="bindPhoneChange1"></input>
     </div>
+
+    <div class="xui-input-group-col">
+      <text class="xui-input-group-col-title">需要计算的数字Y</text>
+      <input name=a1 type="text" class="xui-input-round" placeholder="请输入数字" @change="bindPhoneChange2"></input>
+    </div>
+
+    <div class="memu">
+      <input type="button" class="btn" onclick="set" value="计算并输出至剪贴板" />
+      <input type="button" class="btn" onclick="get" value="输出剪贴板的内容" />
+    </div>
+
+    <div class="item-content txt-left ">
+      <text class="txt ">结果如下：</text>
+      <text class="txt ">{{showGet}}</text>
+    </div>
+  </div>
 </template>
-  
+
 <style>
-    .flex-column {
+  .flex-column {
     flex-direction: column;
-    }
-  
-    .xui-input-group-col {
+  }
+
+  .xui-input-group-col {
     margin-top: 30px;
     padding: 10px 30px;
     flex-direction: column;
-    }
-  
-    .xui-input-group-col-title {
+  }
+
+  .xui-input-group-col-title {
     margin-bottom: 10px;
-    }
-  
-    .xui-input-round {
+  }
+
+  .xui-input-round {
     border: 1px solid #cccccc;
     border-radius: 10px;
     padding: 20px 30px;
     background-color: transparent;
     height: 80px;
     font-size: 30px;
-    }
-    
-    .menu{
-      flex-direction: column;
-      justify-content:space-between;
-      align-items:flex-start;
-    }
-    
-    .btn {
-      width: 400px;
-      height: 80px;
-      margin-top: 50px;
-      margin-left: 20px;
-      margin-right: 20px;
-      border-style:solid;
-      border-width:1px;
-      border-color:#b7b7b7;
-      border-radius:10px;
-      background-color: #ffffff;
-      font-size: 30px;
-      color:#444444;
-    }
-  
-    .item-content {
-      flex-direction: column;
-      background-color: #ffffff;
-      padding: 30px;
-      margin-bottom: 50px;
-      align-items: center;
-      justify-content: center;
-    }
-  
-    .txt {
-      padding-top: 15px;
-      padding-bottom: 15px;
-    }
-  
-    .txt-left {
-      align-items: flex-start;
-    }
+  }
+
+  .menu {
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: flex-start;
+  }
+
+  .btn {
+    width: 400px;
+    height: 80px;
+    margin-top: 50px;
+    margin-left: 20px;
+    margin-right: 20px;
+    border-style: solid;
+    border-width: 1px;
+    border-color: #b7b7b7;
+    border-radius: 10px;
+    background-color: #ffffff;
+    font-size: 30px;
+    color: #444444;
+  }
+
+  .item-content {
+    flex-direction: column;
+    background-color: #ffffff;
+    padding: 30px;
+    margin-bottom: 50px;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .txt {
+    padding-top: 15px;
+    padding-bottom: 15px;
+  }
+
+  .txt-left {
+    align-items: flex-start;
+  }
 </style>
-  
+
 <script>
-    import clipboard from '@system.clipboard'
-  
-    var a1,a2
-  
-    export default {
-      private: {
-        text: 'default',
-        componentName: 'clipboard',
-        show: true,
-        clipboard: '暂无内容',
-        showSet: '',
-        showGet: '暂无内容'
-      },
-      bindPhoneChange1(e) {
-        a1 = e.value;
-      },
-      bindPhoneChange2(e) {
-        a2 = e.value;
-      },
-      changeText(e) {
-        this.text = e.newValue
-      },
-      getProgressValue(e) {
-        this.progressValue = e.progress
-      },
-      changeSwitchStatus(e) {
-        this.switchStatus = e.checked ? 'on' : 'off'
-      },
-      set() {
-        this.showSet = this.clipboard
-        clipboard.set({
-          text: this.$app.$def.pow(a1,a2)
-        })
-      },
-      get() {
-        const self = this
-        clipboard.get({
-          success: function (obj) {
-            self.showGet = obj.text
-          }
-        })
-      }
+  import clipboard from '@system.clipboard'
+
+  var a1, a2
+
+  export default {
+    private: {
+      text: 'default',
+      componentName: 'clipboard',
+      show: true,
+      clipboard: '暂无内容',
+      showSet: '',
+      showGet: '暂无内容'
+    },
+    bindPhoneChange1(e) {
+      a1 = e.value;
+    },
+    bindPhoneChange2(e) {
+      a2 = e.value;
+    },
+    changeText(e) {
+      this.text = e.newValue
+    },
+    getProgressValue(e) {
+      this.progressValue = e.progress
+    },
+    changeSwitchStatus(e) {
+      this.switchStatus = e.checked ? 'on' : 'off'
+    },
+    set() {
+      this.showSet = this.clipboard
+      clipboard.set({
+        text: this.$app.$def.pow(a1, a2)
+      })
+    },
+    get() {
+      const self = this
+      clipboard.get({
+        success: function (obj) {
+          self.showGet = obj.text
+        }
+      })
     }
+  }
 </script>

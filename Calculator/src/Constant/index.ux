@@ -1,0 +1,72 @@
+<template>
+    <div class="demo-page">
+        <!-- 应用描述 -->
+        <text id="desc">
+            <span id="cl">e,E</span>：欧拉数，自然对数的基数。在本应用中值为<span id="lc">2.718281828459045</span>。
+        </text>
+        <text id="desc">
+                <span id="cl">i</span>: 虚构单位，定义为i i = -1。复数被描述为a + b i，其中a是实部，b是虚部。值为sqrt(-1)。\n\nLN2 2的自然对数。在本应用中值为<span id="lc">0.6931471805599453</span>。
+        </text>
+        <text id="desc">
+                <span id="cl">LN2</span>:2的自然对数。在本应用中值为<span id="lc">0.6931471805599453</span>。
+        </text>
+        <text id="desc">
+                <span id="cl">LN10</span>:10的自然对数。在本应用中值为<span id="lc">2.302585092994046</span>。
+        </text>
+        <text id="desc">
+                <span id="cl">LOG2E</span>:E的base-2对数。在本应用中值为<span id="lc">1.4426950408889634</span>。
+        </text>
+        <text id="desc">
+                <span id="cl">LOG10E</span>:E的以10为底的对数。在本应用中值为<span id="lc">0.4342944819032518</span>。
+        </text>
+        <text id="desc">
+                <span id="cl">phi</span>:phi是黄金比例。如果它们的比率与它们的总和与两个量中较大的一个的比率相同，则两个量是黄金比例。Phi被定义为(1 + sqrt(5)) / 2。在本应用中值为<span id="lc">1.618033988749895</span>。
+        </text>
+        <text id="desc">
+                <span id="cl">pi,PI</span>:数字pi是一个数学常数，它是圆周长与直径的比值。在本应用中值为<span id="lc">3.141592653589793</span>。
+        </text>
+        <text id="desc">
+                <span id="cl">SQRT1_2</span>:1/2的平方根。在本应用中值为<span id="lc">0.7071067811865476</span>。
+        </text>
+        <text id="desc">
+                <span id="cl">SQRT2</span>:2的平方根。在本应用中值为<span id="lc">1.4142135623730951</span>。
+        </text>
+        <text id="desc">
+                <span id="cl">tau</span>:tau是圆周长与半径的比值常数，等于2 * pi。在本应用中值为<span id="lc">6.283185307179586</span>。
+        </text>
+    </div>
+</template>
+
+<style>
+    .demo-page {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    /* 应用描述 */
+
+    #desc {
+        width: 650px;
+        margin-top: 40px;
+        line-height: 35px;
+        font-size: 25px;
+        color: #8d8d8d;
+    }
+
+    #cl{
+        color: #6da7ff;
+    }
+
+    #lc{
+        color:#ff6daa;
+    }
+</style>
+
+<script>
+    export default {
+        onInit() {
+            // 设置标题栏
+            this.$page.setTitleBar({ text: this.name })
+        }
+    }
+</script>

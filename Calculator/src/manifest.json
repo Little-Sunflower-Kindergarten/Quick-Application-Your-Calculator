@@ -48,47 +48,53 @@
       "TheCartesianProduct": {
         "component": "index"
       },
-      "Factorial":{
-        "component":"index"
+      "Factorial": {
+        "component": "index"
       },
-      "RelativeEntropy":{
-        "component":"index"
+      "RelativeEntropy": {
+        "component": "index"
       },
-      "TrigonometricFunction":{
-        "component":"index"
+      "TrigonometricFunction": {
+        "component": "index"
       },
-      "Gamma":{
-        "component":"index"
+      "Gamma": {
+        "component": "index"
       },
-      "Cross":{
-        "component":"index"
+      "Cross": {
+        "component": "index"
       },
-      "Dot":{
-        "component":"index"
+      "Dot": {
+        "component": "index"
       },
-      "Pow":{
-        "component":"index"
+      "Pow": {
+        "component": "index"
       },
-      "Lcm":{
-        "component":"index"
+      "Lcm": {
+        "component": "index"
       },
-      "Gcd":{
-        "component":"index"
+      "Gcd": {
+        "component": "index"
       },
-      "Derivative":{
-        "component":"index"
+      "Derivative": {
+        "component": "index"
+      },
+      "Constant": {
+        "component": "index"
+      },
+      "Function": {
+        "component": "index"
       }
     }
   },
   "display": {
-    "backgroundColor":"#ffffff",
+    "backgroundColor": "#ffffff",
     "titleBarBackgroundColor": "#999999",
     "titleBarTextColor": "#ffffff",
     "menu": true,
     "pages": {
       "Homepage": {
         "menu": true,
-        "titleBarText": "主页"        
+        "titleBarText": "主页"
       },
       "DemoDetail": {
         "menu": false,
@@ -98,56 +104,64 @@
         "menu": false
       },
       "Integral": {
-        "menu":false,
+        "menu": false,
         "titleBarText": "积分计算（Beta）"
       },
       "IsPrime": {
-        "menu":false,
+        "menu": false,
         "titleBarText": "判断素数"
       },
-      "TheCartesianProduct":{
-        "menu":false,
-        "titleBarText":"笛卡儿积"
+      "TheCartesianProduct": {
+        "menu": false,
+        "titleBarText": "笛卡儿积"
       },
-      "Factorial":{
-        "menu":false,
-        "titleBarText":"阶乘"
+      "Factorial": {
+        "menu": false,
+        "titleBarText": "阶乘"
       },
-      "RelativeEntropy":{
-        "menu":false,
-        "titleBarText":"相对熵"
+      "RelativeEntropy": {
+        "menu": false,
+        "titleBarText": "相对熵"
       },
-      "TrigonometricFunction":{
-        "menu":false,
-        "titleBarText":"三角函数"
+      "TrigonometricFunction": {
+        "menu": false,
+        "titleBarText": "三角函数"
       },
-      "Gamma":{
-        "menu":false,
-        "titleBarText":"伽玛函数"
+      "Gamma": {
+        "menu": false,
+        "titleBarText": "伽玛函数"
       },
-      "Cross":{
-        "menu":false,
-        "titleBarText":"向量叉积"
+      "Cross": {
+        "menu": false,
+        "titleBarText": "向量叉积"
       },
-      "Dot":{
-        "menu":false,
-        "titleBarText":"向量点积"
+      "Dot": {
+        "menu": false,
+        "titleBarText": "向量点积"
       },
-      "Pow":{
-        "menu":false,
-        "titleBarText":"X的Y次幂"
+      "Pow": {
+        "menu": false,
+        "titleBarText": "X的Y次幂"
       },
-      "Lcm":{
-        "menu":false,
-        "titleBarText":"最小公倍数"
+      "Lcm": {
+        "menu": false,
+        "titleBarText": "最小公倍数"
       },
-      "Gcd":{
-        "menu":false,
-        "titleBarText":"最大公约数"
+      "Gcd": {
+        "menu": false,
+        "titleBarText": "最大公约数"
       },
-      "Derivative":{
-        "menu":false,
-        "titleBarText":"导数计算"
+      "Derivative": {
+        "menu": false,
+        "titleBarText": "导数计算"
+      },
+      "Constant": {
+        "menu": false,
+        "titleBarText": "常用常量介绍"
+      },
+      "Function": {
+        "menu": false,
+        "titleBarText": "功能介绍"
       }
     }
   }
