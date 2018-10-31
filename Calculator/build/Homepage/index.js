@@ -63,17 +63,17 @@
 /******/ 	__webpack_require__.p = "";
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 63);
+/******/ 	return __webpack_require__(__webpack_require__.s = 82);
 /******/ })
 /************************************************************************/
 /******/ ({
 
-/***/ 63:
+/***/ 82:
 /***/ (function(module, exports, __webpack_require__) {
 
-var $app_template$ = __webpack_require__(64)
-var $app_style$ = __webpack_require__(65)
-var $app_script$ = __webpack_require__(66)
+var $app_template$ = __webpack_require__(83)
+var $app_style$ = __webpack_require__(84)
+var $app_script$ = __webpack_require__(85)
 
 $app_define$('@app-component/index', [], function($app_require$, $app_exports$, $app_module$){
      $app_script$($app_module$, $app_exports$, $app_require$)
@@ -89,7 +89,7 @@ $app_bootstrap$('@app-component/index',{ packagerVersion: '0.0.5'})
 
 /***/ }),
 
-/***/ 64:
+/***/ 83:
 /***/ (function(module, exports) {
 
 module.exports = {
@@ -126,65 +126,13 @@ module.exports = {
       ],
       "children": [
         {
-          "type": "input",
+          "type": "text",
           "attr": {
-            "type": "button",
-            "value": "方程求解"
+            "value": "实用功能"
           },
           "classList": [
-            "btn"
-          ],
-          "events": {
-            "click": "routeDetail"
-          }
-        },
-        {
-          "type": "input",
-          "attr": {
-            "type": "button",
-            "value": "函数求导"
-          },
-          "classList": [
-            "btn"
-          ],
-          "events": {
-            "click": "routeDetail"
-          }
-        },
-        {
-          "type": "input",
-          "attr": {
-            "type": "button",
-            "value": "极限计算"
-          },
-          "classList": [
-            "btn"
-          ],
-          "events": {
-            "click": "routeDetail"
-          }
-        }
-      ]
-    },
-    {
-      "type": "div",
-      "attr": {},
-      "classList": [
-        "menu"
-      ],
-      "children": [
-        {
-          "type": "input",
-          "attr": {
-            "type": "button",
-            "value": "积分计算（Beta）"
-          },
-          "classList": [
-            "btn"
-          ],
-          "events": {
-            "click": "integralRouteDetail"
-          }
+            "xui-input-group-col-title"
+          ]
         },
         {
           "type": "input",
@@ -198,6 +146,94 @@ module.exports = {
           "events": {
             "click": "isPrimeRouteDetail"
           }
+        },
+        {
+          "type": "input",
+          "attr": {
+            "type": "button",
+            "value": "最大公约数"
+          },
+          "classList": [
+            "btn"
+          ],
+          "events": {
+            "click": "gcd"
+          }
+        },
+        {
+          "type": "input",
+          "attr": {
+            "type": "button",
+            "value": "最小公倍数"
+          },
+          "classList": [
+            "btn"
+          ],
+          "events": {
+            "click": "lcm"
+          }
+        },
+        {
+          "type": "input",
+          "attr": {
+            "type": "button",
+            "value": "X的Y次幂"
+          },
+          "classList": [
+            "btn"
+          ],
+          "events": {
+            "click": "pow"
+          }
+        }
+      ]
+    },
+    {
+      "type": "div",
+      "attr": {},
+      "classList": [
+        "menu"
+      ],
+      "children": [
+        {
+          "type": "text",
+          "attr": {
+            "value": "三角函数"
+          },
+          "classList": [
+            "xui-input-group-col-title"
+          ]
+        },
+        {
+          "type": "input",
+          "attr": {
+            "type": "button",
+            "value": "三角函数"
+          },
+          "classList": [
+            "btn"
+          ],
+          "events": {
+            "click": "trigonometricFunction"
+          }
+        }
+      ]
+    },
+    {
+      "type": "div",
+      "attr": {},
+      "classList": [
+        "menu"
+      ],
+      "children": [
+        {
+          "type": "text",
+          "attr": {
+            "value": "集合"
+          },
+          "classList": [
+            "xui-input-group-col-title"
+          ]
         },
         {
           "type": "input",
@@ -221,6 +257,15 @@ module.exports = {
         "menu"
       ],
       "children": [
+        {
+          "type": "text",
+          "attr": {
+            "value": "概率"
+          },
+          "classList": [
+            "xui-input-group-col-title"
+          ]
+        },
         {
           "type": "input",
           "attr": {
@@ -270,17 +315,13 @@ module.exports = {
       ],
       "children": [
         {
-          "type": "input",
+          "type": "text",
           "attr": {
-            "type": "button",
-            "value": "三角函数"
+            "value": "矩阵"
           },
           "classList": [
-            "btn"
-          ],
-          "events": {
-            "click": "trigonometricFunction"
-          }
+            "xui-input-group-col-title"
+          ]
         },
         {
           "type": "input",
@@ -318,51 +359,64 @@ module.exports = {
       ],
       "children": [
         {
-          "type": "input",
+          "type": "text",
           "attr": {
-            "type": "button",
-            "value": "最大公约数"
+            "value": "代数"
           },
           "classList": [
-            "btn"
-          ],
-          "events": {
-            "click": "gcd"
-          }
-        }
-      ]
-    },
-    {
-      "type": "div",
-      "attr": {},
-      "classList": [
-        "menu"
-      ],
-      "children": [
+            "xui-input-group-col-title"
+          ]
+        },
         {
           "type": "input",
           "attr": {
             "type": "button",
-            "value": "最小公倍数"
+            "value": "方程求解"
           },
           "classList": [
             "btn"
           ],
           "events": {
-            "click": "lcm"
+            "click": "routeDetail"
           }
         },
         {
           "type": "input",
           "attr": {
             "type": "button",
-            "value": "X的Y次幂"
+            "value": "函数求导"
           },
           "classList": [
             "btn"
           ],
           "events": {
-            "click": "pow"
+            "click": "routeDetail"
+          }
+        },
+        {
+          "type": "input",
+          "attr": {
+            "type": "button",
+            "value": "极限计算"
+          },
+          "classList": [
+            "btn"
+          ],
+          "events": {
+            "click": "routeDetail"
+          }
+        },
+        {
+          "type": "input",
+          "attr": {
+            "type": "button",
+            "value": "积分计算（Beta）"
+          },
+          "classList": [
+            "btn"
+          ],
+          "events": {
+            "click": "integralRouteDetail"
           }
         }
       ]
@@ -372,7 +426,7 @@ module.exports = {
 
 /***/ }),
 
-/***/ 65:
+/***/ 84:
 /***/ (function(module, exports) {
 
 module.exports = {
@@ -381,12 +435,16 @@ module.exports = {
     "justifyContent": "flex-start",
     "alignItems": "center"
   },
+  ".xui-input-group-col-title": {
+    "textAlign": "center",
+    "marginBottom": "10px"
+  },
   ".menu": {
     "justifyContent": "space-between",
     "alignItems": "flex-start"
   },
   ".btn": {
-    "width": "200px",
+    "width": "150px",
     "height": "100px",
     "marginTop": "70px",
     "marginLeft": "20px",
@@ -409,7 +467,7 @@ module.exports = {
 
 /***/ }),
 
-/***/ 66:
+/***/ 85:
 /***/ (function(module, exports) {
 
 module.exports = function(module, exports, $app_require$){'use strict';

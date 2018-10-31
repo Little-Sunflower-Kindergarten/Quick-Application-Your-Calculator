@@ -82,7 +82,6 @@
 </style>
   
 <script>
-    import math from '../Common/DefinitIntegral/mathjs/math.min.js'
     import clipboard from '@system.clipboard'
   
     var a1
@@ -111,7 +110,7 @@
       set() {
         this.showSet = this.clipboard
         clipboard.set({
-          text: math.factorial(a1)
+          text: this.$app.$def.factorial(a1)
         })
       },
       get() {
