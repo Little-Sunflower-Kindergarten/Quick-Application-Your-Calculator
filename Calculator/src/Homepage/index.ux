@@ -1,34 +1,45 @@
 <template>
   <div class="page">
-      <div class="menu">
-          <input class="btn" type="button" value="功能介绍（未实装）" onclick="" />
-        </div>
     <div class="menu">
-      <input class="btn" type="button" value="方程求解" onclick="routeDetail" />
-      <input class="btn" type="button" value="函数求导" onclick="routeDetail" />
-      <input class="btn" type="button" value="极限计算" onclick="routeDetail" />
+      <input class="btn" type="button" value="功能介绍（未实装）" onclick="" />
     </div>
     <div class="menu">
-      <input class="btn" type="button" value="积分计算（Beta）" onclick="integralRouteDetail" />
+      <text class="xui-input-group-col-title">实用功能</text>
       <input class="btn" type="button" value="素数判断" onclick="isPrimeRouteDetail" />
+      <input class="btn" type="button" value="最大公约数" onclick="gcd" />
+      <input class="btn" type="button" value="最小公倍数" onclick="lcm" />
+      <input class="btn" type="button" value="X的Y次幂" onclick="pow" />
+    </div>
+
+    <div class="menu">
+      <text class="xui-input-group-col-title">三角函数</text>
+      <input class="btn" type="button" value="三角函数" onclick="trigonometricFunction" />
+    </div>
+
+    <div class="menu">
+      <text class="xui-input-group-col-title">集合</text>
       <input class="btn" type="button" value="笛卡儿积" onclick="theCartesianProductRouteDetail" />
     </div>
+
     <div class="menu">
+      <text class="xui-input-group-col-title">概率</text>
       <input class="btn" type="button" value="阶乘" onclick="factorialRouteDetail" />
       <input class="btn" type="button" value="相对熵（Beta）" onclick="relativeEntropy" />
       <input class="btn" type="button" value="伽玛函数" onclick="gamma" />
     </div>
+
     <div class="menu">
-      <input class="btn" type="button" value="三角函数" onclick="trigonometricFunction" />
+      <text class="xui-input-group-col-title">矩阵</text>
       <input class="btn" type="button" value="向量叉积" onclick="cross" />
       <input class="btn" type="button" value="向量点积" onclick="dot" />
     </div>
+
     <div class="menu">
-      <input class="btn" type="button" value="最大公约数" onclick="gcd" />
-    </div>
-    <div class="menu">
-      <input class="btn" type="button" value="最小公倍数" onclick="lcm" />
-      <input class="btn" type="button" value="X的Y次幂" onclick="pow" />
+      <text class="xui-input-group-col-title">代数</text>
+      <input class="btn" type="button" value="方程求解" onclick="routeDetail" />
+      <input class="btn" type="button" value="函数求导" onclick="routeDetail" />
+      <input class="btn" type="button" value="极限计算" onclick="routeDetail" />
+      <input class="btn" type="button" value="积分计算（Beta）" onclick="integralRouteDetail" />
     </div>
   </div>
 </template>
@@ -40,13 +51,18 @@
     align-items: center;
   }
 
+  .xui-input-group-col-title {
+    text-align: center;
+    margin-bottom: 10px;
+  }
+
   .menu {
     justify-content: space-between;
     align-items: flex-start;
   }
 
   .btn {
-    width: 200px;
+    width: 150px;
     height: 100px;
     margin-top: 70px;
     margin-left: 20px;
@@ -93,46 +109,46 @@
         uri: '/Factorial'
       })
     },
-    relativeEntropy(){
+    relativeEntropy() {
       router.push({
         uri: '/RelativeEntropy'
       })
     },
-    trigonometricFunction(){
+    trigonometricFunction() {
       router.push({
         uri: '/TrigonometricFunction'
       })
     },
-    gamma(){
+    gamma() {
       router.push({
         uri: '/Gamma'
       })
     },
-    cross(){
+    cross() {
       router.push({
         uri: '/Cross'
       })
     },
-    dot(){
+    dot() {
       router.push({
         uri: '/Dot'
       })
     },
-    gcd(){
+    gcd() {
       router.push({
         uri: '/Gcd'
       })
     },
-    lcm(){
+    lcm() {
       router.push({
         uri: '/Lcm'
       })
     },
-    pow(){
+    pow() {
       router.push({
         uri: '/Pow'
       })
     }
-    
+
   }
 </script>

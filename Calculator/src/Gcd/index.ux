@@ -87,7 +87,6 @@
 </style>
 
 <script>
-    import math from '../Common/DefinitIntegral/mathjs/math.min.js'
     import clipboard from '@system.clipboard'
 
     var a1,a2
@@ -119,7 +118,7 @@
         set() {
             this.showSet = this.clipboard
             clipboard.set({
-                text: math.gcd(a1,a2)
+                text: this.$app.$def.gcd(a1,a2)
             })
         },
         get() {

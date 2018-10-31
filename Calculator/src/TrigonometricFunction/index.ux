@@ -92,7 +92,6 @@
 </style>
   
 <script>
-    import math from '../Common/DefinitIntegral/mathjs/math.min.js'
     import clipboard from '@system.clipboard'
   
     var a1
@@ -121,31 +120,31 @@
       set1() {
         this.showSet = this.clipboard
         clipboard.set({
-          text: math.sin(a1)
+          text: this.$app.$def.sin(a1)
         })
       },
       set2() {
         this.showSet = this.clipboard
         clipboard.set({
-          text: math.cos(a1)
+          text: this.$app.$def.cos(a1)
         })
       },
       set3() {
         this.showSet = this.clipboard
         clipboard.set({
-          text: math.tan(a1)
+          text: this.$app.$def.tan(a1)
         })
       },
       set4() {
         this.showSet = this.clipboard
         clipboard.set({
-          text: math.csc(a1)
+          text: this.$app.$def.csc(a1)
         })
       },
       set5() {
         this.showSet = this.clipboard
         clipboard.set({
-          text: math.sec(a1)
+          text: this.$app.$def.sec(a1)
         })
       },
       get() {

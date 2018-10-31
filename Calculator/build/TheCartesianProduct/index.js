@@ -70,6 +70,7 @@
 <<<<<<< HEAD
 /******/ ({
 
+<<<<<<< HEAD
 /***/ 646:
 /***/ (function(module, exports) {
 
@@ -61122,6 +61123,8 @@ function factory(type, config, load, typed) {
 
 /***/ }),
 
+=======
+>>>>>>> 张天赐
 /***/ 106:
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -61370,7 +61373,7 @@ module.exports = {
 /***/ }),
 
 /***/ 109:
-/***/ (function(module, exports, __webpack_require__) {
+/***/ (function(module, exports) {
 
 module.exports = function(module, exports, $app_require$){'use strict';
 
@@ -61379,10 +61382,6 @@ Object.defineProperty(exports, "__esModule", {
 });
 
 var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
-
-var _mathMin = __webpack_require__(1);
-
-var _mathMin2 = _interopRequireDefault(_mathMin);
 
 var _system = $app_require$('@app-module/system.clipboard');
 
@@ -61423,7 +61422,7 @@ exports.default = {
     set: function set() {
         this.showSet = this.clipboard;
         _system2.default.set({
-            text: _mathMin2.default.string(_mathMin2.default.setCartesian(strs1, strs2))
+            text: this.$app.$def.string(this.$app.$def.setCartesian(strs1, strs2))
         });
     },
     get: function get() {
@@ -61459,35 +61458,6 @@ if (moduleOwn.data && accessors.some(function (acc) {
         }
     });
 }}
-
-/***/ }),
-
-/***/ 2:
-/***/ (function(module, exports) {
-
-module.exports = function(module) {
-	if(!module.webpackPolyfill) {
-		module.deprecate = function() {};
-		module.paths = [];
-		// module.parent = undefined by default
-		if(!module.children) module.children = [];
-		Object.defineProperty(module, "loaded", {
-			enumerable: true,
-			get: function() {
-				return module.l;
-			}
-		});
-		Object.defineProperty(module, "id", {
-			enumerable: true,
-			get: function() {
-				return module.i;
-			}
-		});
-		module.webpackPolyfill = 1;
-	}
-	return module;
-};
-
 
 /***/ })
 <<<<<<< HEAD
