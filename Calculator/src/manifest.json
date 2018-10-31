@@ -74,6 +74,9 @@
       },
       "Gcd":{
         "component":"index"
+      },
+      "Derivative":{
+        "component":"index"
       }
     }
   },
@@ -141,6 +144,10 @@
       "Gcd":{
         "menu":false,
         "titleBarText":"最大公约数"
+      },
+      "Derivative":{
+        "menu":false,
+        "titleBarText":"导数计算"
       }
     }
   }
