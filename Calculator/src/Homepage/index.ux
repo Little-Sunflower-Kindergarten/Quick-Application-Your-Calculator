@@ -4,8 +4,8 @@
       <text class="xui-input-group-col-title">介绍</text>
     </div>
     <div class="menu">
-      <input class="bn" type="button" value="功能介绍" onclick="" />
-      <input class="bn" type="button" value="常量介绍" onclick="constant" />
+      <input class="bn" type="button" value="功能介绍" onclick="functionn" />
+      <input class="bn" type="button" value="常用常量介绍" onclick="constant" />
     </div>
     <div class="textme">
       <text class="xui-input-group-col-title">实用功能</text>
@@ -195,6 +195,11 @@
     constant() {
       router.push({
         uri: '/Constant'
+      })
+    },
+    functionn() {
+      router.push({
+        uri: '/Function'
       })
     }
 

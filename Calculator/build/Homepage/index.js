@@ -63,17 +63,17 @@
 /******/ 	__webpack_require__.p = "";
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 90);
+/******/ 	return __webpack_require__(__webpack_require__.s = 94);
 /******/ })
 /************************************************************************/
 /******/ ({
 
-/***/ 90:
+/***/ 94:
 /***/ (function(module, exports, __webpack_require__) {
 
-var $app_template$ = __webpack_require__(91)
-var $app_style$ = __webpack_require__(92)
-var $app_script$ = __webpack_require__(93)
+var $app_template$ = __webpack_require__(95)
+var $app_style$ = __webpack_require__(96)
+var $app_script$ = __webpack_require__(97)
 
 $app_define$('@app-component/index', [], function($app_require$, $app_exports$, $app_module$){
      $app_script$($app_module$, $app_exports$, $app_require$)
@@ -89,7 +89,7 @@ $app_bootstrap$('@app-component/index',{ packagerVersion: '0.0.5'})
 
 /***/ }),
 
-/***/ 91:
+/***/ 95:
 /***/ (function(module, exports) {
 
 module.exports = {
@@ -132,13 +132,16 @@ module.exports = {
           },
           "classList": [
             "bn"
-          ]
+          ],
+          "events": {
+            "click": "functionn"
+          }
         },
         {
           "type": "input",
           "attr": {
             "type": "button",
-            "value": "常量介绍"
+            "value": "常用常量介绍"
           },
           "classList": [
             "bn"
@@ -475,7 +478,7 @@ module.exports = {
 
 /***/ }),
 
-/***/ 92:
+/***/ 96:
 /***/ (function(module, exports) {
 
 module.exports = {
@@ -551,7 +554,7 @@ module.exports = {
 
 /***/ }),
 
-/***/ 93:
+/***/ 97:
 /***/ (function(module, exports) {
 
 module.exports = function(module, exports, $app_require$){'use strict';
@@ -645,6 +648,11 @@ exports.default = {
   constant: function constant() {
     _system2.default.push({
       uri: '/Constant'
+    });
+  },
+  functionn: function functionn() {
+    _system2.default.push({
+      uri: '/Function'
     });
   }
 };

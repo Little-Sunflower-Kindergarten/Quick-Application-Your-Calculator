@@ -117,7 +117,7 @@ module.exports = {
         {
           "type": "span",
           "attr": {
-            "value": "：欧拉数，自然对数的基数。值为"
+            "value": "：欧拉数，自然对数的基数。在本应用中值为"
           }
         },
         {
@@ -154,7 +154,7 @@ module.exports = {
         {
           "type": "span",
           "attr": {
-            "value": ": 虚构单位，定义为i i = -1。复数被描述为a + b i，其中a是实部，b是虚部。值为sqrt(-1)。\\n\\nLN2 2的自然对数。值为"
+            "value": ": 虚构单位，定义为i i = -1。复数被描述为a + b i，其中a是实部，b是虚部。值为sqrt(-1)。\\n\\nLN2 2的自然对数。在本应用中值为"
           }
         },
         {
@@ -191,7 +191,7 @@ module.exports = {
         {
           "type": "span",
           "attr": {
-            "value": ":2的自然对数。值为"
+            "value": ":2的自然对数。在本应用中值为"
           }
         },
         {
@@ -228,7 +228,7 @@ module.exports = {
         {
           "type": "span",
           "attr": {
-            "value": ":10的自然对数。值为"
+            "value": ":10的自然对数。在本应用中值为"
           }
         },
         {
@@ -265,7 +265,7 @@ module.exports = {
         {
           "type": "span",
           "attr": {
-            "value": ":E的base-2对数。值为"
+            "value": ":E的base-2对数。在本应用中值为"
           }
         },
         {
@@ -302,7 +302,7 @@ module.exports = {
         {
           "type": "span",
           "attr": {
-            "value": ":E的以10为底的对数。值为"
+            "value": ":E的以10为底的对数。在本应用中值为"
           }
         },
         {
@@ -339,7 +339,7 @@ module.exports = {
         {
           "type": "span",
           "attr": {
-            "value": ":phi是黄金比例。如果它们的比率与它们的总和与两个量中较大的一个的比率相同，则两个量是黄金比例。Phi被定义为(1 + sqrt(5)) / 2。值为"
+            "value": ":phi是黄金比例。如果它们的比率与它们的总和与两个量中较大的一个的比率相同，则两个量是黄金比例。Phi被定义为(1 + sqrt(5)) / 2。在本应用中值为"
           }
         },
         {
@@ -376,7 +376,7 @@ module.exports = {
         {
           "type": "span",
           "attr": {
-            "value": ":数字pi是一个数学常数，它是圆周长与直径的比值。值为"
+            "value": ":数字pi是一个数学常数，它是圆周长与直径的比值。在本应用中值为"
           }
         },
         {
@@ -413,7 +413,7 @@ module.exports = {
         {
           "type": "span",
           "attr": {
-            "value": ":1/2的平方根。值为"
+            "value": ":1/2的平方根。在本应用中值为"
           }
         },
         {
@@ -450,7 +450,7 @@ module.exports = {
         {
           "type": "span",
           "attr": {
-            "value": ":2的平方根。值为"
+            "value": ":2的平方根。在本应用中值为"
           }
         },
         {
@@ -487,7 +487,7 @@ module.exports = {
         {
           "type": "span",
           "attr": {
-            "value": ":tau是圆周长与半径的比值常数，等于2 * pi。值为"
+            "value": ":tau是圆周长与半径的比值常数，等于2 * pi。在本应用中值为"
           }
         },
         {

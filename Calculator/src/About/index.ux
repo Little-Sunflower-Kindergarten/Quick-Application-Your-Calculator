@@ -155,9 +155,9 @@
       icon: null
     },
     private: {
-      desc: '即点即用，让你省去下载安装的步骤，立即使用各类服务',
+      desc: '本应用可以用于大学生、中学生进行数学计算，并且将来会有更多的实用功能哦',
       serviceType: '工具类',
-      subjectInfo: 'xxx有限公司',
+      subjectInfo: '小葵花幼稚园',
       copyright: ''
     },
     onInit() {

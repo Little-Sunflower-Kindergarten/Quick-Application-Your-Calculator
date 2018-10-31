@@ -47,10 +47,10 @@
         <span id="lc">cos(x) * tan(x)</span>
       </text>
       <text class="txt">
-          <span id="lc">e ^ -(x^2)</span>
-          <span id="cl">等类似于</span>
-          <span id="lc">erf</span>
-          <span id="cl">的函数</span>
+        <span id="lc">e ^ -(x^2)</span>
+        <span id="cl">等类似于</span>
+        <span id="lc">erf</span>
+        <span id="cl">的函数</span>
       </text>
     </div>
   </div>

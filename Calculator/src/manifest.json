@@ -78,7 +78,10 @@
       "Derivative": {
         "component": "index"
       },
-      "Constant":{
+      "Constant": {
+        "component": "index"
+      },
+      "Function": {
         "component": "index"
       }
     }
@@ -152,9 +155,13 @@
         "menu": false,
         "titleBarText": "导数计算"
       },
-      "Constant":{
+      "Constant": {
         "menu": false,
-        "titleBarText": "常量介绍"
+        "titleBarText": "常用常量介绍"
+      },
+      "Function": {
+        "menu": false,
+        "titleBarText": "功能介绍"
       }
     }
   }
