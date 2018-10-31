@@ -1,9 +1,9 @@
 {
-  "package": "com.LittleSunflowerKindergarten.QuickApplicationCalculator",
-  "name": "高等计算器",
-  "versionName": "1.0.0",
+  "package": "com.LittleSunflowerKindergarten.LittleSunflowerCalculator",
+  "name": "小葵花计算器",
+  "versionName": "1.0",
   "versionCode": "1",
-  "minPlatformVersion": "1010",
+  "minPlatformVersion": "1000",
   "icon": "/Common/logo.png",
   "features": [
     {
@@ -25,7 +25,7 @@
     }
   ],
   "config": {
-    "logLevel": "debug"
+    "logLevel":"debug"
   },
   "router": {
     "entry": "Homepage",
