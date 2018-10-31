@@ -78,6 +78,9 @@
       },
       "Derivative": {
         "component": "index"
+      },
+      "Constant": {
+        "component": "index"
       }
     }
   },
@@ -149,6 +152,10 @@
       "Derivative": {
         "menu": false,
         "titleBarText": "导数计算"
+      },
+      "Constant": {
+        "menu": false,
+        "titleBarText": "常量介绍"
       }
     }
   }

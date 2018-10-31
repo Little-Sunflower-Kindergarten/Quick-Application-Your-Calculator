@@ -90,8 +90,8 @@
     import clipboard from '@system.clipboard'
 
     var a1, a2
-    var strs1= new Array()
-    var strs2= new Array()
+    var strs1 = new Array()
+    var strs2 = new Array()
 
     export default {
         private: {
@@ -104,11 +104,11 @@
         },
         bindPhoneChange1(e) {
             a1 = e.value
-            strs1=a1.split(",")
+            strs1 = a1.split(",")
         },
         bindPhoneChange2(e) {
             a2 = e.value
-            strs2=a2.split(",")
+            strs2 = a2.split(",")
         },
         changeText(e) {
             this.text = e.newValue

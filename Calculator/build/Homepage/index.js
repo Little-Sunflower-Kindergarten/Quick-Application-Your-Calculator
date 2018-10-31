@@ -63,17 +63,17 @@
 /******/ 	__webpack_require__.p = "";
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 86);
+/******/ 	return __webpack_require__(__webpack_require__.s = 90);
 /******/ })
 /************************************************************************/
 /******/ ({
 
-/***/ 86:
+/***/ 90:
 /***/ (function(module, exports, __webpack_require__) {
 
-var $app_template$ = __webpack_require__(87)
-var $app_style$ = __webpack_require__(88)
-var $app_script$ = __webpack_require__(89)
+var $app_template$ = __webpack_require__(91)
+var $app_style$ = __webpack_require__(92)
+var $app_script$ = __webpack_require__(93)
 
 $app_define$('@app-component/index', [], function($app_require$, $app_exports$, $app_module$){
      $app_script$($app_module$, $app_exports$, $app_require$)
@@ -89,7 +89,7 @@ $app_bootstrap$('@app-component/index',{ packagerVersion: '0.0.5'})
 
 /***/ }),
 
-/***/ 87:
+/***/ 91:
 /***/ (function(module, exports) {
 
 module.exports = {
@@ -103,6 +103,24 @@ module.exports = {
       "type": "div",
       "attr": {},
       "classList": [
+        "extme"
+      ],
+      "children": [
+        {
+          "type": "text",
+          "attr": {
+            "value": "介绍"
+          },
+          "classList": [
+            "xui-input-group-col-title"
+          ]
+        }
+      ]
+    },
+    {
+      "type": "div",
+      "attr": {},
+      "classList": [
         "menu"
       ],
       "children": [
@@ -110,11 +128,24 @@ module.exports = {
           "type": "input",
           "attr": {
             "type": "button",
-            "value": "功能介绍（未实装）"
+            "value": "功能介绍"
           },
           "classList": [
             "bn"
           ]
+        },
+        {
+          "type": "input",
+          "attr": {
+            "type": "button",
+            "value": "常量介绍"
+          },
+          "classList": [
+            "bn"
+          ],
+          "events": {
+            "click": "constant"
+          }
         }
       ]
     },
@@ -168,16 +199,7 @@ module.exports = {
           "events": {
             "click": "lcm"
           }
-        }
-      ]
-    },
-    {
-      "type": "div",
-      "attr": {},
-      "classList": [
-        "menu"
-      ],
-      "children": [
+        },
         {
           "type": "input",
           "attr": {
@@ -190,7 +212,16 @@ module.exports = {
           "events": {
             "click": "isPrimeRouteDetail"
           }
-        },
+        }
+      ]
+    },
+    {
+      "type": "div",
+      "attr": {},
+      "classList": [
+        "menu"
+      ],
+      "children": [
         {
           "type": "input",
           "attr": {
@@ -203,16 +234,7 @@ module.exports = {
           "events": {
             "click": "pow"
           }
-        }
-      ]
-    },
-    {
-      "type": "div",
-      "attr": {},
-      "classList": [
-        "menu"
-      ],
-      "children": [
+        },
         {
           "type": "input",
           "attr": {
@@ -283,7 +305,7 @@ module.exports = {
           "type": "input",
           "attr": {
             "type": "button",
-            "value": "相对熵（Beta）"
+            "value": "相对熵"
           },
           "classList": [
             "btn"
@@ -291,16 +313,7 @@ module.exports = {
           "events": {
             "click": "relativeEntropy"
           }
-        }
-      ]
-    },
-    {
-      "type": "div",
-      "attr": {},
-      "classList": [
-        "menu"
-      ],
-      "children": [
+        },
         {
           "type": "input",
           "attr": {
@@ -398,7 +411,7 @@ module.exports = {
           "type": "input",
           "attr": {
             "type": "button",
-            "value": "方程求解"
+            "value": "方程求解（未实装）"
           },
           "classList": [
             "btn"
@@ -411,7 +424,7 @@ module.exports = {
           "type": "input",
           "attr": {
             "type": "button",
-            "value": "极限计算"
+            "value": "极限计算（未实装）"
           },
           "classList": [
             "btn"
@@ -419,16 +432,7 @@ module.exports = {
           "events": {
             "click": "routeDetail"
           }
-        }
-      ]
-    },
-    {
-      "type": "div",
-      "attr": {},
-      "classList": [
-        "menu"
-      ],
-      "children": [
+        },
         {
           "type": "input",
           "attr": {
@@ -441,7 +445,16 @@ module.exports = {
           "events": {
             "click": "derivative"
           }
-        },
+        }
+      ]
+    },
+    {
+      "type": "div",
+      "attr": {},
+      "classList": [
+        "menuu"
+      ],
+      "children": [
         {
           "type": "input",
           "attr": {
@@ -462,7 +475,7 @@ module.exports = {
 
 /***/ }),
 
-/***/ 88:
+/***/ 92:
 /***/ (function(module, exports) {
 
 module.exports = {
@@ -475,6 +488,11 @@ module.exports = {
     "textAlign": "center",
     "marginBottom": "10px"
   },
+  ".extme": {
+    "justifyContent": "space-between",
+    "alignItems": "center",
+    "marginTop": "50px"
+  },
   ".textme": {
     "justifyContent": "space-between",
     "alignItems": "center",
@@ -484,8 +502,13 @@ module.exports = {
     "justifyContent": "space-between",
     "alignItems": "flex-start"
   },
+  ".menuu": {
+    "justifyContent": "space-between",
+    "alignItems": "flex-start",
+    "marginBottom": "50px"
+  },
   ".bn": {
-    "width": "350px",
+    "width": "250px",
     "height": "100px",
     "marginTop": "70px",
     "marginLeft": "20px",
@@ -505,7 +528,7 @@ module.exports = {
     "color": "#444444"
   },
   ".btn": {
-    "width": "250px",
+    "width": "200px",
     "height": "100px",
     "marginTop": "70px",
     "marginLeft": "20px",
@@ -528,7 +551,7 @@ module.exports = {
 
 /***/ }),
 
-/***/ 89:
+/***/ 93:
 /***/ (function(module, exports) {
 
 module.exports = function(module, exports, $app_require$){'use strict';
@@ -617,6 +640,11 @@ exports.default = {
   derivative: function derivative() {
     _system2.default.push({
       uri: '/Derivative'
+    });
+  },
+  constant: function constant() {
+    _system2.default.push({
+      uri: '/Constant'
     });
   }
 };

@@ -43,6 +43,7 @@
   }
 
   /* 应用图标 */
+
   #icon {
     margin-top: 90px;
     width: 134px;
@@ -52,6 +53,7 @@
   }
 
   /* 应用名 */
+
   #name {
     margin-top: 20px;
     font-size: 36px;
@@ -59,6 +61,7 @@
   }
 
   /* 应用标签 */
+
   #tags {
     margin-top: 22px;
     align-items: center;
@@ -77,6 +80,7 @@
   }
 
   /* 应用描述 */
+
   #desc {
     width: 650px;
     margin-top: 40px;
@@ -86,6 +90,7 @@
   }
 
   /* 应用详情 */
+
   .detail {
     width: 650px;
     height: 90px;
@@ -112,18 +117,20 @@
   }
 
   /* 按钮 */
+
   .btn {
     width: 550px;
     height: 86px;
     margin-top: 75px;
     border-radius: 43px;
-    border-width:1px;
+    border-width: 1px;
     background-color: #ffffff;
     font-size: 30px;
     color: #444444;
   }
 
   /* 底部版权信息 */
+
   #footer {
     width: 750px;
     position: fixed;
@@ -153,11 +160,11 @@
       subjectInfo: 'xxx有限公司',
       copyright: ''
     },
-    onInit () {
+    onInit() {
       // 设置标题栏
       this.$page.setTitleBar({ text: this.name })
     },
-    createShortcut () {
+    createShortcut() {
       // 创建快捷方式
       this.$app.$def.createShortcut()
     }

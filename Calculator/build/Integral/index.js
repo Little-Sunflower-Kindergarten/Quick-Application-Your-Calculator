@@ -63,17 +63,17 @@
 /******/ 	__webpack_require__.p = "";
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 90);
+/******/ 	return __webpack_require__(__webpack_require__.s = 94);
 /******/ })
 /************************************************************************/
 /******/ ({
 
-/***/ 90:
+/***/ 94:
 /***/ (function(module, exports, __webpack_require__) {
 
-var $app_template$ = __webpack_require__(91)
-var $app_style$ = __webpack_require__(92)
-var $app_script$ = __webpack_require__(93)
+var $app_template$ = __webpack_require__(95)
+var $app_style$ = __webpack_require__(96)
+var $app_script$ = __webpack_require__(97)
 
 $app_define$('@app-component/index', [], function($app_require$, $app_exports$, $app_module$){
      $app_script$($app_module$, $app_exports$, $app_require$)
@@ -89,7 +89,7 @@ $app_bootstrap$('@app-component/index',{ packagerVersion: '0.0.5'})
 
 /***/ }),
 
-/***/ 91:
+/***/ 95:
 /***/ (function(module, exports) {
 
 module.exports = {
@@ -225,16 +225,204 @@ module.exports = {
           ]
         }
       ]
+    },
+    {
+      "type": "div",
+      "attr": {},
+      "classList": [
+        "page"
+      ],
+      "children": [
+        {
+          "type": "text",
+          "attr": {
+            "value": " 由于实现的计算积分方法较为简单（以及该功能处于开发的相对早期阶段），在当前实现中存在许多限制。 "
+          },
+          "classList": [
+            "txt"
+          ]
+        },
+        {
+          "type": "text",
+          "attr": {
+            "value": " 目前不支持以下内容： "
+          },
+          "classList": [
+            "txt"
+          ]
+        },
+        {
+          "type": "text",
+          "attr": {},
+          "classList": [
+            "txt"
+          ],
+          "children": [
+            {
+              "type": "span",
+              "attr": {
+                "id": "lc",
+                "value": "2 * x * cos(x^2)"
+              },
+              "id": "lc"
+            }
+          ]
+        },
+        {
+          "type": "text",
+          "attr": {},
+          "classList": [
+            "txt"
+          ],
+          "children": [
+            {
+              "type": "span",
+              "attr": {
+                "id": "lc",
+                "value": "3 * x^2 * e^(x^3)"
+              },
+              "id": "lc"
+            }
+          ]
+        },
+        {
+          "type": "text",
+          "attr": {},
+          "classList": [
+            "txt"
+          ],
+          "children": [
+            {
+              "type": "span",
+              "attr": {
+                "id": "lc",
+                "value": "x * ln(x) x^3 * e^x"
+              },
+              "id": "lc"
+            }
+          ]
+        },
+        {
+          "type": "text",
+          "attr": {},
+          "classList": [
+            "txt"
+          ],
+          "children": [
+            {
+              "type": "span",
+              "attr": {
+                "id": "cl",
+                "value": "部分分数的分解"
+              },
+              "id": "cl"
+            }
+          ]
+        },
+        {
+          "type": "text",
+          "attr": {},
+          "classList": [
+            "txt"
+          ],
+          "children": [
+            {
+              "type": "span",
+              "attr": {
+                "id": "cl",
+                "value": "反三角函数"
+              },
+              "id": "cl"
+            }
+          ]
+        },
+        {
+          "type": "text",
+          "attr": {},
+          "classList": [
+            "txt"
+          ],
+          "children": [
+            {
+              "type": "span",
+              "attr": {
+                "id": "cl",
+                "value": "三角函数简化，如"
+              },
+              "id": "cl"
+            },
+            {
+              "type": "span",
+              "attr": {
+                "id": "lc",
+                "value": "cos(x) * tan(x)"
+              },
+              "id": "lc"
+            }
+          ]
+        },
+        {
+          "type": "text",
+          "attr": {},
+          "classList": [
+            "txt"
+          ],
+          "children": [
+            {
+              "type": "span",
+              "attr": {
+                "id": "lc",
+                "value": "e ^ -(x^2)"
+              },
+              "id": "lc"
+            },
+            {
+              "type": "span",
+              "attr": {
+                "id": "cl",
+                "value": "等类似于"
+              },
+              "id": "cl"
+            },
+            {
+              "type": "span",
+              "attr": {
+                "id": "lc",
+                "value": "erf"
+              },
+              "id": "lc"
+            },
+            {
+              "type": "span",
+              "attr": {
+                "id": "cl",
+                "value": "的函数"
+              },
+              "id": "cl"
+            }
+          ]
+        }
+      ]
     }
   ]
 }
 
 /***/ }),
 
-/***/ 92:
+/***/ 96:
 /***/ (function(module, exports) {
 
 module.exports = {
+  "#cl": {
+    "color": "#6da7ff"
+  },
+  "#lc": {
+    "color": "#ff6daa"
+  },
+  ".page": {
+    "flexDirection": "column",
+    "alignItems": "center"
+  },
   ".flex-column": {
     "flexDirection": "column"
   },
@@ -315,7 +503,7 @@ module.exports = {
 
 /***/ }),
 
-/***/ 93:
+/***/ 97:
 /***/ (function(module, exports) {
 
 module.exports = function(module, exports, $app_require$){'use strict';

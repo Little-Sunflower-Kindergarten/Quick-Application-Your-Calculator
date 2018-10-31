@@ -1,6 +1,6 @@
 <script>
   import util from './util'
-  import math from './Common/DefinitIntegral/mathjs/math.min.js'
+  import math from './Common/DefinitIntegral/mathjs/math.js'
 
   math.import(require('mathjs-simple-integral'))
 
@@ -9,22 +9,22 @@
     createShortcut: util.createShortcut,
     gcd: math.gcd,
     cross: math.cross,
-    dot:math.dot,
-    factorial:math.factorial,
-    gamma:math.gamma,
-    isPrime:math.isPrime,
-    lcm:math.lcm,
-    pow:math.pow,
-    kldivergence:math.kldivergence,
-    sin:math.sin,
-    cos:math.cos,
-    tan:math.tan,
-    csc:math.csc,
-    sec:math.sec,
-    format:math.format,
-    integral:math.integral,
-    string:math.string,
-    setCartesian:math.setCartesian,
-    derivative:math.derivative
+    dot: math.dot,
+    factorial: math.factorial,
+    gamma: math.gamma,
+    isPrime: math.isPrime,
+    lcm: math.lcm,
+    pow: math.pow,
+    kldivergence: math.kldivergence,
+    sin: math.sin,
+    cos: math.cos,
+    tan: math.tan,
+    csc: math.csc,
+    sec: math.sec,
+    format: math.format,
+    integral: math.integral,
+    string: math.string,
+    setCartesian: math.setCartesian,
+    derivative: math.derivative
   }
 </script>
