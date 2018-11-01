@@ -5,7 +5,7 @@
             <span id="cl">e,E</span>：欧拉数，自然对数的基数。在本应用中值为<span id="lc">2.718281828459045</span>。
         </text>
         <text id="desc">
-                <span id="cl">i</span>: 虚构单位，定义为i i = -1。复数被描述为a + b i，其中a是实部，b是虚部。值为sqrt(-1)。\n\nLN2 2的自然对数。在本应用中值为<span id="lc">0.6931471805599453</span>。
+                <span id="cl">i</span>: 虚构单位，定义为i i = -1。复数被描述为a + b i，其中a是实部，b是虚部。值为<span id="lc">sqrt(-1)</span>。
         </text>
         <text id="desc">
                 <span id="cl">LN2</span>:2的自然对数。在本应用中值为<span id="lc">0.6931471805599453</span>。
